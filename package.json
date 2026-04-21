@@ -1,0 +1,8 @@
+{
+  "name": "comm1180-quiz",
+  "version": "1.0.0",
+  "description": "COMM1180 Value Creation Exam Prep Quiz",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.0"
+  }
+}
