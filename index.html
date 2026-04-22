@@ -266,6 +266,41 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
   .exam-sections{grid-template-columns:1fr}
   .hdr-btn span{display:none}
 }
+
+/* ── NOTES REDESIGNED ── */
+.notes-week-intro{background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:16px;font-size:.82rem;color:var(--blue);font-weight:500;line-height:1.5}
+.notes-section{margin-bottom:18px}
+.notes-section-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:6px}
+.notes-section-title::before{content:'';display:inline-block;width:3px;height:13px;border-radius:2px;background:var(--blue);flex-shrink:0}
+.notes-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 13px;margin-bottom:8px}
+.notes-card-title{font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:7px}
+.notes-formula-row{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}
+.notes-ftag{background:var(--blue);color:#fff;border-radius:4px;padding:2px 7px;font-size:.69rem;font-weight:700;white-space:nowrap;flex-shrink:0;font-family:'Courier New',monospace}
+.notes-fexpr{font-family:'Courier New',monospace;font-size:.82rem;color:var(--text);line-height:1.4}
+.notes-bullet{font-size:.82rem;color:var(--text-2);padding:3px 0 3px 14px;position:relative;line-height:1.5}
+.notes-bullet::before{content:'·';position:absolute;left:4px;color:var(--blue);font-weight:900;font-size:.9rem}
+.notes-key{background:var(--amber-light);border:1px solid var(--amber-border);border-radius:var(--r-sm);padding:9px 12px;margin-bottom:8px;margin-top:4px;font-size:.81rem;line-height:1.55;color:var(--text)}
+.notes-key strong{color:var(--amber);display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.notes-tbl{width:100%;border-collapse:collapse;font-size:.79rem;margin-bottom:8px}
+.notes-tbl th{background:var(--blue-light);color:var(--blue);padding:6px 9px;text-align:left;font-size:.69rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;border:1px solid var(--blue-mid)}
+.notes-tbl td{padding:6px 9px;border:1px solid var(--border);color:var(--text-2);vertical-align:top;line-height:1.45}
+.notes-tbl tr:nth-child(even) td{background:var(--surface)}
+
+/* ── FORMULA SHEET REDESIGNED ── */
+.fml-group{margin-bottom:20px}
+.fml-group-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);margin-bottom:10px;padding-bottom:5px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:6px}
+.fml-group-title::before{content:'';display:inline-block;width:3px;height:13px;border-radius:2px;background:var(--blue);flex-shrink:0}
+.fml-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 14px;margin-bottom:7px}
+.fml-name{font-size:.68rem;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+.fml-expr{font-family:'Courier New',monospace;font-size:.88rem;color:var(--text);font-weight:600;line-height:1.5;margin-bottom:3px}
+.fml-vars{font-size:.74rem;color:var(--text-2);line-height:1.7}
+.fml-note{font-size:.72rem;color:var(--text-3);border-top:1px dashed var(--border);padding-top:5px;margin-top:5px;line-height:1.5}
+
+/* ── SCENARIO TABLES ── */
+.scenario-table{width:100%;border-collapse:collapse;font-size:.82rem;margin:8px 0}
+.scenario-table th{background:rgba(37,99,235,.1);color:var(--blue);padding:6px 10px;text-align:left;font-size:.74rem;font-weight:700;border:1px solid var(--blue-mid)}
+.scenario-table td{padding:6px 10px;border:1px solid var(--border);color:var(--text);vertical-align:middle}
+.scenario-table tr:nth-child(even) td{background:rgba(248,250,252,.8)}
 </style>
 </head>
 <body>
@@ -421,45 +456,293 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <button class="tab" onclick="switchTab('notes','n-w10',this)">W10</button>
     </div>
     <div class="overlay-body">
+
       <div id="n-w2" class="tab-content active">
-        <div class="formula-block"><h3>Customer Value</h3><ul><li>CV = ΣBenefits − ΣCosts</li><li>Multi-attribute: CV = Σ(Importance × Performance)</li></ul></div>
-        <div class="formula-block"><h3>STP Framework</h3><ul><li>Segmentation → Targeting → Positioning</li><li>Types: Demographic, Psychographic, Behavioural, Firmographic (B2B)</li></ul></div>
-        <div class="formula-block"><h3>Porter's Generic Strategies</h3><ul><li>Cost Leadership — low cost, broad market</li><li>Differentiation — unique, broad market</li><li>Cost Focus — low cost, niche</li><li>Differentiation Focus — unique, niche</li></ul></div>
-        <div class="formula-block"><h3>Ansoff Matrix</h3><ul><li>Market Penetration: existing product, existing market</li><li>Product Development: new product, existing market</li><li>Market Development: existing product, new market</li><li>Diversification: new product, new market (most risky)</li></ul></div>
-        <div class="formula-block"><h3>Value Proposition Canvas</h3><ul><li>Customer Profile: Jobs, Pains, Gains</li><li>Value Map: Products/Services, Pain Relievers, Gain Creators</li><li>Fit: Pain Relievers ↔ Pains; Gain Creators ↔ Gains</li></ul></div>
+        <div class="notes-week-intro">Week 2 &middot; Market Opportunities</div>
+        <div class="notes-section"><div class="notes-section-title">Customer Value</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">CV</span><span class="notes-fexpr">= &Sigma; Benefits &minus; &Sigma; Costs</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">Multi-Attr</span><span class="notes-fexpr">= &Sigma; (Importance<sub>i</sub> &times; Performance<sub>i</sub>)</span></div>
+            <div class="notes-bullet">Higher CV than competitors = competitive advantage</div>
+            <div class="notes-bullet">&ldquo;Job to be done&rdquo;: customers hire products to complete a task, not just buy features</div>
+          </div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">STP Framework</div>
+          <div class="notes-card">
+            <div class="notes-bullet"><strong>Segmentation &rarr;</strong> Divide market into groups (Demographic, Psychographic, Behavioural, Firmographic)</div>
+            <div class="notes-bullet"><strong>Targeting &rarr;</strong> Choose which segment(s) to serve</div>
+            <div class="notes-bullet"><strong>Positioning &rarr;</strong> How your offering is perceived vs competitors</div>
+          </div>
+          <div class="notes-key"><strong>Exam trap</strong>Always S &rarr; T &rarr; P. Positioning cannot come before Targeting.</div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">Porter&apos;s Generic Strategies</div>
+          <table class="notes-tbl">
+            <tr><th></th><th>Broad Market</th><th>Narrow (Niche)</th></tr>
+            <tr><td><strong>Low Cost</strong></td><td>Cost Leadership</td><td>Cost Focus</td></tr>
+            <tr><td><strong>Unique / Premium</strong></td><td>Differentiation</td><td>Differentiation Focus</td></tr>
+          </table>
+          <div class="notes-key"><strong>Key</strong>Cost Leadership vs Cost Focus = same cost strategy, different scope. Same for Differentiation vs Differentiation Focus.</div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">Ansoff Matrix</div>
+          <table class="notes-tbl">
+            <tr><th></th><th>Existing Product</th><th>New Product</th></tr>
+            <tr><td><strong>Existing Market</strong></td><td>Market Penetration (lowest risk)</td><td>Product Development</td></tr>
+            <tr><td><strong>New Market</strong></td><td>Market Development</td><td>Diversification (highest risk)</td></tr>
+          </table>
+          <div class="notes-key"><strong>Exam tip</strong>Diversification = new product + new market = highest risk. No existing expertise in either dimension.</div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">Value Proposition Canvas</div>
+          <div class="notes-card">
+            <div class="notes-card-title">Customer Profile (right side)</div>
+            <div class="notes-bullet"><strong>Jobs</strong> &mdash; tasks the customer wants to complete</div>
+            <div class="notes-bullet"><strong>Pains</strong> &mdash; obstacles, frustrations, risks</div>
+            <div class="notes-bullet"><strong>Gains</strong> &mdash; desired outcomes and benefits</div>
+          </div>
+          <div class="notes-card">
+            <div class="notes-card-title">Value Map (left side)</div>
+            <div class="notes-bullet">Pain Relievers &harr; Pains &nbsp;&middot;&nbsp; Gain Creators &harr; Gains &nbsp;&middot;&nbsp; Products/Services &harr; Jobs</div>
+          </div>
+          <div class="notes-key"><strong>Exam trap</strong>Gain Creators addresses Gains; Pain Relievers addresses Pains. Gain Creators is on the Value Map, NOT in the Customer Profile.</div>
+        </div>
       </div>
+
       <div id="n-w3" class="tab-content">
-        <div class="formula-block"><h3>Contribution Margin</h3><ul><li>CM per unit = SP − VC per unit</li><li>CM Ratio = CM per unit / SP = 1 − VC Ratio</li><li>Total CM = CM per unit × units sold</li></ul></div>
-        <div class="formula-block"><h3>Break-Even Point</h3><ul><li>BEP (units) = Fixed Costs / CM per unit</li><li>BEP (revenue) = Fixed Costs / CM Ratio</li></ul></div>
-        <div class="formula-block"><h3>Multi-Product CVP</h3><ul><li>WACM = Σ(CM_i × Sales Mix %_i)</li><li>Target units = (FC + Target Pre-tax Profit) / WACM</li><li>Pre-tax profit = After-tax profit / (1 − tax rate)</li></ul></div>
-        <div class="formula-block"><h3>Margin of Safety</h3><ul><li>MOS = Actual Sales − BEP Sales</li><li>MOS % = MOS / Actual Sales × 100</li></ul></div>
+        <div class="notes-week-intro">Week 3 &middot; CVP Analysis &mdash; How price, volume, and cost structure drive profitability</div>
+        <div class="notes-section"><div class="notes-section-title">Core Formulas</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">CM / unit</span><span class="notes-fexpr">= Selling Price &minus; Variable Cost per unit</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">CM Ratio</span><span class="notes-fexpr">= CM per unit &divide; Selling Price</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">VC Ratio</span><span class="notes-fexpr">= VC &divide; SP &rarr; CM Ratio + VC Ratio = 1 always</span></div>
+          </div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">Break-Even Point</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">BEP (units)</span><span class="notes-fexpr">= Fixed Costs &divide; CM per unit</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">BEP (revenue)</span><span class="notes-fexpr">= Fixed Costs &divide; CM Ratio</span></div>
+            <div class="notes-bullet">At BEP: Revenue = Total Cost, Profit = $0</div>
+            <div class="notes-bullet">BEP falls when: price &uarr;, variable cost &darr;, or fixed costs &darr;</div>
+          </div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">Multi-Product CVP</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">WACM</span><span class="notes-fexpr">= &Sigma; (CM<sub>i</sub> &times; Sales Mix %<sub>i</sub>)</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">Target units</span><span class="notes-fexpr">= (Fixed Costs + Pre-tax Profit) &divide; WACM</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">Pre-tax profit</span><span class="notes-fexpr">= After-tax Profit &divide; (1 &minus; tax rate)</span></div>
+            <div class="notes-key"><strong>Steps</strong>1) CM each product &nbsp;2) &times; mix % &nbsp;3) Sum = WACM &nbsp;4) Convert after-tax &rarr; pre-tax &nbsp;5) (FC + pre-tax) &divide; WACM</div>
+          </div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">Margin of Safety &amp; Operating Leverage</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">MOS</span><span class="notes-fexpr">= Actual Sales &minus; BEP Sales (units or $)</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">MOS %</span><span class="notes-fexpr">= MOS &divide; Actual Sales &times; 100</span></div>
+            <div class="notes-bullet"><strong>Operating leverage:</strong> High fixed costs &rarr; once BEP is passed, extra revenue is near-pure profit</div>
+          </div>
+          <div class="notes-key"><strong>Why leverage matters</strong>High-FC businesses see amplified profit gains in good times and amplified losses in bad times.</div>
+        </div>
       </div>
+
       <div id="n-w4" class="tab-content">
-        <div class="formula-block"><h3>Balanced Scorecard (BSC)</h3><ul><li>Financial — ROI, revenue growth, cost reduction</li><li>Customer — satisfaction, retention, market share</li><li>Internal Process — efficiency, quality, innovation</li><li>Learning &amp; Growth — employee skills, systems, culture</li></ul></div>
-        <div class="formula-block"><h3>Key Concepts</h3><ul><li>Leading indicator: predicts future performance (e.g. training hours)</li><li>Lagging indicator: measures past outcomes (e.g. net profit)</li><li>Strategy map: shows cause-effect links between objectives</li><li>Developed by Kaplan and Norton (1992)</li></ul></div>
+        <div class="notes-week-intro">Week 4 &middot; Balanced Scorecard &mdash; Translating strategy into measurable, balanced objectives</div>
+        <div class="notes-section"><div class="notes-section-title">Four Perspectives (foundation &rarr; outcome)</div>
+          <table class="notes-tbl">
+            <tr><th>Perspective</th><th>Question it answers</th><th>Example KPIs</th></tr>
+            <tr><td><strong>Financial</strong></td><td>How do we look to shareholders?</td><td>ROI, Revenue Growth, Cost Reduction</td></tr>
+            <tr><td><strong>Customer</strong></td><td>How do customers see us?</td><td>NPS, Satisfaction Score, Retention Rate</td></tr>
+            <tr><td><strong>Internal Process</strong></td><td>What must we excel at?</td><td>Order Cycle Time, Defect Rate</td></tr>
+            <tr><td><strong>Learning &amp; Growth</strong></td><td>Can we continue to improve?</td><td>Training Hours, Staff Turnover Rate</td></tr>
+          </table>
+          <div class="notes-key"><strong>Causal chain (bottom &rarr; top)</strong>L&amp;G enables &rarr; Processes improve &rarr; Customer outcomes better &rarr; Financial results follow</div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">Leading vs Lagging Indicators</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">Leading</span><span class="notes-fexpr">Predicts future performance (cause) &mdash; e.g. training hours</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">Lagging</span><span class="notes-fexpr">Measures past outcomes (effect) &mdash; e.g. net profit, churn rate</span></div>
+          </div>
+          <div class="notes-key"><strong>Exam trap</strong>Customer satisfaction is typically LAGGING &mdash; it results from past service delivery. Training hours are leading (they predict future productivity).</div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">Strategy Map &amp; Origin</div>
+          <div class="notes-card">
+            <div class="notes-bullet">Strategy map = diagram of cause-and-effect links between objectives across all 4 perspectives</div>
+            <div class="notes-bullet">Example: Train staff (L&amp;G) &rarr; faster service (Process) &rarr; higher satisfaction (Customer) &rarr; revenue growth (Financial)</div>
+            <div class="notes-bullet">Developed by <strong>Kaplan and Norton</strong> (1992, Harvard Business Review)</div>
+            <div class="notes-bullet">Fixes the weakness of purely financial reporting: lagging-only metrics miss non-financial value drivers</div>
+          </div>
+        </div>
       </div>
+
       <div id="n-w5" class="tab-content">
-        <div class="formula-block"><h3>Lump Sum TVM</h3><ul><li>FV = PV × (1+r)^n</li><li>PV = FV / (1+r)^n</li><li>r = (FV/PV)^(1/n) − 1</li><li>n = ln(FV/PV) / ln(1+r)</li></ul></div>
-        <div class="formula-block"><h3>Rates</h3><ul><li>EAR = (1 + APR/m)^m − 1</li><li>APR = m × [(1+EAR)^(1/m) − 1]</li></ul></div>
-        <div class="formula-block"><h3>Annuities</h3><ul><li>PV (ordinary) = C × [1−(1+r)^−n] / r</li><li>FV (ordinary) = C × [(1+r)^n − 1] / r</li><li>Annuity due: multiply ordinary × (1+r)</li><li>Deferred: PV × (1+r)^−k</li></ul></div>
-        <div class="formula-block"><h3>Perpetuities</h3><ul><li>PV = C / r</li><li>PV (growing) = C₁ / (r − g)</li></ul></div>
+        <div class="notes-week-intro">Week 5 &middot; Time Value of Money &mdash; A dollar today is worth more than a dollar in the future</div>
+        <div class="notes-section"><div class="notes-section-title">Lump Sum</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">FV</span><span class="notes-fexpr">= PV &times; (1 + r)<sup>n</sup></span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">PV</span><span class="notes-fexpr">= FV &divide; (1 + r)<sup>n</sup></span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">r</span><span class="notes-fexpr">= (FV &divide; PV)<sup>1/n</sup> &minus; 1</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">n</span><span class="notes-fexpr">= ln(FV &divide; PV) &divide; ln(1 + r)</span></div>
+          </div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">APR vs EAR (Compounding)</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">EAR</span><span class="notes-fexpr">= (1 + APR &divide; m)<sup>m</sup> &minus; 1</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">Periodic rate</span><span class="notes-fexpr">= APR &divide; m &nbsp;(e.g. APR 12% monthly = 1% per month)</span></div>
+            <div class="notes-bullet">m = compounding periods per year (monthly=12, quarterly=4, semi-annual=2)</div>
+          </div>
+          <div class="notes-key"><strong>Rule</strong>EAR &ge; APR always. Equal only when m = 1 (annual compounding).</div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">Annuities</div>
+          <div class="notes-card">
+            <div class="notes-card-title">Ordinary Annuity &mdash; payments at END of each period</div>
+            <div class="notes-formula-row"><span class="notes-ftag">PV</span><span class="notes-fexpr">= C &times; [1 &minus; (1+r)<sup>&minus;n</sup>] &divide; r</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">FV</span><span class="notes-fexpr">= C &times; [(1+r)<sup>n</sup> &minus; 1] &divide; r</span></div>
+          </div>
+          <div class="notes-card">
+            <div class="notes-card-title">Variations</div>
+            <div class="notes-bullet"><strong>Annuity Due</strong> (payments at START): Ordinary PV &times; (1+r) &rarr; higher PV, each payment one period earlier</div>
+            <div class="notes-bullet"><strong>Deferred Annuity</strong> (delayed by k periods): Ordinary PV &times; (1+r)<sup>&minus;k</sup></div>
+          </div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">Perpetuities</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">Flat</span><span class="notes-fexpr">PV = C &divide; r</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">Growing</span><span class="notes-fexpr">PV = C<sub>1</sub> &divide; (r &minus; g) &rarr; C<sub>1</sub> is the FIRST payment; requires r &gt; g</span></div>
+          </div>
+          <div class="notes-key"><strong>Deferred perpetuity (first payment at year k+1)</strong>Step 1: PV at year k = C &divide; r &nbsp; Step 2: discount back: PV<sub>0</sub> = (C&divide;r) &divide; (1+r)<sup>k</sup></div>
+        </div>
       </div>
+
       <div id="n-w7" class="tab-content">
-        <div class="formula-block"><h3>Capital Budgeting</h3><ul><li>NPV = CF₀ + Σ[CFₜ / (1+r)^t] — Accept if NPV &gt; 0</li><li>IRR: discount rate where NPV = 0 — Accept if IRR &gt; r</li><li>PI = NPV / |Initial Investment| — Accept if PI &gt; 0</li><li>EAA = NPV × r / [1 − (1+r)^−n]</li></ul></div>
-        <div class="formula-block"><h3>Decision Rules</h3><ul><li>Independent projects: accept all positive NPV</li><li>Mutually exclusive: choose highest NPV</li><li>Different lives: use EAA for comparison</li><li>NPV is theoretically superior to IRR</li></ul></div>
+        <div class="notes-week-intro">Week 7 &middot; Capital Budgeting &mdash; Evaluating whether investments create or destroy value</div>
+        <div class="notes-section"><div class="notes-section-title">The 4 Main Methods</div>
+          <table class="notes-tbl">
+            <tr><th>Method</th><th>What it measures</th><th>Accept rule</th></tr>
+            <tr><td><strong>NPV</strong></td><td>Dollar value added: CF<sub>0</sub> + &Sigma;[CF<sub>t</sub> &divide; (1+r)<sup>t</sup>]</td><td>NPV &gt; 0</td></tr>
+            <tr><td><strong>IRR</strong></td><td>% return &mdash; rate where NPV = 0</td><td>IRR &gt; hurdle rate</td></tr>
+            <tr><td><strong>PI</strong></td><td>NPV &divide; |Initial Investment|</td><td>PI &gt; 0</td></tr>
+            <tr><td><strong>Payback</strong></td><td>Years to recover initial investment</td><td>Within target period</td></tr>
+          </table>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">EAA &mdash; Equivalent Annual Annuity</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">EAA</span><span class="notes-fexpr">= NPV &times; r &divide; [1 &minus; (1+r)<sup>&minus;n</sup>]</span></div>
+            <div class="notes-bullet">Use when comparing mutually exclusive projects with <strong>different lives</strong></div>
+            <div class="notes-bullet">For cost comparison: choose the <em>least negative</em> EAA (lowest annual cost)</div>
+          </div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">NPV vs IRR Conflict</div>
+          <div class="notes-card">
+            <div class="notes-bullet">Conflict arises for mutually exclusive projects differing in scale or timing</div>
+            <div class="notes-bullet">NPV = $ value added to firm &rarr; always the correct decision rule</div>
+            <div class="notes-bullet">IRR = % return; assumes reinvestment at IRR (often unrealistic)</div>
+          </div>
+          <div class="notes-key"><strong>Rule</strong>When NPV and IRR conflict &mdash; always trust NPV. It maximises firm value.</div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">Decision Rules Summary</div>
+          <div class="notes-card">
+            <div class="notes-bullet"><strong>Independent projects:</strong> accept all with NPV &gt; 0</div>
+            <div class="notes-bullet"><strong>Mutually exclusive, same life:</strong> choose highest NPV</div>
+            <div class="notes-bullet"><strong>Mutually exclusive, different lives:</strong> use EAA, choose highest</div>
+            <div class="notes-bullet"><strong>Cost comparison only:</strong> choose least negative EAA</div>
+          </div>
+        </div>
       </div>
+
       <div id="n-w8" class="tab-content">
-        <div class="formula-block"><h3>Bond Pricing</h3><ul><li>P₀ = C × [1−(1+r)^−n]/r + F/(1+r)^n</li><li>Premium: coupon rate &gt; YTM → P &gt; face value</li><li>Discount: coupon rate &lt; YTM → P &lt; face value</li></ul></div>
-        <div class="formula-block"><h3>Equity Valuation</h3><ul><li>Gordon Growth Model: P₀ = D₁ / (r − g)</li><li>Required return: r = D₁/P₀ + g</li><li>Dividend growth: g = Retention Ratio × ROI</li></ul></div>
+        <div class="notes-week-intro">Week 8 &middot; Valuation &mdash; Pricing bonds and equities using discounted cash flow models</div>
+        <div class="notes-section"><div class="notes-section-title">Bond Pricing</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">Price</span><span class="notes-fexpr">P<sub>0</sub> = C &times; [1&minus;(1+r)<sup>&minus;n</sup>] &divide; r &nbsp;+&nbsp; F &divide; (1+r)<sup>n</sup></span></div>
+            <div class="notes-bullet">C = periodic coupon = Face Value &times; coupon rate per period</div>
+            <div class="notes-bullet">F = face/par value &nbsp;&middot;&nbsp; r = YTM per period &nbsp;&middot;&nbsp; n = total periods</div>
+          </div>
+          <table class="notes-tbl">
+            <tr><th>Relationship</th><th>Price</th></tr>
+            <tr><td>Coupon rate <strong>&gt;</strong> YTM</td><td>Premium &mdash; P &gt; Face Value</td></tr>
+            <tr><td>Coupon rate <strong>=</strong> YTM</td><td>Par &mdash; P = Face Value</td></tr>
+            <tr><td>Coupon rate <strong>&lt;</strong> YTM</td><td>Discount &mdash; P &lt; Face Value</td></tr>
+          </table>
+          <div class="notes-key"><strong>Semi-annual bonds</strong>r = APR &divide; 2 &nbsp;&middot;&nbsp; n = years &times; 2 &nbsp;&middot;&nbsp; C = annual coupon &divide; 2</div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">Gordon Growth Model (DDM)</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">P<sub>0</sub></span><span class="notes-fexpr">= D<sub>1</sub> &divide; (r &minus; g)</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">r (required)</span><span class="notes-fexpr">= D<sub>1</sub> &divide; P<sub>0</sub> + g</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">g (growth)</span><span class="notes-fexpr">= Retention Ratio &times; ROI = (1 &minus; payout ratio) &times; ROI</span></div>
+            <div class="notes-bullet">If D<sub>0</sub> was just paid: D<sub>1</sub> = D<sub>0</sub> &times; (1+g)</div>
+          </div>
+          <div class="notes-key"><strong>Exam trap</strong>&ldquo;Just paid D<sub>0</sub>&rdquo; means you must calculate D<sub>1</sub> = D<sub>0</sub> &times; (1+g) before using GGM.</div>
+        </div>
       </div>
+
       <div id="n-w9" class="tab-content">
-        <div class="formula-block"><h3>Risk &amp; Return</h3><ul><li>HPR = (P₁ − P₀ + Div) / P₀</li><li>Systematic risk: cannot be diversified (captured by β)</li><li>Unsystematic risk: firm-specific, diversifiable</li></ul></div>
-        <div class="formula-block"><h3>CAPM</h3><ul><li>E[Ri] = Rf + βi × (E[RM] − Rf)</li><li>β = 1: moves with market; β &gt; 1: more volatile; β &lt; 1: less volatile</li></ul></div>
-        <div class="formula-block"><h3>WACC</h3><ul><li>WACC = wE×RE + wP×RP + wD×RD×(1−TC)</li><li>V = MVE + MVP + MVD; weights = MV / V</li></ul></div>
+        <div class="notes-week-intro">Week 9 &middot; Risk &amp; WACC &mdash; Pricing risk and computing the firm&apos;s cost of capital</div>
+        <div class="notes-section"><div class="notes-section-title">Types of Risk</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">Systematic</span><span class="notes-fexpr">Market-wide risk &mdash; cannot be diversified away (captured by &beta;)</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">Unsystematic</span><span class="notes-fexpr">Firm-specific risk &mdash; eliminated through diversification</span></div>
+            <div class="notes-bullet">CAPM only compensates for systematic risk &mdash; unsystematic earns no extra return</div>
+          </div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">CAPM &amp; Beta</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">E[Ri]</span><span class="notes-fexpr">= R<sub>f</sub> + &beta;<sub>i</sub> &times; (E[R<sub>M</sub>] &minus; R<sub>f</sub>)</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">MRP</span><span class="notes-fexpr">= E[R<sub>M</sub>] &minus; R<sub>f</sub> &nbsp;(Market Risk Premium)</span></div>
+            <div class="notes-bullet">&beta; = 0 &rarr; E[R] = R<sub>f</sub> &nbsp;&middot;&nbsp; &beta; = 1 &rarr; moves with market &nbsp;&middot;&nbsp; &beta; &gt; 1 &rarr; more volatile &nbsp;&middot;&nbsp; &beta; &lt; 1 &rarr; less volatile</div>
+          </div>
+          <div class="notes-key"><strong>Over / Undervalued</strong>Required return (CAPM) &gt; actual return &rarr; OVERVALUED. Required &lt; actual &rarr; UNDERVALUED.</div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">WACC</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">WACC</span><span class="notes-fexpr">= w<sub>E</sub>&times;R<sub>E</sub> + w<sub>P</sub>&times;R<sub>P</sub> + w<sub>D</sub>&times;R<sub>D</sub>&times;(1&minus;T<sub>C</sub>)</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">V</span><span class="notes-fexpr">= MVE + MVP + MVD &nbsp;&middot;&nbsp; weights = MV component &divide; V</span></div>
+            <div class="notes-bullet">Always use <strong>market value</strong> weights (not book value)</div>
+            <div class="notes-bullet">Debt &times; (1&minus;T<sub>C</sub>) because interest is tax-deductible</div>
+          </div>
+          <div class="notes-card">
+            <div class="notes-card-title">From D/E Ratio &rarr; Weights</div>
+            <div class="notes-formula-row"><span class="notes-ftag">w<sub>D</sub></span><span class="notes-fexpr">= (D/E) &divide; (1 + D/E) &nbsp;&middot;&nbsp; w<sub>E</sub> = 1 &divide; (1 + D/E)</span></div>
+            <div class="notes-key"><strong>Example</strong>D/E = 0.50 &rarr; w<sub>D</sub> = 0.50&divide;1.50 = 0.333; w<sub>E</sub> = 1&divide;1.50 = 0.667</div>
+          </div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">HPR</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">HPR</span><span class="notes-fexpr">= (P<sub>1</sub> &minus; P<sub>0</sub> + Dividends) &divide; P<sub>0</sub></span></div>
+          </div>
+        </div>
       </div>
+
       <div id="n-w10" class="tab-content">
-        <div class="formula-block"><h3>Integration Themes</h3><ul><li>Value created when ROIC &gt; WACC</li><li>BSC links non-financial drivers to financial outcomes</li><li>Strategy (Ansoff) → Budgeting (NPV) → Value creation</li><li>ESG = Environmental, Social, Governance</li><li>Stakeholder theory: broader than shareholder focus</li></ul></div>
+        <div class="notes-week-intro">Week 10 &middot; Integration &mdash; Connecting all course topics to long-run value creation</div>
+        <div class="notes-section"><div class="notes-section-title">Value Creation Test</div>
+          <div class="notes-card">
+            <div class="notes-formula-row"><span class="notes-ftag">Creates Value</span><span class="notes-fexpr">ROIC &gt; WACC &mdash; firm earns more than cost of capital</span></div>
+            <div class="notes-formula-row"><span class="notes-ftag">Destroys Value</span><span class="notes-fexpr">ROIC &lt; WACC &mdash; firm earns less than required</span></div>
+            <div class="notes-bullet">NPV &gt; 0 means project return &gt; WACC &rarr; same concept from W7 at firm level</div>
+            <div class="notes-bullet">WACC is the hurdle rate: only accept projects where return &gt; WACC</div>
+          </div>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">Course Connection Map</div>
+          <table class="notes-tbl">
+            <tr><th>Week</th><th>Topic</th><th>Key Tool</th></tr>
+            <tr><td>W2</td><td>Market Opportunities</td><td>STP, Ansoff, Porter, VPC</td></tr>
+            <tr><td>W3</td><td>Operational Profitability</td><td>CVP, Break-even, WACM</td></tr>
+            <tr><td>W4</td><td>Strategy Execution</td><td>Balanced Scorecard, KPIs</td></tr>
+            <tr><td>W5</td><td>Time Value of Money</td><td>FV/PV, EAR, Annuities, Perpetuities</td></tr>
+            <tr><td>W7</td><td>Investment Decisions</td><td>NPV, IRR, PI, EAA</td></tr>
+            <tr><td>W8</td><td>Asset Pricing</td><td>Bond pricing, Gordon Growth Model</td></tr>
+            <tr><td>W9</td><td>Cost of Capital</td><td>CAPM, WACC</td></tr>
+            <tr><td>W10</td><td>Integration</td><td>ROIC vs WACC, ESG, Governance</td></tr>
+          </table>
+        </div>
+        <div class="notes-section"><div class="notes-section-title">Key Theories &amp; Concepts</div>
+          <div class="notes-card">
+            <div class="notes-bullet"><strong>Shareholder Theory (Friedman):</strong> Firm&apos;s sole duty is to maximise returns for shareholders</div>
+            <div class="notes-bullet"><strong>Stakeholder Theory (Freeman):</strong> Consider all stakeholders &mdash; employees, customers, community, environment</div>
+            <div class="notes-bullet"><strong>ESG:</strong> Poor Environmental, Social, Governance performance &rarr; higher cost of capital &rarr; lower firm value</div>
+            <div class="notes-bullet"><strong>BSC &amp; Value:</strong> Non-financial metrics (L&amp;G, Process, Customer) are leading indicators driving long-run Financial outcomes</div>
+          </div>
+          <div class="notes-key"><strong>Exam tip</strong>One logic chain: Opportunity (W2) &rarr; Profit (W3) &rarr; Execution (W4) &rarr; Discount CFs (W5/W7) &rarr; Price assets (W8) &rarr; Cost of capital (W9) &rarr; Value created? (W10)</div>
+        </div>
       </div>
+
     </div>
   </div>
 </div>
@@ -480,32 +763,72 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     </div>
     <div class="overlay-body">
       <div id="f-cvp" class="tab-content active">
-        <div class="formula-block"><h3>Contribution Margin</h3><ul><li>CM per unit = Selling Price − Variable Cost per unit</li><li>CM Ratio = CM per unit ÷ Selling Price</li><li>VC Ratio = VC per unit ÷ SP → CM Ratio + VC Ratio = 1</li></ul></div>
-        <div class="formula-block"><h3>Break-Even</h3><ul><li>BEP (units) = Total Fixed Costs ÷ CM per unit</li><li>BEP (revenue) = Total Fixed Costs ÷ CM Ratio</li></ul></div>
-        <div class="formula-block"><h3>Multi-Product CVP</h3><ul><li>WACM = Σ (CM_i × Sales Mix %_i)</li><li>Target units = (FC + Target Pre-tax Profit) ÷ WACM</li><li>Pre-tax profit = After-tax profit ÷ (1 − tax rate)</li></ul></div>
-        <div class="formula-block"><h3>Margin of Safety</h3><ul><li>MOS (units) = Actual Sales − BEP Sales</li><li>MOS % = MOS ÷ Actual Sales × 100%</li></ul></div>
+        <div class="fml-group"><div class="fml-group-title">Contribution Margin</div>
+          <div class="fml-card"><div class="fml-name">CM per unit</div><div class="fml-expr">CM = Selling Price &minus; Variable Cost</div></div>
+          <div class="fml-card"><div class="fml-name">CM Ratio &amp; VC Ratio</div><div class="fml-expr">CM Ratio = CM &divide; SP &nbsp;&middot;&nbsp; VC Ratio = VC &divide; SP</div><div class="fml-note">CM Ratio + VC Ratio = 1 always</div></div>
+        </div>
+        <div class="fml-group"><div class="fml-group-title">Break-Even Point</div>
+          <div class="fml-card"><div class="fml-name">In Units</div><div class="fml-expr">BEP = Fixed Costs &divide; CM per unit</div></div>
+          <div class="fml-card"><div class="fml-name">In Revenue</div><div class="fml-expr">BEP$ = Fixed Costs &divide; CM Ratio</div></div>
+        </div>
+        <div class="fml-group"><div class="fml-group-title">Multi-Product CVP</div>
+          <div class="fml-card"><div class="fml-name">Weighted Average CM</div><div class="fml-expr">WACM = &Sigma; (CM<sub>i</sub> &times; Sales Mix %<sub>i</sub>)</div></div>
+          <div class="fml-card"><div class="fml-name">Target Volume</div><div class="fml-expr">Units = (FC + Pre-tax Profit) &divide; WACM</div><div class="fml-note">Pre-tax Profit = After-tax &divide; (1 &minus; tax rate)</div></div>
+        </div>
+        <div class="fml-group"><div class="fml-group-title">Margin of Safety</div>
+          <div class="fml-card"><div class="fml-expr">MOS = Actual Sales &minus; BEP Sales</div><div class="fml-note">MOS % = MOS &divide; Actual Sales &times; 100%</div></div>
+        </div>
       </div>
       <div id="f-tvm" class="tab-content">
-        <div class="formula-block"><h3>Lump Sum</h3><ul><li>FV = PV × (1 + r)^n</li><li>PV = FV ÷ (1 + r)^n</li><li>r = (FV ÷ PV)^(1/n) − 1</li><li>n = ln(FV ÷ PV) ÷ ln(1 + r)</li></ul></div>
-        <div class="formula-block"><h3>Rates</h3><ul><li>EAR = (1 + APR÷m)^m − 1</li><li>APR = m × [(1+EAR)^(1/m) − 1]</li></ul></div>
-        <div class="formula-block"><h3>Ordinary Annuity</h3><ul><li>PV = C × [1 − (1+r)^−n] ÷ r</li><li>FV = C × [(1+r)^n − 1] ÷ r</li></ul></div>
-        <div class="formula-block"><h3>Annuity Variations</h3><ul><li>Annuity Due PV = Ordinary PV × (1+r)</li><li>Deferred Annuity PV = Ordinary PV × (1+r)^−k</li></ul></div>
-        <div class="formula-block"><h3>Perpetuities</h3><ul><li>PV (flat) = C ÷ r</li><li>PV (growing) = C₁ ÷ (r − g)</li></ul></div>
+        <div class="fml-group"><div class="fml-group-title">Lump Sum</div>
+          <div class="fml-card"><div class="fml-name">Future Value</div><div class="fml-expr">FV = PV &times; (1 + r)<sup>n</sup></div><div class="fml-vars">r = periodic rate &nbsp;&middot;&nbsp; n = number of periods</div></div>
+          <div class="fml-card"><div class="fml-name">Present Value</div><div class="fml-expr">PV = FV &divide; (1 + r)<sup>n</sup></div></div>
+          <div class="fml-card"><div class="fml-name">Solve for r / n</div><div class="fml-expr">r = (FV &divide; PV)<sup>1/n</sup> &minus; 1 &nbsp;&middot;&nbsp; n = ln(FV&divide;PV) &divide; ln(1+r)</div></div>
+        </div>
+        <div class="fml-group"><div class="fml-group-title">Compounding Rates</div>
+          <div class="fml-card"><div class="fml-name">Effective Annual Rate (EAR)</div><div class="fml-expr">EAR = (1 + APR &divide; m)<sup>m</sup> &minus; 1</div><div class="fml-vars">m = compounding periods per year</div><div class="fml-note">EAR &ge; APR always. Equal only when m = 1 (annual)</div></div>
+        </div>
+        <div class="fml-group"><div class="fml-group-title">Ordinary Annuity (end-of-period)</div>
+          <div class="fml-card"><div class="fml-name">Present Value</div><div class="fml-expr">PV = C &times; [1 &minus; (1+r)<sup>&minus;n</sup>] &divide; r</div></div>
+          <div class="fml-card"><div class="fml-name">Future Value</div><div class="fml-expr">FV = C &times; [(1+r)<sup>n</sup> &minus; 1] &divide; r</div></div>
+          <div class="fml-card"><div class="fml-name">Variations</div><div class="fml-expr">Annuity Due PV = Ordinary PV &times; (1+r)</div><div class="fml-note">Deferred (k periods delay): &times; (1+r)<sup>&minus;k</sup></div></div>
+        </div>
+        <div class="fml-group"><div class="fml-group-title">Perpetuities</div>
+          <div class="fml-card"><div class="fml-name">Flat Perpetuity</div><div class="fml-expr">PV = C &divide; r</div><div class="fml-note">C = first payment, one period from now</div></div>
+          <div class="fml-card"><div class="fml-name">Growing Perpetuity</div><div class="fml-expr">PV = C<sub>1</sub> &divide; (r &minus; g)</div><div class="fml-note">Requires r &gt; g</div></div>
+        </div>
       </div>
       <div id="f-npv" class="tab-content">
-        <div class="formula-block"><h3>NPV</h3><ul><li>NPV = CF₀ + CF₁÷(1+r) + CF₂÷(1+r)² + … + CFₙ÷(1+r)^n</li><li>Accept if NPV &gt; 0</li></ul></div>
-        <div class="formula-block"><h3>IRR</h3><ul><li>Set NPV = 0, solve for r = IRR</li><li>Accept if IRR &gt; required return (hurdle rate)</li></ul></div>
-        <div class="formula-block"><h3>Profitability Index</h3><ul><li>PI = NPV ÷ |Initial Investment|</li><li>Accept if PI &gt; 0</li></ul></div>
-        <div class="formula-block"><h3>Equivalent Annual Annuity</h3><ul><li>EAA = NPV × r ÷ [1 − (1+r)^−n]</li><li>Use when comparing projects with different lives</li></ul></div>
+        <div class="fml-group"><div class="fml-group-title">Net Present Value</div>
+          <div class="fml-card"><div class="fml-expr">NPV = CF<sub>0</sub> + CF<sub>1</sub>&divide;(1+r) + CF<sub>2</sub>&divide;(1+r)&sup2; + &hellip; + CF<sub>n</sub>&divide;(1+r)<sup>n</sup></div><div class="fml-note">Accept if NPV &gt; 0 &nbsp;&middot;&nbsp; CF<sub>0</sub> is typically negative (initial outlay)</div></div>
+        </div>
+        <div class="fml-group"><div class="fml-group-title">IRR &amp; Profitability Index</div>
+          <div class="fml-card"><div class="fml-name">IRR</div><div class="fml-expr">Set NPV = 0, solve for r = IRR</div><div class="fml-note">Accept if IRR &gt; hurdle rate</div></div>
+          <div class="fml-card"><div class="fml-name">Profitability Index</div><div class="fml-expr">PI = NPV &divide; |Initial Investment|</div><div class="fml-note">Accept if PI &gt; 0 &nbsp;&middot;&nbsp; Also defined as PV(future CFs) &divide; Cost</div></div>
+        </div>
+        <div class="fml-group"><div class="fml-group-title">Equivalent Annual Annuity</div>
+          <div class="fml-card"><div class="fml-expr">EAA = NPV &times; r &divide; [1 &minus; (1+r)<sup>&minus;n</sup>]</div><div class="fml-note">Use for mutually exclusive projects with different lives</div></div>
+        </div>
       </div>
       <div id="f-val" class="tab-content">
-        <div class="formula-block"><h3>Bond Pricing</h3><ul><li>P₀ = C × [1−(1+r)^−n]÷r + F÷(1+r)^n</li><li>C = Face Value × coupon rate (per period)</li><li>Premium: coupon rate &gt; YTM; Discount: coupon rate &lt; YTM</li></ul></div>
-        <div class="formula-block"><h3>Gordon Growth Model (DDM)</h3><ul><li>P₀ = D₁ ÷ (r − g)</li><li>Required return: r = D₁÷P₀ + g</li><li>g = Retention Ratio × ROI = (1 − payout ratio) × ROI</li></ul></div>
+        <div class="fml-group"><div class="fml-group-title">Bond Pricing</div>
+          <div class="fml-card"><div class="fml-expr">P<sub>0</sub> = C &times; [1&minus;(1+r)<sup>&minus;n</sup>] &divide; r &nbsp;+&nbsp; F &divide; (1+r)<sup>n</sup></div><div class="fml-vars">C = coupon per period &nbsp;&middot;&nbsp; F = face value &nbsp;&middot;&nbsp; r = YTM per period &nbsp;&middot;&nbsp; n = total periods</div><div class="fml-note">Semi-annual: r = APR&divide;2, n = years&times;2, C = annual coupon&divide;2</div></div>
+          <div class="fml-card"><div class="fml-name">Price Rule</div><div class="fml-expr">Coupon &gt; YTM &rarr; Premium &nbsp;&middot;&nbsp; Coupon &lt; YTM &rarr; Discount</div></div>
+        </div>
+        <div class="fml-group"><div class="fml-group-title">Gordon Growth Model (Equity)</div>
+          <div class="fml-card"><div class="fml-name">Stock Price</div><div class="fml-expr">P<sub>0</sub> = D<sub>1</sub> &divide; (r &minus; g)</div><div class="fml-note">If given D<sub>0</sub> (just paid): D<sub>1</sub> = D<sub>0</sub> &times; (1+g)</div></div>
+          <div class="fml-card"><div class="fml-name">Required Return &amp; Growth</div><div class="fml-expr">r = D<sub>1</sub>&divide;P<sub>0</sub> + g &nbsp;&middot;&nbsp; g = Retention &times; ROI</div><div class="fml-note">Retention Ratio = 1 &minus; Payout Ratio</div></div>
+        </div>
       </div>
       <div id="f-wacc" class="tab-content">
-        <div class="formula-block"><h3>HPR</h3><ul><li>HPR = (P₁ − P₀ + Dividends) ÷ P₀</li></ul></div>
-        <div class="formula-block"><h3>CAPM</h3><ul><li>E[Ri] = Rf + βi × (E[RM] − Rf)</li><li>β &gt; 1: more volatile than market; β &lt; 1: less volatile</li></ul></div>
-        <div class="formula-block"><h3>WACC</h3><ul><li>WACC = wE×RE + wP×RP + wD×RD×(1−TC)</li><li>V = MVE + MVP + MVD; wE = MVE÷V etc.</li><li>After-tax cost of debt = RD × (1−TC)</li></ul></div>
+        <div class="fml-group"><div class="fml-group-title">Returns</div>
+          <div class="fml-card"><div class="fml-name">Holding Period Return</div><div class="fml-expr">HPR = (P<sub>1</sub> &minus; P<sub>0</sub> + Dividends) &divide; P<sub>0</sub></div></div>
+          <div class="fml-card"><div class="fml-name">CAPM</div><div class="fml-expr">E[R<sub>i</sub>] = R<sub>f</sub> + &beta;<sub>i</sub> &times; (E[R<sub>M</sub>] &minus; R<sub>f</sub>)</div><div class="fml-vars">R<sub>f</sub> = risk-free rate &nbsp;&middot;&nbsp; MRP = E[R<sub>M</sub>]&minus;R<sub>f</sub></div></div>
+        </div>
+        <div class="fml-group"><div class="fml-group-title">WACC</div>
+          <div class="fml-card"><div class="fml-expr">WACC = w<sub>E</sub>&times;R<sub>E</sub> + w<sub>P</sub>&times;R<sub>P</sub> + w<sub>D</sub>&times;R<sub>D</sub>&times;(1&minus;T<sub>C</sub>)</div><div class="fml-vars">V = MVE + MVP + MVD &nbsp;&middot;&nbsp; w<sub>E</sub>=MVE&divide;V, w<sub>P</sub>=MVP&divide;V, w<sub>D</sub>=MVD&divide;V</div><div class="fml-note">Always use MARKET VALUE weights. After-tax debt = R<sub>D</sub>&times;(1&minus;T<sub>C</sub>)</div></div>
+          <div class="fml-card"><div class="fml-name">From D/E Ratio</div><div class="fml-expr">w<sub>D</sub> = (D/E)&divide;(1+D/E) &nbsp;&middot;&nbsp; w<sub>E</sub> = 1&divide;(1+D/E)</div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -799,7 +1122,7 @@ const QUESTIONS=[
   hint:'Part A: this is a growing perpetuity with g = −5.5% starting in year 2. Find PV at year 1 using C/(r−g), then discount back one more year.',
   hint2:'Part C: set NPV = 0 and rearrange to solve for g. The denominator on the right side is $234,828 × 1.095.'},
 {week:7,type:'multipart',
-  scenario:'AT&T is choosing between two bus models. One is more expensive to purchase and maintain but lasts much longer than the other. Its discount rate is 10.0%. The company plans to continue with one of the two models for the foreseeable future. Based on the costs of each shown below, what is the annual cost of each model as an equivalent annual annuity (EAA)? Which should it choose? (Note: dollar amounts are in thousands.)\n\nLong Life:  Year 0 = −$208.7k | Years 1–7 = −$3.8k/yr\nShort Life: Year 0 = −$100.8k | Years 1–4 = −$1.7k/yr',
+  scenario:'AT&T is choosing between two bus models. Discount rate: 10.0%. The company will continue with one model indefinitely. Find the EAA and choose the better option. (Dollar amounts in thousands.)<br><table class=\"scenario-table\"><thead><tr><th>Model</th><th>Year 0 Cost</th><th>Annual Maintenance</th><th>Life</th></tr></thead><tbody><tr><td><strong>Long Life</strong></td><td>&minus;$208.7k</td><td>&minus;$3.8k/yr</td><td>7 years</td></tr><tr><td><strong>Short Life</strong></td><td>&minus;$100.8k</td><td>&minus;$1.7k/yr</td><td>4 years</td></tr></tbody></table>'',
   parts:[
     {label:'a',question:'The annual cost of Long Life model as an equivalent annual annuity is $___. (Round to the nearest dollar.)\nThe annual cost of Short Life model as an equivalent annual annuity is $___. (Round to the nearest dollar.)',keywords:['46672','46,672','33498','33,498','227','106'],modelAnswer:'NPV(Long Life) = −208.7 − 3.8 × [1−(1.10)^−7]/0.10 = −208.7 − 3.8 × 4.8684 = −$227.20k\nEAA(Long) = −227.20 × 0.10 / [1−(1.10)^−7] = −22.72 / 0.4868 = −$46,672\nNPV(Short Life) = −100.8 − 1.7 × [1−(1.10)^−4]/0.10 = −100.8 − 5.39 = −$106.19k\nEAA(Short) = −106.19 × 0.10 / [1−(1.10)^−4] = −10.619 / 0.3170 = −$33,498'},
     {label:'b',question:'Based on the costs of each model, which should it choose? (Select the best choice.)\nA) AT&T should choose Short Life because the equivalent annual annuity of its costs is smaller.\nB) AT&T should choose Long Life because it lasts longer.\nC) AT&T should choose Short Life because the NPV of its costs is smaller.\nD) AT&T should choose Long Life because the equivalent annual annuity of its costs is smaller.',keywords:['Short Life','EAA','smaller','33498','A)','option A'],modelAnswer:'AT&T should choose Short Life because the equivalent annual annuity of its costs is smaller (−$33,498 vs −$46,672).'}
@@ -807,7 +1130,7 @@ const QUESTIONS=[
   hint:'EAA = NPV × r / [1 − (1+r)^−n]. Since these are costs, NPV values are negative — choose the less negative (smaller absolute) EAA.',
   hint2:'Annuity factor (7yr, 10%) = 4.8684. Annuity factor (4yr, 10%) = 3.1699. (1.10)^7 ≈ 1.9487; (1.10)^4 ≈ 1.4641.'},
 {week:7,type:'multipart',
-  scenario:'A firm considers the following 2 mutually exclusive projects (cash flows in $) and wants a payback period of 2 years or less. Assume a discount rate of 10.3% throughout the problem.\n\nYear 0: Project A = −52 | Project B = −50\nYear 1: Project A = 24  | Project B = 23\nYear 2: Project A = 25  | Project B = 32\nYear 3: Project A = 68  | Project B = 35\nYear 4: Project A = 88  | Project B = 38\n\nNote: The IRRs for this question will require Excel or a financial calculator. Define the profitability index as PI = PV(Future Cash Flows)/Cost.',
+  scenario:'A firm considers 2 mutually exclusive projects with a target payback of 2 years or less. Discount rate: 10.3%. IRRs require Excel or a financial calculator. PI = PV(Future Cash Flows) / Cost.<br><table class=\"scenario-table\"><thead><tr><th>Year</th><th>Project A ($)</th><th>Project B ($)</th></tr></thead><tbody><tr><td>0</td><td>&minus;52</td><td>&minus;50</td></tr><tr><td>1</td><td>24</td><td>23</td></tr><tr><td>2</td><td>25</td><td>32</td></tr><tr><td>3</td><td>68</td><td>35</td></tr><tr><td>4</td><td>88</td><td>38</td></tr></tbody></table>'',
   parts:[
     {label:'A',question:'The payback period of project A is ___ years. (Round to two decimal places.)\nThe payback period of project B is ___ years. (Round to two decimal places.)',keywords:['2.04','1.84'],modelAnswer:'Project A: After Y1: −52+24=−28; After Y2: −28+25=−3; Partial Y3: 2 + 3/68 = 2.04 years\nProject B: After Y1: −50+23=−27; After Y2: −27+32=+5; Partial Y2: 1 + 27/32 = 1.84 years'},
     {label:'B',question:'What is the profitability index of project A?\nWhat is the profitability index of project B?',keywords:['2.93','1.98','152','98'],modelAnswer:'Discount factors at 10.3%: Y1=1/1.103, Y2=1/1.2166, Y3=1/1.3419, Y4=1/1.4801\nPV(A future CFs) = 24/1.103 + 25/1.2166 + 68/1.3419 + 88/1.4801 = 21.76+20.55+50.67+59.46 = $152.44\nPI(A) = 152.44/52 = 2.93\nPV(B future CFs) = 23/1.103 + 32/1.2166 + 35/1.3419 + 38/1.4801 = 20.85+26.30+26.08+25.67 = $98.90\nPI(B) = 98.90/50 = 1.98'},
@@ -918,7 +1241,7 @@ const QUESTIONS=[
 
 // WEEK 9 — Practice Exam Questions
 {week:9,type:'multipart',
-  scenario:'The risk-free rate is currently 4.30%. In addition, you have the following information:\n\nCompany | Expected Return | Beta\nA: Round Corp. | 7.50% | 0.34\nB: Lemon LLC | 14.36% | ?\nC: Beach Living Inc. | ? | 1.43\nD: Tasman Devils Corp. | 7.88% | 0.86\nE: Allied Metal Traders | 19.72% | 1.46',
+  scenario:'The risk-free rate is currently 4.30%. Use this data for all parts:<br><table class=\"scenario-table\"><thead><tr><th>Company</th><th>Expected Return</th><th>Beta</th></tr></thead><tbody><tr><td>A. Round Corp.</td><td>7.50%</td><td>0.34</td></tr><tr><td>B. Lemon LLC</td><td>14.36%</td><td>?</td></tr><tr><td>C. Beach Living Inc.</td><td>?</td><td>1.43</td></tr><tr><td>D. Tasman Devils Corp.</td><td>7.88%</td><td>0.86</td></tr><tr><td>E. Allied Metal Traders</td><td>19.72%</td><td>1.46</td></tr></tbody></table>'',
   parts:[
     {label:'A',question:'You know that Round Corp. is correctly priced because an army of analysts and thousands of institutional investors hold it. What does this tell you about the market return that investors seem to expect per year? (%)',keywords:['13.71','9.412','9.41','MRP'],modelAnswer:'CAPM: 7.50%=4.30%+0.34×MRP → MRP=3.20%/0.34=9.412%\nE[RM]=4.30%+9.412%=13.71%'},
     {label:'B',question:'What beta for Lemon LLC would make investor expectations consistent with your findings in part A)?',keywords:['1.069','1.07','10.06'],modelAnswer:'14.36%=4.30%+β×9.412% → β=10.06/9.412=1.069'},
