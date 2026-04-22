@@ -58,7 +58,8 @@ Rules:
 
     let structured;
     try {
-      structured = JSON.parse(msg.content[0].text.trim());
+      const raw = msg.content[0].text.trim().replace(/^```json\s*/i, '').replace(/```\s*$/, '');
+      structured = JSON.parse(raw);
     } catch {
       structured = { answer: msg.content[0].text.trim() };
     }
