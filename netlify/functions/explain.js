@@ -30,34 +30,43 @@ exports.handler = async (event) => {
 
   const isFinance = [3, 5, 7, 8, 9].includes(Number(week));
 
-  const prompt = `You are a friendly UNSW tutor explaining a COMM1180 (Value Creation) exam question.
+  const prompt = `You are a UNSW tutor explaining a COMM1180 exam question. Return ONLY a JSON object — no markdown, no code fences, no extra text.
 
 Week ${week} topic: ${topic}
-
 Question: ${question}
+Model answer: ${modelAnswer}
 
-Correct answer / model answer: ${modelAnswer}
+Return this exact JSON shape:
+{
+  "concept": "One sentence naming the concept or formula being tested.",
+  "answer": "1-2 sentences explaining what the correct answer is and why.",${isFinance ? `
+  "working": "Step-by-step calculation using the formula. Use → between steps. E.g. Formula → substitution → result.",` : ''}
+  "tip": "One sentence memory tip or common exam mistake to avoid."
+}
 
-${isFinance ? "This is a quantitative/finance question. If relevant, show the formula and worked calculation step by step." : ""}
-
-Please provide a clear explanation (3-5 sentences) of:
-1. What the correct answer is and why
-2. The key concept or formula being tested
-3. A memory tip or common mistake to avoid
-
-Keep it concise and student-friendly. Do not use markdown headers — just plain paragraphs.`;
+Rules:
+- Every field must be a plain string (no nested objects).
+- Keep each field short and student-friendly.
+- Do not add any fields beyond those listed.`;
 
   try {
     const msg = await client.messages.create({
       model: "claude-haiku-4-5-20251001",
-      max_tokens: 400,
+      max_tokens: 600,
       messages: [{ role: "user", content: prompt }],
     });
+
+    let structured;
+    try {
+      structured = JSON.parse(msg.content[0].text.trim());
+    } catch {
+      structured = { answer: msg.content[0].text.trim() };
+    }
 
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ explanation: msg.content[0].text.trim() }),
+      body: JSON.stringify({ structured }),
     };
   } catch (err) {
     console.error(err);

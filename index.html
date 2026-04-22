@@ -164,7 +164,15 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .hint-box{padding:10px 13px;border-radius:var(--r-sm);font-size:.84rem;line-height:1.6}
 .hint-box.h1{background:var(--amber-light);border:1px solid var(--amber-border);color:var(--amber)}
 .hint-box.h2{background:var(--purple-light);border:1px solid #DDD6FE;color:var(--purple)}
-.hint-box.hai{background:var(--blue-light);border:1px solid var(--blue-mid);color:var(--blue)}
+.hint-box.hai{background:var(--blue-light);border:1px solid var(--blue-mid);color:var(--blue);padding:14px 16px}
+.ai-head{font-size:.78rem;font-weight:700;color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.ai-row{display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:baseline;padding:6px 0;border-top:1px solid var(--blue-mid);font-size:.82rem;line-height:1.55;color:var(--text)}
+.ai-row:first-of-type{border-top:none;padding-top:0}
+.ai-tag{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--blue);background:rgba(37,99,235,.12);border-radius:4px;padding:2px 6px;white-space:nowrap;align-self:start;margin-top:2px}
+.ai-working span{font-family:'Courier New',monospace;font-size:.8rem}
+.ai-arrow{color:var(--blue);font-weight:700;margin:0 3px}
+.ai-tip{background:rgba(255,251,235,.6);border-radius:6px;padding:6px 8px;margin-top:4px;border:none!important}
+.ai-tip .ai-tag{background:rgba(217,119,6,.15);color:var(--amber)}
 
 /* ── SUMMARY ── */
 #summary{max-width:600px;margin:0 auto;padding-top:24px}
@@ -1563,7 +1571,7 @@ async function getExplanationInline(btn,ha,q){
   btn.textContent='Loading…';
   const loadDiv=document.createElement('div');
   loadDiv.className='hint-box hai';
-  loadDiv.innerHTML='<div class="spinner" style="display:inline-block;margin-right:6px"></div>Getting AI explanation…';
+  loadDiv.innerHTML='<span style="opacity:.6">✨ Getting AI explanation…</span>';
   ha.appendChild(loadDiv);
   try {
     const resp=await fetch('/.netlify/functions/explain',{
@@ -1571,7 +1579,14 @@ async function getExplanationInline(btn,ha,q){
       body:JSON.stringify({week:q.week,question:q.question||q.scenario||'',modelAnswer:q.modelAnswer||q.explanation||'',questionType:q.type})
     });
     const data=await resp.json();
-    loadDiv.innerHTML=`<strong>🤖 AI Explanation</strong><br>${data.explanation||'No explanation available.'}`;
+    const s=data.structured||{};
+    const rows=[
+      s.concept?`<div class="ai-row"><span class="ai-tag">Concept</span><span>${s.concept}</span></div>`:'',
+      s.answer?`<div class="ai-row"><span class="ai-tag">Answer</span><span>${s.answer}</span></div>`:'',
+      s.working?`<div class="ai-row ai-working"><span class="ai-tag">Working</span><span>${s.working.replace(/→/g,'<span class="ai-arrow">→</span>')}</span></div>`:'',
+      s.tip?`<div class="ai-row ai-tip"><span class="ai-tag">💡 Tip</span><span>${s.tip}</span></div>`:'',
+    ].filter(Boolean).join('');
+    loadDiv.innerHTML=`<div class="ai-head">🤖 AI Explanation</div>${rows||'<span style="opacity:.6">No explanation available.</span>'}`;
   } catch(e){
     loadDiv.innerHTML='🤖 Could not load explanation.';
   }
