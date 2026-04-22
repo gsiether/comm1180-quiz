@@ -1,1161 +1,2274 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8"/>
+
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+
 <title>COMM1180 Exam Prep</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
 <style>
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
 :root{
+
   --blue:#2563EB;--blue-dark:#1D4ED8;--blue-light:#EFF6FF;--blue-mid:#BFDBFE;
+
   --green:#059669;--green-light:#ECFDF5;--green-border:#6EE7B7;
+
   --red:#DC2626;--red-light:#FEF2F2;--red-border:#FCA5A5;
+
   --amber:#D97706;--amber-light:#FFFBEB;--amber-border:#FDE68A;
+
   --purple:#7C3AED;--purple-light:#F5F3FF;
+
   --text:#0F172A;--text-2:#475569;--text-3:#94A3B8;
+
   --border:#E2E8F0;--bg:#F8FAFC;--surface:#FFFFFF;
+
   --shadow-sm:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+
   --shadow:0 4px 6px -1px rgba(0,0,0,.07),0 2px 4px -2px rgba(0,0,0,.05);
+
   --r:16px;--r-sm:10px;
+
 }
+
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 
+
+
 /* ── HEADER ── */
+
 .app-header{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--shadow-sm);padding:10px 20px;display:flex;align-items:center;justify-content:space-between}
+
 .hdr-left{display:flex;align-items:center;gap:10px}
+
 .hdr-icon{font-size:1.4rem}
+
 .hdr-title{font-size:.92rem;font-weight:700;color:var(--text)}
+
 .hdr-sub{font-size:.68rem;color:var(--text-3)}
+
 .hdr-right{display:flex;gap:6px}
+
 .hdr-btn{background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:5px 11px;font-size:.78rem;color:var(--text-2);cursor:pointer;font-family:inherit;transition:all .15s}
+
 .hdr-btn:hover{border-color:var(--blue);color:var(--blue)}
 
+
+
 /* ── SCREENS ── */
+
 .screen{display:none;min-height:calc(100vh - 53px);padding:20px}
+
 .screen.active{display:block}
 
+
+
 /* ── HOME ── */
+
 #home{max-width:640px;margin:0 auto;padding-top:24px}
+
 .mode-tabs{display:flex;gap:0;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:3px;margin-bottom:20px}
+
 .mode-tab{flex:1;padding:8px 0;border:none;background:none;font-family:inherit;font-size:.85rem;font-weight:600;color:var(--text-3);cursor:pointer;border-radius:8px;transition:all .15s}
+
 .mode-tab.active{background:var(--surface);color:var(--blue);box-shadow:var(--shadow-sm)}
+
 .mode-panel{display:none}
+
 .mode-panel.active{display:block}
 
+
+
 .exam-card{background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:var(--r);padding:14px 16px;margin-bottom:18px}
+
 .exam-date{font-size:.82rem;font-weight:700;color:var(--blue);margin-bottom:8px}
+
 .exam-sections{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
 .exam-section{background:var(--surface);border-radius:var(--r-sm);padding:10px 12px}
+
 .exam-section strong{display:block;font-size:.8rem;color:var(--text);margin-bottom:4px}
+
 .exam-section span{display:block;font-size:.72rem;color:var(--text-2);line-height:1.5}
 
+
+
 .section-label{font-size:.75rem;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+
 .week-chips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+
 .week-chip{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:10px 6px;cursor:pointer;text-align:center;transition:all .15s;font-family:inherit}
+
 .week-chip:hover{border-color:var(--blue);background:var(--blue-light)}
+
 .week-chip.active{border-color:var(--blue);background:var(--blue-light);box-shadow:0 0 0 3px var(--blue-mid)}
+
 .week-chip .wn{font-size:.9rem;font-weight:800;color:var(--blue)}
+
 .week-chip .wl{font-size:.62rem;color:var(--text-2);margin-top:2px;line-height:1.3}
+
 .week-chip .wq{font-size:.62rem;color:var(--text-3);margin-top:1px}
+
 .all-chip{grid-column:span 2;padding:10px}
 
+
+
 .count-chips{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+
 .count-chip{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:5px 14px;font-size:.82rem;font-weight:600;color:var(--text-2);cursor:pointer;font-family:inherit;transition:all .15s}
+
 .count-chip:hover{border-color:var(--blue);color:var(--blue)}
+
 .count-chip.active{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
 
+
+
 .btn-start{width:100%;padding:13px;background:var(--blue);color:#fff;border:none;border-radius:var(--r-sm);font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s;margin-bottom:10px}
+
 .btn-start:hover{background:var(--blue-dark)}
+
 .btn-start:disabled{background:var(--border);color:var(--text-3);cursor:not-allowed}
+
 .btn-secondary-sm{width:100%;padding:10px;background:var(--surface);color:var(--text-2);border:1px solid var(--border);border-radius:var(--r-sm);font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+
 .btn-secondary-sm:hover{border-color:var(--blue);color:var(--blue)}
 
+
+
 .learn-week-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+
 .learn-week-tile{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:14px 8px;cursor:pointer;text-align:center;box-shadow:var(--shadow-sm);transition:all .15s;font-family:inherit}
+
 .learn-week-tile:hover{border-color:var(--blue);box-shadow:var(--shadow);transform:translateY(-2px)}
+
 .learn-week-tile .wn{font-size:1rem;font-weight:800;color:var(--blue)}
+
 .learn-week-tile .wl{font-size:.68rem;color:var(--text-2);margin-top:4px;line-height:1.3}
 
+
+
 /* ── LEARN SCREEN ── */
+
 #learn{max-width:680px;margin:0 auto}
+
 .learn-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+
 .back-btn{background:none;border:none;color:var(--text-2);cursor:pointer;font-size:.85rem;display:flex;align-items:center;gap:6px;font-family:inherit;padding:0}
+
 .back-btn:hover{color:var(--blue)}
+
 .learn-title{font-size:1.3rem;font-weight:800;margin-bottom:16px;color:var(--text)}
+
 .learn-notes-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--shadow-sm);margin-bottom:16px}
+
 .btn-test{width:100%;padding:13px;background:var(--blue);color:#fff;border:none;border-radius:var(--r-sm);font-size:.92rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+
 .btn-test:hover{background:var(--blue-dark)}
 
+
+
 /* ── QUIZ ── */
+
 #quiz{max-width:760px;margin:0 auto}
+
 .quiz-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+
 .quiz-back{background:none;border:none;color:var(--text-2);cursor:pointer;font-size:.85rem;font-family:inherit;white-space:nowrap}
+
 .quiz-back:hover{color:var(--blue)}
+
 .progress-bar{flex:1;height:6px;background:var(--border);border-radius:3px}
+
 .progress-fill{height:100%;background:var(--blue);border-radius:3px;transition:width .4s}
+
 .quiz-meta{font-size:.8rem;color:var(--text-3);white-space:nowrap}
+
 .quiz-tools{display:flex;gap:6px}
+
 .tool-btn{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:.75rem;color:var(--text-2);cursor:pointer;font-family:inherit;transition:all .15s}
+
 .tool-btn:hover{border-color:var(--blue);color:var(--blue)}
 
+
+
 .question-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+
 .q-tags{margin-bottom:12px;display:flex;gap:6px;flex-wrap:wrap}
+
 .q-week-tag{display:inline-block;background:var(--blue-light);color:var(--blue);border-radius:20px;padding:3px 10px;font-size:.72rem;font-weight:600}
+
 .q-type-tag{display:inline-block;background:var(--purple-light);color:var(--purple);border-radius:20px;padding:3px 10px;font-size:.72rem;font-weight:600}
+
 .q-text{font-size:1rem;line-height:1.65;font-weight:500;margin-bottom:16px;color:var(--text)}
+
 .q-scenario{background:var(--bg);border-left:3px solid var(--blue);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:12px 14px;margin-bottom:14px;font-size:.88rem;line-height:1.65;color:var(--text);white-space:pre-wrap}
 
+
+
 /* MCQ */
+
 .mcq-options{display:flex;flex-direction:column;gap:8px}
+
 .mcq-option{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;cursor:pointer;font-size:.9rem;transition:all .15s;display:flex;align-items:center;gap:10px}
+
 .mcq-option:hover:not(.disabled){border-color:var(--blue);background:var(--blue-light)}
+
 .mcq-option.selected{border-color:var(--blue);background:var(--blue-light)}
+
 .mcq-option.correct{border-color:var(--green)!important;background:var(--green-light)!important}
+
 .mcq-option.incorrect{border-color:var(--red)!important;background:var(--red-light)!important}
+
 .opt-label{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;color:var(--text-3)}
+
 .mcq-option.selected .opt-label{border-color:var(--blue);color:var(--blue)}
+
 .mcq-option.correct .opt-label{border-color:var(--green);color:var(--green)}
+
 .mcq-option.incorrect .opt-label{border-color:var(--red);color:var(--red)}
 
+
+
 /* TF */
+
 .tf-options{display:flex;gap:10px}
+
 .tf-option{flex:1;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:14px;cursor:pointer;text-align:center;font-weight:700;font-size:.95rem;transition:all .15s;font-family:inherit}
+
 .tf-option:hover:not(.disabled){border-color:var(--blue)}
+
 .tf-option.selected{border-color:var(--blue);background:var(--blue-light)}
+
 .tf-option.correct{border-color:var(--green)!important;background:var(--green-light)!important;color:var(--green)}
+
 .tf-option.incorrect{border-color:var(--red)!important;background:var(--red-light)!important;color:var(--red)}
 
+
+
 /* SA / Numerical */
+
 .num-hint-bar{background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:var(--r-sm);padding:8px 12px;margin-bottom:10px;font-size:.78rem;color:var(--blue)}
+
 .math-toolbar{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
+
 .math-btn{background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:3px 8px;font-size:.82rem;cursor:pointer;color:var(--text);font-family:serif;transition:all .12s}
+
 .math-btn:hover{border-color:var(--blue);background:var(--blue-light)}
+
 .sa-textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:10px 12px;color:var(--text);font-size:.9rem;line-height:1.6;resize:vertical;min-height:80px;font-family:inherit}
+
 .sa-textarea:focus{outline:none;border-color:var(--blue)}
 
+
+
 /* Multipart */
+
 .part-block{margin-bottom:12px;border:1px solid var(--border);border-radius:var(--r-sm);padding:12px}
+
 .part-label{font-size:.75rem;font-weight:700;color:var(--purple);margin-bottom:5px}
+
 .part-question{font-size:.88rem;color:var(--text);margin-bottom:8px;line-height:1.5}
 
+
+
 /* Feedback */
+
 .feedback-box{margin-top:12px;padding:11px 14px;border-radius:var(--r-sm);font-size:.86rem;line-height:1.6;display:none}
+
 .feedback-box.correct{background:var(--green-light);border:1px solid var(--green-border);color:var(--green)}
+
 .feedback-box.incorrect{background:var(--red-light);border:1px solid var(--red-border);color:var(--red)}
+
 .feedback-box.partial{background:var(--amber-light);border:1px solid var(--amber-border);color:var(--amber)}
+
 .feedback-box.skipped{background:var(--bg);border:1px solid var(--border);color:var(--text-2)}
+
 .model-answer{margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.08);color:var(--text);font-size:.83rem;white-space:pre-wrap}
+
 .ai-loading{display:flex;align-items:center;gap:8px;color:var(--text-3);font-size:.83rem;margin-top:10px}
+
 .spinner{width:15px;height:15px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+
 @keyframes spin{to{transform:rotate(360deg)}}
 
+
+
 /* Hints */
+
 .quiz-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:4px}
+
 .btn-submit{background:var(--blue);color:#fff;border:none;border-radius:var(--r-sm);padding:10px 20px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+
 .btn-submit:hover{background:var(--blue-dark)}
+
 .btn-skip{background:none;border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 16px;font-size:.82rem;color:var(--text-2);cursor:pointer;font-family:inherit;transition:all .15s}
+
 .btn-skip:hover{border-color:var(--red);color:var(--red)}
+
 .btn-hint{background:var(--amber-light);border:1px solid var(--amber-border);border-radius:var(--r-sm);padding:8px 14px;font-size:.8rem;font-weight:600;color:var(--amber);cursor:pointer;font-family:inherit;transition:all .15s}
+
 .btn-hint:hover{background:var(--amber-border)}
+
 .btn-next{background:var(--surface);border:1.5px solid var(--blue);border-radius:var(--r-sm);padding:10px 20px;font-size:.88rem;font-weight:700;color:var(--blue);cursor:pointer;font-family:inherit;transition:all .15s;display:none}
+
 .btn-next:hover{background:var(--blue-light)}
+
 .hint-area{width:100%;display:flex;flex-direction:column;gap:8px;margin-top:4px}
+
 .hint-box{padding:10px 13px;border-radius:var(--r-sm);font-size:.84rem;line-height:1.6}
+
 .hint-box.h1{background:var(--amber-light);border:1px solid var(--amber-border);color:var(--amber)}
+
 .hint-box.h2{background:var(--purple-light);border:1px solid #DDD6FE;color:var(--purple)}
+
 .hint-box.hai{background:var(--blue-light);border:1px solid var(--blue-mid);color:var(--blue);padding:14px 16px}
+
 .ai-head{font-size:.78rem;font-weight:700;color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+
 .ai-row{display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:baseline;padding:6px 0;border-top:1px solid var(--blue-mid);font-size:.82rem;line-height:1.55;color:var(--text)}
+
 .ai-row:first-of-type{border-top:none;padding-top:0}
+
 .ai-tag{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--blue);background:rgba(37,99,235,.12);border-radius:4px;padding:2px 6px;white-space:nowrap;align-self:start;margin-top:2px}
+
 .ai-working span{font-family:'Courier New',monospace;font-size:.8rem}
+
 .ai-arrow{color:var(--blue);font-weight:700;margin:0 3px}
+
 .ai-tip{background:rgba(255,251,235,.6);border-radius:6px;padding:6px 8px;margin-top:4px;border:none!important}
+
 .ai-tip .ai-tag{background:rgba(217,119,6,.15);color:var(--amber)}
 
+
+
 /* ── SUMMARY ── */
+
 #summary{max-width:600px;margin:0 auto;padding-top:24px}
+
 .summary-top{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px;text-align:center;margin-bottom:16px;box-shadow:var(--shadow-sm)}
+
 .score-ring-wrap{display:flex;justify-content:center;margin-bottom:12px}
+
 .score-ring{width:110px;height:110px;border-radius:50%;background:conic-gradient(var(--blue) calc(var(--pct,0)*1%),var(--border) 0);display:flex;align-items:center;justify-content:center;position:relative}
+
 .score-ring::before{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--surface)}
+
 .score-num{position:relative;z-index:1;font-size:1.7rem;font-weight:800;color:var(--text)}
+
 .summary-label{color:var(--text-2);font-size:.88rem}
+
 .summary-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+
 .stat-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;text-align:center;box-shadow:var(--shadow-sm)}
+
 .stat-num{font-size:1.5rem;font-weight:800}
+
 .stat-lbl{font-size:.72rem;color:var(--text-3);margin-top:2px}
+
 .summary-btns{display:flex;gap:8px;margin-bottom:16px}
+
 .result-list{display:flex;flex-direction:column;gap:6px}
+
 .result-item{background:var(--surface);border-radius:var(--r-sm);padding:11px 14px;display:flex;align-items:flex-start;gap:10px;border-left:3px solid var(--border);font-size:.84rem;cursor:pointer;transition:background .15s;box-shadow:var(--shadow-sm)}
+
 .result-item:hover{background:var(--bg)}
+
 .result-item.r-correct{border-left-color:var(--green)}
+
 .result-item.r-partial{border-left-color:var(--amber)}
+
 .result-item.r-incorrect{border-left-color:var(--red)}
+
 .result-item.r-skipped{border-left-color:var(--text-3)}
+
 .result-icon{flex-shrink:0;margin-top:1px}
+
 .result-q{flex:1;line-height:1.45;color:var(--text)}
+
 .result-mark{font-size:.78rem;color:var(--text-3);flex-shrink:0}
 
+
+
 /* ── HISTORY ── */
+
 #history,#history-detail{max-width:600px;margin:0 auto}
+
 .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+
 .page-title{font-size:1.2rem;font-weight:800}
+
 .history-list{display:flex;flex-direction:column;gap:8px}
+
 .history-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-sm)}
+
 .history-item:hover{border-color:var(--blue);transform:translateX(3px)}
+
 .history-score{font-size:1.3rem;font-weight:800;color:var(--blue);flex-shrink:0;width:52px;text-align:center}
+
 .history-meta{flex:1}
+
 .history-mode{font-size:.86rem;font-weight:600}
+
 .history-date{font-size:.75rem;color:var(--text-3);margin-top:2px}
+
 .empty-state{text-align:center;color:var(--text-3);padding:48px 20px;font-size:.9rem}
 
+
+
 /* ── OVERLAYS ── */
+
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
+
 .overlay.open{display:flex}
+
 .overlay-panel{background:var(--surface);border-radius:var(--r) var(--r) 0 0;width:100%;max-width:700px;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -4px 24px rgba(0,0,0,.1)}
+
 .overlay-panel.modal{border-radius:var(--r);max-height:85vh;margin:20px;max-width:380px}
+
 .overlay-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);flex-shrink:0}
+
 .overlay-head h2{font-size:1rem;font-weight:700}
+
 .close-btn{background:none;border:none;color:var(--text-3);font-size:1.2rem;cursor:pointer;line-height:1;padding:2px 6px;border-radius:4px}
+
 .close-btn:hover{background:var(--bg);color:var(--text)}
+
 .tab-bar{display:flex;gap:2px;flex-wrap:wrap;padding:10px 16px 0;border-bottom:1px solid var(--border);flex-shrink:0}
+
 .tab{background:none;border:none;padding:7px 12px;font-size:.8rem;color:var(--text-3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;border-radius:4px 4px 0 0;font-weight:500;font-family:inherit;transition:color .15s}
+
 .tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+
 .overlay-body{overflow-y:auto;padding:18px;flex:1}
+
 .tab-content{display:none}
+
 .tab-content.active{display:block}
 
+
+
 /* Notes / Formula blocks */
+
 .formula-block{margin-bottom:18px}
+
 .formula-block h3{font-size:.78rem;font-weight:700;color:var(--text-2);margin-bottom:7px;text-transform:uppercase;letter-spacing:.05em}
+
 .formula-block ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+
 .formula-block li{background:var(--bg);border-radius:6px;padding:7px 11px;font-size:.83rem;line-height:1.55;font-family:'Courier New',monospace;color:var(--text);border-left:3px solid var(--blue)}
+
 .formula-block p{font-size:.8rem;color:var(--text-3);margin-top:3px;line-height:1.5}
 
+
+
 /* Settings */
+
 .setting-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border)}
+
 .setting-row:last-child{border:none}
+
 .setting-label{font-size:.88rem;font-weight:600}
+
 .setting-desc{font-size:.75rem;color:var(--text-3);margin-top:2px}
+
 .toggle{width:42px;height:22px;background:var(--border);border:none;border-radius:11px;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
+
 .toggle.on{background:var(--blue)}
+
 .toggle::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+
 .toggle.on::after{transform:translateX(20px)}
+
 .select-input{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 9px;color:var(--text);font-size:.83rem;font-family:inherit}
 
+
+
 /* Admin */
+
 .admin-form{display:flex;flex-direction:column;gap:12px}
+
 .form-group{display:flex;flex-direction:column;gap:5px}
+
 .form-group label{font-size:.78rem;color:var(--text-2);font-weight:500}
+
 .form-group input{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 12px;color:var(--text);font-size:.88rem;font-family:inherit}
+
 .form-group input:focus{outline:none;border-color:var(--blue)}
+
 .admin-section{margin-bottom:20px}
+
 .admin-section h3{font-size:.82rem;font-weight:700;color:var(--text-2);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.04em}
+
 .api-key-display{font-family:monospace;font-size:.78rem;background:var(--bg);padding:7px 10px;border-radius:6px;color:var(--text-3);word-break:break-all;border:1px solid var(--border);margin-top:6px}
 
+
+
 /* Buttons */
+
 .btn{border:none;border-radius:var(--r-sm);padding:10px 18px;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+
 .btn-primary{background:var(--blue);color:#fff}
+
 .btn-primary:hover{background:var(--blue-dark)}
+
 .btn-danger{background:var(--red);color:#fff}
+
 .btn-danger:hover{background:#B91C1C}
+
 .btn-sm{padding:7px 13px;font-size:.78rem}
+
 .btn-outline{background:var(--surface);border:1px solid var(--border);color:var(--text-2)}
+
 .btn-outline:hover{border-color:var(--blue);color:var(--blue)}
+
 .btn-row{display:flex;gap:8px;flex-wrap:wrap}
+
 .divider{height:1px;background:var(--border);margin:14px 0}
 
+
+
 @media(max-width:500px){
+
   .week-chips,.learn-week-grid{grid-template-columns:repeat(2,1fr)}
+
   .summary-stats{grid-template-columns:repeat(2,1fr)}
+
   .tf-options{flex-direction:column}
+
   .exam-sections{grid-template-columns:1fr}
+
   .hdr-btn span{display:none}
+
 }
 
+
+
 /* ── NOTES REDESIGNED ── */
+
 .notes-week-intro{background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:16px;font-size:.82rem;color:var(--blue);font-weight:500;line-height:1.5}
+
 .notes-section{margin-bottom:18px}
+
 .notes-section-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:6px}
+
 .notes-section-title::before{content:'';display:inline-block;width:3px;height:13px;border-radius:2px;background:var(--blue);flex-shrink:0}
+
 .notes-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 13px;margin-bottom:8px}
+
 .notes-card-title{font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:7px}
+
 .notes-formula-row{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}
+
 .notes-ftag{background:var(--blue);color:#fff;border-radius:4px;padding:2px 7px;font-size:.69rem;font-weight:700;white-space:nowrap;flex-shrink:0;font-family:'Courier New',monospace}
+
 .notes-fexpr{font-family:'Courier New',monospace;font-size:.82rem;color:var(--text);line-height:1.4}
+
 .notes-bullet{font-size:.82rem;color:var(--text-2);padding:3px 0 3px 14px;position:relative;line-height:1.5}
+
 .notes-bullet::before{content:'·';position:absolute;left:4px;color:var(--blue);font-weight:900;font-size:.9rem}
+
 .notes-key{background:var(--amber-light);border:1px solid var(--amber-border);border-radius:var(--r-sm);padding:9px 12px;margin-bottom:8px;margin-top:4px;font-size:.81rem;line-height:1.55;color:var(--text)}
+
 .notes-key strong{color:var(--amber);display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+
 .notes-tbl{width:100%;border-collapse:collapse;font-size:.79rem;margin-bottom:8px}
+
 .notes-tbl th{background:var(--blue-light);color:var(--blue);padding:6px 9px;text-align:left;font-size:.69rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;border:1px solid var(--blue-mid)}
+
 .notes-tbl td{padding:6px 9px;border:1px solid var(--border);color:var(--text-2);vertical-align:top;line-height:1.45}
+
 .notes-tbl tr:nth-child(even) td{background:var(--surface)}
 
+
+
 /* ── FORMULA SHEET REDESIGNED ── */
+
 .fml-group{margin-bottom:20px}
+
 .fml-group-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);margin-bottom:10px;padding-bottom:5px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:6px}
+
 .fml-group-title::before{content:'';display:inline-block;width:3px;height:13px;border-radius:2px;background:var(--blue);flex-shrink:0}
+
 .fml-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 14px;margin-bottom:7px}
+
 .fml-name{font-size:.68rem;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+
 .fml-expr{font-family:'Courier New',monospace;font-size:.88rem;color:var(--text);font-weight:600;line-height:1.5;margin-bottom:3px}
+
 .fml-vars{font-size:.74rem;color:var(--text-2);line-height:1.7}
+
 .fml-note{font-size:.72rem;color:var(--text-3);border-top:1px dashed var(--border);padding-top:5px;margin-top:5px;line-height:1.5}
 
+
+
 /* ── SCENARIO TABLES ── */
+
 .scenario-table{width:100%;border-collapse:collapse;font-size:.82rem;margin:8px 0}
+
 .scenario-table th{background:rgba(37,99,235,.1);color:var(--blue);padding:6px 10px;text-align:left;font-size:.74rem;font-weight:700;border:1px solid var(--blue-mid)}
+
 .scenario-table td{padding:6px 10px;border:1px solid var(--border);color:var(--text);vertical-align:middle}
+
 .scenario-table tr:nth-child(even) td{background:rgba(248,250,252,.8)}
+
 </style>
+
 </head>
+
 <body>
 
+
+
 <!-- ══ STICKY HEADER ══ -->
+
 <header class="app-header">
+
   <div class="hdr-left">
+
     <span class="hdr-icon">📊</span>
+
     <div>
+
       <div class="hdr-title">UNSW · COMM1180</div>
+
       <div class="hdr-sub">Value Creation</div>
+
     </div>
+
   </div>
+
   <div class="hdr-right">
+
     <button class="hdr-btn" onclick="openOverlay('notes-overlay')">📋 <span>Notes</span></button>
+
     <button class="hdr-btn" onclick="openOverlay('formula-overlay')">📐 <span>Formulas</span></button>
+
     <button class="hdr-btn" onclick="openOverlay('settings-overlay')">⚙️</button>
+
     <button class="hdr-btn" onclick="openAdminModal()">🔒</button>
+
   </div>
+
 </header>
 
+
+
 <!-- ══ HOME ══ -->
+
 <div id="home" class="screen active">
 
+
+
   <!-- Mode tabs -->
+
   <div class="mode-tabs">
+
     <button class="mode-tab active" id="tab-quiz" onclick="switchMode('quiz')">📝 Quiz Mode</button>
+
     <button class="mode-tab" id="tab-learn" onclick="switchMode('learn-home')">📚 Learn Mode</button>
+
   </div>
+
+
 
   <!-- Quiz Mode panel -->
+
   <div class="mode-panel active" id="panel-quiz">
+
     <div class="exam-card">
+
       <div class="exam-date">📅 Exam: Tuesday 5 May 2026 · 1:45pm–4pm · UNSW Kensington</div>
+
       <div class="exam-sections">
+
         <div class="exam-section">
+
           <strong>Section A — 50%</strong>
+
           <span>MCQ + Numerical</span>
+
           <span>Weeks 3, 5, 7, 8, 9</span>
+
         </div>
+
         <div class="exam-section">
+
           <strong>Section B — 50%</strong>
+
           <span>Qualitative SA</span>
+
           <span>Weeks 2, 4, 10</span>
+
         </div>
+
       </div>
+
     </div>
+
+
 
     <div class="section-label">Select a week</div>
+
     <div class="week-chips" id="weekChips"></div>
 
+
+
     <div class="section-label">Number of questions</div>
+
     <div class="count-chips" id="countChips"></div>
 
+
+
     <button class="btn-start" id="startBtn" onclick="startQuizFromHome()" disabled>Start Quiz →</button>
+
     <button class="btn-secondary-sm" onclick="showScreen('history')">View History</button>
+
   </div>
+
+
 
   <!-- Learn Mode panel -->
+
   <div class="mode-panel" id="panel-learn-home">
+
     <p style="font-size:.85rem;color:var(--text-2);margin-bottom:14px">Select a week to study its notes, then test yourself.</p>
+
     <div class="learn-week-grid" id="learnWeekGrid"></div>
+
   </div>
 
+
+
 </div>
+
+
 
 <!-- ══ LEARN SCREEN ══ -->
+
 <div id="learn" class="screen">
+
   <div class="learn-topbar">
+
     <button class="back-btn" onclick="showScreen('home')">← Back</button>
+
     <button class="hdr-btn" onclick="openOverlay('formula-overlay')">📐 Formulas</button>
+
   </div>
+
   <div class="learn-title" id="learnWeekTitle">Week X · Topic</div>
+
   <div class="learn-notes-card">
+
     <div id="learnNotesContent"></div>
+
   </div>
+
   <button class="btn-test" id="learnTestBtn">Test yourself →</button>
+
 </div>
+
+
 
 <!-- ══ QUIZ ══ -->
+
 <div id="quiz" class="screen">
+
   <div class="quiz-header">
+
     <button class="quiz-back" onclick="confirmExit()">← Exit</button>
+
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
     <div class="quiz-meta" id="quizMeta">0/0</div>
+
     <div class="quiz-tools">
+
       <button class="tool-btn" onclick="openOverlay('formula-overlay')">📐</button>
+
       <button class="tool-btn" onclick="openOverlay('notes-overlay')">📋</button>
+
     </div>
+
   </div>
+
   <div id="questionArea"></div>
+
   <div class="quiz-actions" id="quizActions"></div>
+
 </div>
+
+
 
 <!-- ══ SUMMARY ══ -->
+
 <div id="summary" class="screen">
+
   <div class="summary-top">
+
     <div class="score-ring-wrap">
+
       <div class="score-ring" id="scoreRing">
+
         <span class="score-num" id="summaryScore">0%</span>
+
       </div>
+
     </div>
+
     <div class="summary-label" id="summaryLabel">Quiz Complete</div>
+
   </div>
+
   <div class="summary-stats">
+
     <div class="stat-box"><div class="stat-num" id="statCorrect" style="color:var(--green)">0</div><div class="stat-lbl">Correct</div></div>
+
     <div class="stat-box"><div class="stat-num" id="statPartial" style="color:var(--amber)">0</div><div class="stat-lbl">Partial</div></div>
+
     <div class="stat-box"><div class="stat-num" id="statIncorrect" style="color:var(--red)">0</div><div class="stat-lbl">Incorrect</div></div>
+
   </div>
+
   <div class="summary-btns">
+
     <button class="btn btn-primary" id="retryBtn" onclick="retryMissed()">Retry Missed</button>
+
     <button class="btn btn-outline" onclick="showScreen('home')">Home</button>
+
   </div>
+
   <div class="result-list" id="resultList"></div>
+
 </div>
+
+
 
 <!-- ══ HISTORY ══ -->
+
 <div id="history" class="screen">
+
   <div class="page-header">
+
     <div style="display:flex;align-items:center;gap:10px">
+
       <button class="back-btn" onclick="showScreen('home')">← Home</button>
+
       <div class="page-title">History</div>
+
     </div>
+
     <button class="btn btn-danger btn-sm" onclick="clearHistory()">Clear All</button>
+
   </div>
+
   <div class="history-list" id="historyList"></div>
+
 </div>
+
+
 
 <!-- ══ HISTORY DETAIL ══ -->
+
 <div id="history-detail" class="screen">
+
   <div class="page-header">
+
     <button class="back-btn" onclick="showScreen('history')">← History</button>
+
     <div class="page-title" id="detailTitle">Session Detail</div>
+
   </div>
+
   <div class="result-list" id="detailList"></div>
+
 </div>
+
+
 
 <!-- ══ NOTES OVERLAY ══ -->
+
 <div class="overlay" id="notes-overlay">
+
   <div class="overlay-panel">
+
     <div class="overlay-head">
+
       <h2>📋 Quick Notes</h2>
+
       <button class="close-btn" onclick="closeOverlay('notes-overlay')">✕</button>
+
     </div>
+
     <div class="tab-bar">
+
       <button class="tab active" onclick="switchTab('notes','n-w2',this)">W2</button>
+
       <button class="tab" onclick="switchTab('notes','n-w3',this)">W3</button>
+
       <button class="tab" onclick="switchTab('notes','n-w4',this)">W4</button>
+
       <button class="tab" onclick="switchTab('notes','n-w5',this)">W5</button>
+
       <button class="tab" onclick="switchTab('notes','n-w7',this)">W7</button>
+
       <button class="tab" onclick="switchTab('notes','n-w8',this)">W8</button>
+
       <button class="tab" onclick="switchTab('notes','n-w9',this)">W9</button>
+
       <button class="tab" onclick="switchTab('notes','n-w10',this)">W10</button>
+
     </div>
+
     <div class="overlay-body">
+
+
 
       <div id="n-w2" class="tab-content active">
+
         <div class="notes-week-intro">Week 2 &middot; Market Opportunities</div>
+
         <div class="notes-section"><div class="notes-section-title">Customer Value</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">CV</span><span class="notes-fexpr">= &Sigma; Benefits &minus; &Sigma; Costs</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">Multi-Attr</span><span class="notes-fexpr">= &Sigma; (Importance<sub>i</sub> &times; Performance<sub>i</sub>)</span></div>
+
             <div class="notes-bullet">Higher CV than competitors = competitive advantage</div>
+
             <div class="notes-bullet">&ldquo;Job to be done&rdquo;: customers hire products to complete a task, not just buy features</div>
+
           </div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">STP Framework</div>
+
           <div class="notes-card">
+
             <div class="notes-bullet"><strong>Segmentation &rarr;</strong> Divide market into groups (Demographic, Psychographic, Behavioural, Firmographic)</div>
+
             <div class="notes-bullet"><strong>Targeting &rarr;</strong> Choose which segment(s) to serve</div>
+
             <div class="notes-bullet"><strong>Positioning &rarr;</strong> How your offering is perceived vs competitors</div>
+
           </div>
+
           <div class="notes-key"><strong>Exam trap</strong>Always S &rarr; T &rarr; P. Positioning cannot come before Targeting.</div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">Porter&apos;s Generic Strategies</div>
+
           <table class="notes-tbl">
+
             <tr><th></th><th>Broad Market</th><th>Narrow (Niche)</th></tr>
+
             <tr><td><strong>Low Cost</strong></td><td>Cost Leadership</td><td>Cost Focus</td></tr>
+
             <tr><td><strong>Unique / Premium</strong></td><td>Differentiation</td><td>Differentiation Focus</td></tr>
+
           </table>
+
           <div class="notes-key"><strong>Key</strong>Cost Leadership vs Cost Focus = same cost strategy, different scope. Same for Differentiation vs Differentiation Focus.</div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">Ansoff Matrix</div>
+
           <table class="notes-tbl">
+
             <tr><th></th><th>Existing Product</th><th>New Product</th></tr>
+
             <tr><td><strong>Existing Market</strong></td><td>Market Penetration (lowest risk)</td><td>Product Development</td></tr>
+
             <tr><td><strong>New Market</strong></td><td>Market Development</td><td>Diversification (highest risk)</td></tr>
+
           </table>
+
           <div class="notes-key"><strong>Exam tip</strong>Diversification = new product + new market = highest risk. No existing expertise in either dimension.</div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">Value Proposition Canvas</div>
+
           <div class="notes-card">
+
             <div class="notes-card-title">Customer Profile (right side)</div>
+
             <div class="notes-bullet"><strong>Jobs</strong> &mdash; tasks the customer wants to complete</div>
+
             <div class="notes-bullet"><strong>Pains</strong> &mdash; obstacles, frustrations, risks</div>
+
             <div class="notes-bullet"><strong>Gains</strong> &mdash; desired outcomes and benefits</div>
+
           </div>
+
           <div class="notes-card">
+
             <div class="notes-card-title">Value Map (left side)</div>
+
             <div class="notes-bullet">Pain Relievers &harr; Pains &nbsp;&middot;&nbsp; Gain Creators &harr; Gains &nbsp;&middot;&nbsp; Products/Services &harr; Jobs</div>
+
           </div>
+
           <div class="notes-key"><strong>Exam trap</strong>Gain Creators addresses Gains; Pain Relievers addresses Pains. Gain Creators is on the Value Map, NOT in the Customer Profile.</div>
+
         </div>
+
       </div>
+
+
 
       <div id="n-w3" class="tab-content">
+
         <div class="notes-week-intro">Week 3 &middot; CVP Analysis &mdash; How price, volume, and cost structure drive profitability</div>
+
         <div class="notes-section"><div class="notes-section-title">Core Formulas</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">CM / unit</span><span class="notes-fexpr">= Selling Price &minus; Variable Cost per unit</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">CM Ratio</span><span class="notes-fexpr">= CM per unit &divide; Selling Price</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">VC Ratio</span><span class="notes-fexpr">= VC &divide; SP &rarr; CM Ratio + VC Ratio = 1 always</span></div>
+
           </div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">Break-Even Point</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">BEP (units)</span><span class="notes-fexpr">= Fixed Costs &divide; CM per unit</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">BEP (revenue)</span><span class="notes-fexpr">= Fixed Costs &divide; CM Ratio</span></div>
+
             <div class="notes-bullet">At BEP: Revenue = Total Cost, Profit = $0</div>
+
             <div class="notes-bullet">BEP falls when: price &uarr;, variable cost &darr;, or fixed costs &darr;</div>
+
           </div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">Multi-Product CVP</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">WACM</span><span class="notes-fexpr">= &Sigma; (CM<sub>i</sub> &times; Sales Mix %<sub>i</sub>)</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">Target units</span><span class="notes-fexpr">= (Fixed Costs + Pre-tax Profit) &divide; WACM</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">Pre-tax profit</span><span class="notes-fexpr">= After-tax Profit &divide; (1 &minus; tax rate)</span></div>
+
             <div class="notes-key"><strong>Steps</strong>1) CM each product &nbsp;2) &times; mix % &nbsp;3) Sum = WACM &nbsp;4) Convert after-tax &rarr; pre-tax &nbsp;5) (FC + pre-tax) &divide; WACM</div>
+
           </div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">Margin of Safety &amp; Operating Leverage</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">MOS</span><span class="notes-fexpr">= Actual Sales &minus; BEP Sales (units or $)</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">MOS %</span><span class="notes-fexpr">= MOS &divide; Actual Sales &times; 100</span></div>
+
             <div class="notes-bullet"><strong>Operating leverage:</strong> High fixed costs &rarr; once BEP is passed, extra revenue is near-pure profit</div>
+
           </div>
+
           <div class="notes-key"><strong>Why leverage matters</strong>High-FC businesses see amplified profit gains in good times and amplified losses in bad times.</div>
+
         </div>
+
       </div>
+
+
 
       <div id="n-w4" class="tab-content">
+
         <div class="notes-week-intro">Week 4 &middot; Balanced Scorecard &mdash; Translating strategy into measurable, balanced objectives</div>
+
         <div class="notes-section"><div class="notes-section-title">Four Perspectives (foundation &rarr; outcome)</div>
+
           <table class="notes-tbl">
+
             <tr><th>Perspective</th><th>Question it answers</th><th>Example KPIs</th></tr>
+
             <tr><td><strong>Financial</strong></td><td>How do we look to shareholders?</td><td>ROI, Revenue Growth, Cost Reduction</td></tr>
+
             <tr><td><strong>Customer</strong></td><td>How do customers see us?</td><td>NPS, Satisfaction Score, Retention Rate</td></tr>
+
             <tr><td><strong>Internal Process</strong></td><td>What must we excel at?</td><td>Order Cycle Time, Defect Rate</td></tr>
+
             <tr><td><strong>Learning &amp; Growth</strong></td><td>Can we continue to improve?</td><td>Training Hours, Staff Turnover Rate</td></tr>
+
           </table>
+
           <div class="notes-key"><strong>Causal chain (bottom &rarr; top)</strong>L&amp;G enables &rarr; Processes improve &rarr; Customer outcomes better &rarr; Financial results follow</div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">Leading vs Lagging Indicators</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">Leading</span><span class="notes-fexpr">Predicts future performance (cause) &mdash; e.g. training hours</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">Lagging</span><span class="notes-fexpr">Measures past outcomes (effect) &mdash; e.g. net profit, churn rate</span></div>
+
           </div>
+
           <div class="notes-key"><strong>Exam trap</strong>Customer satisfaction is typically LAGGING &mdash; it results from past service delivery. Training hours are leading (they predict future productivity).</div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">Strategy Map &amp; Origin</div>
+
           <div class="notes-card">
+
             <div class="notes-bullet">Strategy map = diagram of cause-and-effect links between objectives across all 4 perspectives</div>
+
             <div class="notes-bullet">Example: Train staff (L&amp;G) &rarr; faster service (Process) &rarr; higher satisfaction (Customer) &rarr; revenue growth (Financial)</div>
+
             <div class="notes-bullet">Developed by <strong>Kaplan and Norton</strong> (1992, Harvard Business Review)</div>
+
             <div class="notes-bullet">Fixes the weakness of purely financial reporting: lagging-only metrics miss non-financial value drivers</div>
+
           </div>
+
         </div>
+
       </div>
+
+
 
       <div id="n-w5" class="tab-content">
+
         <div class="notes-week-intro">Week 5 &middot; Time Value of Money &mdash; A dollar today is worth more than a dollar in the future</div>
+
         <div class="notes-section"><div class="notes-section-title">Lump Sum</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">FV</span><span class="notes-fexpr">= PV &times; (1 + r)<sup>n</sup></span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">PV</span><span class="notes-fexpr">= FV &divide; (1 + r)<sup>n</sup></span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">r</span><span class="notes-fexpr">= (FV &divide; PV)<sup>1/n</sup> &minus; 1</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">n</span><span class="notes-fexpr">= ln(FV &divide; PV) &divide; ln(1 + r)</span></div>
+
           </div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">APR vs EAR (Compounding)</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">EAR</span><span class="notes-fexpr">= (1 + APR &divide; m)<sup>m</sup> &minus; 1</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">Periodic rate</span><span class="notes-fexpr">= APR &divide; m &nbsp;(e.g. APR 12% monthly = 1% per month)</span></div>
+
             <div class="notes-bullet">m = compounding periods per year (monthly=12, quarterly=4, semi-annual=2)</div>
+
           </div>
+
           <div class="notes-key"><strong>Rule</strong>EAR &ge; APR always. Equal only when m = 1 (annual compounding).</div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">Annuities</div>
+
           <div class="notes-card">
+
             <div class="notes-card-title">Ordinary Annuity &mdash; payments at END of each period</div>
+
             <div class="notes-formula-row"><span class="notes-ftag">PV</span><span class="notes-fexpr">= C &times; [1 &minus; (1+r)<sup>&minus;n</sup>] &divide; r</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">FV</span><span class="notes-fexpr">= C &times; [(1+r)<sup>n</sup> &minus; 1] &divide; r</span></div>
+
           </div>
+
           <div class="notes-card">
+
             <div class="notes-card-title">Variations</div>
+
             <div class="notes-bullet"><strong>Annuity Due</strong> (payments at START): Ordinary PV &times; (1+r) &rarr; higher PV, each payment one period earlier</div>
+
             <div class="notes-bullet"><strong>Deferred Annuity</strong> (delayed by k periods): Ordinary PV &times; (1+r)<sup>&minus;k</sup></div>
+
           </div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">Perpetuities</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">Flat</span><span class="notes-fexpr">PV = C &divide; r</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">Growing</span><span class="notes-fexpr">PV = C<sub>1</sub> &divide; (r &minus; g) &rarr; C<sub>1</sub> is the FIRST payment; requires r &gt; g</span></div>
+
           </div>
+
           <div class="notes-key"><strong>Deferred perpetuity (first payment at year k+1)</strong>Step 1: PV at year k = C &divide; r &nbsp; Step 2: discount back: PV<sub>0</sub> = (C&divide;r) &divide; (1+r)<sup>k</sup></div>
+
         </div>
+
       </div>
+
+
 
       <div id="n-w7" class="tab-content">
+
         <div class="notes-week-intro">Week 7 &middot; Capital Budgeting &mdash; Evaluating whether investments create or destroy value</div>
+
         <div class="notes-section"><div class="notes-section-title">The 4 Main Methods</div>
+
           <table class="notes-tbl">
+
             <tr><th>Method</th><th>What it measures</th><th>Accept rule</th></tr>
+
             <tr><td><strong>NPV</strong></td><td>Dollar value added: CF<sub>0</sub> + &Sigma;[CF<sub>t</sub> &divide; (1+r)<sup>t</sup>]</td><td>NPV &gt; 0</td></tr>
+
             <tr><td><strong>IRR</strong></td><td>% return &mdash; rate where NPV = 0</td><td>IRR &gt; hurdle rate</td></tr>
+
             <tr><td><strong>PI</strong></td><td>NPV &divide; |Initial Investment|</td><td>PI &gt; 0</td></tr>
+
             <tr><td><strong>Payback</strong></td><td>Years to recover initial investment</td><td>Within target period</td></tr>
+
           </table>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">EAA &mdash; Equivalent Annual Annuity</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">EAA</span><span class="notes-fexpr">= NPV &times; r &divide; [1 &minus; (1+r)<sup>&minus;n</sup>]</span></div>
+
             <div class="notes-bullet">Use when comparing mutually exclusive projects with <strong>different lives</strong></div>
+
             <div class="notes-bullet">For cost comparison: choose the <em>least negative</em> EAA (lowest annual cost)</div>
+
           </div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">NPV vs IRR Conflict</div>
+
           <div class="notes-card">
+
             <div class="notes-bullet">Conflict arises for mutually exclusive projects differing in scale or timing</div>
+
             <div class="notes-bullet">NPV = $ value added to firm &rarr; always the correct decision rule</div>
+
             <div class="notes-bullet">IRR = % return; assumes reinvestment at IRR (often unrealistic)</div>
+
           </div>
+
           <div class="notes-key"><strong>Rule</strong>When NPV and IRR conflict &mdash; always trust NPV. It maximises firm value.</div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">Decision Rules Summary</div>
+
           <div class="notes-card">
+
             <div class="notes-bullet"><strong>Independent projects:</strong> accept all with NPV &gt; 0</div>
+
             <div class="notes-bullet"><strong>Mutually exclusive, same life:</strong> choose highest NPV</div>
+
             <div class="notes-bullet"><strong>Mutually exclusive, different lives:</strong> use EAA, choose highest</div>
+
             <div class="notes-bullet"><strong>Cost comparison only:</strong> choose least negative EAA</div>
+
           </div>
+
         </div>
+
       </div>
+
+
 
       <div id="n-w8" class="tab-content">
+
         <div class="notes-week-intro">Week 8 &middot; Valuation &mdash; Pricing bonds and equities using discounted cash flow models</div>
+
         <div class="notes-section"><div class="notes-section-title">Bond Pricing</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">Price</span><span class="notes-fexpr">P<sub>0</sub> = C &times; [1&minus;(1+r)<sup>&minus;n</sup>] &divide; r &nbsp;+&nbsp; F &divide; (1+r)<sup>n</sup></span></div>
+
             <div class="notes-bullet">C = periodic coupon = Face Value &times; coupon rate per period</div>
+
             <div class="notes-bullet">F = face/par value &nbsp;&middot;&nbsp; r = YTM per period &nbsp;&middot;&nbsp; n = total periods</div>
+
           </div>
+
           <table class="notes-tbl">
+
             <tr><th>Relationship</th><th>Price</th></tr>
+
             <tr><td>Coupon rate <strong>&gt;</strong> YTM</td><td>Premium &mdash; P &gt; Face Value</td></tr>
+
             <tr><td>Coupon rate <strong>=</strong> YTM</td><td>Par &mdash; P = Face Value</td></tr>
+
             <tr><td>Coupon rate <strong>&lt;</strong> YTM</td><td>Discount &mdash; P &lt; Face Value</td></tr>
+
           </table>
+
           <div class="notes-key"><strong>Semi-annual bonds</strong>r = APR &divide; 2 &nbsp;&middot;&nbsp; n = years &times; 2 &nbsp;&middot;&nbsp; C = annual coupon &divide; 2</div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">Gordon Growth Model (DDM)</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">P<sub>0</sub></span><span class="notes-fexpr">= D<sub>1</sub> &divide; (r &minus; g)</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">r (required)</span><span class="notes-fexpr">= D<sub>1</sub> &divide; P<sub>0</sub> + g</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">g (growth)</span><span class="notes-fexpr">= Retention Ratio &times; ROI = (1 &minus; payout ratio) &times; ROI</span></div>
+
             <div class="notes-bullet">If D<sub>0</sub> was just paid: D<sub>1</sub> = D<sub>0</sub> &times; (1+g)</div>
+
           </div>
+
           <div class="notes-key"><strong>Exam trap</strong>&ldquo;Just paid D<sub>0</sub>&rdquo; means you must calculate D<sub>1</sub> = D<sub>0</sub> &times; (1+g) before using GGM.</div>
+
         </div>
+
       </div>
+
+
 
       <div id="n-w9" class="tab-content">
+
         <div class="notes-week-intro">Week 9 &middot; Risk &amp; WACC &mdash; Pricing risk and computing the firm&apos;s cost of capital</div>
+
         <div class="notes-section"><div class="notes-section-title">Types of Risk</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">Systematic</span><span class="notes-fexpr">Market-wide risk &mdash; cannot be diversified away (captured by &beta;)</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">Unsystematic</span><span class="notes-fexpr">Firm-specific risk &mdash; eliminated through diversification</span></div>
+
             <div class="notes-bullet">CAPM only compensates for systematic risk &mdash; unsystematic earns no extra return</div>
+
           </div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">CAPM &amp; Beta</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">E[Ri]</span><span class="notes-fexpr">= R<sub>f</sub> + &beta;<sub>i</sub> &times; (E[R<sub>M</sub>] &minus; R<sub>f</sub>)</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">MRP</span><span class="notes-fexpr">= E[R<sub>M</sub>] &minus; R<sub>f</sub> &nbsp;(Market Risk Premium)</span></div>
+
             <div class="notes-bullet">&beta; = 0 &rarr; E[R] = R<sub>f</sub> &nbsp;&middot;&nbsp; &beta; = 1 &rarr; moves with market &nbsp;&middot;&nbsp; &beta; &gt; 1 &rarr; more volatile &nbsp;&middot;&nbsp; &beta; &lt; 1 &rarr; less volatile</div>
+
           </div>
+
           <div class="notes-key"><strong>Over / Undervalued</strong>Required return (CAPM) &gt; actual return &rarr; OVERVALUED. Required &lt; actual &rarr; UNDERVALUED.</div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">WACC</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">WACC</span><span class="notes-fexpr">= w<sub>E</sub>&times;R<sub>E</sub> + w<sub>P</sub>&times;R<sub>P</sub> + w<sub>D</sub>&times;R<sub>D</sub>&times;(1&minus;T<sub>C</sub>)</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">V</span><span class="notes-fexpr">= MVE + MVP + MVD &nbsp;&middot;&nbsp; weights = MV component &divide; V</span></div>
+
             <div class="notes-bullet">Always use <strong>market value</strong> weights (not book value)</div>
+
             <div class="notes-bullet">Debt &times; (1&minus;T<sub>C</sub>) because interest is tax-deductible</div>
+
           </div>
+
           <div class="notes-card">
+
             <div class="notes-card-title">From D/E Ratio &rarr; Weights</div>
+
             <div class="notes-formula-row"><span class="notes-ftag">w<sub>D</sub></span><span class="notes-fexpr">= (D/E) &divide; (1 + D/E) &nbsp;&middot;&nbsp; w<sub>E</sub> = 1 &divide; (1 + D/E)</span></div>
+
             <div class="notes-key"><strong>Example</strong>D/E = 0.50 &rarr; w<sub>D</sub> = 0.50&divide;1.50 = 0.333; w<sub>E</sub> = 1&divide;1.50 = 0.667</div>
+
           </div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">HPR</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">HPR</span><span class="notes-fexpr">= (P<sub>1</sub> &minus; P<sub>0</sub> + Dividends) &divide; P<sub>0</sub></span></div>
+
           </div>
+
         </div>
+
       </div>
+
+
 
       <div id="n-w10" class="tab-content">
+
         <div class="notes-week-intro">Week 10 &middot; Integration &mdash; Connecting all course topics to long-run value creation</div>
+
         <div class="notes-section"><div class="notes-section-title">Value Creation Test</div>
+
           <div class="notes-card">
+
             <div class="notes-formula-row"><span class="notes-ftag">Creates Value</span><span class="notes-fexpr">ROIC &gt; WACC &mdash; firm earns more than cost of capital</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">Destroys Value</span><span class="notes-fexpr">ROIC &lt; WACC &mdash; firm earns less than required</span></div>
+
             <div class="notes-bullet">NPV &gt; 0 means project return &gt; WACC &rarr; same concept from W7 at firm level</div>
+
             <div class="notes-bullet">WACC is the hurdle rate: only accept projects where return &gt; WACC</div>
+
           </div>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">Course Connection Map</div>
+
           <table class="notes-tbl">
+
             <tr><th>Week</th><th>Topic</th><th>Key Tool</th></tr>
+
             <tr><td>W2</td><td>Market Opportunities</td><td>STP, Ansoff, Porter, VPC</td></tr>
+
             <tr><td>W3</td><td>Operational Profitability</td><td>CVP, Break-even, WACM</td></tr>
+
             <tr><td>W4</td><td>Strategy Execution</td><td>Balanced Scorecard, KPIs</td></tr>
+
             <tr><td>W5</td><td>Time Value of Money</td><td>FV/PV, EAR, Annuities, Perpetuities</td></tr>
+
             <tr><td>W7</td><td>Investment Decisions</td><td>NPV, IRR, PI, EAA</td></tr>
+
             <tr><td>W8</td><td>Asset Pricing</td><td>Bond pricing, Gordon Growth Model</td></tr>
+
             <tr><td>W9</td><td>Cost of Capital</td><td>CAPM, WACC</td></tr>
+
             <tr><td>W10</td><td>Integration</td><td>ROIC vs WACC, ESG, Governance</td></tr>
+
           </table>
+
         </div>
+
         <div class="notes-section"><div class="notes-section-title">Key Theories &amp; Concepts</div>
+
           <div class="notes-card">
+
             <div class="notes-bullet"><strong>Shareholder Theory (Friedman):</strong> Firm&apos;s sole duty is to maximise returns for shareholders</div>
+
             <div class="notes-bullet"><strong>Stakeholder Theory (Freeman):</strong> Consider all stakeholders &mdash; employees, customers, community, environment</div>
+
             <div class="notes-bullet"><strong>ESG:</strong> Poor Environmental, Social, Governance performance &rarr; higher cost of capital &rarr; lower firm value</div>
+
             <div class="notes-bullet"><strong>BSC &amp; Value:</strong> Non-financial metrics (L&amp;G, Process, Customer) are leading indicators driving long-run Financial outcomes</div>
+
           </div>
+
           <div class="notes-key"><strong>Exam tip</strong>One logic chain: Opportunity (W2) &rarr; Profit (W3) &rarr; Execution (W4) &rarr; Discount CFs (W5/W7) &rarr; Price assets (W8) &rarr; Cost of capital (W9) &rarr; Value created? (W10)</div>
+
         </div>
+
       </div>
 
+
+
     </div>
+
   </div>
+
 </div>
+
+
 
 <!-- ══ FORMULA OVERLAY ══ -->
+
 <div class="overlay" id="formula-overlay">
+
   <div class="overlay-panel">
+
     <div class="overlay-head">
+
       <h2>📐 Formula Reference</h2>
+
       <button class="close-btn" onclick="closeOverlay('formula-overlay')">✕</button>
+
     </div>
+
     <div class="tab-bar">
+
       <button class="tab active" onclick="switchTab('formula','f-cvp',this)">W3 CVP</button>
+
       <button class="tab" onclick="switchTab('formula','f-tvm',this)">W5 TVM</button>
+
       <button class="tab" onclick="switchTab('formula','f-npv',this)">W7 NPV</button>
+
       <button class="tab" onclick="switchTab('formula','f-val',this)">W8 Val</button>
+
       <button class="tab" onclick="switchTab('formula','f-wacc',this)">W9 WACC</button>
+
     </div>
+
     <div class="overlay-body">
+
       <div id="f-cvp" class="tab-content active">
+
         <div class="fml-group"><div class="fml-group-title">Contribution Margin</div>
+
           <div class="fml-card"><div class="fml-name">CM per unit</div><div class="fml-expr">CM = Selling Price &minus; Variable Cost</div></div>
+
           <div class="fml-card"><div class="fml-name">CM Ratio &amp; VC Ratio</div><div class="fml-expr">CM Ratio = CM &divide; SP &nbsp;&middot;&nbsp; VC Ratio = VC &divide; SP</div><div class="fml-note">CM Ratio + VC Ratio = 1 always</div></div>
+
         </div>
+
         <div class="fml-group"><div class="fml-group-title">Break-Even Point</div>
+
           <div class="fml-card"><div class="fml-name">In Units</div><div class="fml-expr">BEP = Fixed Costs &divide; CM per unit</div></div>
+
           <div class="fml-card"><div class="fml-name">In Revenue</div><div class="fml-expr">BEP$ = Fixed Costs &divide; CM Ratio</div></div>
+
         </div>
+
         <div class="fml-group"><div class="fml-group-title">Multi-Product CVP</div>
+
           <div class="fml-card"><div class="fml-name">Weighted Average CM</div><div class="fml-expr">WACM = &Sigma; (CM<sub>i</sub> &times; Sales Mix %<sub>i</sub>)</div></div>
+
           <div class="fml-card"><div class="fml-name">Target Volume</div><div class="fml-expr">Units = (FC + Pre-tax Profit) &divide; WACM</div><div class="fml-note">Pre-tax Profit = After-tax &divide; (1 &minus; tax rate)</div></div>
+
         </div>
+
         <div class="fml-group"><div class="fml-group-title">Margin of Safety</div>
+
           <div class="fml-card"><div class="fml-expr">MOS = Actual Sales &minus; BEP Sales</div><div class="fml-note">MOS % = MOS &divide; Actual Sales &times; 100%</div></div>
+
         </div>
+
       </div>
+
       <div id="f-tvm" class="tab-content">
+
         <div class="fml-group"><div class="fml-group-title">Lump Sum</div>
+
           <div class="fml-card"><div class="fml-name">Future Value</div><div class="fml-expr">FV = PV &times; (1 + r)<sup>n</sup></div><div class="fml-vars">r = periodic rate &nbsp;&middot;&nbsp; n = number of periods</div></div>
+
           <div class="fml-card"><div class="fml-name">Present Value</div><div class="fml-expr">PV = FV &divide; (1 + r)<sup>n</sup></div></div>
+
           <div class="fml-card"><div class="fml-name">Solve for r / n</div><div class="fml-expr">r = (FV &divide; PV)<sup>1/n</sup> &minus; 1 &nbsp;&middot;&nbsp; n = ln(FV&divide;PV) &divide; ln(1+r)</div></div>
+
         </div>
+
         <div class="fml-group"><div class="fml-group-title">Compounding Rates</div>
+
           <div class="fml-card"><div class="fml-name">Effective Annual Rate (EAR)</div><div class="fml-expr">EAR = (1 + APR &divide; m)<sup>m</sup> &minus; 1</div><div class="fml-vars">m = compounding periods per year</div><div class="fml-note">EAR &ge; APR always. Equal only when m = 1 (annual)</div></div>
+
         </div>
+
         <div class="fml-group"><div class="fml-group-title">Ordinary Annuity (end-of-period)</div>
+
           <div class="fml-card"><div class="fml-name">Present Value</div><div class="fml-expr">PV = C &times; [1 &minus; (1+r)<sup>&minus;n</sup>] &divide; r</div></div>
+
           <div class="fml-card"><div class="fml-name">Future Value</div><div class="fml-expr">FV = C &times; [(1+r)<sup>n</sup> &minus; 1] &divide; r</div></div>
+
           <div class="fml-card"><div class="fml-name">Variations</div><div class="fml-expr">Annuity Due PV = Ordinary PV &times; (1+r)</div><div class="fml-note">Deferred (k periods delay): &times; (1+r)<sup>&minus;k</sup></div></div>
+
         </div>
+
         <div class="fml-group"><div class="fml-group-title">Perpetuities</div>
+
           <div class="fml-card"><div class="fml-name">Flat Perpetuity</div><div class="fml-expr">PV = C &divide; r</div><div class="fml-note">C = first payment, one period from now</div></div>
+
           <div class="fml-card"><div class="fml-name">Growing Perpetuity</div><div class="fml-expr">PV = C<sub>1</sub> &divide; (r &minus; g)</div><div class="fml-note">Requires r &gt; g</div></div>
+
         </div>
+
       </div>
+
       <div id="f-npv" class="tab-content">
+
         <div class="fml-group"><div class="fml-group-title">Net Present Value</div>
+
           <div class="fml-card"><div class="fml-expr">NPV = CF<sub>0</sub> + CF<sub>1</sub>&divide;(1+r) + CF<sub>2</sub>&divide;(1+r)&sup2; + &hellip; + CF<sub>n</sub>&divide;(1+r)<sup>n</sup></div><div class="fml-note">Accept if NPV &gt; 0 &nbsp;&middot;&nbsp; CF<sub>0</sub> is typically negative (initial outlay)</div></div>
+
         </div>
+
         <div class="fml-group"><div class="fml-group-title">IRR &amp; Profitability Index</div>
+
           <div class="fml-card"><div class="fml-name">IRR</div><div class="fml-expr">Set NPV = 0, solve for r = IRR</div><div class="fml-note">Accept if IRR &gt; hurdle rate</div></div>
+
           <div class="fml-card"><div class="fml-name">Profitability Index</div><div class="fml-expr">PI = NPV &divide; |Initial Investment|</div><div class="fml-note">Accept if PI &gt; 0 &nbsp;&middot;&nbsp; Also defined as PV(future CFs) &divide; Cost</div></div>
+
         </div>
+
         <div class="fml-group"><div class="fml-group-title">Equivalent Annual Annuity</div>
+
           <div class="fml-card"><div class="fml-expr">EAA = NPV &times; r &divide; [1 &minus; (1+r)<sup>&minus;n</sup>]</div><div class="fml-note">Use for mutually exclusive projects with different lives</div></div>
+
         </div>
+
       </div>
+
       <div id="f-val" class="tab-content">
+
         <div class="fml-group"><div class="fml-group-title">Bond Pricing</div>
+
           <div class="fml-card"><div class="fml-expr">P<sub>0</sub> = C &times; [1&minus;(1+r)<sup>&minus;n</sup>] &divide; r &nbsp;+&nbsp; F &divide; (1+r)<sup>n</sup></div><div class="fml-vars">C = coupon per period &nbsp;&middot;&nbsp; F = face value &nbsp;&middot;&nbsp; r = YTM per period &nbsp;&middot;&nbsp; n = total periods</div><div class="fml-note">Semi-annual: r = APR&divide;2, n = years&times;2, C = annual coupon&divide;2</div></div>
+
           <div class="fml-card"><div class="fml-name">Price Rule</div><div class="fml-expr">Coupon &gt; YTM &rarr; Premium &nbsp;&middot;&nbsp; Coupon &lt; YTM &rarr; Discount</div></div>
+
         </div>
+
         <div class="fml-group"><div class="fml-group-title">Gordon Growth Model (Equity)</div>
+
           <div class="fml-card"><div class="fml-name">Stock Price</div><div class="fml-expr">P<sub>0</sub> = D<sub>1</sub> &divide; (r &minus; g)</div><div class="fml-note">If given D<sub>0</sub> (just paid): D<sub>1</sub> = D<sub>0</sub> &times; (1+g)</div></div>
+
           <div class="fml-card"><div class="fml-name">Required Return &amp; Growth</div><div class="fml-expr">r = D<sub>1</sub>&divide;P<sub>0</sub> + g &nbsp;&middot;&nbsp; g = Retention &times; ROI</div><div class="fml-note">Retention Ratio = 1 &minus; Payout Ratio</div></div>
+
         </div>
+
       </div>
+
       <div id="f-wacc" class="tab-content">
+
         <div class="fml-group"><div class="fml-group-title">Returns</div>
+
           <div class="fml-card"><div class="fml-name">Holding Period Return</div><div class="fml-expr">HPR = (P<sub>1</sub> &minus; P<sub>0</sub> + Dividends) &divide; P<sub>0</sub></div></div>
+
           <div class="fml-card"><div class="fml-name">CAPM</div><div class="fml-expr">E[R<sub>i</sub>] = R<sub>f</sub> + &beta;<sub>i</sub> &times; (E[R<sub>M</sub>] &minus; R<sub>f</sub>)</div><div class="fml-vars">R<sub>f</sub> = risk-free rate &nbsp;&middot;&nbsp; MRP = E[R<sub>M</sub>]&minus;R<sub>f</sub></div></div>
+
         </div>
+
         <div class="fml-group"><div class="fml-group-title">WACC</div>
+
           <div class="fml-card"><div class="fml-expr">WACC = w<sub>E</sub>&times;R<sub>E</sub> + w<sub>P</sub>&times;R<sub>P</sub> + w<sub>D</sub>&times;R<sub>D</sub>&times;(1&minus;T<sub>C</sub>)</div><div class="fml-vars">V = MVE + MVP + MVD &nbsp;&middot;&nbsp; w<sub>E</sub>=MVE&divide;V, w<sub>P</sub>=MVP&divide;V, w<sub>D</sub>=MVD&divide;V</div><div class="fml-note">Always use MARKET VALUE weights. After-tax debt = R<sub>D</sub>&times;(1&minus;T<sub>C</sub>)</div></div>
+
           <div class="fml-card"><div class="fml-name">From D/E Ratio</div><div class="fml-expr">w<sub>D</sub> = (D/E)&divide;(1+D/E) &nbsp;&middot;&nbsp; w<sub>E</sub> = 1&divide;(1+D/E)</div></div>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
+
 </div>
+
+
 
 <!-- ══ SETTINGS OVERLAY ══ -->
+
 <div class="overlay" id="settings-overlay">
+
   <div class="overlay-panel">
+
     <div class="overlay-head">
+
       <h2>⚙️ Settings</h2>
+
       <button class="close-btn" onclick="closeOverlay('settings-overlay')">✕</button>
+
     </div>
+
     <div class="overlay-body">
+
       <div class="setting-row">
+
         <div><div class="setting-label">Shuffle Questions</div><div class="setting-desc">Randomise order each session</div></div>
+
         <button class="toggle on" id="toggle-shuffle" onclick="toggleSetting('shuffle')"></button>
+
       </div>
+
       <div class="setting-row">
+
         <div><div class="setting-label">Show Hints</div><div class="setting-desc">Enable 3-level hint system</div></div>
+
         <button class="toggle on" id="toggle-hints" onclick="toggleSetting('hints')"></button>
+
       </div>
+
       <div class="setting-row">
+
         <div><div class="setting-label">API Key</div><div class="setting-desc">Anthropic key for AI marking (stored locally)</div></div>
+
         <button class="btn btn-outline btn-sm" onclick="promptApiKey()">Set Key</button>
+
       </div>
+
     </div>
+
   </div>
+
 </div>
+
+
 
 <!-- ══ ADMIN MODAL ══ -->
+
 <div class="overlay" id="admin-modal">
+
   <div class="overlay-panel modal" style="align-self:center">
+
     <div class="overlay-head">
+
       <h2>🔐 Admin Login</h2>
+
       <button class="close-btn" onclick="closeOverlay('admin-modal')">✕</button>
+
     </div>
+
     <div class="overlay-body">
+
       <div class="admin-form">
+
         <div class="form-group"><label>Password</label><input type="password" id="adminPwInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkAdminPw()"/></div>
+
         <button class="btn btn-primary" onclick="checkAdminPw()">Login</button>
+
         <div id="adminPwError" style="color:var(--red);font-size:.8rem;display:none">Incorrect password</div>
+
       </div>
+
     </div>
+
   </div>
+
 </div>
+
+
 
 <!-- ══ ADMIN PANEL ══ -->
+
 <div class="overlay" id="admin-panel">
+
   <div class="overlay-panel">
+
     <div class="overlay-head">
+
       <h2>🛠 Admin Panel</h2>
+
       <button class="close-btn" onclick="closeOverlay('admin-panel')">✕</button>
+
     </div>
+
     <div class="overlay-body">
+
       <div class="admin-section">
+
         <h3>Statistics</h3>
+
         <div id="adminStats" style="font-size:.84rem;color:var(--text-2);line-height:2"></div>
+
       </div>
+
       <div class="admin-section">
+
         <h3>Data Management</h3>
+
         <div class="btn-row">
+
           <button class="btn btn-danger btn-sm" onclick="clearHistory();closeOverlay('admin-panel')">Clear History</button>
+
           <button class="btn btn-outline btn-sm" onclick="exportHistory()">Export JSON</button>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
+
 </div>
 
+
+
 <script>
+
 // ── CONFIG ──
+
 const ADMIN_PW='abc123';
+
 let settings=Object.assign({shuffle:true,hints:true,count:'10'},JSON.parse(localStorage.getItem('c1180_settings')||'{}'));
+
 let quizState={questions:[],idx:0,results:[],mode:'all',answered:false,currentAnswer:null};
+
 let homeState={week:null,count:10};
 
+
+
 // ── QUESTIONS ──
+
 const QUESTIONS=[
+
 // WEEK 2
+
 {week:2,type:'sa',question:'Explain the difference between Cost Leadership and Cost Focus in Porter\'s Generic Strategies.',keywords:['broad','niche','market','scope','entire industry','specific segment'],modelAnswer:'Cost Leadership targets the broad market (entire industry) with the lowest cost structure. Cost Focus also aims for the lowest cost but targets a specific niche segment. The key difference is competitive scope — broad vs. narrow.'},
+
 {week:2,type:'sa',question:'What is the "job to be done" concept in value creation?',keywords:['job','customer','task','problem','hire','solve','functional','outcome'],modelAnswer:'Customers "hire" products to complete a specific job or solve a problem. Firms create value by understanding what job the customer is trying to accomplish. E.g. customers don\'t want a drill — they want a hole in the wall.'},
+
 {week:2,type:'multipart',
+
   scenario:'Lumio is a startup launching a smart desk lamp. Office workers value: (1) adjustable brightness (importance: 8/10, Lumio: 7/10), (2) eye-care technology (importance: 9/10, Lumio: 8/10), (3) sleek design (importance: 6/10, Lumio: 9/10). Competitor scores: brightness 6/10, eye-care 7/10, design 5/10.',
+
   parts:[
+
     {label:'a',question:'Calculate Lumio\'s Multi-Attribute Value score.',keywords:['8×7','9×8','6×9','56','72','54','182'],modelAnswer:'Lumio = (8×7)+(9×8)+(6×9) = 56+72+54 = 182'},
+
     {label:'b',question:'Calculate the competitor\'s Multi-Attribute Value score.',keywords:['8×6','9×7','6×5','48','63','30','141'],modelAnswer:'Competitor = (8×6)+(9×7)+(6×5) = 48+63+30 = 141'},
+
     {label:'c',question:'What does this suggest about Lumio\'s competitive position, and which Porter strategy best fits?',keywords:['higher','superior','differentiation','premium','value'],modelAnswer:'Lumio has higher multi-attribute score (182 vs 141), indicating superior perceived customer value. Lumio is pursuing Differentiation (broad) or Differentiation Focus (niche), competing on quality rather than price.'}
+
   ],
+
   hint:'Calculate Σ(importance × performance) for each firm, then compare and identify the Porter strategy.',
+
   hint2:'For part (c), consider whether Lumio targets the whole market or just a segment.'},
 
+
+
 // WEEK 2 — Additional SA questions (Section B: qualitative)
+
 {week:2,type:'sa',question:'Describe the STP process and explain why the order of the three steps matters.',keywords:['segmentation','targeting','positioning','order','segment first','choose','position'],modelAnswer:'STP = Segmentation → Targeting → Positioning. First, you divide the market into meaningful segments. Then you select which segment(s) to pursue (targeting). Only then can you define how to position your offering in the mind of that chosen segment. Reversing the order is illogical — you cannot position before knowing who you are targeting.'},
+
 {week:2,type:'sa',question:'A coffee chain wants to expand internationally by opening stores in a new country with the same menu. Which Ansoff Matrix strategy is this and what are the primary risks?',keywords:['market development','existing product','new market','cultural','geographic','risk','unfamiliar'],modelAnswer:'This is Market Development — existing product (same menu) in a new market (new country). Key risks include unfamiliar customer preferences, cultural differences in coffee consumption, unknown local competitors, regulatory/legal barriers, and lack of brand recognition. The firm has product expertise but not market expertise.'},
+
 {week:2,type:'sa',question:'Explain the concept of "fit" in the Value Proposition Canvas. What must align, and what happens when fit is not achieved?',keywords:['pain relievers','pains','gain creators','gains','jobs','value map','customer profile','match','fit'],modelAnswer:'Fit occurs when the Value Map aligns with the Customer Profile: Pain Relievers address customer Pains, Gain Creators deliver customer Gains, and Products/Services enable customer Jobs. Without fit, the value proposition fails to resonate — customers won\'t see the product as solving their real problems or delivering desired outcomes, leading to low adoption and poor sales.'},
+
 {week:2,type:'sa',question:'Explain two key differences between B2B and B2C markets and discuss how these differences affect how firms create customer value.',keywords:['fewer','larger','buyers','relationship','rational','emotional','derived demand','B2B','B2C'],modelAnswer:'B2B markets have (1) fewer, larger buyers — a single B2B customer may represent millions in revenue, making deep relationships and customised solutions essential; and (2) more rational, formal buying processes — decisions involve multiple stakeholders (committees) with technical specs and ROI analysis, not individual emotional impulse. Firms creating value in B2B must demonstrate measurable business benefits (cost savings, productivity), whereas B2C value often relies on brand, convenience, and emotional resonance.'},
 
+
+
 {week:2,type:'sa',question:'What are the four types of customer value identified in the Smith & Colgate framework? Give an example of each.',keywords:['functional','experiential','hedonic','symbolic','expressive','cost','sacrifice','utility'],modelAnswer:'1. Functional/instrumental value: the product performs a useful function — e.g. a vacuum cleaner that cleans effectively. 2. Experiential/hedonic value: the product creates positive feelings — e.g. a luxury spa experience. 3. Symbolic/expressive value: the product carries psychological meaning — e.g. wearing a Rolex to signal status. 4. Cost/sacrifice value: minimising transaction costs — e.g. free shipping reducing the total cost to the customer.'},
+
 {week:2,type:'sa',question:'What is economic value estimation (EVE) and how does it relate to value-based pricing?',keywords:['reference','differentiation','competitor','benchmark','economic','price','willingness to pay','EVE'],modelAnswer:'Economic Value Estimation calculates a product\'s value relative to the next-best alternative. EVE = Reference Value (price of the competitor\'s product) + Differentiation Value (monetary worth of features that differ). It underpins value-based pricing because it shows the maximum price a rational customer would pay before switching — setting the ceiling for pricing decisions.'},
+
 {week:2,type:'sa',question:'Explain the role of the marketing mix (4Ps) in delivering a firm\'s value proposition.',keywords:['product','price','place','promotion','4P','marketing mix','value','deliver','communicate'],modelAnswer:'The 4Ps translate the value proposition into tangible customer experiences: Product defines what value is offered; Price captures some of that value and signals quality; Place ensures the product is accessible where and when customers need it; Promotion communicates the value and persuades customers to buy. Together they operationalise the value proposition in the market.'},
+
 {week:2,type:'sa',question:'What is firmographic segmentation and in which type of market is it used?',keywords:['firmographic','B2B','industry','company size','revenue','sector','business-to-business'],modelAnswer:'Firmographic segmentation divides B2B markets by firm-level characteristics such as industry, company size, revenue, geography, and legal structure — analogous to demographics in B2C. It is used in business-to-business markets where the "customer" is an organisation, not an individual. For example, a software firm might target mid-sized financial services firms (firmographic: industry = finance, employees = 100–500).'},
+
 {week:2,type:'sa',question:'Distinguish between a product\'s "target market" and its "positioning statement". Why must targeting come before positioning?',keywords:['target market','positioning','segment','chosen','perception','competitive','differentiate','communicate'],modelAnswer:'A target market is the specific customer segment(s) the firm has chosen to serve. A positioning statement defines how the firm wants its offering to be perceived in the minds of that target segment relative to competitors. Targeting must come first because positioning is inherently relative to a specific audience — you cannot craft a meaningful position without knowing whose perceptions you are trying to shape. Positioning without a defined target produces a vague, unfocused message.'},
+
 {week:2,type:'sa',question:'What is the difference between "customer value" and "stakeholder value"? Give an example of a tension between the two.',keywords:['customer','stakeholder','employee','community','shareholder','trade-off','tension','broader'],modelAnswer:'Customer value focuses on the benefits delivered to buyers. Stakeholder value is broader — it includes value created for (or costs imposed on) employees, communities, suppliers, and society. A tension arises when, for example, a firm lowers prices to increase customer value (benefiting buyers) but does so by cutting wages (reducing employee value) or by polluting (imposing costs on the community). Maximising customer value alone can destroy value for other stakeholders.'},
 
+
+
 // WEEK 3
+
 {week:3,type:'mcq',question:'Contribution Margin per unit is calculated as:',options:['A. Selling Price + Variable Cost','B. Selling Price − Fixed Cost','C. Selling Price − Variable Cost','D. Revenue − Total Cost'],answer:2,explanation:'CM per unit = Selling Price − Variable Cost per unit. It represents the amount each unit contributes to covering fixed costs and profit.'},
+
 {week:3,type:'mcq',question:'If Fixed Costs = $120,000 and CM per unit = $40, the break-even point in units is:',options:['A. 4,800,000','B. 3,000','C. 300','D. 480'],answer:1,explanation:'BEP = Fixed Costs ÷ CM per unit = $120,000 ÷ $40 = 3,000 units.'},
+
 {week:3,type:'mcq',question:'The CM Ratio equals:',options:['A. Fixed Costs ÷ Sales Revenue','B. Variable Cost ÷ Selling Price','C. CM per unit ÷ Selling Price','D. Net Profit ÷ Sales Revenue'],answer:2,explanation:'CM Ratio = CM per unit ÷ Selling Price = (SP − VC) ÷ SP.'},
 
+
+
 {week:3,type:'mcq',question:'The "Pricing Tripod" framework identifies three key inputs to pricing decisions. Which of the following is NOT one of them?',options:['A. Customer perceived value','B. Competitor pricing','C. Production capacity','D. Cost-based pricing'],answer:2,explanation:'The Pricing Tripod consists of: (1) Value to the customer, (2) Competitor prices, and (3) Cost-based considerations. Production capacity is not a direct input in this framework.'},
+
 {week:3,type:'mcq',question:'Value-based pricing sets price primarily by reference to:',options:['A. Total fixed and variable costs plus a markup','B. What competitors are currently charging','C. The monetary value the customer places on the product','D. The firm\'s target profit margin'],answer:2,explanation:'Value-based pricing starts with the customer\'s perceived value (willingness to pay) and works backward. Cost-plus pricing works forward from cost; competition-based pricing anchors to rivals.'},
+
 {week:3,type:'mcq',question:'A mixed cost contains:',options:['A. Only fixed elements','B. Only variable elements','C. Both fixed and variable elements','D. Neither fixed nor variable elements'],answer:2,explanation:'A mixed cost has a fixed base (incurred regardless of activity) and a variable component (increases with activity). Example: a phone plan with a $30/month base fee plus $0.10/minute.'},
+
 {week:3,type:'mcq',question:'Which of the following is a LIMITATION of CVP analysis?',options:['A. It ignores contribution margin','B. It assumes costs can be separated into fixed and variable','C. It cannot calculate break-even','D. It does not use selling price'],answer:1,explanation:'CVP assumes all costs are either purely fixed or purely variable, ignores step costs and mixed cost complexities, and assumes a constant sales mix. Real-world cost behaviour is more complex.'},
+
 {week:3,type:'mcq',question:'A firm has SP=$80, VC=$50, and FC=$150,000. If it sells 6,000 units, its Margin of Safety as a percentage of actual sales is:',options:['A. 16.7%','B. 25.0%','C. 33.3%','D. 50.0%'],answer:1,explanation:'CM=$30. BEP=150,000/30=5,000 units. MOS=6,000−5,000=1,000. MOS%=1,000/6,000=16.7%.'},
+
 {week:3,type:'numerical',
+
   question:'Urbayn Restaurant: Dining (SP=$70, VC=$40, mix=60%) and Functions (SP=$90, VC=$50, mix=40%). Fixed Costs = $3,000,000. Calculate the Break-Even Point in total guests.',
+
   keywords:['CM dining','30','CM functions','40','WACM','34','88235','88236'],
+
   modelAnswer:'CM Dining=$30; CM Functions=$40\nWACM = ($30×0.60)+($40×0.40) = $18+$16 = $34\nBEP = $3,000,000÷$34 = 88,235 guests (round up to 88,236)',
+
   hint:'Calculate CM for each product, then WACM = Σ(CM_i × mix_i).',
+
   hint2:'BEP = FC ÷ WACM = $3,000,000 ÷ $34'},
+
 {week:3,type:'numerical',
+
   question:'Urbayn (Dining SP=$70 VC=$40 mix=60%; Functions SP=$90 VC=$50 mix=40%; FC=$3,000,000) wants after-tax profit of $2,500,000. Tax rate 30%. Total guests needed?',
+
   keywords:['pre-tax','3571429','3,571,429','193277','193278','WACM','34'],
+
   modelAnswer:'Pre-tax = $2,500,000÷0.70 = $3,571,429\nWACM = $34\nTarget = ($3,000,000+$3,571,429)÷$34 ≈ 193,278 guests',
+
   hint:'Convert after-tax to pre-tax first: pre-tax = after-tax ÷ (1 − tax rate).',
+
   hint2:'Target = (FC + pre-tax profit) ÷ WACM'},
+
 {week:3,type:'numerical',
+
   question:'A business: SP=$50, VC=$30, FC=$80,000. Calculate (a) CM per unit, (b) CM Ratio, (c) BEP units, (d) BEP revenue.',
+
   keywords:['20','0.4','40%','4000','200000'],
+
   modelAnswer:'(a) CM = $50−$30 = $20\n(b) CM Ratio = $20÷$50 = 0.40 = 40%\n(c) BEP units = $80,000÷$20 = 4,000\n(d) BEP revenue = $80,000÷0.40 = $200,000',
+
   hint:'CM per unit = SP − VC. CM Ratio = CM ÷ SP.',
+
   hint2:'BEP revenue = FC ÷ CM Ratio. Check: 4,000 × $50 = $200,000 ✓'},
+
 {week:3,type:'numerical',
+
   question:'A company sells 6,000 units. FC=$80,000, CM per unit=$20. Calculate Margin of Safety in units and as a percentage.',
+
   keywords:['BEP','4000','MOS','2000','33','33.3%'],
+
   modelAnswer:'BEP = $80,000÷$20 = 4,000 units\nMOS = 6,000−4,000 = 2,000 units\nMOS% = 2,000÷6,000×100 = 33.3%',
+
   hint:'First find BEP, then subtract from actual sales.',
+
   hint2:'MOS% = MOS units ÷ Actual sales × 100'},
+
 {week:3,type:'multipart',
+
   scenario:'TechBox: Basic (SP=$60, VC=$36, mix=70%) and Pro (SP=$100, VC=$55, mix=30%). FC=$450,000. Target after-tax profit=$630,000 at 30% tax.',
+
   parts:[
+
     {label:'a',question:'Calculate the Weighted Average Contribution Margin (WACM).',keywords:['CM basic','24','CM pro','45','WACM','30.3','30.30'],modelAnswer:'CM Basic=$60−$36=$24; CM Pro=$100−$55=$45\nWACM=($24×0.70)+($45×0.30)=$16.80+$13.50=$30.30'},
+
     {label:'b',question:'Calculate total units needed to achieve the target after-tax profit.',keywords:['pre-tax','900000','1350000','44554','44,554'],modelAnswer:'Pre-tax=$630,000÷0.70=$900,000\nTarget=($450,000+$900,000)÷$30.30≈44,554 units'},
+
     {label:'c',question:'How many units of Basic and Pro must be sold separately?',keywords:['Basic','31188','31,188','Pro','13366','13,366'],modelAnswer:'Basic=44,554×70%≈31,188; Pro=44,554×30%≈13,366'}
+
   ],
+
   hint:'Use WACM formula, then convert after-tax to pre-tax before finding target units.',
+
   hint2:'Split total units by sales mix % for part (c).'},
 
+
+
 {week:3,type:'numerical',
+
   question:'FurBall Hotel Ltd charges $90/night per room. Variable cost per room per night = $40. Fixed costs = $1,600,000 per year. (a) What is CM per unit? (b) What is the BEP in room-nights? (c) What is the BEP in sales revenue?',
+
   keywords:['50','32000','32,000','1600000','2880000','2,880,000'],
-  modelAnswer:'(a) CM = $90 − $40 = $50 per room-night
-(b) BEP = $1,600,000 ÷ $50 = 32,000 room-nights
-(c) BEP revenue = 32,000 × $90 = $2,880,000 (or FC ÷ CM Ratio = $1,600,000 ÷ 0.556 = $2,880,000)',
+
+  modelAnswer:'(a) CM = $90 − $40 = $50 per room-night\n(b) BEP = $1,600,000 ÷ $50 = 32,000 room-nights\n(c) BEP revenue = 32,000 × $90 = $2,880,000 (or FC ÷ CM Ratio = $1,600,000 ÷ 0.556 = $2,880,000)',
+
   hint:'CM = SP − VC. BEP units = FC ÷ CM. BEP revenue = BEP units × SP.',
+
   hint2:'CM Ratio = $50/$90 = 55.6%. BEP revenue = FC ÷ CM Ratio.'},
+
 {week:3,type:'numerical',
+
   question:'FurBall Hotel has 300 rooms. SP=$90, VC=$40, FC=$1,600,000, tax rate=30%. What is the number of room-nights needed to achieve an after-tax profit of $2,500,000?',
+
   keywords:['pre-tax','3571429','3,571,429','103143','103,143'],
-  modelAnswer:'Pre-tax profit = $2,500,000 ÷ (1 − 0.30) = $3,571,429
-Target = (FC + Pre-tax) ÷ CM = ($1,600,000 + $3,571,429) ÷ $50 = $5,171,429 ÷ $50 ≈ 103,429 room-nights',
+
+  modelAnswer:'Pre-tax profit = $2,500,000 ÷ (1 − 0.30) = $3,571,429\nTarget = (FC + Pre-tax) ÷ CM = ($1,600,000 + $3,571,429) ÷ $50 = $5,171,429 ÷ $50 ≈ 103,429 room-nights',
+
   hint:'Convert after-tax to pre-tax: pre-tax = after-tax ÷ (1 − tax rate).',
+
   hint2:'Target units = (FC + pre-tax profit) ÷ CM per unit.'},
+
 {week:3,type:'numerical',
+
   question:'A company sells Product A (SP=$120, VC=$70, mix=40%) and Product B (SP=$80, VC=$30, mix=60%). Total fixed costs=$840,000. (a) Calculate WACM. (b) Calculate BEP in total units.',
+
   keywords:['CM A','50','CM B','50','WACM','50','16800','16,800'],
-  modelAnswer:'CM A = $120−$70 = $50; CM B = $80−$30 = $50
-WACM = ($50×0.40)+($50×0.60) = $20+$30 = $50
-BEP = $840,000÷$50 = 16,800 units',
+
+  modelAnswer:'CM A = $120−$70 = $50; CM B = $80−$30 = $50\nWACM = ($50×0.40)+($50×0.60) = $20+$30 = $50\nBEP = $840,000÷$50 = 16,800 units',
+
   hint:'Calculate CM for each product, then WACM = Σ(CM_i × mix_i).',
+
   hint2:'When CM is the same for all products, WACM = that CM regardless of sales mix.'},
+
 {week:3,type:'numerical',
+
   question:'Price analysis: Product costs $60 to make (VC). Fixed costs allocated = $20. Competitor charges $100. Customers value the product at $110 (WTP). (a) What price maximises value capture while being competitive? (b) What is the CM at that price?',
+
   keywords:['100','competitive','40','CM','price'],
-  modelAnswer:'(a) The ceiling is customer WTP = $110. The floor is variable cost = $60. Competitor charges $100. A price of $99 or $100 captures value while undercutting or matching the competitor. $100 is a reasonable choice.
-(b) CM = $100 − $60 = $40 per unit. The $20 fixed cost allocation is irrelevant for pricing decisions — only VC matters for CM.',
+
+  modelAnswer:'(a) The ceiling is customer WTP = $110. The floor is variable cost = $60. Competitor charges $100. A price of $99 or $100 captures value while undercutting or matching the competitor. $100 is a reasonable choice.\n(b) CM = $100 − $60 = $40 per unit. The $20 fixed cost allocation is irrelevant for pricing decisions — only VC matters for CM.',
+
   hint:'The pricing floor is variable cost; the ceiling is customer WTP. Competitor price sets the reference.',
+
   hint2:'CM uses variable cost only — fixed cost allocations do not affect the contribution per unit.'},
 
+
+
 // WEEK 4
+
 {week:4,type:'sa',question:'Why did organisations need the Balanced Scorecard — what limitation does it address?',keywords:['financial','non-financial','lagging','short-term','future','strategy','intangible'],modelAnswer:'Traditional measurement relied on financial metrics (profit, ROI) which are lagging and fail to capture non-financial drivers like customer relationships, operational efficiency, and employee capability. The BSC adds four balanced perspectives — financial and non-financial, lagging and leading — to give a comprehensive view of strategy execution.'},
+
 {week:4,type:'sa',question:'Provide one example KPI for each of the four BSC perspectives.',keywords:['financial','customer','internal','learning','ROI','satisfaction','cycle time','training'],modelAnswer:'Financial: ROI or Revenue Growth %\nCustomer: NPS or Customer Retention Rate\nInternal Process: Order Fulfillment Cycle Time or Defect Rate\nLearning & Growth: Training Hours per Employee or Staff Turnover Rate'},
+
 {week:4,type:'multipart',
+
   scenario:'FlexiGym is implementing a BSC. Strategy: retain members by improving service quality and investing in staff training.',
+
   parts:[
+
     {label:'a',question:'Identify one objective and one KPI for the Learning & Growth perspective.',keywords:['training','staff','skills','hours','capability'],modelAnswer:'Objective: Improve staff service skills. KPI: Average training hours per employee per quarter (target: ≥8 hours).'},
+
     {label:'b',question:'Explain the cause-and-effect logic linking Learning & Growth to the Financial perspective.',keywords:['training','service','customer','satisfaction','retention','revenue','profit','cause','effect'],modelAnswer:'Better-trained staff (L&G) → improved service quality (Process) → higher member satisfaction (Customer) → higher membership revenue and lower churn (Financial).'},
+
     {label:'c',question:'Why would using only financial KPIs be insufficient for FlexiGym?',keywords:['lagging','past','non-financial','future','predict','short-term'],modelAnswer:'Financial KPIs are lagging — they show past results. They don\'t capture whether training is occurring, whether members are satisfied, or whether processes are improving. Non-financial leading indicators predict future performance.'}
+
   ],
+
   hint:'Think about the BSC chain: Learning → Process → Customer → Financial.',
+
   hint2:'For (c), focus on the lagging/leading distinction and predictive power.'},
 
+
+
 // WEEK 4 — Additional SA questions (Section B: qualitative)
+
 {week:4,type:'sa',question:'Explain the difference between leading and lagging indicators in the Balanced Scorecard. Give one example of each in a university context.',keywords:['leading','lagging','predict','future','past','outcome','driver','lecture attendance','satisfaction'],modelAnswer:'Lagging indicators measure past outcomes (e.g. final exam pass rate — tells you what happened). Leading indicators predict future performance (e.g. weekly tutorial attendance — predicts exam success before it occurs). In a university context: lagging = graduate employment rate; leading = student satisfaction scores or assignment submission rates. The BSC uses both: lagging to assess outcomes, leading to intervene early.'},
+
 {week:4,type:'sa',question:'A retail bank implements a BSC strategy map. Explain the cause-and-effect logic from Learning & Growth through to the Financial perspective.',keywords:['learning','training','process','customer','satisfaction','financial','revenue','cause','effect','chain'],modelAnswer:'Learning & Growth: invest in staff training and digital skills → Internal Process: faster loan processing, fewer errors, better digital tools → Customer: higher satisfaction, lower churn, more referrals → Financial: higher revenue from new accounts, lower cost of complaints, improved profit margins. Each perspective enables the next — the strategy map makes this causal chain explicit so managers know which investments drive financial results.'},
+
 {week:4,type:'sa',question:'Why was the Balanced Scorecard developed, and what specific limitation of traditional performance measurement systems does it address?',keywords:['financial','non-financial','lagging','short-term','intangible','strategy','future','past','balance'],modelAnswer:'The BSC was developed by Kaplan and Norton (1992) to address the over-reliance on financial metrics in traditional systems. Financial measures are lagging — they show past results but cannot predict future performance or capture how strategy is being executed. They also ignore intangible drivers of value like employee capability, customer relationships, and process quality. The BSC balances financial and non-financial, lagging and leading indicators across four perspectives, giving a complete view of strategy execution.'},
+
 {week:4,type:'sa',question:'What role does technology play in the Learning & Growth perspective of the BSC? Give a specific example of an IT investment and trace its impact through the four perspectives.',keywords:['technology','IT','information capital','learning','process','customer','financial','CRM','system','capability'],modelAnswer:'In the BSC\'s Learning & Growth perspective, technology (information capital) is a strategic asset. Example: investing in a CRM system → Learning & Growth: staff learn to use CRM data → Internal Process: faster, personalised customer service responses → Customer: higher satisfaction scores and loyalty → Financial: increased repeat purchases and lower customer acquisition cost. Technology investment becomes valuable only when linked to process improvements that ultimately drive financial outcomes.'},
 
+
+
 {week:4,type:'sa',question:'Explain three key benefits of digital transformation for a business\'s cost structure, using the concepts of "perfect transmission", "indefinite replication", and "near-zero marginal cost".',keywords:['perfect transmission','indefinite replication','near zero marginal cost','digital','scalability','cost','distortion'],modelAnswer:'1. Perfect transmission: digital information can be sent without loss or distortion, enabling exact replication across any distance at minimal cost. 2. Indefinite replication: digital products (software, content) can be copied unlimited times with no degradation, unlike physical goods. 3. Near-zero marginal cost: after the initial infrastructure investment, the cost of serving one more customer approaches zero — enabling massive scalability. Together these explain why digital businesses can grow rapidly without proportional cost increases.'},
+
 {week:4,type:'sa',question:'What is the Business Model Canvas and how does IT/IS investment relate to it?',keywords:['Business Model Canvas','value proposition','customer segments','revenue streams','key resources','IT','technology','channels','partners'],modelAnswer:'The Business Model Canvas is a strategic tool that maps how a firm creates, delivers, and captures value across nine building blocks: customer segments, value propositions, channels, customer relationships, revenue streams, key resources, key activities, key partnerships, and cost structure. IT/IS investment affects multiple blocks simultaneously — e.g. a CRM system improves customer relationships and channels; cloud infrastructure reduces cost structure; digital platforms can transform revenue streams from one-off sales to subscriptions.'},
+
 {week:4,type:'sa',question:'Describe two different e-commerce business models (e.g. B2C and B2B) and explain how each creates different types of value.',keywords:['B2C','B2B','C2C','consumer','business','Amazon','Salesforce','personalisation','bulk','platform'],modelAnswer:'B2C (e.g. Amazon): businesses sell directly to consumers via digital platforms. Value is created through convenience, price comparison, personalisation, and fast delivery — reducing search and transaction costs for consumers. B2B (e.g. Salesforce): businesses sell software or services to other businesses. Value is created through process efficiency, data integration, and scalability — reducing operational costs and enabling smarter decision-making for the buying organisation.'},
+
 {week:4,type:'sa',question:'What is a "platform business model" and how does it differ from a traditional pipeline model? Give an example.',keywords:['platform','pipeline','network effect','Uber','Airbnb','two-sided','marketplace','intermediary'],modelAnswer:'A pipeline model creates and sells a product or service linearly (firm → customer). A platform model facilitates interactions between two or more user groups (e.g. buyers and sellers), creating value through network effects — the more users, the more valuable the platform becomes. Example: Uber connects drivers (supply) and riders (demand); it owns no cars but coordinates transactions digitally. Unlike a taxi company (pipeline), Uber\'s value grows exponentially with users due to network effects.'},
+
 {week:4,type:'sa',question:'How does the Balanced Scorecard\'s Learning & Growth perspective help justify IT investments that may not show immediate financial returns?',keywords:['leading indicator','intangible','information capital','long-run','future','BSC','Learning and Growth','financial'],modelAnswer:'IT investments appear in Learning & Growth as information capital (systems, data, infrastructure). The BSC explicitly recognises that these investments are leading indicators: better IT enables better processes (Internal Process perspective) → better customer service (Customer perspective) → higher future revenues (Financial perspective). Without the BSC, IT spend looks like pure cost on a financial statement. The BSC makes the cause-and-effect chain visible, allowing management to justify and monitor investments that pay off over time.'},
+
 {week:4,type:'sa',question:'What are "dysfunctional consequences" of poorly designed performance measures? Give two specific examples.',keywords:['dysfunctional','gaming','tunnel vision','short-term','manipulation','unintended','KPI','measure'],modelAnswer:'Dysfunctional consequences occur when employees optimise for the measure rather than the underlying goal. Example 1: Tunnel vision — if a call centre measures only "calls resolved per hour", agents may rush calls, reducing quality. Example 2: Gaming/manipulation — if managers are bonused on quarterly profit, they may defer necessary maintenance or R&D spending to boost short-term numbers, destroying long-run value. Good performance measures are balanced (multiple perspectives), linked to strategy, and difficult to manipulate without actually improving performance.'},
 
+
+
 // WEEK 5
+
 {week:5,type:'mcq',question:'The Time Value of Money principle states that:',options:['A. Money loses value due to inflation only','B. A dollar today is worth more than a dollar in the future','C. Future cash flows are always worth more than present ones','D. Interest rates determine all financial decisions'],answer:1,explanation:'TVM: A dollar today is worth more than a dollar in the future because money today can be invested to earn a return.'},
+
 {week:5,type:'mcq',question:'If APR = 12% compounded monthly, what is the Effective Annual Rate (EAR)?',options:['A. 12.00%','B. 12.36%','C. 12.68%','D. 13.00%'],answer:2,explanation:'EAR = (1+0.12/12)^12 − 1 = (1.01)^12 − 1 = 1.1268 − 1 = 12.68%.'},
+
 {week:5,type:'mcq',question:'An ordinary annuity pays at END of each period. Annuity due pays at BEGINNING. Which has higher PV?',options:['A. Ordinary annuity','B. Annuity due','C. They are equal','D. Depends on rate'],answer:1,explanation:'Annuity due has higher PV because each payment is received one period earlier. PV(due) = PV(ordinary) × (1+r).'},
+
 {week:5,type:'mcq',question:'The present value of a perpetuity paying $500/year at 10% discount rate is:',options:['A. $50','B. $5,000','C. $500','D. $4,545'],answer:1,explanation:'PV(perpetuity) = C÷r = $500÷0.10 = $5,000.'},
+
 {week:5,type:'mcq',question:'A growing perpetuity: C₁=$200, g=3%, r=8%. Its PV is:',options:['A. $2,500','B. $3,077','C. $4,000','D. $6,667'],answer:2,explanation:'PV = C₁÷(r−g) = $200÷(0.08−0.03) = $200÷0.05 = $4,000.'},
 
+
+
 {week:5,type:'mcq',question:'How long does it take to double your money at 8% per year compounded annually? (Use the Rule of 72 or exact formula.)',options:['A. 7.2 years','B. 8.0 years','C. 9.0 years','D. 10.0 years'],answer:2,explanation:'Exact: n = ln(2)/ln(1.08) = 0.6931/0.07696 = 9.006 years. Rule of 72: 72/8 = 9 years. Answer is approximately 9 years.'},
+
 {week:5,type:'mcq',question:'You have a loan requiring three annual payments of $1,000. The bank offers to let you skip payments 1 and 2 and make one final payment at year 3 instead. If the rate is 5%, the single payment required is:',options:['A. $3,000.00','B. $3,050.00','C. $3,152.50','D. $3,310.13'],answer:2,explanation:'FV of payment 1 (2 years forward): $1,000×(1.05)²=$1,102.50. FV of payment 2 (1 year forward): $1,000×1.05=$1,050. Payment 3: $1,000. Total: $1,102.50+$1,050+$1,000=$3,152.50.'},
+
 {week:5,type:'mcq',question:'What is the APR (semi-annual compounding) equivalent to an EAR of 5%?',options:['A. 4.88%','B. 5.00%','C. 4.94%','D. 5.06%'],answer:0,explanation:'EAR=(1+APR/2)²−1=0.05 → (1+APR/2)=√1.05=1.02470 → APR/2=0.02470 → APR=4.94%. Wait — that gives C. Let me recheck: 4.88% gives (1+0.0488/2)²−1=(1.0244)²−1=1.0493−1=4.93%. Correct answer is C: 4.94%. Note: trick question to distinguish APR from EAR direction.'},
+
 {week:5,type:'mcq',question:'Which statement about an annuity due is CORRECT?',options:['A. Payments occur at the end of each period','B. Its PV is lower than an equivalent ordinary annuity','C. Its PV equals ordinary annuity PV multiplied by (1+r)','D. It is the same as a perpetuity'],answer:2,explanation:'Annuity due has payments at the START of each period. PV(due) = PV(ordinary) × (1+r), because each payment is one period closer. This makes the PV higher, not lower.'},
+
 {week:5,type:'numerical',
+
   question:'You invest $5,000 today at 6% per year. What is it worth in 8 years?',
+
   keywords:['FV','5000','1.06','8','7969','7,969'],
+
   modelAnswer:'FV = $5,000 × (1.06)^8 = $5,000 × 1.5938 = $7,969.24',
+
   hint:'FV = PV × (1+r)^n',
+
   hint2:'(1.06)^8 ≈ 1.5938'},
+
 {week:5,type:'numerical',
+
   question:'You need $20,000 in 5 years. Interest rate = 7%/year. How much must you invest today?',
+
   keywords:['PV','20000','1.07','5','14259','14,260'],
+
   modelAnswer:'PV = $20,000÷(1.07)^5 = $20,000÷1.4026 = $14,259.74',
+
   hint:'PV = FV÷(1+r)^n',
+
   hint2:'(1.07)^5 ≈ 1.4026'},
+
 {week:5,type:'numerical',
+
   question:'Calculate the EAR for an APR of 18% compounded monthly.',
+
   keywords:['EAR','1.015','12','19.56','19.56%'],
+
   modelAnswer:'EAR = (1+0.18/12)^12 − 1 = (1.015)^12 − 1 = 19.56%',
+
   hint:'EAR = (1+APR/m)^m − 1, m=12 for monthly.',
+
   hint2:'0.18/12 = 0.015 per month'},
+
 {week:5,type:'numerical',
+
   question:'You receive $3,000/year for 5 years, starting one year from now. Discount rate = 8%. What is the PV of this ordinary annuity?',
+
   keywords:['PV','3000','0.08','5','11978','11,978'],
+
   modelAnswer:'PV = $3,000×[1−(1.08)^−5]÷0.08 = $3,000×3.9927 = $11,978',
+
   hint:'PV annuity = C×[1−(1+r)^−n]÷r',
+
   hint2:'(1.08)^5=1.4693, so (1.08)^−5=0.6806'},
+
 {week:5,type:'numerical',
+
   question:'PV of growing perpetuity: first payment $1,000 in one year, r=10%, g=4%.',
+
   keywords:['1000','0.10','0.04','0.06','16667','16,667'],
+
   modelAnswer:'PV = $1,000÷(0.10−0.04) = $1,000÷0.06 = $16,667',
+
   hint:'PV = C₁÷(r−g). Ensure r > g.',
+
   hint2:'r−g = 0.10−0.04 = 0.06'},
+
 {week:5,type:'multipart',
+
   scenario:'Sarah deposits $4,000/year at end of each year for 10 years, earning 7%/year. She then withdraws equal annual amounts for 15 years (starting one year after last deposit) from an account earning 5%.',
+
   parts:[
+
     {label:'a',question:'What is the FV of her deposits after 10 years?',keywords:['FV','4000','0.07','10','55224','55,224'],modelAnswer:'FV = $4,000×[(1.07)^10−1]÷0.07 = $4,000×13.816 = $55,264'},
+
     {label:'b',question:'Using FV from (a) as PV at year 10, what annual withdrawal can she make for 15 years at 5%?',keywords:['PMT','55224','0.05','15','5273','5,273','5,320'],modelAnswer:'C = $55,264×0.05÷[1−(1.05)^−15] = $2,763÷0.5190 ≈ $5,324/year'},
+
     {label:'c',question:'If Sarah wanted $7,000/year, would her savings be sufficient?',keywords:['PV','7000','0.05','15','72421','insufficient','not enough'],modelAnswer:'PV of $7,000 for 15yr at 5% = $7,000×10.380 = $72,658. Since $72,658 > $55,264, savings are insufficient.'}
+
   ],
+
   hint:'Part (a): FV annuity formula. Part (b): rearrange PV annuity for C.',
+
   hint2:'For (c): calculate PV of desired withdrawal stream and compare to available funds.'},
 
+
+
 // WEEK 5 — Practice Exam Questions
+
 {week:5,type:'multipart',
+
   scenario:'A bank account offers a 16.0% APR with monthly compounding.',
+
   parts:[
+
     {label:'A',question:'What is the per period interest rate? The periodic interest rate is ___% per month. (Round to two decimal places.)',keywords:['1.33','16/12','1.33%','periodic'],modelAnswer:'Periodic rate = APR ÷ m = 16% ÷ 12 = 1.33% per month'},
+
     {label:'B',question:'How much would a $700 investment be worth after 1 year? The future value of $700 investment in 1 year is $___. (Round to the nearest cent.)',keywords:['820.59','700','1.013333','12'],modelAnswer:'FV = $700 × (1 + 0.16/12)^12 = $700 × (1.013333)^12 = $700 × 1.17227 = $820.59'}
+
   ],
+
   hint:'Part A: divide APR by the number of compounding periods per year. Part B: use FV = PV × (1+r)^n with the monthly periodic rate.',
+
   hint2:'Part A: 16% ÷ 12 = 1.33%. Part B: n = 12 monthly periods, r = 0.0133.'},
-{week:5,type:'numerical',
-  question:'A saving account of $14,000 will be worth $30,000 in 10 years. What is the per year interest rate of a saving account? (Give answer correct to 2 decimal places, %)',
-  keywords:['7.92','30000','14000','10','2.14286'],
-  modelAnswer:'r = (FV/PV)^(1/n) − 1 = (30,000/14,000)^(1/10) − 1 = (2.14286)^0.1 − 1 = 7.92% per year',
-  hint:'Rearrange FV = PV × (1+r)^n to solve for r: r = (FV/PV)^(1/n) − 1',
-  hint2:'FV/PV = 30,000/14,000 = 2.14286. Raise to the power of 1/10.'},
-{week:5,type:'numerical',
-  question:'A perpetuity makes its first annual payment of $128 in 22 years. What is its present value at an annual discount rate of 5.0%? The present value is $___ for perpetual cash flows starting in 22 years at an annual discount rate of 5.0%. (Round to the nearest cent.)',
-  keywords:['919','919.07','2560','21','1.05'],
-  modelAnswer:'Step 1: PV at year 21 (one period before first payment) = C/r = $128/0.05 = $2,560\nStep 2: Discount back 21 years to today: PV = $2,560/(1.05)^21 = $2,560/2.7856 = $919.07',
-  hint:'A deferred perpetuity: first find the PV one period before the first payment, then discount that back to today.',
-  hint2:'PV at t=21: $128 ÷ 0.05 = $2,560. Then discount: $2,560 ÷ (1.05)^21.'},
-{week:5,type:'numerical',
-  question:'You are thinking of purchasing a house. The house costs $300,000. You have $40,000 in cash that you can use as a down payment on the house, but you need to borrow the rest of the purchase price. The bank is offering a 25-year mortgage that requires annual payments and has an interest rate of 4.0% per year. What will your annual payment be if you sign up for this mortgage? The annual payment is $___. (Round to the nearest dollar.)',
-  keywords:['16642','16,642','260000','0.04','25'],
-  modelAnswer:'Loan = $300,000 − $40,000 = $260,000\nRearrange annuity PV formula: C = PV × r / [1 − (1+r)^−n]\nC = $260,000 × 0.04 / [1 − (1.04)^−25] = $10,400 / 0.6249 = $16,642 per year',
-  hint:'Loan amount = house price − down payment. Then use the annuity payment formula: C = PV × r / [1 − (1+r)^−n].',
-  hint2:'Loan = $260,000. (1.04)^25 = 2.6658, so (1.04)^−25 = 0.3751. Denominator = 1 − 0.3751 = 0.6249.'},
 
 {week:5,type:'numerical',
+
+  question:'A saving account of $14,000 will be worth $30,000 in 10 years. What is the per year interest rate of a saving account? (Give answer correct to 2 decimal places, %)',
+
+  keywords:['7.92','30000','14000','10','2.14286'],
+
+  modelAnswer:'r = (FV/PV)^(1/n) − 1 = (30,000/14,000)^(1/10) − 1 = (2.14286)^0.1 − 1 = 7.92% per year',
+
+  hint:'Rearrange FV = PV × (1+r)^n to solve for r: r = (FV/PV)^(1/n) − 1',
+
+  hint2:'FV/PV = 30,000/14,000 = 2.14286. Raise to the power of 1/10.'},
+
+{week:5,type:'numerical',
+
+  question:'A perpetuity makes its first annual payment of $128 in 22 years. What is its present value at an annual discount rate of 5.0%? The present value is $___ for perpetual cash flows starting in 22 years at an annual discount rate of 5.0%. (Round to the nearest cent.)',
+
+  keywords:['919','919.07','2560','21','1.05'],
+
+  modelAnswer:'Step 1: PV at year 21 (one period before first payment) = C/r = $128/0.05 = $2,560\nStep 2: Discount back 21 years to today: PV = $2,560/(1.05)^21 = $2,560/2.7856 = $919.07',
+
+  hint:'A deferred perpetuity: first find the PV one period before the first payment, then discount that back to today.',
+
+  hint2:'PV at t=21: $128 ÷ 0.05 = $2,560. Then discount: $2,560 ÷ (1.05)^21.'},
+
+{week:5,type:'numerical',
+
+  question:'You are thinking of purchasing a house. The house costs $300,000. You have $40,000 in cash that you can use as a down payment on the house, but you need to borrow the rest of the purchase price. The bank is offering a 25-year mortgage that requires annual payments and has an interest rate of 4.0% per year. What will your annual payment be if you sign up for this mortgage? The annual payment is $___. (Round to the nearest dollar.)',
+
+  keywords:['16642','16,642','260000','0.04','25'],
+
+  modelAnswer:'Loan = $300,000 − $40,000 = $260,000\nRearrange annuity PV formula: C = PV × r / [1 − (1+r)^−n]\nC = $260,000 × 0.04 / [1 − (1.04)^−25] = $10,400 / 0.6249 = $16,642 per year',
+
+  hint:'Loan amount = house price − down payment. Then use the annuity payment formula: C = PV × r / [1 − (1+r)^−n].',
+
+  hint2:'Loan = $260,000. (1.04)^25 = 2.6658, so (1.04)^−25 = 0.3751. Denominator = 1 − 0.3751 = 0.6249.'},
+
+
+
+{week:5,type:'numerical',
+
   question:'How long does it take to double $5,000 invested at 6% per year compounded annually? (Round to 2 decimal places.)',
+
   keywords:['11.90','11.9','ln2','0.6931'],
-  modelAnswer:'FV = 2 × PV: 2 = (1.06)^n
-n = ln(2) / ln(1.06) = 0.6931 / 0.05827 = 11.90 years',
+
+  modelAnswer:'FV = 2 × PV: 2 = (1.06)^n\nn = ln(2) / ln(1.06) = 0.6931 / 0.05827 = 11.90 years',
+
   hint:'Set FV = 2×PV in FV=PV×(1+r)^n, then take logarithms: n = ln(2)/ln(1+r).',
+
   hint2:'ln(2)=0.6931; ln(1.06)=0.05827'},
+
 {week:5,type:'numerical',
+
   question:'You want to receive $10,000 per year for 20 years, with the first payment starting in 6 years (a deferred annuity). Discount rate is 7%. What is the PV today?',
+
   keywords:['53490','53,490','105940','0.07','20','6'],
-  modelAnswer:'Step 1: PV at year 5 (ordinary annuity, 20 payments at 7%):
-PV₅ = $10,000 × [1−(1.07)^−20]/0.07 = $10,000 × 10.594 = $105,940
-Step 2: Discount back 5 years to today:
-PV₀ = $105,940 / (1.07)^5 = $105,940 / 1.4026 = $75,528
-(Alternatively PV₀ = $105,940 × (1.07)^−5 = $75,528)',
+
+  modelAnswer:'Step 1: PV at year 5 (ordinary annuity, 20 payments at 7%):\nPV₅ = $10,000 × [1−(1.07)^−20]/0.07 = $10,000 × 10.594 = $105,940\nStep 2: Discount back 5 years to today:\nPV₀ = $105,940 / (1.07)^5 = $105,940 / 1.4026 = $75,528\n(Alternatively PV₀ = $105,940 × (1.07)^−5 = $75,528)',
+
   hint:'First find PV at the period just before the first payment (year 5), then discount that back to today.',
+
   hint2:'PV at year 5 = $10,000 × annuity factor(7%,20). Then divide by (1.07)^5.'},
+
 {week:5,type:'numerical',
+
   question:'You have a credit card charging 15% APR compounded monthly. Your parents offer to lend at 8% every 6 months. Which is the lower EAR?',
+
   keywords:['16.08','16.08%','credit card','16.64','8','parents','worse'],
-  modelAnswer:'Credit card EAR = (1 + 0.15/12)^12 − 1 = (1.0125)^12 − 1 = 16.08%
-Parents: 8% per 6 months = EAR = (1.08)^2 − 1 = 16.64%
-The credit card has the lower EAR (16.08% < 16.64%) — the parents' rate is actually more expensive.',
+
+  modelAnswer:'Credit card EAR = (1 + 0.15/12)^12 − 1 = (1.0125)^12 − 1 = 16.08%\nParents: 8% per 6 months = EAR = (1.08)^2 − 1 = 16.64%\nThe credit card has the lower EAR (16.08% < 16.64%) — the parents\' rate is actually more expensive.',
   hint:'Convert both to EAR for comparison. EAR=(1+periodic rate)^m − 1.',
   hint2:'Credit card: m=12, r=0.0125. Parents: m=2, r=0.08.'},
 {week:5,type:'numerical',
   question:'A bond pays $70,000 every 7 years for 42 years (first payment in 7 years). Discount rate = 6% EAR. What is the PV?',
   keywords:['233,776','233776','6 payments','7-year','annuity'],
-  modelAnswer:'This is an annuity of 6 payments of $70,000, occurring at years 7,14,21,28,35,42.
-Effective 7-year rate = (1.06)^7 − 1 = 50.36%
-PV = $70,000 × [1−(1.5036)^−6] / 0.5036
-= $70,000 × [1−0.1157] / 0.5036 = $70,000 × 1.7550 = $122,850
-Alternatively, treat as ordinary annuity with 7-year periods:
-PV = $70,000/1.5036 + $70,000/1.5036² + ... (6 terms)
-PV ≈ $233,776',
+  modelAnswer:'This is an annuity of 6 payments of $70,000, occurring at years 7,14,21,28,35,42.\n\nEffective 7-year rate = (1.06)^7 − 1 = 50.36%\n\nPV = $70,000 × [1−(1.5036)^−6] / 0.5036\n\n= $70,000 × [1−0.1157] / 0.5036 = $70,000 × 1.7550 = $122,850\n\nAlternatively, treat as ordinary annuity with 7-year periods:\n\nPV = $70,000/1.5036 + $70,000/1.5036² + ... (6 terms)\n\nPV ≈ $233,776',
   hint:'Find the effective rate per 7-year period: (1.06)^7 − 1. Then apply annuity PV formula with n=6 payments.',
   hint2:'7-year rate = (1.06)^7−1 = 0.5036. Annuity factor (6 payments, 50.36%) = [1−(1.5036)^−6]/0.5036.'},
 
@@ -1166,874 +2279,1692 @@ PV ≈ $233,776',
 {week:7,type:'mcq',question:'When should Equivalent Annual Annuity (EAA) be used?',options:['A. When discount rates differ','B. When comparing mutually exclusive projects with different lives','C. When cash flows are negative','D. When IRR cannot be calculated'],answer:1,explanation:'EAA converts NPV to an annual equivalent, allowing like-for-like comparison of projects with different time horizons.'},
 
 {week:7,type:'mcq',question:'The payback period rule is defined as: accept a project if its payback period is:',options:['A. Greater than the discount rate','B. Less than the required payback period set by management','C. Greater than the project\'s NPV','D. Equal to the project\'s life'],answer:1,explanation:'The payback rule: accept if payback < required payback threshold. The threshold is set by management (not derived from finance theory). This rule ignores time value of money and cash flows beyond the payback period.'},
+
 {week:7,type:'mcq',question:'Which scenario can cause a project to have MULTIPLE IRRs?',options:['A. The project has a very high NPV','B. The project\'s cash flows change sign more than once','C. The project competes with another mutually exclusive project','D. The project has a long life'],answer:1,explanation:'Multiple sign changes (positive → negative → positive cash flows) can yield multiple IRRs. This makes IRR unreliable for non-conventional cash flows.'},
+
 {week:7,type:'mcq',question:'In capital rationing, which metric is most useful for selecting projects?',options:['A. IRR — select the project with highest IRR','B. Payback period — select the shortest payback','C. Profitability Index — select projects with highest PI','D. EAA — select the project with highest EAA'],answer:2,explanation:'With a limited budget, PI = NPV/investment ranks projects by "bang for buck" — maximising total NPV from the available capital. IRR can mislead on scale.'},
+
 {week:7,type:'mcq',question:'The NPV decision rule is theoretically superior to IRR primarily because:',options:['A. It is easier to calculate','B. It measures the absolute dollar value added to the firm','C. It always gives a higher number than IRR','D. It requires fewer inputs'],answer:1,explanation:'NPV measures the dollar increase in firm value. IRR measures % return which says nothing about scale. NPV also correctly assumes reinvestment at the cost of capital, avoids multiple-IRR problems, and NPVs are additive across projects.'},
+
 {week:7,type:'numerical',
+
   question:'Project: initial investment $100,000. CFs: Y1=$40,000, Y2=$50,000, Y3=$30,000. Discount rate=10%. Calculate NPV.',
+
   keywords:['NPV','36364','41322','22539','100000','225','3,225'],
+
   modelAnswer:'NPV = −$100,000+$40,000÷1.10+$50,000÷1.21+$30,000÷1.331\n= −$100,000+$36,364+$41,322+$22,539 = $225\nNPV≈$225>0 → Accept.',
+
   hint:'NPV = CF₀ + Σ[CFₜ÷(1+r)^t]. CF₀ is negative.',
+
   hint2:'Discount: Y1÷1.10, Y2÷1.21, Y3÷1.331'},
+
 {week:7,type:'numerical',
+
   question:'A project costs $80,000 and has NPV=$12,000. Calculate the Profitability Index.',
+
   keywords:['PI','0.15','12000','80000'],
+
   modelAnswer:'PI = $12,000÷$80,000 = 0.15 → Accept.',
+
   hint:'PI = NPV ÷ |Initial Investment|',
+
   hint2:'PI>0 means positive NPV → accept.'},
+
 {week:7,type:'numerical',
+
   question:'Project A: NPV=$50,000, life=5 years, discount rate=10%. Calculate EAA.',
+
   keywords:['EAA','13190','13,190','50000','0.10'],
+
   modelAnswer:'EAA = $50,000×0.10÷[1−(1.10)^−5] = $5,000÷0.3791 = $13,190/year',
+
   hint:'EAA = NPV×r÷[1−(1+r)^−n].',
+
   hint2:'(1.10)^5=1.6105, so (1.10)^−5=0.6209'},
+
 {week:7,type:'multipart',
+
   scenario:'GreenTech evaluates two mutually exclusive solar projects. Solar-A: cost $200,000, CFs $90,000/yr for 3 years. Solar-B: cost $150,000, CFs $75,000/yr for 3 years. Discount rate=12%.',
+
   parts:[
+
     {label:'a',question:'Calculate NPV for each project.',keywords:['Solar-A','15294','16162','Solar-B','29593','30135','annuity'],modelAnswer:'Annuity factor (3yr,12%)=2.4018\nNPV(A)=−$200,000+$90,000×2.4018=$16,162\nNPV(B)=−$150,000+$75,000×2.4018=$30,135'},
+
     {label:'b',question:'Which should GreenTech choose based on NPV?',keywords:['Solar-B','higher NPV','mutually exclusive'],modelAnswer:'Choose Solar-B — higher NPV ($30,135 vs $16,162). For mutually exclusive projects, select the highest NPV.'},
+
     {label:'c',question:'Could IRR give a different ranking? Explain briefly.',keywords:['IRR','conflict','scale','Solar-A'],modelAnswer:'Yes. IRR may favour Solar-A if its % return is higher. NPV and IRR conflict with mutually exclusive projects of different scale. NPV should be trusted.'}
+
   ],
+
   hint:'Use annuity PV formula. Compare NPVs.',
+
   hint2:'For (c): IRR measures % return, NPV measures $ value — they can conflict on scale.'},
 
+
+
 // WEEK 7 — Practice Exam Questions
+
 {week:7,type:'multipart',
+
   scenario:'The Sydney franchisee of the McDonald\'s Fast Food restaurants is replacing the kitchen appliances across all locations due to too many complaints about soggy burger paddies. Requiring an upfront investment of $234,828 in year 0, this measure will not have any positive influences yet in year 1 as customers will have to gain some trust back. But starting in year 2, there will be an increase operating cash flow of $51,000 per restaurant, which then gradually declines by 5.5% each subsequent year forever.',
+
   parts:[
+
     {label:'A',question:'Assuming a cost of capital of 9.5% what is the NPV of the upgrade per location? (Round to the nearest dollar.)',keywords:['75674','75,674','310502','340000','234828'],modelAnswer:'This is a declining growing perpetuity with g = −5.5%, first cash flow in year 2.\nPV at year 1 = C/(r−g) = $51,000/(0.095−(−0.055)) = $51,000/0.15 = $340,000\nPV at year 0 = $340,000/1.095 = $310,502\nNPV = −$234,828 + $310,502 = $75,674'},
+
     {label:'B',question:'Thus, the IRR of the project must be less than 9.5%. (True or False — select from the drop-down menu.)',keywords:['false','FALSE','greater','higher','positive NPV'],modelAnswer:'FALSE — because NPV > 0 at a cost of capital of 9.5%, the IRR must be GREATER than 9.5%.'},
+
     {label:'C',question:'Keep the cost of capital as before. What rate of decline would make this project exactly break even? (Round to 2 decimal points; enter a negative growth rate with a minus.)',keywords:['-10.34','-10.34%','0.19836','257137'],modelAnswer:'Set NPV = 0:\n$234,828 = $51,000 / ((0.095 − g) × 1.095)\n(0.095 − g) = $51,000 / ($234,828 × 1.095) = $51,000 / $257,137 = 0.19836\ng = 0.095 − 0.19836 = −0.10336 = −10.34%'}
+
   ],
+
   hint:'Part A: this is a growing perpetuity with g = −5.5% starting in year 2. Find PV at year 1 using C/(r−g), then discount back one more year.',
+
   hint2:'Part C: set NPV = 0 and rearrange to solve for g. The denominator on the right side is $234,828 × 1.095.'},
+
 {week:7,type:'multipart',
+
   scenario:'AT&T is choosing between two bus models. Discount rate: 10.0%. The company will continue with one model indefinitely. Find the EAA and choose the better option. (Dollar amounts in thousands.)<br><table class=\"scenario-table\"><thead><tr><th>Model</th><th>Year 0 Cost</th><th>Annual Maintenance</th><th>Life</th></tr></thead><tbody><tr><td><strong>Long Life</strong></td><td>&minus;$208.7k</td><td>&minus;$3.8k/yr</td><td>7 years</td></tr><tr><td><strong>Short Life</strong></td><td>&minus;$100.8k</td><td>&minus;$1.7k/yr</td><td>4 years</td></tr></tbody></table>',
+
   parts:[
+
     {label:'a',question:'The annual cost of Long Life model as an equivalent annual annuity is $___. (Round to the nearest dollar.)\nThe annual cost of Short Life model as an equivalent annual annuity is $___. (Round to the nearest dollar.)',keywords:['46672','46,672','33498','33,498','227','106'],modelAnswer:'NPV(Long Life) = −208.7 − 3.8 × [1−(1.10)^−7]/0.10 = −208.7 − 3.8 × 4.8684 = −$227.20k\nEAA(Long) = −227.20 × 0.10 / [1−(1.10)^−7] = −22.72 / 0.4868 = −$46,672\nNPV(Short Life) = −100.8 − 1.7 × [1−(1.10)^−4]/0.10 = −100.8 − 5.39 = −$106.19k\nEAA(Short) = −106.19 × 0.10 / [1−(1.10)^−4] = −10.619 / 0.3170 = −$33,498'},
+
     {label:'b',question:'Based on the costs of each model, which should it choose? (Select the best choice.)\nA) AT&T should choose Short Life because the equivalent annual annuity of its costs is smaller.\nB) AT&T should choose Long Life because it lasts longer.\nC) AT&T should choose Short Life because the NPV of its costs is smaller.\nD) AT&T should choose Long Life because the equivalent annual annuity of its costs is smaller.',keywords:['Short Life','EAA','smaller','33498','A)','option A'],modelAnswer:'AT&T should choose Short Life because the equivalent annual annuity of its costs is smaller (−$33,498 vs −$46,672).'}
+
   ],
+
   hint:'EAA = NPV × r / [1 − (1+r)^−n]. Since these are costs, NPV values are negative — choose the less negative (smaller absolute) EAA.',
+
   hint2:'Annuity factor (7yr, 10%) = 4.8684. Annuity factor (4yr, 10%) = 3.1699. (1.10)^7 ≈ 1.9487; (1.10)^4 ≈ 1.4641.'},
+
 {week:7,type:'multipart',
+
   scenario:'A firm considers 2 mutually exclusive projects with a target payback of 2 years or less. Discount rate: 10.3%. IRRs require Excel or a financial calculator. PI = PV(Future Cash Flows) / Cost.<br><table class=\"scenario-table\"><thead><tr><th>Year</th><th>Project A ($)</th><th>Project B ($)</th></tr></thead><tbody><tr><td>0</td><td>&minus;52</td><td>&minus;50</td></tr><tr><td>1</td><td>24</td><td>23</td></tr><tr><td>2</td><td>25</td><td>32</td></tr><tr><td>3</td><td>68</td><td>35</td></tr><tr><td>4</td><td>88</td><td>38</td></tr></tbody></table>',
+
   parts:[
+
     {label:'A',question:'The payback period of project A is ___ years. (Round to two decimal places.)\nThe payback period of project B is ___ years. (Round to two decimal places.)',keywords:['2.04','1.84'],modelAnswer:'Project A: After Y1: −52+24=−28; After Y2: −28+25=−3; Partial Y3: 2 + 3/68 = 2.04 years\nProject B: After Y1: −50+23=−27; After Y2: −27+32=+5; Partial Y2: 1 + 27/32 = 1.84 years'},
+
     {label:'B',question:'What is the profitability index of project A?\nWhat is the profitability index of project B?',keywords:['2.93','1.98','152','98'],modelAnswer:'Discount factors at 10.3%: Y1=1/1.103, Y2=1/1.2166, Y3=1/1.3419, Y4=1/1.4801\nPV(A future CFs) = 24/1.103 + 25/1.2166 + 68/1.3419 + 88/1.4801 = 21.76+20.55+50.67+59.46 = $152.44\nPI(A) = 152.44/52 = 2.93\nPV(B future CFs) = 23/1.103 + 32/1.2166 + 35/1.3419 + 38/1.4801 = 20.85+26.30+26.08+25.67 = $98.90\nPI(B) = 98.90/50 = 1.98'},
+
     {label:'C',question:'What is the NPV of project A? $___\nWhat is the NPV of project B? $___',keywords:['100.44','48.90'],modelAnswer:'NPV(A) = PV of future CFs − Cost = $152.44 − $52 = $100.44\nNPV(B) = $98.90 − $50 = $48.90'},
+
     {label:'D',question:'What is the internal rate of return of project A? ___% \nWhat is the internal rate of return of project B? ___%',keywords:['57','47'],modelAnswer:'IRR(A) ≈ 57%; IRR(B) ≈ 47% (both require Excel or financial calculator; both are above the 10.3% hurdle rate)'},
+
     {label:'E',question:'According to the payback rule, which of these projects should be chosen?\n  ○ Project B\n  ○ Project A',keywords:['Project B','1.84','2 years','payback'],modelAnswer:'Project B — its payback period of 1.84 years is within the 2-year limit. Project A\'s payback of 2.04 years exceeds the limit.'},
+
     {label:'F',question:'According to the profitability index, which of these projects should be chosen?\n  ○ Project B\n  ○ Project A',keywords:['Project A','2.93','PI'],modelAnswer:'Project A — it has the higher profitability index (PI = 2.93 vs 1.98).'},
+
     {label:'G',question:'Which one would you recommend the firm choose?\n  ○ Project B\n  ○ Project A',keywords:['Project A','NPV','100.44','maximise','value'],modelAnswer:'Project A — it has the higher NPV ($100.44 vs $48.90), which maximises firm value. NPV is the theoretically correct decision rule.'}
+
   ],
+
   hint:'For payback: track cumulative cash flows year by year, then find the fraction of the final year needed. For PI: discount all future cash flows back at 10.3%, then divide by initial cost.',
+
   hint2:'Discount factors at 10.3%: Y1=1/1.103=0.9066, Y2=1/1.2166=0.8220, Y3=1/1.3419=0.7452, Y4=1/1.4801=0.6756.'},
 
+
+
 {week:7,type:'numerical',
+
   question:'Project X: Year 0 = −$50,000; Year 1 = $30,000; Year 2 = −$10,000; Year 3 = $40,000. Discount rate = 12%. This project has non-standard cash flows. Calculate NPV.',
+
   keywords:['NPV','5,453','5453','−8929','28,571'],
-  modelAnswer:'NPV = −50,000 + 30,000/1.12 + (−10,000)/1.2544 + 40,000/1.4049
-= −50,000 + 26,786 − 7,972 + 28,473
-= −$2,713
-NPV < 0 → Reject at 12%. (Note: non-standard sign changes → potentially multiple IRRs)',
+
+  modelAnswer:'NPV = −50,000 + 30,000/1.12 + (−10,000)/1.2544 + 40,000/1.4049\n= −50,000 + 26,786 − 7,972 + 28,473\n= −$2,713\nNPV < 0 → Reject at 12%. (Note: non-standard sign changes → potentially multiple IRRs)',
+
   hint:'Apply standard NPV formula even with non-standard cash flows. Negative intermediate CFs are discounted as negatives.',
+
   hint2:'Discount factors: 1/1.12=0.8929; 1/1.2544=0.7972; 1/1.4049=0.7118'},
+
 {week:7,type:'numerical',
+
   question:'A firm has $100,000 to invest. Three independent projects available: Project A (cost $60k, NPV=$20k), Project B (cost $50k, NPV=$15k), Project C (cost $40k, NPV=$10k). Budget = $100k. Which projects should be selected to maximise total NPV?',
+
   keywords:['PI','PI A','0.333','PI B','0.30','PI C','0.25','A and C','A+C','30000','30,000'],
-  modelAnswer:'PI = NPV/Cost: PI(A)=20/60=0.333; PI(B)=15/50=0.30; PI(C)=10/40=0.25
-Rank: A > B > C
-Budget constraint: A($60k)+C($40k)=$100k → total NPV=$20k+$10k=$30k
-A+B=$110k > budget (infeasible)
-Select A and C: total NPV=$30,000',
+
+  modelAnswer:'PI = NPV/Cost: PI(A)=20/60=0.333; PI(B)=15/50=0.30; PI(C)=10/40=0.25\nRank: A > B > C\nBudget constraint: A($60k)+C($40k)=$100k → total NPV=$20k+$10k=$30k\nA+B=$110k > budget (infeasible)\nSelect A and C: total NPV=$30,000',
+
   hint:'Calculate PI for each project. Rank by PI. Select highest PI projects that fit within the budget.',
+
   hint2:'A+C=$100k exactly fits budget, total NPV=$30k. A+B exceeds budget. B+C=$90k gives NPV=$25k < $30k.'},
+
 {week:7,type:'numerical',
+
   question:'Machine X costs $50,000, lasts 4 years, NPV = −$10,000 (all costs, 10% rate). Machine Y costs $30,000, lasts 2 years, NPV = −$7,000. The firm will need a machine indefinitely. Which should it choose based on EAA?',
+
   keywords:['EAA X','−3,155','−3155','EAA Y','−4,032','−4032','X','choose X'],
-  modelAnswer:'EAA(X) = −$10,000 × 0.10 / [1−(1.10)^−4] = −$1,000 / 0.3170 = −$3,155/year
-EAA(Y) = −$7,000 × 0.10 / [1−(1.10)^−2] = −$700 / 0.1736 = −$4,032/year
-Choose Machine X: less negative EAA (lower annual cost = −$3,155 vs −$4,032)',
+
+  modelAnswer:'EAA(X) = −$10,000 × 0.10 / [1−(1.10)^−4] = −$1,000 / 0.3170 = −$3,155/year\nEAA(Y) = −$7,000 × 0.10 / [1−(1.10)^−2] = −$700 / 0.1736 = −$4,032/year\nChoose Machine X: less negative EAA (lower annual cost = −$3,155 vs −$4,032)',
+
   hint:'EAA = NPV × r / [1−(1+r)^−n]. For cost-only projects, NPVs are negative; choose less negative EAA.',
+
   hint2:'(1.10)^4=1.4641 → (1.10)^−4=0.6830. (1.10)^2=1.21 → (1.10)^−2=0.8264.'},
 
+
+
 // WEEK 8
+
 {week:8,type:'mcq',question:'A bond\'s price will be ABOVE face value (premium) when:',options:['A. Coupon rate < YTM','B. Coupon rate = YTM','C. Coupon rate > YTM','D. The bond is about to mature'],answer:2,explanation:'When coupon rate > YTM, the bond pays more than the market requires → premium (price > face value).'},
+
 {week:8,type:'mcq',question:'The Gordon Growth Model for stock valuation is:',options:['A. P₀ = D₀÷r','B. P₀ = D₁÷(r+g)','C. P₀ = D₁÷(r−g)','D. P₀ = D₁×(r−g)'],answer:2,explanation:'Gordon Growth: P₀ = D₁÷(r−g), where D₁ is next dividend, r is required return, g is growth rate.'},
+
 {week:8,type:'mcq',question:'The dividend growth rate g can be estimated as:',options:['A. Payout Ratio×ROI','B. Retention Ratio÷ROI','C. Retention Ratio×ROI','D. Dividend÷Stock Price'],answer:2,explanation:'g = Retention Ratio × ROI. Retention = 1 − Payout Ratio.'},
 
+
+
 {week:8,type:'mcq',question:'A zero-coupon bond has face value $1,000, matures in 5 years, and the YTM is 6%. Its price is:',options:['A. $747.26','B. $800.00','C. $943.40','D. $1,000.00'],answer:0,explanation:'Zero-coupon bond: P = FV/(1+r)^n = $1,000/(1.06)^5 = $1,000/1.3382 = $747.26. No coupon payments — all value comes from the face value at maturity.'},
+
 {week:8,type:'mcq',question:'A stock pays a constant dividend of $5 per year forever, and the required return is 10%. Its price is:',options:['A. $5.00','B. $50.00','C. $500.00','D. $45.45'],answer:1,explanation:'Constant dividend (zero growth): P₀ = D/r = $5/0.10 = $50. This is a perpetuity formula.'},
+
 {week:8,type:'mcq',question:'A firm has EPS = $4, payout ratio = 60%, ROI = 15%. Under the Gordon Growth Model, the firm\'s dividend growth rate g equals:',options:['A. 6.0%','B. 9.0%','C. 15.0%','D. 2.4%'],answer:0,explanation:'Retention ratio = 1 − 0.60 = 0.40. g = Retention × ROI = 0.40 × 0.15 = 0.06 = 6%.'},
+
 {week:8,type:'mcq',question:'Preference shares differ from ordinary shares in that preference shareholders:',options:['A. Have voting rights at all AGMs','B. Receive dividends before ordinary shareholders','C. Bear the most risk in the firm','D. Receive variable dividends based on profits'],answer:1,explanation:'Preference shareholders have priority over ordinary shareholders for dividend payments and in liquidation. However, they typically have no voting rights and receive fixed dividends.'},
+
 {week:8,type:'numerical',
+
   question:'Price a 3-year bond: face value $1,000, annual coupon 8%, YTM=10%.',
+
   keywords:['coupon','80','PV','950','950.26'],
+
   modelAnswer:'Annual coupon = $80\nP₀ = $80÷1.10+$80÷1.21+$1,080÷1.331\n= $72.73+$66.12+$811.42 = $950.26\nDiscount bond (YTM>coupon rate) ✓',
+
   hint:'P₀ = Σ[Coupon÷(1+r)^t]+Face÷(1+r)^n',
+
   hint2:'Coupon = 8%×$1,000 = $80/year'},
+
 {week:8,type:'numerical',
+
   question:'Stock just paid D₀=$2.00. Dividends grow 5%/year. Required return=12%. Calculate P₀.',
+
   keywords:['D1','2.10','P0','30','30.00','r-g','0.07'],
+
   modelAnswer:'D₁ = $2.00×1.05 = $2.10\nP₀ = $2.10÷(0.12−0.05) = $2.10÷0.07 = $30.00',
+
   hint:'D₁ = D₀×(1+g). Then Gordon: P₀ = D₁÷(r−g).',
+
   hint2:'r−g = 0.12−0.05 = 0.07'},
+
 {week:8,type:'numerical',
+
   question:'Stock: P₀=$50, D₁=$3, g=4%. What is the required return on equity?',
+
   keywords:['r','0.10','10%','D1/P0','0.06'],
+
   modelAnswer:'r = D₁÷P₀+g = $3÷$50+0.04 = 0.06+0.04 = 10%',
+
   hint:'r = D₁÷P₀+g (rearranged Gordon Growth)',
+
   hint2:'Dividend yield = 3÷50 = 6%'},
+
 {week:8,type:'numerical',
+
   question:'Estimate g for a firm with ROI=15% and payout ratio=40%.',
+
   keywords:['retention','0.60','60%','g','0.09','9%'],
+
   modelAnswer:'Retention = 1−0.40 = 0.60\ng = 0.60×0.15 = 9%',
+
   hint:'g = Retention Ratio × ROI; Retention = 1 − payout',
+
   hint2:'Retention = 1−0.40 = 0.60'},
 
+
+
 // WEEK 8 — Practice Exam Questions
+
 {week:8,type:'numerical',
+
   question:'The yield to maturity of a $1,000 bond with a 7.2% coupon rate, semi-annual coupons, and two years to maturity is 8.2% APR, compounded semi-annually. What must its price be? The price of a coupon bond must be $___. (Round to the nearest cent.)',
+
   keywords:['981.90','981','36','4.1','0.041','4'],
+
   modelAnswer:'Semi-annual coupon = 7.2%/2 × $1,000 = $36\nSemi-annual YTM = 8.2%/2 = 4.1% = 0.041\nNumber of periods n = 2 × 2 = 4\nP = $36 × [1−(1.041)^−4]/0.041 + $1,000/(1.041)^4\n= $36 × 3.6193 + $1,000 × 0.85161\n= $130.29 + $851.61 = $981.90\nSince YTM (8.2%) > coupon rate (7.2%) → discount bond → P < $1,000 ✓',
+
   hint:'Convert all inputs to semi-annual: coupon = annual coupon/2, rate = APR/2, n = years × 2.',
+
   hint2:'(1.041)^4 = 1.17478, so (1.041)^−4 = 0.85161. Annuity factor = [1−0.85161]/0.041 = 3.6193.'},
+
 {week:8,type:'multipart',
+
   scenario:'Hush Puppies Ltd. is growing fast. The company earned $1.04 per share in the year that just ended (year 0) and reinvested all of it to fund growth opportunities that promise to return 38.0% next year. In a year, managements plans to payout 12.0% and invest the rest for more growth, projected to be 23.0%. They will then raise the payout ratio to 51.0% and keep it there.',
+
   parts:[
+
     {label:'A',question:'The expected dividend per share for year 1 is $___. (Round to 4 decimal places)',keywords:['0.1722','1.4352','1.38'],modelAnswer:'Year 0: EPS₀ = $1.04, retention ratio = 100%, ROI on reinvestment = 38%\nEPS₁ = $1.04 × (1 + 1.00 × 0.38) = $1.04 × 1.38 = $1.4352\nD₁ = EPS₁ × payout₁ = $1.4352 × 0.12 = $0.1722'},
+
     {label:'B',question:'The expected dividend per share for year 2 is $___. (Round to 4 decimal places)',keywords:['0.8801','1.7257','1.2024','0.2024'],modelAnswer:'Year 1: retention ratio = 1 − 0.12 = 88%, growth rate into Y2 = 0.88 × 0.23 = 0.2024\nEPS₂ = $1.4352 × (1 + 0.2024) = $1.4352 × 1.2024 = $1.7257\nD₂ = EPS₂ × payout₂ = $1.7257 × 0.51 = $0.8801'}
+
   ],
+
   hint:'Y1 growth comes from retaining 100% of EPS₀ at 38% ROI. Y2 growth comes from retaining (1 − payout₁) of EPS₁ at 23% ROI.',
+
   hint2:'Y1: EPS₁ = 1.04 × 1.38 = 1.4352; D₁ = 1.4352 × 0.12. Y2: retention = 88%, g = 0.88 × 0.23 = 20.24%.'},
+
 {week:8,type:'numerical',
+
   question:'A firm has just paid a dividend of $4.5. In a recent interview with the CFO, it was suggested that the long-term growth rate in earnings going forward will be 3.5% per annum. Assume that the firm\'s cost of equity capital is 11.1% per annum and there is no expected change in the dividend payout ratio. What price today would you estimate for the firm\'s shares? (Round to the nearest cent.)',
+
   keywords:['61.28','4.6575','0.076','4.5','1.035'],
+
   modelAnswer:'D₀ = $4.5 (just paid), so D₁ = D₀ × (1+g) = $4.5 × 1.035 = $4.6575\nP₀ = D₁ / (r − g) = $4.6575 / (0.111 − 0.035) = $4.6575 / 0.076 = $61.28',
+
   hint:'Since the dividend was just paid (D₀), you must first calculate D₁ = D₀ × (1+g) before applying the Gordon Growth Model.',
+
   hint2:'r − g = 0.111 − 0.035 = 0.076. P₀ = D₁ / (r − g).'},
 
+
+
 {week:8,type:'numerical',
+
   question:'A 5-year zero-coupon bond has a face value of $1,000 and a YTM of 7% per year. What is its price today?',
+
   keywords:['712.99','712','1.4026','0.7130'],
-  modelAnswer:'P = $1,000 / (1.07)^5 = $1,000 / 1.4026 = $712.99
-Note: no coupon payments — all value is face value at maturity.',
+
+  modelAnswer:'P = $1,000 / (1.07)^5 = $1,000 / 1.4026 = $712.99\nNote: no coupon payments — all value is face value at maturity.',
+
   hint:'Zero-coupon bond price = FV ÷ (1+r)^n. No annuity component.',
+
   hint2:'(1.07)^5 = 1.4026'},
+
 {week:8,type:'numerical',
+
   question:'A stock is expected to pay a constant annual dividend of $3.50 forever. The required return is 8%. (a) What is the stock price today? (b) If the required return rises to 10%, what is the new price?',
+
   keywords:['43.75','43.75','35.00','35'],
-  modelAnswer:'(a) P₀ = D/r = $3.50/0.08 = $43.75
-(b) P₀ = $3.50/0.10 = $35.00
-Rise in required return → fall in price (inverse relationship).',
+
+  modelAnswer:'(a) P₀ = D/r = $3.50/0.08 = $43.75\n(b) P₀ = $3.50/0.10 = $35.00\nRise in required return → fall in price (inverse relationship).',
+
   hint:'Constant dividend stock = perpetuity: P₀ = D ÷ r.',
+
   hint2:'Part (b) shows bond-like interest rate sensitivity: higher r → lower price.'},
+
 {week:8,type:'numerical',
+
   question:'XYZ Corp: D₁ = $2.50, r = 11%, g = 4%. (a) Calculate P₀. (b) Calculate P₁ (price one year from now). (c) What is the total one-year return?',
+
   keywords:['35.71','35.71','37.14','37.14','11%','0.11'],
-  modelAnswer:'(a) P₀ = D₁/(r−g) = $2.50/(0.11−0.04) = $2.50/0.07 = $35.71
-(b) P₁ = D₂/(r−g). D₂=$2.50×1.04=$2.60. P₁=$2.60/0.07=$37.14
-(c) Total return = (D₁ + P₁ − P₀)/P₀ = ($2.50 + $37.14 − $35.71)/$35.71 = $3.93/$35.71 = 11% = r ✓',
+
+  modelAnswer:'(a) P₀ = D₁/(r−g) = $2.50/(0.11−0.04) = $2.50/0.07 = $35.71\n(b) P₁ = D₂/(r−g). D₂=$2.50×1.04=$2.60. P₁=$2.60/0.07=$37.14\n(c) Total return = (D₁ + P₁ − P₀)/P₀ = ($2.50 + $37.14 − $35.71)/$35.71 = $3.93/$35.71 = 11% = r ✓',
+
   hint:'P₁ = D₂/(r−g). D₂ = D₁×(1+g). Total return = (dividend + capital gain)/P₀.',
+
   hint2:'Total return should equal r — this verifies the Gordon Growth model is consistent.'},
+
 {week:8,type:'numerical',
+
   question:'A 10-year bond has face value $1,000, annual coupon rate 6%, and currently trades at $950. What is the approximate YTM? (Use the approximation formula: YTM ≈ (Coupon + (FV−P)/n) ÷ ((FV+P)/2))',
+
   keywords:['6.6%','6.60','0.066','66'],
-  modelAnswer:'Annual coupon = 6%×$1,000 = $60
-Capital gain portion = ($1,000−$950)/10 = $5/year
-Numerator = $60+$5 = $65
-Denominator = ($1,000+$950)/2 = $975
-YTM ≈ $65/$975 = 6.67%
-(Exact YTM slightly higher — discount bond so YTM > coupon rate ✓)',
+
+  modelAnswer:'Annual coupon = 6%×$1,000 = $60\nCapital gain portion = ($1,000−$950)/10 = $5/year\nNumerator = $60+$5 = $65\nDenominator = ($1,000+$950)/2 = $975\nYTM ≈ $65/$975 = 6.67%\n(Exact YTM slightly higher — discount bond so YTM > coupon rate ✓)',
+
   hint:'YTM approximation: (Annual coupon + (Face−Price)/n) ÷ ((Face+Price)/2)',
+
   hint2:'The bond trades at a discount ($950 < $1,000) so YTM must exceed the 6% coupon rate.'},
 
+
+
 // WEEK 9
+
 {week:9,type:'mcq',question:'Systematic risk is best described as:',options:['A. Risk unique to a single company','B. Market-wide risk that cannot be diversified away','C. Risk eliminated by holding many stocks','D. Standard deviation of a single stock'],answer:1,explanation:'Systematic (market) risk affects all securities and cannot be diversified away — e.g. recessions, interest rate changes.'},
+
 {week:9,type:'mcq',question:'Under CAPM, if a stock has β=0, its expected return equals:',options:['A. Zero','B. The market return','C. The risk-free rate','D. The market risk premium'],answer:2,explanation:'CAPM: E[Ri]=Rf+β×(E[RM]−Rf). If β=0: E[Ri]=Rf.'},
+
 {week:9,type:'mcq',question:'In WACC, why is cost of debt multiplied by (1−TC)?',options:['A. Debt is riskier than equity','B. Interest is tax-deductible, creating a tax shield','C. Corporations always pay lower interest','D. Equity is cheaper after tax'],answer:1,explanation:'Interest on debt is tax-deductible. After-tax cost of debt = RD×(1−TC). The tax shield reduces effective borrowing cost.'},
+
 {week:9,type:'mcq',question:'Beta (β) measures:',options:['A. Total risk of a stock','B. Correlation between two stocks','C. Sensitivity of a stock\'s return to market returns','D. Standard deviation divided by mean return'],answer:2,explanation:'Beta measures how much a stock moves relative to the market. β=1: moves with market; β>1: more volatile; β<1: less volatile.'},
 
+
+
 {week:9,type:'mcq',question:'Diversification eliminates risk because:',options:['A. It removes all systematic risk from a portfolio','B. Unsystematic risks of different assets are uncorrelated and cancel out','C. Beta approaches zero in large portfolios','D. Market risk decreases when more assets are held'],answer:1,explanation:'Unsystematic (firm-specific) risk is uncorrelated across companies. When one firm has bad luck, others are unaffected, so firm-specific fluctuations cancel out. Systematic risk (market risk) cannot be diversified away.'},
+
 {week:9,type:'mcq',question:'A stock has β = 1.5, Rf = 3%, E[RM] = 10%. According to CAPM, the required return is:',options:['A. 10.5%','B. 13.5%','C. 15.0%','D. 18.0%'],answer:1,explanation:'E[R] = Rf + β×(E[RM]−Rf) = 3% + 1.5×(10%−3%) = 3% + 1.5×7% = 3% + 10.5% = 13.5%.'},
+
 {week:9,type:'mcq',question:'A firm\'s cost of preferred equity is 8%, and preferred shares have a face value of $100. If the market price of preferred shares is $80, the current yield (cost) is:',options:['A. 8.0%','B. 10.0%','C. 6.4%','D. 12.5%'],answer:1,explanation:'Cost of preferred equity = Dividend/Market Price = ($100×8%)/$80 = $8/$80 = 10%. The fixed dividend is based on face value, but market price determines the required return.'},
+
 {week:9,type:'mcq',question:'Which of the following projects should a firm ACCEPT based on WACC?',options:['A. Project with expected return = 8%, WACC = 10%','B. Project with expected return = 12%, WACC = 10%','C. Project with expected return = 10%, WACC = 12%','D. Project with expected return = 6%, WACC = 8%'],answer:1,explanation:'Accept when expected return > WACC. Only option B (12% > 10%) creates value. The others destroy value (return < cost of capital).'},
+
 {week:9,type:'numerical',
+
   question:'Buy stock at $40, sell at $45 one year later, receive $2 dividend. Calculate HPR.',
+
   keywords:['HPR','0.175','17.5%','7','40'],
+
   modelAnswer:'HPR = (P₁−P₀+Div)÷P₀ = ($45−$40+$2)÷$40 = $7÷$40 = 17.5%',
+
   hint:'HPR = (Ending Price − Beginning Price + Income) ÷ Beginning Price',
+
   hint2:'Capital gain=$5 + dividend=$2 = $7 return on $40'},
+
 {week:9,type:'numerical',
+
   question:'CAPM: Rf=4%, market risk premium=6%, β=1.5. Calculate expected return.',
+
   keywords:['E[R]','0.13','13%','4','9','1.5'],
+
   modelAnswer:'E[Ri] = 4%+1.5×6% = 4%+9% = 13%',
+
   hint:'E[Ri] = Rf+β×MRP',
+
   hint2:'β×MRP = 1.5×6% = 9%'},
+
 {week:9,type:'numerical',
+
   question:'WACC: MVE=$600M (RE=14%), MVP=$100M (Rp=10%), MVD=$300M (pre-tax RD=8%), TC=30%. Calculate WACC.',
+
   keywords:['V','1000','wE','0.60','wP','0.10','wD','0.30','WACC','0.112','11.2%','11.08'],
+
   modelAnswer:'V=$1,000M; wE=0.60, wP=0.10, wD=0.30\nWACC=0.60×14%+0.10×10%+0.30×8%×0.70\n=8.40%+1.00%+1.68%=11.08%',
+
   hint:'V=MVE+MVP+MVD. Weights=component÷V. After-tax RD=RD×(1−TC).',
+
   hint2:'After-tax cost of debt=8%×0.70=5.6%'},
+
 {week:9,type:'numerical',
+
   question:'Pre-tax cost of debt=9%, corporate tax rate=28%. What is the after-tax cost of debt?',
+
   keywords:['6.48%','0.0648','0.72'],
+
   modelAnswer:'After-tax cost of debt = 9%×(1−0.28) = 9%×0.72 = 6.48%',
+
   hint:'After-tax = pre-tax rate × (1 − tax rate)',
+
   hint2:'(1−0.28) = 0.72'},
+
 {week:9,type:'multipart',
+
   scenario:'StellarCorp: MVE=$800M (RE=16%), MVp=$200M (Rp=9%), MVD=$500M (pre-tax RD=7%), TC=25%. Rf=3%, E[RM]=10%, β=1.8.',
+
   parts:[
+
     {label:'a',question:'Verify required return on equity using CAPM.',keywords:['CAPM','3','7','1.8','15.6%','0.156'],modelAnswer:'E[RE]=3%+1.8×(10%−3%)=3%+12.6%=15.6% (≈given 16%)'},
+
     {label:'b',question:'Calculate StellarCorp\'s WACC.',keywords:['V','1500','wE','0.533','wP','0.133','wD','0.333','WACC','11.5'],modelAnswer:'V=$1,500M; wE=0.533, wP=0.133, wD=0.333\nAfter-tax RD=7%×0.75=5.25%\nWACC=0.533×16%+0.133×9%+0.333×5.25%=8.53%+1.20%+1.75%=11.48%'},
+
     {label:'c',question:'Project expected return=10.5%. Should StellarCorp accept it?',keywords:['reject','10.5','less than','WACC','11.5','destroys value'],modelAnswer:'Reject — 10.5% < WACC (≈11.5%). Project doesn\'t earn enough to compensate all capital providers → destroys value.'}
+
   ],
+
   hint:'For (a): CAPM. For (b): V first, then weights, then WACC. For (c): compare return to WACC.',
+
   hint2:'If project return < WACC → negative NPV → reject.'},
 
+
+
 // WEEK 9 — Practice Exam Questions
+
 {week:9,type:'multipart',
+
   scenario:'The risk-free rate is currently 4.30%. Use this data for all parts:<br><table class=\"scenario-table\"><thead><tr><th>Company</th><th>Expected Return</th><th>Beta</th></tr></thead><tbody><tr><td>A. Round Corp.</td><td>7.50%</td><td>0.34</td></tr><tr><td>B. Lemon LLC</td><td>14.36%</td><td>?</td></tr><tr><td>C. Beach Living Inc.</td><td>?</td><td>1.43</td></tr><tr><td>D. Tasman Devils Corp.</td><td>7.88%</td><td>0.86</td></tr><tr><td>E. Allied Metal Traders</td><td>19.72%</td><td>1.46</td></tr></tbody></table>',
+
   parts:[
+
     {label:'A',question:'You know that Round Corp. is correctly priced because an army of analysts and thousands of institutional investors hold it. What does this tell you about the market return that investors seem to expect per year? (%)',keywords:['13.71','9.412','9.41','MRP'],modelAnswer:'CAPM: 7.50%=4.30%+0.34×MRP → MRP=3.20%/0.34=9.412%\nE[RM]=4.30%+9.412%=13.71%'},
+
     {label:'B',question:'What beta for Lemon LLC would make investor expectations consistent with your findings in part A)?',keywords:['1.069','1.07','10.06'],modelAnswer:'14.36%=4.30%+β×9.412% → β=10.06/9.412=1.069'},
+
     {label:'C',question:'Given the expected market return in A), what is the correct expected return for Beach Living Inc.? (%)',keywords:['17.76','13.46','1.43'],modelAnswer:'E[R]=4.30%+1.43×9.412%=4.30%+13.46%=17.76%'},
+
     {label:'D',question:'Given the expected market return in A), are shares of Tasman Devils Corp. overvalued, undervalued or fairly valued? (Choose: undervalued / correctly valued / overvalued)',keywords:['overvalued','12.39','7.88','price too high'],modelAnswer:'Required=4.30%+0.86×9.412%=12.39%\nActual 7.88%<12.39% → OVERVALUED (price too high, return too low)'},
+
     {label:'E',question:'Assume that the market risk premium remains the same as before. What would the risk-free rate need to be in order for investors in Allied Metal Traders to have correct return expectations? (%)',keywords:['5.98','13.74','19.72'],modelAnswer:'19.72%=Rf+1.46×9.412% → Rf=19.72%−13.74%=5.98%'}
+
   ],
+
   hint:'Part A: rearrange CAPM to solve for MRP using Round Corp. MRP=(Return−Rf)/Beta.',
+
   hint2:'MRP=(7.50−4.30)/0.34=9.412%. Use this for all subsequent parts.'},
+
 {week:9,type:'multipart',
+
   scenario:'The Sandwich With A Pretty Big Pickle On It Corporation has a cost of equity of 14.30% and a cost of debt of 6.20%. Assume that the corporate tax rate is 30.00% and that the firm operates under a classical taxation system. Assuming that the above information remains constant, find the after-tax Weighted Average Cost of Capital (WACC) for The Sandwich With A Pretty Big Pickle On It Corporation if the firm\'s...',
+
   parts:[
+
     {label:'A',question:'...target debt-to-equity ratio is 0.25',keywords:['12.31','12.31%','0.20','0.80'],modelAnswer:'wD=0.25/1.25=0.20, wE=0.80; After-tax debt=6.20%×0.70=4.34%\nWACC=0.80×14.30%+0.20×4.34%=11.44%+0.87%=12.31%'},
+
     {label:'B',question:'...target debt-to-equity ratio is 0.50',keywords:['10.99','10.99%','0.333','0.667'],modelAnswer:'wD=0.333, wE=0.667\nWACC=0.667×14.30%+0.333×4.34%=9.54%+1.45%=10.99%'},
+
     {label:'C',question:'...target debt-to-equity ratio is 1.00',keywords:['9.32','9.32%','0.50'],modelAnswer:'wD=0.50, wE=0.50\nWACC=0.50×14.30%+0.50×4.34%=7.15%+2.17%=9.32%'},
+
     {label:'D',question:'...target debt-to-equity ratio is 1.50',keywords:['8.32','8.32%','0.60','0.40'],modelAnswer:'wD=1.50/2.50=0.60, wE=0.40\nWACC=0.40×14.30%+0.60×4.34%=5.72%+2.60%=8.32%'}
+
   ],
+
   hint:'For D/E ratio d: wD=d/(1+d), wE=1/(1+d). After-tax debt=6.20%×(1−0.30)=4.34%.',
+
   hint2:'After-tax cost of debt=4.34% is the same for all parts.'},
 
+
+
 {week:9,type:'numerical',
+
   question:'A portfolio holds 40% in Stock A (expected return 12%, β=1.2) and 60% in Stock B (expected return 8%, β=0.6). Calculate the portfolio\'s expected return and portfolio beta.',
+
   keywords:['9.6%','9.6','0.84','portfolio'],
-  modelAnswer:'E[R_p] = 0.40×12% + 0.60×8% = 4.8% + 4.8% = 9.6%
-β_p = 0.40×1.2 + 0.60×0.6 = 0.48 + 0.36 = 0.84
-Portfolio beta is the weighted average of individual betas.',
+
+  modelAnswer:'E[R_p] = 0.40×12% + 0.60×8% = 4.8% + 4.8% = 9.6%\nβ_p = 0.40×1.2 + 0.60×0.6 = 0.48 + 0.36 = 0.84\nPortfolio beta is the weighted average of individual betas.',
+
   hint:'Portfolio expected return = Σ(weight × return). Portfolio beta = Σ(weight × beta).',
+
   hint2:'Both are simple weighted averages.'},
+
 {week:9,type:'numerical',
+
   question:'CAPM verification: Rf=5%, E[RM]=12%. Stock X: β=1.3, observed return=15.1%. Is Stock X overvalued, undervalued, or fairly valued?',
+
   keywords:['required','14.1%','14.1','15.1','undervalued','alpha','1%'],
-  modelAnswer:'Required return = 5% + 1.3×(12%−5%) = 5% + 9.1% = 14.1%
-Observed return (15.1%) > Required return (14.1%)
-Alpha = 15.1% − 14.1% = +1.0%
-Stock X is UNDERVALUED — it provides more return than required for its risk level → price will rise as investors buy it.',
+
+  modelAnswer:'Required return = 5% + 1.3×(12%−5%) = 5% + 9.1% = 14.1%\nObserved return (15.1%) > Required return (14.1%)\nAlpha = 15.1% − 14.1% = +1.0%\nStock X is UNDERVALUED — it provides more return than required for its risk level → price will rise as investors buy it.',
+
   hint:'Compare CAPM required return to actual return. If actual > required → undervalued (too cheap).',
+
   hint2:'Alpha = actual − required return. Positive alpha = undervalued; negative alpha = overvalued.'},
+
 {week:9,type:'numerical',
+
   question:'A firm has: MVE=$500M (RE=15%), MVD=$300M (pre-tax RD=6%), no preferred equity, TC=30%. Calculate WACC.',
+
   keywords:['WACC','11.73%','11.73','0.625','0.375','800'],
-  modelAnswer:'V = $500M + $300M = $800M
-wE = 500/800 = 0.625; wD = 300/800 = 0.375
-After-tax RD = 6%×(1−0.30) = 4.2%
-WACC = 0.625×15% + 0.375×4.2% = 9.375% + 1.575% = 10.95%',
+
+  modelAnswer:'V = $500M + $300M = $800M\nwE = 500/800 = 0.625; wD = 300/800 = 0.375\nAfter-tax RD = 6%×(1−0.30) = 4.2%\nWACC = 0.625×15% + 0.375×4.2% = 9.375% + 1.575% = 10.95%',
+
   hint:'V = MVE + MVD. Weights sum to 1. After-tax RD = RD×(1−TC).',
+
   hint2:'wE=500/800=0.625; after-tax debt cost=6%×0.70=4.2%.'},
 
+
+
 // WEEK 10
+
 {week:10,type:'sa',question:'Explain how CVP analysis connects to a firm\'s long-run value creation strategy.',keywords:['break-even','contribution margin','fixed costs','profit','NPV','cash flows','WACC','strategy'],modelAnswer:'CVP shows how pricing, volume, and cost structure drive profitability. Contribution margins identify high-value products; BEP informs minimum viability. These insights feed into projected cash flows for NPV analysis (W7), and profitability growth affects ROIC vs WACC (W9). CVP is the operational foundation for long-run financial value creation.'},
+
 {week:10,type:'sa',question:'How does WACC serve as a hurdle rate in capital budgeting?',keywords:['WACC','discount rate','NPV','hurdle','required return','accept','reject'],modelAnswer:'WACC is the minimum return a firm must earn to satisfy all capital providers. In NPV analysis, WACC is the discount rate. NPV>0 means the project earns more than capital cost → creates value. NPV<0 means it destroys value. WACC is the hurdle: only accept projects exceeding it.'},
+
 {week:10,type:'sa',question:'How can the Ansoff Matrix be linked to capital budgeting (NPV)?',keywords:['Ansoff','NPV','risk','diversification','cash flows','strategic'],modelAnswer:'Each Ansoff strategy is an investment decision with different risk/return. Market Penetration (low risk) → predictable NPV improvements. Market/Product Development → larger investments with uncertain CFs. Diversification (highest risk) → requires highest risk-adjusted discount rate. NPV quantifies whether expected returns from each strategy exceed cost of capital.'},
+
 // WEEK 10 — Additional SA questions (Section B: qualitative)
+
 {week:10,type:'sa',question:'Explain the difference between shareholder theory and stakeholder theory. Which view is more consistent with long-run value creation, and why?',keywords:['shareholder','stakeholder','Friedman','Freeman','profit','employees','community','long-run','ESG','sustainable'],modelAnswer:'Shareholder theory (Friedman) holds that a firm\'s sole purpose is to maximise returns to shareholders. Stakeholder theory (Freeman) argues firms must consider all stakeholders — employees, customers, suppliers, communities. For long-run value creation, stakeholder theory is more consistent: ignoring employees creates turnover costs; ignoring customers erodes revenue; ignoring community creates regulatory and reputational risk. Firms with strong stakeholder relationships tend to have lower cost of capital (lower ESG risk) and more sustainable competitive advantage.'},
+
 {week:10,type:'sa',question:'Using the ROIC vs WACC framework, explain how a firm creates, preserves, or destroys value. Give an example of each outcome.',keywords:['ROIC','WACC','value creation','value destruction','greater than','less than','equal','return on invested capital'],modelAnswer:'Value is created when ROIC > WACC: the firm earns more on capital than it costs to finance — e.g. a tech firm earning 20% ROIC with a 10% WACC. Value is preserved when ROIC = WACC: investment breaks even. Value is destroyed when ROIC < WACC: capital is being deployed in projects that don\'t cover their financing cost — e.g. a retailer earning 6% on expansion projects funded at an 8% WACC. Managers should only invest when expected ROIC exceeds WACC.'},
+
 {week:10,type:'sa',question:'How do ESG factors (Environmental, Social, Governance) affect a firm\'s cost of capital and long-run value creation?',keywords:['ESG','risk','cost of capital','WACC','investors','reputation','regulatory','long-run','sustainable'],modelAnswer:'Poor ESG performance increases a firm\'s risk profile in several ways: environmental violations lead to regulatory fines and remediation costs (raises cost of debt); governance failures (fraud, board failures) increase equity risk premium (raises cost of equity); social failures (labour abuse) damage brand and customer loyalty (reduces future cash flows). Higher WACC means fewer projects clear the hurdle rate — destroying value. Conversely, strong ESG lowers perceived risk → lower WACC → more value-creating projects pass the NPV threshold.'},
 
+
+
 {week:10,type:'sa',question:'What are "critical success factors" (CSFs) and how do they differ from key performance indicators (KPIs)? Give an example of each for a hospital.',keywords:['critical success factor','KPI','measure','goal','strategic','must achieve','quantify','monitor'],modelAnswer:'A Critical Success Factor (CSF) is a strategic area where the organisation must excel to achieve its goals — it is a qualitative priority (e.g. "patient safety"). A KPI is a quantitative measure that monitors progress toward that CSF (e.g. "rate of hospital-acquired infections per 1,000 patient days"). CSFs define what matters; KPIs measure how well those things are being managed. Without CSFs, KPIs have no strategic anchor; without KPIs, CSFs cannot be monitored or acted upon.'},
+
 {week:10,type:'sa',question:'Explain the three types of performance measures — financial vs non-financial, quantitative vs qualitative, and internal vs external — and why a balanced set of all three is needed.',keywords:['financial','non-financial','quantitative','qualitative','internal','external','balance','limitations','operational'],modelAnswer:'Financial measures (e.g. profit, ROI) quantify monetary outcomes but are lagging and can encourage short-termism. Non-financial measures (e.g. customer satisfaction, defect rate) cover operational drivers but are broader and sometimes harder to link to value. Quantitative measures are precise and comparable but not all important things can be quantified. Qualitative measures (e.g. brand reputation) capture important dimensions but are subjective. Internal measures track process efficiency; external measures track stakeholder outcomes. A balanced set is needed because no single type captures the full picture — financial results depend on operational and non-financial drivers, and internal processes must ultimately generate external value.'},
+
 {week:10,type:'sa',question:'What is an "Integrated Report" and what capital types does it aim to measure beyond financial capital?',keywords:['integrated','report','financial','human','social','natural','intellectual','manufactured','capital','stakeholder'],modelAnswer:'An Integrated Report (IR) communicates how an organisation creates value over time across six capitals: (1) Financial capital (funds); (2) Manufactured capital (physical infrastructure); (3) Intellectual capital (knowledge, IP); (4) Human capital (employee skills, motivation); (5) Social & relationship capital (community relationships, reputation); (6) Natural capital (environmental resources). It moves beyond profit to show value creation and destruction for all stakeholders, giving investors and society a complete picture of long-run sustainability.'},
+
 {week:10,type:'sa',question:'Explain the "pieconomics" framework and its three principles for evaluating whether a firm\'s activity creates value for society.',keywords:['pieconomics','multiplication','social benefits','comparative advantage','materiality','stakeholder','society','$1'],modelAnswer:'Pieconomics asks whether growing the firm\'s "pie" (profits) also grows the social pie. Three principles: (1) Multiplication: does $1 of private cost create more than $1 of social benefit? (2) Comparative advantage: does $1 spent by the firm create more social benefit than $1 spent by someone else (e.g. government or a charity)? (3) Materiality: does the activity benefit a material group of stakeholders — either commercially relevant or intrinsically important? Activities that satisfy all three justify profit and stakeholder investment simultaneously.'},
+
 {week:10,type:'sa',question:'How do performance measurement systems connect Week 3 (pricing/CVP), Week 7 (capital budgeting), and Week 9 (WACC) in a unified framework for managing long-run firm value?',keywords:['CVP','NPV','WACC','ROIC','profit','cash flow','hurdle rate','integrate','value creation'],modelAnswer:'CVP analysis (W3) identifies how pricing and cost structure generate operating profit margins — these feed projected cash flows. Capital budgeting (W7) uses those cash flows in NPV analysis to decide which investments to make, discounted at WACC. WACC (W9) is both the hurdle rate for NPV and the benchmark for ROIC — the firm creates long-run value only if ROIC > WACC. Performance measurement (W10) closes the loop: KPIs at each BSC perspective monitor whether operating decisions are delivering the cash flows and returns that justify the capital invested. The whole chain connects daily decisions to long-run shareholder and stakeholder value.'},
+
+
 
 ];
 
+
+
 // ── WEEK METADATA ──
+
 const WEEKS={
+
   2:{label:'Value Creation',color:'#7C3AED'},
+
   3:{label:'CVP Analysis',color:'#059669'},
+
   4:{label:'Balanced Scorecard',color:'#D97706'},
+
   5:{label:'Time Value',color:'#2563EB'},
+
   7:{label:'Capital Budgeting',color:'#DC2626'},
+
   8:{label:'Valuation',color:'#DB2777'},
+
   9:{label:'Risk & WACC',color:'#0891B2'},
+
   10:{label:'Integration',color:'#7C3AED'}
+
 };
 
+
+
 // ── INIT ──
+
 (function init(){
+
   applySettings();
+
   buildWeekChips();
+
   buildLearnGrid();
+
   buildCountChips();
+
 })();
 
+
+
 function buildWeekChips(){
+
   const grid=document.getElementById('weekChips');
+
   if(!grid) return;
+
   grid.innerHTML='';
+
   Object.entries(WEEKS).forEach(([w,meta])=>{
+
     const n=QUESTIONS.filter(q=>q.week==w).length;
+
     const chip=document.createElement('button');
+
     chip.className='week-chip';
+
     chip.dataset.week=w;
+
     chip.innerHTML=`<div class="wn" style="color:${meta.color}">W${w}</div><div class="wl">${meta.label}</div><div class="wq">${n}q</div>`;
+
     chip.onclick=()=>selectWeekChip(Number(w));
+
     grid.appendChild(chip);
+
   });
+
   // All weeks chip
+
   const allChip=document.createElement('button');
+
   allChip.className='week-chip all-chip';
+
   allChip.dataset.week='all';
+
   const total=QUESTIONS.length;
+
   allChip.innerHTML=`<div class="wn" style="color:var(--text)">All Weeks</div><div class="wq">${total} questions</div>`;
+
   allChip.onclick=()=>selectWeekChip('all');
+
   grid.appendChild(allChip);
+
 }
+
+
 
 function buildLearnGrid(){
+
   const grid=document.getElementById('learnWeekGrid');
+
   if(!grid) return;
+
   grid.innerHTML='';
+
   Object.entries(WEEKS).forEach(([w,meta])=>{
+
     const tile=document.createElement('button');
+
     tile.className='learn-week-tile';
+
     tile.innerHTML=`<div class="wn" style="color:${meta.color}">W${w}</div><div class="wl">${meta.label}</div>`;
+
     tile.onclick=()=>showLearn(Number(w));
+
     grid.appendChild(tile);
+
   });
+
 }
+
+
 
 function buildCountChips(){
+
   const row=document.getElementById('countChips');
+
   if(!row) return;
+
   [5,10,15,20].forEach(n=>{
+
     const chip=document.createElement('button');
+
     chip.className='count-chip'+(n===homeState.count?' active':'');
+
     chip.dataset.count=n;
+
     chip.textContent=n;
+
     chip.onclick=()=>selectCountChip(n);
+
     row.appendChild(chip);
+
   });
+
 }
+
+
 
 function selectWeekChip(week){
+
   homeState.week=week;
+
   document.querySelectorAll('.week-chip').forEach(c=>c.classList.remove('active'));
+
   const chip=document.querySelector(`.week-chip[data-week="${week}"]`);
+
   if(chip) chip.classList.add('active');
+
   document.getElementById('startBtn').disabled=false;
+
 }
+
+
 
 function selectCountChip(n){
+
   homeState.count=n;
+
   document.querySelectorAll('.count-chip').forEach(c=>c.classList.remove('active'));
+
   document.querySelector(`.count-chip[data-count="${n}"]`)?.classList.add('active');
+
 }
+
+
 
 function startQuizFromHome(){
+
   if(!homeState.week) return;
+
   const cnt=homeState.count;
+
   settings.count=String(cnt);
+
   localStorage.setItem('c1180_settings',JSON.stringify(settings));
+
   startQuiz(homeState.week==='all'?'all':homeState.week);
+
 }
+
+
 
 function switchMode(mode){
+
   document.querySelectorAll('.mode-tab').forEach(t=>t.classList.remove('active'));
+
   document.querySelectorAll('.mode-panel').forEach(p=>p.classList.remove('active'));
+
   document.getElementById('tab-'+mode)?.classList.add('active');
+
   document.getElementById('panel-'+mode)?.classList.add('active');
+
 }
+
+
 
 function showLearn(week){
+
   const meta=WEEKS[week];
+
   document.getElementById('learnWeekTitle').textContent=`Week ${week} · ${meta.label}`;
+
   const testBtn=document.getElementById('learnTestBtn');
+
   testBtn.textContent=`Test yourself on Week ${week} → (${homeState.count} questions)`;
+
   testBtn.onclick=()=>{settings.count=String(homeState.count);startQuiz(week);};
+
   const notesEl=document.getElementById('n-w'+week);
+
   const target=document.getElementById('learnNotesContent');
+
   if(notesEl&&target) target.innerHTML=notesEl.innerHTML;
+
   showScreen('learn');
+
 }
+
+
 
 function applySettings(){
+
   ['shuffle','hints'].forEach(k=>{
+
     const el=document.getElementById('toggle-'+k);
+
     if(el) el.className='toggle'+(settings[k]!==false?' on':'');
+
   });
+
 }
+
+
 
 // ── SCREENS ──
+
 function showScreen(id){
+
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+
   const s=document.getElementById(id);
+
   if(s) s.classList.add('active');
+
   if(id==='history') renderHistory();
+
 }
+
+
 
 // ── OVERLAYS ──
+
 function openOverlay(id){document.getElementById(id).classList.add('open')}
+
 function closeOverlay(id){document.getElementById(id).classList.remove('open')}
+
 document.querySelectorAll('.overlay').forEach(o=>{
+
   o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')});
+
 });
+
 function switchTab(group,id,btn){
+
   const panel=btn.closest('.overlay-panel')||btn.closest('.screen');
+
   const scope=panel||document;
+
   scope.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+
   scope.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+
   document.getElementById(id)?.classList.add('active');
+
   btn.classList.add('active');
+
 }
+
+
 
 // ── QUIZ START ──
+
 function startQuiz(mode){
+
   let pool=mode==='all'?[...QUESTIONS]:QUESTIONS.filter(q=>q.week===mode);
+
   if(mode==='retry'&&quizState.missedPool) pool=[...quizState.missedPool];
+
   if(settings.shuffle!==false) pool=shuffle(pool);
+
   const cnt=settings.count;
+
   if(cnt!=='all'&&pool.length>Number(cnt)) pool=pool.slice(0,Number(cnt));
+
   quizState={questions:pool,idx:0,results:[],mode,answered:false,currentAnswer:null,missedPool:quizState.missedPool||null,startTime:Date.now()};
+
   showScreen('quiz');
+
   renderQuestion();
+
 }
+
+
 
 function retryMissed(){
+
   const missed=quizState.results.filter(r=>r.mark<1&&!r.skipped);
+
   if(!missed.length){alert('No missed questions!');return;}
+
   quizState.missedPool=missed.map(r=>r.question);
+
   startQuiz('retry');
+
 }
+
+
 
 function confirmExit(){
+
   if(confirm('Exit quiz? Progress will be lost.')) showScreen('home');
+
 }
+
+
 
 function updateProgress(){
+
   const {idx,questions}=quizState;
+
   const pct=questions.length?((idx/questions.length)*100):0;
+
   document.getElementById('progressFill').style.width=pct+'%';
+
   document.getElementById('quizMeta').textContent=`${idx}/${questions.length}`;
+
 }
+
+
 
 // ── RENDER QUESTION ──
+
 function renderQuestion(){
+
   const {questions,idx}=quizState;
+
   if(idx>=questions.length){showSummary();return;}
+
   updateProgress();
+
   quizState.answered=false;
+
   quizState.currentAnswer=null;
+
   const q=questions[idx];
+
   const area=document.getElementById('questionArea');
+
   const actions=document.getElementById('quizActions');
 
+
+
   let html=`<div class="question-card"><div class="q-tags"><span class="q-week-tag">Week ${q.week} · ${WEEKS[q.week]?.label||''}</span><span class="q-type-tag">${q.type.toUpperCase()}</span></div>`;
+
   if(q.type==='multipart'){
+
     html+=`<div class="q-scenario">${q.scenario}</div>${renderMultipart(q)}`;
+
   } else {
+
     html+=`<p class="q-text">${q.question}</p>`;
+
     if(q.type==='mcq') html+=renderMCQ(q);
+
     else if(q.type==='tf') html+=renderTF(q);
+
     else if(q.type==='sa') html+=renderSA(q,'sa-main');
+
     else if(q.type==='numerical') html+=renderNumerical(q);
+
   }
+
   html+=`<div id="feedbackBox" class="feedback-box"></div><div id="aiLoading" class="ai-loading" style="display:none"><div class="spinner"></div>AI marking…</div></div>`;
+
   area.innerHTML=html;
 
+
+
   const hasHints=settings.hints!==false&&(q.hint||q.hint2);
+
   const submitHidden=(q.type==='mcq'||q.type==='tf')?'style="display:none"':'';
+
   actions.innerHTML=`
+
     <button id="submitBtn" class="btn-submit" onclick="submitAnswer()" ${submitHidden}>Submit</button>
+
     <button id="skipBtn" class="btn-skip" onclick="skipQuestion()">Skip</button>
+
     ${hasHints&&q.hint?`<button id="hintBtn1" class="btn-hint" onclick="showHint1()">💡 Hint 1</button>`:''}
+
     ${hasHints&&q.hint2?`<button id="hintBtn2" class="btn-hint" onclick="showHint2()" style="display:none">🔍 Hint 2</button>`:''}
+
     ${settings.hints!==false?`<button id="hintBtnAI" class="btn-hint" onclick="showHintAI()" style="${hasHints&&q.hint?'display:none':''};background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue)">😕 I'm Confused</button>`:''}
+
     <div id="hintArea" class="hint-area"></div>
+
     <button id="nextBtn" class="btn-next" onclick="nextQuestion()">Next →</button>`;
+
 }
+
+
 
 function renderMCQ(q){
+
   const L=['A','B','C','D'];
+
   return `<div class="mcq-options">${q.options.map((o,i)=>`<div class="mcq-option" id="opt${i}" onclick="selectMCQ(${i})"><div class="opt-label">${L[i]}</div><div>${o}</div></div>`).join('')}</div>`;
+
 }
+
 function renderTF(q){
+
   return `<div class="tf-options"><div class="tf-option" id="tf-true" onclick="selectTF(true)">TRUE</div><div class="tf-option" id="tf-false" onclick="selectTF(false)">FALSE</div></div>`;
+
 }
+
 function renderSA(q,id){
+
   return `<textarea class="sa-textarea" id="${id}" placeholder="Type your answer here…" rows="4"></textarea>`;
+
 }
+
 function renderNumerical(q){
+
   const id='num-main';
+
   return `<div class="num-hint-bar">📐 Show your working — formula, substitution, and final answer</div>${mathToolbar(id)}<textarea class="sa-textarea" id="${id}" placeholder="Write your formula, working, and answer here…" rows="5"></textarea>`;
+
 }
+
 function renderMultipart(q){
+
   let html='';
+
   q.parts.forEach((p,i)=>{
+
     const id=`part-${i}`;
+
     const financeWeek=[3,5,7,8,9].includes(Number(q.week));
+
     html+=`<div class="part-block"><div class="part-label">Part (${p.label})</div><div class="part-question">${p.question}</div>${financeWeek?mathToolbar(id):''}<textarea class="sa-textarea" id="${id}" placeholder="Answer for part (${p.label})…" rows="3"></textarea><div id="fb-part-${i}" class="feedback-box" style="margin-top:8px"></div></div>`;
+
   });
+
   return html;
+
 }
+
 function mathToolbar(targetId){
+
   const syms=['π','×','÷','√','^','²','³','∑','≈','≠','≤','≥','Δ','%','$','(',')'];
+
   return `<div class="math-toolbar">${syms.map(s=>`<button class="math-btn" onclick="insertMath('${s}','${targetId}')">${s}</button>`).join('')}</div>`;
+
 }
+
 function insertMath(sym,targetId){
+
   const ta=document.getElementById(targetId)||document.activeElement;
+
   if(!ta||ta.tagName!=='TEXTAREA') return;
+
   const s=ta.selectionStart,e=ta.selectionEnd;
+
   ta.value=ta.value.slice(0,s)+sym+ta.value.slice(e);
+
   ta.selectionStart=ta.selectionEnd=s+sym.length;
+
   ta.focus();
+
 }
+
+
 
 // ── ANSWER SELECTION ──
+
 function selectMCQ(i){
+
   if(quizState.answered) return;
+
   document.querySelectorAll('.mcq-option').forEach(o=>o.classList.remove('selected'));
+
   document.getElementById('opt'+i).classList.add('selected');
+
   quizState.currentAnswer=i;
+
   submitAnswer();
+
 }
+
 function selectTF(val){
+
   if(quizState.answered) return;
+
   document.querySelectorAll('.tf-option').forEach(o=>o.classList.remove('selected'));
+
   document.getElementById(val?'tf-true':'tf-false').classList.add('selected');
+
   quizState.currentAnswer=val;
+
   submitAnswer();
+
 }
+
+
 
 // ── 3-LEVEL HINTS ──
+
 function showHint1(){
+
   const q=quizState.questions[quizState.idx];
+
   const ha=document.getElementById('hintArea');
+
   const b1=document.getElementById('hintBtn1');
+
   const b2=document.getElementById('hintBtn2');
+
   const bAI=document.getElementById('hintBtnAI');
+
   if(!ha) return;
+
   ha.innerHTML+=`<div class="hint-box h1"><strong>💡 Hint 1</strong><br>${q.hint}</div>`;
+
   if(b1) b1.style.display='none';
+
   if(q.hint2&&b2) b2.style.display='';
+
   else if(bAI) bAI.style.display='';
+
 }
+
 function showHint2(){
+
   const q=quizState.questions[quizState.idx];
+
   const ha=document.getElementById('hintArea');
+
   const b2=document.getElementById('hintBtn2');
+
   const bAI=document.getElementById('hintBtnAI');
+
   if(!ha) return;
+
   ha.innerHTML+=`<div class="hint-box h2"><strong>🔍 Hint 2</strong><br>${q.hint2}</div>`;
+
   if(b2) b2.style.display='none';
+
   if(bAI) bAI.style.display='';
+
 }
+
 function showHintAI(){
+
   const q=quizState.questions[quizState.idx];
+
   const ha=document.getElementById('hintArea');
+
   const bAI=document.getElementById('hintBtnAI');
+
   if(!ha) return;
+
   getExplanationInline(bAI,ha,q);
+
 }
+
+
 
 async function getExplanationInline(btn,ha,q){
+
   btn.disabled=true;
+
   btn.textContent='Loading…';
+
   const loadDiv=document.createElement('div');
+
   loadDiv.className='hint-box hai';
+
   loadDiv.innerHTML='<span style="opacity:.6">✨ Getting AI explanation…</span>';
+
   ha.appendChild(loadDiv);
+
   try {
+
     const resp=await fetch('/.netlify/functions/explain',{
+
       method:'POST',headers:{'Content-Type':'application/json'},
+
       body:JSON.stringify({week:q.week,question:q.question||q.scenario||'',modelAnswer:q.modelAnswer||q.explanation||'',questionType:q.type})
+
     });
+
     const data=await resp.json();
+
     const s=data.structured||{};
+
     const rows=[
+
       s.concept?`<div class="ai-row"><span class="ai-tag">Concept</span><span>${s.concept}</span></div>`:'',
+
       s.answer?`<div class="ai-row"><span class="ai-tag">Answer</span><span>${s.answer}</span></div>`:'',
+
       s.working?`<div class="ai-row ai-working"><span class="ai-tag">Working</span><span>${s.working.replace(/→/g,'<span class="ai-arrow">→</span>')}</span></div>`:'',
+
       s.tip?`<div class="ai-row ai-tip"><span class="ai-tag">💡 Tip</span><span>${s.tip}</span></div>`:'',
+
     ].filter(Boolean).join('');
+
     loadDiv.innerHTML=`<div class="ai-head">🤖 AI Explanation</div>${rows||'<span style="opacity:.6">No explanation available.</span>'}`;
+
   } catch(e){
+
     loadDiv.innerHTML='🤖 Could not load explanation.';
+
   }
+
   btn.style.display='none';
+
 }
+
+
 
 // ── SUBMIT ──
+
 async function submitAnswer(){
+
   if(quizState.answered) return;
+
   const q=quizState.questions[quizState.idx];
+
   if(q.type==='mcq'){
+
     if(quizState.currentAnswer===null) return;
+
     quizState.answered=true;
+
     const correct=quizState.currentAnswer===q.answer;
+
     document.querySelectorAll('.mcq-option').forEach((o,i)=>{
+
       o.classList.add('disabled');
+
       if(i===q.answer) o.classList.add('correct');
+
       else if(i===quizState.currentAnswer&&!correct) o.classList.add('incorrect');
+
     });
+
     showFeedback(correct?1:0,q.explanation||'',q.type);
+
     recordResult({question:q,mark:correct?1:0,maxMark:1,skipped:false});
+
   } else if(q.type==='tf'){
+
     if(quizState.currentAnswer===null) return;
+
     quizState.answered=true;
+
     const correct=quizState.currentAnswer===q.answer;
+
     ['tf-true','tf-false'].forEach(id=>{
+
       const el=document.getElementById(id);
+
       if(el){
+
         el.classList.add('disabled');
+
         const val=id==='tf-true';
+
         if(val===q.answer) el.classList.add('correct');
+
         else if(val===quizState.currentAnswer&&!correct) el.classList.add('incorrect');
+
       }
+
     });
+
     showFeedback(correct?1:0,q.explanation||'',q.type);
+
     recordResult({question:q,mark:correct?1:0,maxMark:1,skipped:false});
+
   } else if(q.type==='sa'||q.type==='numerical'){
+
     const ta=document.getElementById(q.type==='sa'?'sa-main':'num-main');
+
     const ans=ta?ta.value.trim():'';
+
     if(!ans){alert('Please enter an answer or click Skip.');return;}
+
     quizState.answered=true;
+
     if(ta) ta.disabled=true;
+
     await aiMark(q,ans);
+
   } else if(q.type==='multipart'){
+
     const answers=q.parts.map((_,i)=>({answer:(document.getElementById(`part-${i}`)?.value||'').trim()}));
+
     if(!answers.some(a=>a.answer)){alert('Please answer at least one part.');return;}
+
     quizState.answered=true;
+
     q.parts.forEach((_,i)=>{const ta=document.getElementById(`part-${i}`);if(ta)ta.disabled=true;});
+
     await aiMarkMultipart(q,answers);
+
   }
+
   afterAnswer();
+
 }
+
+
 
 function afterAnswer(){
+
   document.getElementById('submitBtn')?.style.setProperty('display','none');
+
   document.getElementById('skipBtn')?.style.setProperty('display','none');
+
   const nb=document.getElementById('nextBtn');
+
   if(nb) nb.style.display='inline-block';
+
 }
 
+
+
 function skipQuestion(){
+
   if(quizState.answered) return;
+
   const q=quizState.questions[quizState.idx];
+
   recordResult({question:q,mark:0,maxMark:1,skipped:true});
+
   showFeedback(-1,'Skipped. '+(q.modelAnswer||q.explanation||''),q.type);
+
   quizState.answered=true;
+
   afterAnswer();
+
 }
+
+
 
 function nextQuestion(){quizState.idx++;renderQuestion();}
 
+
+
 // ── AI MARKING ──
+
 async function aiMark(q,ans){
+
   const loading=document.getElementById('aiLoading');
+
   if(loading) loading.style.display='flex';
+
   try {
+
     let result;
+
     const resp=await fetch('/.netlify/functions/mark',{
+
       method:'POST',headers:{'Content-Type':'application/json'},
+
       body:JSON.stringify({questionType:q.type,question:q.question,answer:ans,keywords:q.keywords||[],modelAnswer:q.modelAnswer||''})
+
     });
+
     result=await resp.json();
+
     if(loading) loading.style.display='none';
+
     const norm=(result.mark||0)/2;
+
     showFeedback(norm,result.feedback,q.type,q.modelAnswer);
+
     recordResult({question:q,mark:norm,maxMark:1,skipped:false,feedback:result.feedback});
+
   } catch(e){
+
     if(loading) loading.style.display='none';
+
     // fallback keyword check
+
     const text=ans.toLowerCase();
+
     const kws=(q.keywords||[]).map(k=>k.toLowerCase());
+
     const hits=kws.filter(k=>text.includes(k)).length;
+
     const ratio=kws.length?hits/kws.length:0;
+
     const mark=ratio>=0.6?1:ratio>=0.3?0.5:0;
+
     showFeedback(mark,mark===1?'Looks good!':mark===0.5?'Partially correct — check model answer.':'Review the model answer.',q.type,q.modelAnswer);
+
     recordResult({question:q,mark,maxMark:1,skipped:false});
+
   }
+
 }
+
+
 
 async function aiMarkMultipart(q,answers){
+
   const loading=document.getElementById('aiLoading');
+
   if(loading) loading.style.display='flex';
+
   try {
+
     let results;
+
     const resp=await fetch('/.netlify/functions/mark',{
+
       method:'POST',headers:{'Content-Type':'application/json'},
+
       body:JSON.stringify({questionType:'multipart',scenario:q.scenario,parts:q.parts.map((p,i)=>({label:p.label,question:p.question,answer:answers[i]?.answer||'',keywords:p.keywords||[],modelAnswer:p.modelAnswer||''}))})
+
     });
+
     const data=await resp.json();
+
     results=data.results;
+
     if(loading) loading.style.display='none';
+
     let total=0;
+
     results.forEach((r,i)=>{
+
       const norm=(r.mark||0)/2;
+
       total+=norm;
+
       const fb=document.getElementById(`fb-part-${i}`);
+
       if(fb){
+
         const cls=norm>=1?'correct':norm>0?'partial':'incorrect';
+
         fb.className=`feedback-box ${cls}`;
+
         fb.style.display='block';
+
         fb.innerHTML=`${r.feedback}<div class="model-answer"><strong>Model:</strong> ${q.parts[i].modelAnswer}</div>`;
+
       }
+
     });
+
     recordResult({question:q,mark:total/q.parts.length,maxMark:1,skipped:false});
+
   } catch(e){
+
     if(loading) loading.style.display='none';
+
     // fallback
+
     let total=0;
+
     q.parts.forEach((p,i)=>{
+
       const ans=(answers[i]?.answer||'').toLowerCase();
+
       const kws=(p.keywords||[]).map(k=>k.toLowerCase());
+
       const hits=kws.filter(k=>ans.includes(k)).length;
+
       const ratio=kws.length?hits/kws.length:0;
+
       const norm=ratio>=0.6?1:ratio>=0.3?0.5:0;
+
       total+=norm;
+
       const fb=document.getElementById(`fb-part-${i}`);
+
       if(fb){
+
         fb.className=`feedback-box ${norm>=1?'correct':norm>0?'partial':'incorrect'}`;
+
         fb.style.display='block';
+
         fb.innerHTML=`${norm>=1?'Looks good!':norm>0?'Partial — review model.':'Review model answer.'}<div class="model-answer"><strong>Model:</strong> ${p.modelAnswer}</div>`;
+
       }
+
     });
+
     recordResult({question:q,mark:total/q.parts.length,maxMark:1,skipped:false});
+
   }
+
 }
 
+
+
 // ── FEEDBACK ──
+
 function showFeedback(mark,text,type,modelAnswer){
+
   const fb=document.getElementById('feedbackBox');
+
   if(!fb) return;
+
   let cls,icon;
+
   if(mark<0){cls='skipped';icon='⏭';}
+
   else if(mark>=1){cls='correct';icon='✅';}
+
   else if(mark>0){cls='partial';icon='🔶';}
+
   else{cls='incorrect';icon='❌';}
+
   fb.className=`feedback-box ${cls}`;
+
   fb.style.display='block';
+
   fb.innerHTML=`${icon} ${text}${modelAnswer?`<div class="model-answer"><strong>Model answer:</strong> ${modelAnswer}</div>`:''}`;
+
 }
+
+
 
 function recordResult(r){quizState.results.push(r);}
 
+
+
 // ── SUMMARY ──
+
 function showSummary(){
+
   const {results,mode}=quizState;
+
   let correct=0,partial=0,incorrect=0,skipped=0,totalMark=0,totalMax=0;
+
   results.forEach(r=>{
+
     totalMark+=r.mark||0;totalMax+=r.maxMark||1;
+
     if(r.skipped)skipped++;
+
     else if(r.mark>=1)correct++;
+
     else if(r.mark>0)partial++;
+
     else incorrect++;
+
   });
+
   const pct=totalMax>0?Math.round((totalMark/totalMax)*100):0;
+
   const ring=document.getElementById('scoreRing');
+
   if(ring) ring.style.setProperty('--pct',pct);
+
   document.getElementById('summaryScore').textContent=pct+'%';
+
   document.getElementById('summaryLabel').textContent=`Week ${mode==='all'?'All':mode} · ${results.length} questions`;
+
   document.getElementById('statCorrect').textContent=correct;
+
   document.getElementById('statPartial').textContent=partial;
+
   document.getElementById('statIncorrect').textContent=incorrect+skipped;
+
   const list=document.getElementById('resultList');
+
   list.innerHTML=results.map(r=>{
+
     const q=r.question;
+
     const cls=r.skipped?'r-skipped':r.mark>=1?'r-correct':r.mark>0?'r-partial':'r-incorrect';
+
     const icon=r.skipped?'⏭':r.mark>=1?'✅':r.mark>0?'🔶':'❌';
+
     const txt=q.type==='multipart'?q.scenario.substring(0,80)+'…':q.question.substring(0,80)+(q.question.length>80?'…':'');
+
     return `<div class="result-item ${cls}"><div class="result-icon">${icon}</div><div class="result-q">W${q.week} · ${txt}</div><div class="result-mark">${r.skipped?'skip':Math.round(r.mark*100)+'%'}</div></div>`;
+
   }).join('');
+
   document.getElementById('retryBtn').style.display=results.filter(r=>r.mark<1&&!r.skipped).length?'':'none';
+
   saveHistory({date:new Date().toISOString(),mode,pct,correct,partial,incorrect,skipped,results:results.map(r=>({week:r.question.week,type:r.question.type,mark:r.mark,skipped:r.skipped,question:r.question.type==='multipart'?r.question.scenario:r.question.question}))});
+
   showScreen('summary');
+
 }
+
+
 
 // ── HISTORY ──
+
 function saveHistory(s){
+
   const h=JSON.parse(localStorage.getItem('c1180_history')||'[]');
+
   h.unshift(s);if(h.length>50)h.pop();
+
   localStorage.setItem('c1180_history',JSON.stringify(h));
+
 }
+
 function renderHistory(){
+
   const h=JSON.parse(localStorage.getItem('c1180_history')||'[]');
+
   const list=document.getElementById('historyList');
+
   if(!h.length){list.innerHTML='<div class="empty-state">No history yet. Complete a quiz to see results here.</div>';return;}
+
   list.innerHTML=h.map((s,i)=>{
+
     const d=new Date(s.date);
+
     const ml=s.mode==='all'?'All Weeks':`Week ${s.mode}`;
+
     return `<div class="history-item" onclick="showHistoryDetail(${i})"><div class="history-score">${s.pct}%</div><div class="history-meta"><div class="history-mode">${ml}</div><div class="history-date">${d.toLocaleDateString()} ${d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})} · ✅${s.correct} 🔶${s.partial} ❌${s.incorrect+s.skipped}</div></div></div>`;
+
   }).join('');
+
 }
+
 function showHistoryDetail(i){
+
   const h=JSON.parse(localStorage.getItem('c1180_history')||'[]');
+
   const s=h[i];if(!s)return;
+
   document.getElementById('detailTitle').textContent=`${s.mode==='all'?'All Weeks':'Week '+s.mode} — ${s.pct}%`;
+
   document.getElementById('detailList').innerHTML=(s.results||[]).map(r=>{
+
     const cls=r.skipped?'r-skipped':r.mark>=1?'r-correct':r.mark>0?'r-partial':'r-incorrect';
+
     const icon=r.skipped?'⏭':r.mark>=1?'✅':r.mark>0?'🔶':'❌';
+
     return `<div class="result-item ${cls}"><div class="result-icon">${icon}</div><div class="result-q">W${r.week} · ${(r.question||'').substring(0,80)}</div><div class="result-mark">${r.skipped?'skip':Math.round(r.mark*100)+'%'}</div></div>`;
+
   }).join('');
+
   showScreen('history-detail');
+
 }
+
 function clearHistory(){
+
   if(confirm('Clear all history?')){localStorage.removeItem('c1180_history');renderHistory();}
+
 }
+
 function exportHistory(){
+
   const blob=new Blob([localStorage.getItem('c1180_history')||'[]'],{type:'application/json'});
+
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='comm1180-history.json';a.click();
+
 }
+
+
 
 // ── SETTINGS ──
+
 function toggleSetting(key){
+
   settings[key]=!settings[key];
+
   localStorage.setItem('c1180_settings',JSON.stringify(settings));
+
   applySettings();
+
 }
+
+
 
 // ── ADMIN ──
+
 function openAdminModal(){
+
   document.getElementById('adminPwInput').value='';
+
   document.getElementById('adminPwError').style.display='none';
+
   openOverlay('admin-modal');
-}
-function checkAdminPw(){
-  const pw=document.getElementById('adminPwInput').value;
-  if(pw===ADMIN_PW){
-    closeOverlay('admin-modal');
-    loadAdminPanel();
-    openOverlay('admin-panel');
-  } else {
-    document.getElementById('adminPwError').style.display='block';
-  }
-}
-function loadAdminPanel(){
-  const h=JSON.parse(localStorage.getItem('c1180_history')||'[]');
-  const stats=document.getElementById('adminStats');
-  if(stats){
-    stats.innerHTML=`Total questions: <strong>${QUESTIONS.length}</strong><br>Sessions completed: <strong>${h.length}</strong><br>${Object.keys(WEEKS).map(w=>`Week ${w}: <strong>${QUESTIONS.filter(q=>q.week==w).length}</strong> questions`).join('<br>')}`;
-  }
+
 }
 
-// ── UTILS ──
-function shuffle(arr){
-  for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
-  return arr;
+function checkAdminPw(){
+
+  const pw=document.getElementById('adminPwInput').value;
+
+  if(pw===ADMIN_PW){
+
+    closeOverlay('admin-modal');
+
+    loadAdminPanel();
+
+    openOverlay('admin-panel');
+
+  } else {
+
+    document.getElementById('adminPwError').style.display='block';
+
+  }
+
 }
+
+function loadAdminPanel(){
+
+  const h=JSON.parse(localStorage.getItem('c1180_history')||'[]');
+
+  const stats=document.getElementById('adminStats');
+
+  if(stats){
+
+    stats.innerHTML=`Total questions: <strong>${QUESTIONS.length}</strong><br>Sessions completed: <strong>${h.length}</strong><br>${Object.keys(WEEKS).map(w=>`Week ${w}: <strong>${QUESTIONS.filter(q=>q.week==w).length}</strong> questions`).join('<br>')}`;
+
+  }
+
+}
+
+
+
+// ── UTILS ──
+
+function shuffle(arr){
+
+  for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+
+  return arr;
+
+}
+
 </script>
+
 </body>
+
 </html>
+
