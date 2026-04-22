@@ -18,7 +18,7 @@
 
 :root{
 
-  --blue:#2563EB;--blue-dark:#1D4ED8;--blue-light:#EFF6FF;--blue-mid:#BFDBFE;
+  --blue:#4F46E5;--blue-dark:#4338CA;--blue-light:#EEF2FF;--blue-mid:#C7D2FE;
 
   --green:#059669;--green-light:#ECFDF5;--green-border:#6EE7B7;
 
@@ -40,6 +40,18 @@
 
 }
 
+/* ── DARK MODE ── */
+.dark{
+  --blue:#818CF8;--blue-dark:#6366F1;--blue-light:#1E1B4B;--blue-mid:#312E81;
+  --green:#34D399;--green-light:#064E3B;--green-border:#065F46;
+  --red:#F87171;--red-light:#450A0A;--red-border:#7F1D1D;
+  --amber:#FCD34D;--amber-light:#451A03;--amber-border:#92400E;
+  --purple:#C084FC;--purple-light:#3B0764;
+  --text:#F1F5F9;--text-2:#94A3B8;--text-3:#475569;
+  --border:#334155;--bg:#0F172A;--surface:#1E293B;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.3),0 1px 2px rgba(0,0,0,.2);
+  --shadow:0 4px 6px -1px rgba(0,0,0,.3),0 2px 4px -2px rgba(0,0,0,.2);
+}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 
 
@@ -536,6 +548,36 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 
 
+/* ── MULTI-STEP WORKING AREA ── */
+.working-area{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:14px;margin-bottom:10px}
+.working-area-label{font-size:.72rem;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.working-area-label::before{content:'';display:inline-block;width:3px;height:11px;background:var(--blue);border-radius:2px;flex-shrink:0}
+.working-steps{display:flex;flex-direction:column;gap:7px;margin-bottom:8px}
+.step-row{display:flex;align-items:center;gap:8px}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-input{flex:1;background:var(--surface);border:1.5px solid var(--border);border-radius:6px;padding:7px 10px;color:var(--text);font-size:.88rem;font-family:inherit;transition:border-color .15s}
+.step-input:focus{outline:none;border-color:var(--blue)}
+.step-del{background:none;border:none;color:var(--text-3);cursor:pointer;font-size:.9rem;padding:3px 6px;border-radius:4px;flex-shrink:0;transition:all .12s}
+.step-del:hover{color:var(--red);background:var(--red-light)}
+.btn-add-step{background:none;border:1.5px dashed var(--border);border-radius:var(--r-sm);padding:7px 12px;font-size:.78rem;color:var(--text-2);cursor:pointer;font-family:inherit;width:100%;transition:all .15s;margin-bottom:10px}
+.btn-add-step:hover{border-color:var(--blue);color:var(--blue)}
+.final-answer-wrap{background:var(--blue-light);border:1.5px solid var(--blue-mid);border-radius:var(--r-sm);padding:10px 14px}
+.final-answer-label{font-size:.72rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.final-answer-input{width:100%;background:transparent;border:none;color:var(--text);font-size:.95rem;font-weight:600;font-family:inherit;padding:2px 0}
+.final-answer-input:focus{outline:none}
+.final-answer-input::placeholder{color:var(--blue);opacity:.5;font-weight:400}
+
+/* ── LEARN CARD ── */
+.learn-card{background:var(--surface);border:1.5px solid var(--blue-mid);border-radius:var(--r);padding:16px;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+.learn-card-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.learn-card-icon{font-size:1.1rem}
+.learn-card-title{font-size:.88rem;font-weight:700;color:var(--blue)}
+.learn-card-section{margin-bottom:10px}
+.learn-card-section-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);margin-bottom:5px}
+.learn-card-body{font-size:.84rem;line-height:1.65;color:var(--text-2)}
+.learn-card-formula{font-family:'Courier New',monospace;font-size:.83rem;background:var(--bg);border-radius:5px;padding:5px 9px;margin:4px 0;border-left:2px solid var(--blue);color:var(--text)}
+.learn-card-collapse{background:none;border:none;color:var(--blue);font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;padding:0;display:flex;align-items:center;gap:4px;margin-bottom:8px}
+
 @media(max-width:500px){
 
   .week-chips,.learn-week-grid{grid-template-columns:repeat(2,1fr)}
@@ -653,6 +695,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     <button class="hdr-btn" onclick="openOverlay('formula-overlay')">📐 <span>Formulas</span></button>
 
     <button class="hdr-btn" onclick="openOverlay('settings-overlay')">⚙️</button>
+
+    <button class="hdr-btn" id="darkModeBtn" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
 
     <button class="hdr-btn" onclick="openAdminModal()">🔒</button>
 
@@ -1822,7 +1866,7 @@ const ADMIN_PW='abc123';
 
 let settings=Object.assign({shuffle:true,hints:true,count:'10'},JSON.parse(localStorage.getItem('c1180_settings')||'{}'));
 
-let quizState={questions:[],idx:0,results:[],mode:'all',answered:false,currentAnswer:null};
+let quizState={questions:[],idx:0,results:[],mode:'all',answered:false,currentAnswer:null,learnMode:false};
 
 let homeState={weeks:[],count:10};
 
@@ -2856,6 +2900,8 @@ const WEEKS={
 
   buildCountChips();
 
+  applyDarkMode();
+
 })();
 
 
@@ -3020,6 +3066,8 @@ function startQuizFromHome(){
 
   localStorage.setItem('c1180_settings',JSON.stringify(settings));
 
+  quizState.learnMode=false;
+
   startQuiz(homeState.weeks);
 
 }
@@ -3048,9 +3096,19 @@ function showLearn(week){
 
   const testBtn=document.getElementById('learnTestBtn');
 
-  testBtn.textContent=`Test yourself on Week ${week} → (${homeState.count} questions)`;
+  const n=QUESTIONS.filter(q=>q.week==week).length;
 
-  testBtn.onclick=()=>{settings.count=String(homeState.count);startQuiz(week);};
+  testBtn.textContent=`Test yourself on Week ${week} → (${Math.min(homeState.count,n)} questions)`;
+
+  testBtn.onclick=()=>{
+
+    settings.count=String(homeState.count);
+
+    quizState.learnMode=true;
+
+    startQuiz([week]);
+
+  };
 
   const notesEl=document.getElementById('n-w'+week);
 
@@ -3059,6 +3117,124 @@ function showLearn(week){
   if(notesEl&&target) target.innerHTML=notesEl.innerHTML;
 
   showScreen('learn');
+
+}
+
+
+
+function renderLearnCard(q){
+
+  const meta=WEEKS[q.week];
+
+  const typeLabel={mcq:'Multiple Choice',tf:'True/False',sa:'Short Answer',numerical:'Calculation',multipart:'Multi-Part'}[q.type]||q.type.toUpperCase();
+
+  const conceptMap={
+
+    2:'Customer value, STP, Porter\'s Generic Strategies, Ansoff Matrix, Value Proposition Canvas',
+
+    3:'Contribution Margin, Break-Even Point, Multi-Product CVP, Margin of Safety',
+
+    4:'Balanced Scorecard, Four Perspectives, Leading vs Lagging Indicators, Strategy Map',
+
+    5:'Time Value of Money, FV/PV, APR/EAR, Annuities, Perpetuities',
+
+    7:'NPV, IRR, Profitability Index, EAA, Payback Period, Capital Budgeting',
+
+    8:'Bond Pricing, Gordon Growth Model, Dividend Discount Model, YTM',
+
+    9:'CAPM, Beta, Systematic Risk, WACC, Market Risk Premium',
+
+    10:'ROIC vs WACC, ESG, Corporate Governance, Integration of all topics'
+
+  };
+
+  const formulaMap={
+
+    5:'FV = PV×(1+r)^n  |  PV = FV÷(1+r)^n  |  EAR = (1+APR/m)^m−1  |  PV(annuity) = C×[1−(1+r)^−n]÷r  |  PV(perp) = C÷r  |  PV(grow perp) = C₁÷(r−g)',
+
+    7:'NPV = CF₀+Σ[CFₜ÷(1+r)^t]  |  IRR: set NPV=0  |  PI = NPV÷|Investment|  |  EAA = NPV×r÷[1−(1+r)^−n]',
+
+    8:'Bond: P₀=C×[1−(1+r)^−n]÷r+F÷(1+r)^n  |  P₀=D₁÷(r−g)  |  g=Retention×ROI  |  r=D₁÷P₀+g',
+
+    9:'E[Ri]=Rf+β×(E[RM]−Rf)  |  WACC=wE×RE+wD×RD×(1−TC)  |  wD=(D/E)÷(1+D/E)',
+
+    3:'CM=SP−VC  |  BEP=FC÷CM  |  WACM=Σ(CMi×Mixi)  |  MOS=Actual−BEP'
+
+  };
+
+  const approachMap={
+
+    numerical:'1. Identify what is given and what you are solving for.\n2. Write the relevant formula.\n3. Substitute the values.\n4. Calculate step by step.\n5. State your final answer with units.',
+
+    mcq:'1. Read the question carefully.\n2. Eliminate obviously wrong options.\n3. Apply the relevant concept or formula.\n4. Check your reasoning before selecting.',
+
+    tf:'1. Re-read the statement slowly.\n2. Think of any exception that makes it false.\n3. Apply the relevant definition or rule.',
+
+    sa:'1. Identify the key concept being tested.\n2. Define any relevant terms.\n3. Apply the concept to the specific context.\n4. Keep your answer focused and concise.',
+
+    multipart:'1. Read the full scenario first.\n2. Answer each part independently.\n3. Use results from earlier parts where needed.\n4. Show all working for numerical parts.'
+
+  };
+
+  const hint=q.hint||'';
+
+  const formula=formulaMap[q.week]||'';
+
+  const concept=conceptMap[q.week]||`Week ${q.week} — ${meta?.label||''}`;
+
+  const approach=approachMap[q.type]||approachMap.sa;
+
+  let html=`<div class="learn-card">
+
+    <div class="learn-card-head"><span class="learn-card-icon">📖</span><span class="learn-card-title">Learn Before You Answer — ${typeLabel} · W${q.week} ${meta?.label||''}</span></div>
+
+    <div class="learn-card-section">
+
+      <div class="learn-card-section-label">Concept tested</div>
+
+      <div class="learn-card-body">${concept}</div>
+
+    </div>`;
+
+  if(formula){
+
+    html+=`<div class="learn-card-section">
+
+      <div class="learn-card-section-label">Key Formulas</div>`;
+
+    formula.split('|').forEach(f=>{
+
+      html+=`<div class="learn-card-formula">${f.trim()}</div>`;
+
+    });
+
+    html+=`</div>`;
+
+  }
+
+  html+=`<div class="learn-card-section">
+
+    <div class="learn-card-section-label">How to approach this type</div>
+
+    <div class="learn-card-body" style="white-space:pre-line">${approach}</div>
+
+  </div>`;
+
+  if(hint){
+
+    html+=`<div class="learn-card-section">
+
+      <div class="learn-card-section-label">Key hint for this question</div>
+
+      <div class="learn-card-body" style="color:var(--blue);font-weight:500">${hint}</div>
+
+    </div>`;
+
+  }
+
+  html+=`</div>`;
+
+  return html;
 
 }
 
@@ -3073,6 +3249,32 @@ function applySettings(){
     if(el) el.className='toggle'+(settings[k]!==false?' on':'');
 
   });
+
+}
+
+
+
+// ── DARK MODE ──
+
+let darkMode=localStorage.getItem('c1180_dark')==='true';
+
+function applyDarkMode(){
+
+  document.body.classList.toggle('dark',darkMode);
+
+  const btn=document.getElementById('darkModeBtn');
+
+  if(btn) btn.textContent=darkMode?'☀️':'🌙';
+
+}
+
+function toggleDarkMode(){
+
+  darkMode=!darkMode;
+
+  localStorage.setItem('c1180_dark',String(darkMode));
+
+  applyDarkMode();
 
 }
 
@@ -3142,7 +3344,9 @@ function startQuiz(mode){
 
   if(cnt!=='all'&&pool.length>Number(cnt)) pool=pool.slice(0,Number(cnt));
 
-  quizState={questions:pool,idx:0,results:[],mode,answered:false,currentAnswer:null,missedPool:quizState.missedPool||null,startTime:Date.now()};
+  const prevLearnMode=quizState.learnMode||false;
+
+  quizState={questions:pool,idx:0,results:[],mode,answered:false,currentAnswer:null,missedPool:quizState.missedPool||null,startTime:Date.now(),learnMode:(mode==='retry')?false:prevLearnMode};
 
   showScreen('quiz');
 
@@ -3210,7 +3414,9 @@ function renderQuestion(){
 
 
 
-  let html=`<div class="question-card"><div class="q-tags"><span class="q-week-tag">Week ${q.week} · ${WEEKS[q.week]?.label||''}</span><span class="q-type-tag">${q.type.toUpperCase()}</span></div>`;
+  const learnCardHtml=quizState.learnMode?renderLearnCard(q):'';
+
+  let html=`${learnCardHtml}<div class="question-card"><div class="q-tags"><span class="q-week-tag">Week ${q.week} · ${WEEKS[q.week]?.label||''}</span><span class="q-type-tag">${q.type.toUpperCase()}</span></div>`;
 
   if(q.type==='multipart'){
 
@@ -3282,9 +3488,43 @@ function renderSA(q,id){
 
 function renderNumerical(q){
 
-  const id='num-main';
+  const syms=['π','×','÷','√','^','²','³','∑','≈','≠','≤','≥','Δ','%','$','(',')'];
 
-  return `<div class="num-hint-bar">📐 Show your working — formula, substitution, and final answer</div>${mathToolbar(id)}<textarea class="sa-textarea" id="${id}" placeholder="Write your formula, working, and answer here…" rows="5"></textarea>`;
+  const palette=syms.map(s=>`<button class="math-btn" onclick="insertSymbol('${s}')">${s}</button>`).join('');
+
+  return `<div class="num-hint-bar">📐 Show your working — use steps below, then enter your final answer</div>
+
+    <div class="working-area">
+
+      <div class="working-area-label">Working Steps</div>
+
+      <div class="working-steps" id="workingSteps">
+
+        <div class="step-row" data-step="1">
+
+          <div class="step-num">1</div>
+
+          <input class="step-input" placeholder="e.g. Identify formula: FV = PV × (1+r)^n" onfocus="activeStepInput=this"/>
+
+          <button class="step-del" onclick="delStep(this)" title="Remove step">✕</button>
+
+        </div>
+
+      </div>
+
+      <div class="math-toolbar" style="margin-bottom:6px">${palette}</div>
+
+      <button class="btn-add-step" onclick="addStep()">+ Add Step</button>
+
+      <div class="final-answer-wrap">
+
+        <div class="final-answer-label">Final Answer</div>
+
+        <input class="final-answer-input" id="num-final" placeholder="Your final answer here…" onfocus="activeStepInput=this"/>
+
+      </div>
+
+    </div>`;
 
 }
 
@@ -3327,6 +3567,90 @@ function insertMath(sym,targetId){
   ta.selectionStart=ta.selectionEnd=s+sym.length;
 
   ta.focus();
+
+}
+
+
+
+// ── WORKING AREA (numerical questions) ──
+
+let activeStepInput=null;
+
+function insertSymbol(sym){
+
+  const inp=activeStepInput||document.getElementById('num-final');
+
+  if(!inp) return;
+
+  const tag=inp.tagName;
+
+  if(tag!=='INPUT'&&tag!=='TEXTAREA') return;
+
+  const s=inp.selectionStart||0,e=inp.selectionEnd||0;
+
+  inp.value=inp.value.slice(0,s)+sym+inp.value.slice(e);
+
+  inp.selectionStart=inp.selectionEnd=s+sym.length;
+
+  inp.focus();
+
+}
+
+function addStep(){
+
+  const container=document.getElementById('workingSteps');
+
+  if(!container) return;
+
+  const n=container.children.length+1;
+
+  const row=document.createElement('div');
+
+  row.className='step-row';
+
+  row.dataset.step=n;
+
+  row.innerHTML=`<div class="step-num">${n}</div><input class="step-input" placeholder="Step ${n}…" onfocus="activeStepInput=this"/><button class="step-del" onclick="delStep(this)" title="Remove step">✕</button>`;
+
+  container.appendChild(row);
+
+  row.querySelector('input').focus();
+
+}
+
+function delStep(btn){
+
+  const row=btn.closest('.step-row');
+
+  const container=document.getElementById('workingSteps');
+
+  if(!container||container.children.length<=1) return;
+
+  row.remove();
+
+  Array.from(container.children).forEach((r,i)=>{
+
+    r.dataset.step=i+1;
+
+    r.querySelector('.step-num').textContent=i+1;
+
+    r.querySelector('input').placeholder=`Step ${i+1}…`;
+
+  });
+
+}
+
+function getWorkingAnswer(){
+
+  const container=document.getElementById('workingSteps');
+
+  const steps=container?Array.from(container.querySelectorAll('input')).map((inp,i)=>inp.value.trim()?`Step ${i+1}: ${inp.value.trim()}`:null).filter(Boolean):[];
+
+  const fin=(document.getElementById('num-final')?.value||'').trim();
+
+  if(!steps.length&&!fin) return '';
+
+  return [...steps,fin?`Final Answer: ${fin}`:null].filter(Boolean).join('\n');
 
 }
 
@@ -3542,15 +3866,35 @@ async function submitAnswer(){
 
   } else if(q.type==='sa'||q.type==='numerical'){
 
-    const ta=document.getElementById(q.type==='sa'?'sa-main':'num-main');
+    let ans;
 
-    const ans=ta?ta.value.trim():'';
+    if(q.type==='numerical'){
+
+      ans=getWorkingAnswer();
+
+    } else {
+
+      const ta=document.getElementById('sa-main');
+
+      ans=ta?ta.value.trim():'';
+
+    }
 
     if(!ans){alert('Please enter an answer or click Skip.');return;}
 
     quizState.answered=true;
 
-    if(ta) ta.disabled=true;
+    if(q.type==='numerical'){
+
+      document.querySelectorAll('#workingSteps .step-input,#num-final').forEach(el=>el.disabled=true);
+
+    } else {
+
+      const ta=document.getElementById('sa-main');
+
+      if(ta) ta.disabled=true;
+
+    }
 
     await aiMark(q,ans);
 
@@ -3822,7 +4166,9 @@ function showSummary(){
 
   document.getElementById('summaryScore').textContent=pct+'%';
 
-  document.getElementById('summaryLabel').textContent=`Week ${mode==='all'?'All':mode} · ${results.length} questions`;
+  const modeLabel=Array.isArray(mode)?`Weeks ${mode.join(', ')}`:mode==='all'?'All Weeks':mode==='retry'?'Retry':mode;
+
+  document.getElementById('summaryLabel').textContent=`${modeLabel} · ${results.length} questions`;
 
   document.getElementById('statCorrect').textContent=correct;
 
@@ -3880,7 +4226,7 @@ function renderHistory(){
 
     const d=new Date(s.date);
 
-    const ml=s.mode==='all'?'All Weeks':`Week ${s.mode}`;
+    const ml=Array.isArray(s.mode)?`Weeks ${s.mode.join(', ')}`:s.mode==='all'?'All Weeks':s.mode==='retry'?'Retry':`Week ${s.mode}`;
 
     return `<div class="history-item" onclick="showHistoryDetail(${i})"><div class="history-score">${s.pct}%</div><div class="history-meta"><div class="history-mode">${ml}</div><div class="history-date">${d.toLocaleDateString()} ${d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})} · ✅${s.correct} 🔶${s.partial} ❌${s.incorrect+s.skipped}</div></div></div>`;
 
@@ -3894,7 +4240,9 @@ function showHistoryDetail(i){
 
   const s=h[i];if(!s)return;
 
-  document.getElementById('detailTitle').textContent=`${s.mode==='all'?'All Weeks':'Week '+s.mode} — ${s.pct}%`;
+  const dtLabel=Array.isArray(s.mode)?`Weeks ${s.mode.join(', ')}`:s.mode==='all'?'All Weeks':`Week ${s.mode}`;
+
+  document.getElementById('detailTitle').textContent=`${dtLabel} — ${s.pct}%`;
 
   document.getElementById('detailList').innerHTML=(s.results||[]).map(r=>{
 
@@ -3989,6 +4337,14 @@ function loadAdminPanel(){
 
 
 // ── UTILS ──
+
+function promptApiKey(){
+
+  const key=prompt('Enter your Anthropic API key (stored in your browser only):',localStorage.getItem('c1180_apikey')||'');
+
+  if(key!==null) localStorage.setItem('c1180_apikey',key.trim());
+
+}
 
 function shuffle(arr){
 
