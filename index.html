@@ -884,11 +884,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     </div>
     <div class="overlay-body">
       <div class="admin-section">
-        <h3>API Configuration</h3>
-        <div class="form-group"><label>Anthropic API Key</label><input type="password" id="apiKeyInput" placeholder="sk-ant-..." oninput="saveApiKey(this.value)"/></div>
-        <div class="api-key-display" id="apiKeyDisplay">No key set</div>
-      </div>
-      <div class="admin-section">
         <h3>Statistics</h3>
         <div id="adminStats" style="font-size:.84rem;color:var(--text-2);line-height:2"></div>
       </div>
@@ -1474,7 +1469,9 @@ function renderQuestion(){
   actions.innerHTML=`
     <button id="submitBtn" class="btn-submit" onclick="submitAnswer()" ${submitHidden}>Submit</button>
     <button id="skipBtn" class="btn-skip" onclick="skipQuestion()">Skip</button>
-    ${hasHints?`<button id="hintBtn" class="btn-hint" data-level="0" onclick="advanceHint()">💡 Hint 1</button>`:''}
+    ${hasHints&&q.hint?`<button id="hintBtn1" class="btn-hint" onclick="showHint1()">💡 Hint 1</button>`:''}
+    ${hasHints&&q.hint2?`<button id="hintBtn2" class="btn-hint" onclick="showHint2()" style="display:none">🔍 Hint 2</button>`:''}
+    <button id="hintBtnAI" class="btn-hint" onclick="showHintAI()" style="display:none;background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue)">😕 I'm Confused</button>
     <div id="hintArea" class="hint-area"></div>
     <button id="nextBtn" class="btn-next" onclick="nextQuestion()">Next →</button>`;
 }
@@ -1531,24 +1528,34 @@ function selectTF(val){
 }
 
 // ── 3-LEVEL HINTS ──
-function advanceHint(){
+function showHint1(){
   const q=quizState.questions[quizState.idx];
-  const btn=document.getElementById('hintBtn');
   const ha=document.getElementById('hintArea');
-  if(!btn||!ha) return;
-  const level=btn.dataset.level;
-  if(level==='0'&&q.hint){
-    ha.innerHTML+=`<div class="hint-box h1"><strong>💡 Hint 1</strong><br>${q.hint}</div>`;
-    btn.dataset.level='1';
-    if(q.hint2){btn.textContent='🔍 Hint 2';}
-    else{btn.textContent='🤖 Ask AI';btn.dataset.level='ai';}
-  } else if(level==='1'&&q.hint2){
-    ha.innerHTML+=`<div class="hint-box h2"><strong>🔍 Hint 2</strong><br>${q.hint2}</div>`;
-    btn.dataset.level='ai';
-    btn.textContent='🤖 Ask AI';
-  } else if(level==='ai'){
-    getExplanationInline(btn,ha,q);
-  }
+  const b1=document.getElementById('hintBtn1');
+  const b2=document.getElementById('hintBtn2');
+  const bAI=document.getElementById('hintBtnAI');
+  if(!ha) return;
+  ha.innerHTML+=`<div class="hint-box h1"><strong>💡 Hint 1</strong><br>${q.hint}</div>`;
+  if(b1) b1.style.display='none';
+  if(q.hint2&&b2) b2.style.display='';
+  else if(bAI) bAI.style.display='';
+}
+function showHint2(){
+  const q=quizState.questions[quizState.idx];
+  const ha=document.getElementById('hintArea');
+  const b2=document.getElementById('hintBtn2');
+  const bAI=document.getElementById('hintBtnAI');
+  if(!ha) return;
+  ha.innerHTML+=`<div class="hint-box h2"><strong>🔍 Hint 2</strong><br>${q.hint2}</div>`;
+  if(b2) b2.style.display='none';
+  if(bAI) bAI.style.display='';
+}
+function showHintAI(){
+  const q=quizState.questions[quizState.idx];
+  const ha=document.getElementById('hintArea');
+  const bAI=document.getElementById('hintBtnAI');
+  if(!ha) return;
+  getExplanationInline(bAI,ha,q);
 }
 
 async function getExplanationInline(btn,ha,q){
@@ -1828,17 +1835,6 @@ function loadAdminPanel(){
   if(stats){
     stats.innerHTML=`Total questions: <strong>${QUESTIONS.length}</strong><br>Sessions completed: <strong>${h.length}</strong><br>${Object.keys(WEEKS).map(w=>`Week ${w}: <strong>${QUESTIONS.filter(q=>q.week==w).length}</strong> questions`).join('<br>')}`;
   }
-}
-function saveApiKey(val){
-  if(val) localStorage.setItem('c1180_apikey',val);
-  loadApiKeyDisplay();
-}
-function loadApiKeyDisplay(){
-  const k=localStorage.getItem('c1180_apikey')||'';
-  const disp=document.getElementById('apiKeyDisplay');
-  if(disp) disp.textContent=k?k.substring(0,8)+'…'+k.slice(-4):'No key set';
-  const inp=document.getElementById('apiKeyInput');
-  if(inp) inp.value=k;
 }
 
 // ── UTILS ──
