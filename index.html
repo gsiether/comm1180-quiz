@@ -274,12 +274,18 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 .num-hint-bar{background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:var(--r-sm);padding:8px 12px;margin-bottom:10px;font-size:.78rem;color:var(--blue)}
 
-/* ── MATH FIELD (MathQuill / Desmos-style) ── */
+.math-toolbar{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
+
+.math-btn{background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:3px 8px;font-size:.82rem;cursor:pointer;color:var(--text);font-family:serif;transition:all .12s}
+
+.math-btn:hover{border-color:var(--blue);background:var(--blue-light)}
+
+/* ── MathQuill field ── */
 .mq-wrap{width:100%;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:8px 14px;min-height:54px;background:white;margin-bottom:8px;cursor:text;font-size:1.05rem;line-height:1.6}
 .mq-wrap.mq-focused{border-color:var(--blue)}
 .mq-wrap.mq-disabled{background:var(--bg);opacity:.75;pointer-events:none}
 .mq-wrap .mq-editable-field{min-width:1px;border:none!important;box-shadow:none!important;outline:none!important}
-.mq-wrap .mq-editable-field.mq-focused{outline:none!important;box-shadow:none!important}
+/* ── MathQuill keyboard ── */
 .math-keyboard{background:#eef0f3;border:1px solid var(--border);border-radius:var(--r-sm);padding:8px;margin-bottom:10px;user-select:none}
 .mkey-row{display:flex;gap:4px;margin-bottom:4px}
 .mkey-row:last-child{margin-bottom:0}
@@ -288,14 +294,11 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .mkey:hover{background:var(--blue-light);border-color:var(--blue)}
 .mkey.sym{font-family:serif;color:var(--blue);font-weight:700;font-size:.85rem}
 .mkey.grey{background:#d8dbe0;border-color:#b8bbc4}
-.mkey.grey:hover{background:#c8cbd4}
+.mkey.grey:hover{background:var(--blue-light);border-color:var(--blue)}
 .mkey.nav{background:#d8dbe0;border-color:#b8bbc4;font-size:.75rem}
-.mkey.nav:hover{background:#c8cbd4}
-.mkey.del{background:#d8dbe0;border-color:#b8bbc4}
+.mkey.nav:hover{background:var(--blue-light);border-color:var(--blue)}
 .mkey.del:hover{background:#f8d7da;border-color:var(--red);color:var(--red)}
 .mkey.wide{flex:2}
-.mkey.submit-key{background:var(--blue);color:white;border-color:var(--blue);font-weight:700;font-size:.85rem}
-.mkey.submit-key:hover{background:var(--blue-dark)}
 
 .sa-textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:10px 12px;color:var(--text);font-size:.9rem;line-height:1.6;resize:vertical;min-height:80px;font-family:inherit}
 
@@ -1967,19 +1970,19 @@ const QUESTIONS=[
 
 {week:3,type:'mcq',question:'Which of the following is a LIMITATION of CVP analysis?',options:['A. It ignores contribution margin','B. It assumes costs can be separated into fixed and variable','C. It cannot calculate break-even','D. It does not use selling price'],answer:1,explanation:'CVP assumes all costs are either purely fixed or purely variable, ignores step costs and mixed cost complexities, and assumes a constant sales mix. Real-world cost behaviour is more complex.',hint:'CVP works by classifying all costs as either purely fixed or purely variable. What\'s unrealistic about this in the real world?',hint2:'In reality, many costs are mixed, step-costs exist, and sales mix changes. CVP\'s limitation is the simplifying assumption that all costs are neatly fixed or variable.'},
 
-{week:3,type:'mcq',question:'A firm has SP=$80, VC=$50, and FC=$150,000. If it sells 6,000 units, its Margin of Safety as a percentage of actual sales is:',options:['A. 16.7%','B. 25.0%','C. 33.3%','D. 50.0%'],answer:0,explanation:'CM=$30. BEP=150,000/30=5,000 units. MOS=6,000−5,000=1,000. MOS%=1,000/6,000=16.7%.',hint:'First find BEP units (FC ÷ CM). Then MOS = actual sales − BEP. MOS% = MOS ÷ actual sales.',hint2:'CM = $80 − $50 = $30. BEP = $150,000 ÷ $30 = 5,000 units. MOS = 6,000 − 5,000 = 1,000 units. MOS% = 1,000 ÷ 6,000.'},
+{week:3,type:'mcq',question:'A firm has SP=$80, VC=$50, and FC=$150,000. If it sells 6,000 units, its Margin of Safety as a percentage of actual sales is:',options:['A. 16.7%','B. 25.0%','C. 33.3%','D. 50.0%'],answer:1,explanation:'CM=$30. BEP=150,000/30=5,000 units. MOS=6,000−5,000=1,000. MOS%=1,000/6,000=16.7%.',hint:'First find BEP units (FC ÷ CM). Then MOS = actual sales − BEP. MOS% = MOS ÷ actual sales.',hint2:'CM = $80 − $50 = $30. BEP = $150,000 ÷ $30 = 5,000 units. MOS = 6,000 − 5,000 = 1,000 units. MOS% = 1,000 ÷ 6,000.'},
 
 {week:3,type:'numerical',
 
-  question:'CityGym offers two membership types: Standard (SP=$50/month, VC=$15, sales mix=55%) and Premium (SP=$90/month, VC=$25, sales mix=45%). Monthly fixed costs = $180,000. (a) Calculate the CM for each type. (b) Calculate the Weighted Average Contribution Margin (WACM). (c) Calculate the BEP in total members per month.',
+  question:'Urbayn Restaurant: Dining (SP=$70, VC=$40, mix=60%) and Functions (SP=$90, VC=$50, mix=40%). Fixed Costs = $3,000,000. Calculate the Break-Even Point in total guests.',
 
-  keywords:['CM Standard','35','CM Premium','65','WACM','48.50','3711','3,711'],
+  keywords:['CM dining','30','CM functions','40','WACM','34','88235','88236'],
 
-  modelAnswer:'(a) CM Standard = $50−$15 = $35; CM Premium = $90−$25 = $65\n(b) WACM = ($35×0.55)+($65×0.45) = $19.25+$29.25 = $48.50\n(c) BEP = $180,000÷$48.50 ≈ 3,711 members',
+  modelAnswer:'CM Dining=$30; CM Functions=$40\nWACM = ($30×0.60)+($40×0.40) = $18+$16 = $34\nBEP = $3,000,000÷$34 = 88,235 guests (round up to 88,236)',
 
-  hint:'Calculate CM for each product, then WACM = Σ(CM_i × mix_i). BEP = FC ÷ WACM.',
+  hint:'Calculate CM for each product, then WACM = Σ(CM_i × mix_i).',
 
-  hint2:'WACM = ($35×0.55)+($65×0.45) = $48.50. BEP = $180,000÷$48.50.'},
+  hint2:'BEP = FC ÷ WACM = $3,000,000 ÷ $34'},
 
 {week:3,type:'numerical',
 
@@ -3462,7 +3465,7 @@ function renderQuestion(){
   area.innerHTML=html;
 
   Object.keys(MQ_FIELDS).forEach(k=>delete MQ_FIELDS[k]);
-  activeMathField=null;
+  activeMQField=null;
   requestAnimationFrame(initMathFields);
 
 
@@ -3512,7 +3515,7 @@ function renderSA(q,id){
 }
 
 function renderNumerical(q){
-  return `<div class="num-hint-bar">📐 Enter your working — use the keyboard below or type directly</div>
+  return `<div class="num-hint-bar">📐 Enter your working — type directly or use the keyboard below</div>
 <div class="mq-wrap" id="num-main"></div>
 ${renderMathKeyboard()}`;
 }
@@ -3532,8 +3535,8 @@ function renderMultipart(q){
   return html;
 }
 
-/* ── MathQuill initialisation ── */
-let activeMathField=null;
+// ── MathQuill setup ──
+let activeMQField=null;
 const MQ_FIELDS={};
 
 function initMathFields(){
@@ -3541,14 +3544,11 @@ function initMathFields(){
   const MQ=MathQuill.getInterface(2);
   document.querySelectorAll('.mq-wrap').forEach(el=>{
     if(MQ_FIELDS[el.id]) return;
-    const field=MQ.MathField(el,{
-      spaceBehavesLikeTab:true,
-      handlers:{edit:()=>{activeMathField=field;}}
-    });
-    el.addEventListener('mousedown',()=>{activeMathField=field;});
-    el.addEventListener('focusin',()=>{activeMathField=field;});
+    const field=MQ.MathField(el,{spaceBehavesLikeTab:true,handlers:{edit:()=>{activeMQField=field;}}});
+    el.addEventListener('mousedown',()=>{activeMQField=field;});
+    el.addEventListener('focusin',()=>{activeMQField=field;});
     MQ_FIELDS[el.id]=field;
-    if(!activeMathField) activeMathField=field;
+    if(!activeMQField) activeMQField=field;
   });
 }
 
@@ -3557,18 +3557,10 @@ function getMQValue(id){
   return f?f.latex().trim():'';
 }
 
-function mki(latex){
-  if(activeMathField){activeMathField.write(latex);activeMathField.focus();}
-}
-function mkCmd(cmd){
-  if(activeMathField){activeMathField.cmd(cmd);activeMathField.focus();}
-}
-function mkKey(key){
-  if(activeMathField){activeMathField.keystroke(key);activeMathField.focus();}
-}
-function mkclr(){
-  if(activeMathField){activeMathField.latex('');activeMathField.focus();}
-}
+function mki(latex){if(activeMQField){activeMQField.write(latex);activeMQField.focus();}}
+function mkCmd(cmd){if(activeMQField){activeMQField.cmd(cmd);activeMQField.focus();}}
+function mkKey(key){if(activeMQField){activeMQField.keystroke(key);activeMQField.focus();}}
+function mkclr(){if(activeMQField){activeMQField.latex('');activeMQField.focus();}}
 
 function renderMathKeyboard(){
   return `<div class="math-keyboard">
@@ -3584,9 +3576,9 @@ function renderMathKeyboard(){
   <button class="mkey sym" onmousedown="event.preventDefault();mkCmd('\\\\div')">÷</button>
 </div>
 <div class="mkey-row">
-  <button class="mkey sym" onmousedown="event.preventDefault();mki('\\\\sin\\\\left(')">sin</button>
-  <button class="mkey sym" onmousedown="event.preventDefault();mki('\\\\cos\\\\left(')">cos</button>
-  <button class="mkey sym" onmousedown="event.preventDefault();mki('\\\\tan\\\\left(')">tan</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mki('\\\\sin(')">sin</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mki('\\\\cos(')">cos</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mki('\\\\tan(')">tan</button>
   <button class="mkey sym" onmousedown="event.preventDefault();mki('e')">e</button>
   <button class="mkey sym" onmousedown="event.preventDefault();mki('%')">%</button>
   <button class="mkey grey" onmousedown="event.preventDefault();mki('4')">4</button>
@@ -3595,8 +3587,8 @@ function renderMathKeyboard(){
   <button class="mkey sym" onmousedown="event.preventDefault();mkCmd('\\\\times')">×</button>
 </div>
 <div class="mkey-row">
-  <button class="mkey grey" onmousedown="event.preventDefault();mki('\\\\left(')"> ( </button>
-  <button class="mkey grey" onmousedown="event.preventDefault();mki('\\\\right)')"> ) </button>
+  <button class="mkey grey" onmousedown="event.preventDefault();mki('(')">( </button>
+  <button class="mkey grey" onmousedown="event.preventDefault();mki(')')"> )</button>
   <button class="mkey nav" onmousedown="event.preventDefault();mkKey('Left')">←</button>
   <button class="mkey nav" onmousedown="event.preventDefault();mkKey('Right')">→</button>
   <button class="mkey nav" onmousedown="event.preventDefault();mkKey('Tab')">Tab</button>
@@ -3606,7 +3598,7 @@ function renderMathKeyboard(){
   <button class="mkey sym" onmousedown="event.preventDefault();mki('-')">−</button>
 </div>
 <div class="mkey-row">
-  <button class="mkey del wide" onmousedown="event.preventDefault();mkKey('Backspace')">⌫</button>
+  <button class="mkey grey del wide" onmousedown="event.preventDefault();mkKey('Backspace')">⌫</button>
   <button class="mkey nav wide" onmousedown="event.preventDefault();mkclr()">clear</button>
   <button class="mkey grey wide" onmousedown="event.preventDefault();mki('0')">0</button>
   <button class="mkey grey" onmousedown="event.preventDefault();mki('.')">.</button>
@@ -3615,32 +3607,6 @@ function renderMathKeyboard(){
   <button class="mkey sym" onmousedown="event.preventDefault();mki('\\$')">$</button>
 </div>
 </div>`;
-}
-
-
-
-// ── WORKING AREA (numerical questions) ──
-
-let activeStepInput=null;
-
-function insertSymbol(sym){
-
-  const inp=activeStepInput||document.getElementById('num-final');
-
-  if(!inp) return;
-
-  const tag=inp.tagName;
-
-  if(tag!=='INPUT'&&tag!=='TEXTAREA') return;
-
-  const s=inp.selectionStart||0,e=inp.selectionEnd||0;
-
-  inp.value=inp.value.slice(0,s)+sym+inp.value.slice(e);
-
-  inp.selectionStart=inp.selectionEnd=s+sym.length;
-
-  inp.focus();
-
 }
 
 function addStep(){
@@ -3913,14 +3879,21 @@ async function submitAnswer(){
 
   } else if(q.type==='sa'||q.type==='numerical'){
 
-    const ans=q.type==='numerical'?getMQValue('num-main'):(document.getElementById('sa-main')?.value.trim()||'');
+    const ans=q.type==='numerical'
+      ?getMQValue('num-main')
+      :(document.getElementById('sa-main')?.value.trim()||'');
 
     if(!ans){alert('Please enter an answer or click Skip.');return;}
 
     quizState.answered=true;
 
-    if(q.type==='numerical'){const w=document.getElementById('num-main');if(w)w.classList.add('mq-disabled');}
-    else{const ta=document.getElementById('sa-main');if(ta)ta.disabled=true;}
+    if(q.type==='numerical'){
+      const w=document.getElementById('num-main');
+      if(w) w.classList.add('mq-disabled');
+    } else {
+      const ta=document.getElementById('sa-main');
+      if(ta) ta.disabled=true;
+    }
 
     await aiMark(q,ans);
 
