@@ -12,7 +12,9 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 
-<script defer src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js"></script>
 
 <style>
 
@@ -272,10 +274,12 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 .num-hint-bar{background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:var(--r-sm);padding:8px 12px;margin-bottom:10px;font-size:.78rem;color:var(--blue)}
 
-/* ── MATH FIELD (MathLive / Desmos-style) ── */
-math-field{display:block;width:100%;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:8px 12px;font-size:1.05rem;min-height:54px;background:white;margin-bottom:8px;--caret-color:#2563EB;--selection-background-color:#EFF6FF}
-math-field:focus-within{border-color:var(--blue)}
-math-field[read-only]{background:var(--bg);opacity:.75;pointer-events:none}
+/* ── MATH FIELD (MathQuill / Desmos-style) ── */
+.mq-wrap{width:100%;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:8px 14px;min-height:54px;background:white;margin-bottom:8px;cursor:text;font-size:1.05rem;line-height:1.6}
+.mq-wrap.mq-focused{border-color:var(--blue)}
+.mq-wrap.mq-disabled{background:var(--bg);opacity:.75;pointer-events:none}
+.mq-wrap .mq-editable-field{min-width:1px;border:none!important;box-shadow:none!important;outline:none!important}
+.mq-wrap .mq-editable-field.mq-focused{outline:none!important;box-shadow:none!important}
 .math-keyboard{background:#eef0f3;border:1px solid var(--border);border-radius:var(--r-sm);padding:8px;margin-bottom:10px;user-select:none}
 .mkey-row{display:flex;gap:4px;margin-bottom:4px}
 .mkey-row:last-child{margin-bottom:0}
@@ -3457,6 +3461,10 @@ function renderQuestion(){
 
   area.innerHTML=html;
 
+  Object.keys(MQ_FIELDS).forEach(k=>delete MQ_FIELDS[k]);
+  activeMathField=null;
+  requestAnimationFrame(initMathFields);
+
 
 
   const hasHints=settings.hints!==false&&(q.hint||q.hint2);
@@ -3505,7 +3513,7 @@ function renderSA(q,id){
 
 function renderNumerical(q){
   return `<div class="num-hint-bar">📐 Enter your working — use the keyboard below or type directly</div>
-<math-field id="num-main" onfocusin="activeMathField=this"></math-field>
+<div class="mq-wrap" id="num-main"></div>
 ${renderMathKeyboard()}`;
 }
 
@@ -3515,7 +3523,7 @@ function renderMultipart(q){
   q.parts.forEach((p,i)=>{
     const id=`part-${i}`;
     if(isFinance){
-      html+=`<div class="part-block"><div class="part-label">Part (${p.label})</div><div class="part-question">${p.question}</div><math-field id="${id}" onfocusin="activeMathField=this"></math-field><div id="fb-part-${i}" class="feedback-box" style="margin-top:8px"></div></div>`;
+      html+=`<div class="part-block"><div class="part-label">Part (${p.label})</div><div class="part-question">${p.question}</div><div class="mq-wrap" id="${id}"></div><div id="fb-part-${i}" class="feedback-box" style="margin-top:8px"></div></div>`;
     } else {
       html+=`<div class="part-block"><div class="part-label">Part (${p.label})</div><div class="part-question">${p.question}</div><textarea class="sa-textarea" id="${id}" placeholder="Answer for part (${p.label})…" rows="3"></textarea><div id="fb-part-${i}" class="feedback-box" style="margin-top:8px"></div></div>`;
     }
@@ -3524,64 +3532,87 @@ function renderMultipart(q){
   return html;
 }
 
+/* ── MathQuill initialisation ── */
 let activeMathField=null;
+const MQ_FIELDS={};
+
+function initMathFields(){
+  if(typeof MathQuill==='undefined') return;
+  const MQ=MathQuill.getInterface(2);
+  document.querySelectorAll('.mq-wrap').forEach(el=>{
+    if(MQ_FIELDS[el.id]) return;
+    const field=MQ.MathField(el,{
+      spaceBehavesLikeTab:true,
+      handlers:{edit:()=>{activeMathField=field;}}
+    });
+    el.addEventListener('mousedown',()=>{activeMathField=field;});
+    el.addEventListener('focusin',()=>{activeMathField=field;});
+    MQ_FIELDS[el.id]=field;
+    if(!activeMathField) activeMathField=field;
+  });
+}
+
+function getMQValue(id){
+  const f=MQ_FIELDS[id];
+  return f?f.latex().trim():'';
+}
 
 function mki(latex){
-  if(activeMathField){activeMathField.insert(latex,{focus:true});}
+  if(activeMathField){activeMathField.write(latex);activeMathField.focus();}
 }
-function mkc(cmd){
-  if(activeMathField){activeMathField.executeCommand(cmd);activeMathField.focus();}
+function mkCmd(cmd){
+  if(activeMathField){activeMathField.cmd(cmd);activeMathField.focus();}
+}
+function mkKey(key){
+  if(activeMathField){activeMathField.keystroke(key);activeMathField.focus();}
 }
 function mkclr(){
-  if(activeMathField){activeMathField.value='';activeMathField.focus();}
+  if(activeMathField){activeMathField.latex('');activeMathField.focus();}
 }
 
 function renderMathKeyboard(){
   return `<div class="math-keyboard">
 <div class="mkey-row">
-  <button class="mkey sym" onclick="mki('^{2}')">x²</button>
-  <button class="mkey sym" onclick="mki('^{}')">xᵇ</button>
-  <button class="mkey sym" onclick="mki('\\\\sqrt{}')">√</button>
-  <button class="mkey sym" onclick="mki('\\\\sqrt[]{}')">ⁿ√</button>
-  <button class="mkey sym" onclick="mki('\\\\frac{}{}')">a/b</button>
-  <button class="mkey sym" onclick="mki('\\\\left|\\\\right|')">|a|</button>
-  <button class="mkey grey" onclick="mki('7')">7</button>
-  <button class="mkey grey" onclick="mki('8')">8</button>
-  <button class="mkey grey" onclick="mki('9')">9</button>
-  <button class="mkey sym" onclick="mki('\\\\div')">÷</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mkCmd('^')">x²</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mkCmd('\\\\sqrt')">√</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mkCmd('\\\\frac')">a/b</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mki('\\\\left|\\\\right|')">|a|</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mkCmd('\\\\pi')">π</button>
+  <button class="mkey grey" onmousedown="event.preventDefault();mki('7')">7</button>
+  <button class="mkey grey" onmousedown="event.preventDefault();mki('8')">8</button>
+  <button class="mkey grey" onmousedown="event.preventDefault();mki('9')">9</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mkCmd('\\\\div')">÷</button>
 </div>
 <div class="mkey-row">
-  <button class="mkey sym" onclick="mki('\\\\sin(')">sin</button>
-  <button class="mkey sym" onclick="mki('\\\\cos(')">cos</button>
-  <button class="mkey sym" onclick="mki('\\\\tan(')">tan</button>
-  <button class="mkey sym" onclick="mki('\\\\pi')">π</button>
-  <button class="mkey sym" onclick="mki('%')">%</button>
-  <button class="mkey sym" onclick="mki('e')">e</button>
-  <button class="mkey grey" onclick="mki('4')">4</button>
-  <button class="mkey grey" onclick="mki('5')">5</button>
-  <button class="mkey grey" onclick="mki('6')">6</button>
-  <button class="mkey sym" onclick="mki('\\\\times')">×</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mki('\\\\sin\\\\left(')">sin</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mki('\\\\cos\\\\left(')">cos</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mki('\\\\tan\\\\left(')">tan</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mki('e')">e</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mki('%')">%</button>
+  <button class="mkey grey" onmousedown="event.preventDefault();mki('4')">4</button>
+  <button class="mkey grey" onmousedown="event.preventDefault();mki('5')">5</button>
+  <button class="mkey grey" onmousedown="event.preventDefault();mki('6')">6</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mkCmd('\\\\times')">×</button>
 </div>
 <div class="mkey-row">
-  <button class="mkey grey" onclick="mki('(')"> ( </button>
-  <button class="mkey grey" onclick="mki(')')"> ) </button>
-  <button class="mkey nav" onclick="mkc('moveToPreviousChar')">←</button>
-  <button class="mkey nav" onclick="mkc('moveToNextChar')">→</button>
-  <button class="mkey nav" onclick="mkc('moveToMathFieldStart')">|←</button>
-  <button class="mkey nav" onclick="mkc('moveToMathFieldEnd')">→|</button>
-  <button class="mkey grey" onclick="mki('1')">1</button>
-  <button class="mkey grey" onclick="mki('2')">2</button>
-  <button class="mkey grey" onclick="mki('3')">3</button>
-  <button class="mkey sym" onclick="mki('-')">−</button>
+  <button class="mkey grey" onmousedown="event.preventDefault();mki('\\\\left(')"> ( </button>
+  <button class="mkey grey" onmousedown="event.preventDefault();mki('\\\\right)')"> ) </button>
+  <button class="mkey nav" onmousedown="event.preventDefault();mkKey('Left')">←</button>
+  <button class="mkey nav" onmousedown="event.preventDefault();mkKey('Right')">→</button>
+  <button class="mkey nav" onmousedown="event.preventDefault();mkKey('Tab')">Tab</button>
+  <button class="mkey grey" onmousedown="event.preventDefault();mki('1')">1</button>
+  <button class="mkey grey" onmousedown="event.preventDefault();mki('2')">2</button>
+  <button class="mkey grey" onmousedown="event.preventDefault();mki('3')">3</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mki('-')">−</button>
 </div>
 <div class="mkey-row">
-  <button class="mkey del wide" onclick="mkc('deleteBackward')">⌫</button>
-  <button class="mkey nav wide" onclick="mkclr()">clear</button>
-  <button class="mkey grey wide" onclick="mki('0')">0</button>
-  <button class="mkey grey" onclick="mki('.')">.</button>
-  <button class="mkey sym" onclick="mki('+')">+</button>
-  <button class="mkey sym" onclick="mki('=')"> = </button>
-  <button class="mkey sym" onclick="mki('\\\\$')">$</button>
+  <button class="mkey del wide" onmousedown="event.preventDefault();mkKey('Backspace')">⌫</button>
+  <button class="mkey nav wide" onmousedown="event.preventDefault();mkclr()">clear</button>
+  <button class="mkey grey wide" onmousedown="event.preventDefault();mki('0')">0</button>
+  <button class="mkey grey" onmousedown="event.preventDefault();mki('.')">.</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mki('+')">+</button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mki('=')"> = </button>
+  <button class="mkey sym" onmousedown="event.preventDefault();mki('\\$')">$</button>
 </div>
 </div>`;
 }
@@ -3882,27 +3913,27 @@ async function submitAnswer(){
 
   } else if(q.type==='sa'||q.type==='numerical'){
 
-    const el=document.getElementById(q.type==='sa'?'sa-main':'num-main');
-
-    const ans=el?el.value.trim():'';
+    const ans=q.type==='numerical'?getMQValue('num-main'):(document.getElementById('sa-main')?.value.trim()||'');
 
     if(!ans){alert('Please enter an answer or click Skip.');return;}
 
     quizState.answered=true;
 
-    if(el){if(el.tagName==='MATH-FIELD')el.readOnly=true;else el.disabled=true;}
+    if(q.type==='numerical'){const w=document.getElementById('num-main');if(w)w.classList.add('mq-disabled');}
+    else{const ta=document.getElementById('sa-main');if(ta)ta.disabled=true;}
 
     await aiMark(q,ans);
 
   } else if(q.type==='multipart'){
 
-    const answers=q.parts.map((_,i)=>({answer:(document.getElementById(`part-${i}`)?.value||'').trim()}));
+    const isFinancePart=[3,5,7,8,9].includes(Number(q.week));
+    const answers=q.parts.map((_,i)=>({answer:isFinancePart?getMQValue(`part-${i}`):(document.getElementById(`part-${i}`)?.value||'').trim()}));
 
     if(!answers.some(a=>a.answer)){alert('Please answer at least one part.');return;}
 
     quizState.answered=true;
 
-    q.parts.forEach((_,i)=>{const el=document.getElementById(`part-${i}`);if(!el)return;if(el.tagName==='MATH-FIELD')el.readOnly=true;else el.disabled=true;});
+    q.parts.forEach((_,i)=>{const el=document.getElementById(`part-${i}`);if(!el)return;if(isFinancePart)el.classList.add('mq-disabled');else el.disabled=true;});
 
     await aiMarkMultipart(q,answers);
 
