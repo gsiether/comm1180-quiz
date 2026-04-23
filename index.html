@@ -281,6 +281,9 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .mq-wrap.mq-focused,.mq-wrap:focus-within{border-color:var(--blue)}
 .mq-wrap.mq-disabled{background:var(--bg);opacity:.7;pointer-events:none}
 .mq-wrap .mq-editable-field{border:none!important;box-shadow:none!important;outline:none!important;display:block!important;width:100%!important;min-width:unset!important;cursor:text}
+.step-row .mq-wrap{flex:1;margin-bottom:0;min-height:40px;padding:6px 10px;font-size:.88rem}
+.final-answer-wrap .mq-wrap{background:transparent;border:none!important;padding:2px 0;min-height:unset;font-size:.95rem;font-weight:600;margin-bottom:0;box-shadow:none!important}
+.final-answer-wrap .mq-wrap.mq-focused,.final-answer-wrap .mq-wrap:focus-within{border-color:transparent}
 .mq-keyboard{background:#eef0f3;border:1px solid var(--border);border-radius:var(--r-sm);padding:7px;margin-bottom:10px;user-select:none}
 .mkr{display:flex;gap:4px;margin-bottom:4px}
 .mkr:last-child{margin-bottom:0}
@@ -3504,22 +3507,21 @@ function renderSA(q,id){
 }
 
 function renderNumerical(q){
-  const syms=['π','×','÷','√','^','²','³','∑','≈','≠','≤','≥','Δ','%','$','(',')'];
-  const symBar='<div class="math-toolbar">'+syms.map(s=>'<button class="math-btn" onmousedown="event.preventDefault();insertSymbol(\''+s+'\')">'+s+'</button>').join('')+'</div>';
+  _stepCount=0;
   return '<div class="working-area">'
     +'<div class="working-area-label">Working Steps</div>'
     +'<div class="working-steps" id="workingSteps">'
     +'<div class="step-row" data-step="1"><div class="step-num">1</div>'
-    +'<input class="step-input" placeholder="Step 1…" onfocus="activeStepInput=this"/>'
-    +'<button class="step-del" onclick="delStep(this)" title="Remove step">✕</button></div>'
+    +'<div class="mq-wrap step-mq" id="step-0"></div>'
+    +'<button class="step-del" onmousedown="event.preventDefault();delStep(this)" title="Remove step">✕</button></div>'
     +'</div>'
-    +'<button class="btn-add-step" onclick="addStep()">+ Add Step</button>'
+    +'<button class="btn-add-step" onmousedown="event.preventDefault();addStep()">+ Add Step</button>'
     +'<div class="final-answer-wrap">'
     +'<div class="final-answer-label">Final Answer</div>'
-    +'<input class="final-answer-input" id="num-final" placeholder="Enter your final answer here…" onfocus="activeStepInput=this"/>'
+    +'<div class="mq-wrap" id="num-final"></div>'
     +'</div>'
     +'</div>'
-    +symBar;
+    +mqKeyboardHTML();
 }
 
 function renderMultipart(q){
@@ -3569,116 +3571,133 @@ function insertMath(sym,targetId){
 
 // ── WORKING AREA (numerical questions) ──
 
-let activeStepInput=null;
-
-function insertSymbol(sym){
-
-  const inp=activeStepInput||document.getElementById('num-final');
-
-  if(!inp) return;
-
-  const tag=inp.tagName;
-
-  if(tag!=='INPUT'&&tag!=='TEXTAREA') return;
-
-  const s=inp.selectionStart||0,e=inp.selectionEnd||0;
-
-  inp.value=inp.value.slice(0,s)+sym+inp.value.slice(e);
-
-  inp.selectionStart=inp.selectionEnd=s+sym.length;
-
-  inp.focus();
-
-}
+var _stepCount=0;
 
 function addStep(){
-
-  const container=document.getElementById('workingSteps');
-
+  var container=document.getElementById('workingSteps');
   if(!container) return;
-
-  const n=container.children.length+1;
-
-  const row=document.createElement('div');
-
+  _stepCount++;
+  var newId='step-'+_stepCount;
+  var n=container.children.length+1;
+  var row=document.createElement('div');
   row.className='step-row';
-
   row.dataset.step=n;
-
-  row.innerHTML=`<div class="step-num">${n}</div><input class="step-input" placeholder="Step ${n}…" onfocus="activeStepInput=this"/><button class="step-del" onclick="delStep(this)" title="Remove step">✕</button>`;
-
+  row.innerHTML='<div class="step-num">'+n+'</div><div class="mq-wrap step-mq" id="'+newId+'"></div><button class="step-del" onmousedown="event.preventDefault();delStep(this)" title="Remove step">✕</button>';
   container.appendChild(row);
+  _mqInitElSingle(row.querySelector('.mq-wrap'));
+}
 
-  row.querySelector('input').focus();
+function addStepAfter(stepId){
+  var container=document.getElementById('workingSteps');
+  if(!container) return;
+  var sourceEl=document.getElementById(stepId);
+  var sourceRow=sourceEl?sourceEl.closest('.step-row'):null;
+  _stepCount++;
+  var newId='step-'+_stepCount;
+  var row=document.createElement('div');
+  row.className='step-row';
+  row.innerHTML='<div class="step-num">?</div><div class="mq-wrap step-mq" id="'+newId+'"></div><button class="step-del" onmousedown="event.preventDefault();delStep(this)" title="Remove step">✕</button>';
+  if(sourceRow&&sourceRow.nextSibling){
+    container.insertBefore(row,sourceRow.nextSibling);
+  } else {
+    container.appendChild(row);
+  }
+  renumberSteps();
+  _mqInitElSingle(row.querySelector('.mq-wrap'));
+}
 
+function renumberSteps(){
+  var container=document.getElementById('workingSteps');
+  if(!container) return;
+  Array.from(container.children).forEach(function(r,i){
+    r.dataset.step=i+1;
+    var numEl=r.querySelector('.step-num');
+    if(numEl) numEl.textContent=i+1;
+  });
 }
 
 function delStep(btn){
-
-  const row=btn.closest('.step-row');
-
-  const container=document.getElementById('workingSteps');
-
+  var row=btn.closest('.step-row');
+  var container=document.getElementById('workingSteps');
   if(!container||container.children.length<=1) return;
-
+  var mqEl=row.querySelector('.mq-wrap');
+  if(mqEl&&mqEl.id) delete _mqFields[mqEl.id];
   row.remove();
-
-  Array.from(container.children).forEach((r,i)=>{
-
-    r.dataset.step=i+1;
-
-    r.querySelector('.step-num').textContent=i+1;
-
-    r.querySelector('input').placeholder=`Step ${i+1}…`;
-
-  });
-
+  renumberSteps();
+  var remaining=container.querySelectorAll('.mq-wrap');
+  var last=remaining[remaining.length-1];
+  if(last&&_mqFields[last.id]){var f=_mqFields[last.id];_mqActive=f;setTimeout(function(){try{f.focus();}catch(x){}},0);}
 }
 
 function getWorkingAnswer(){
-
-  const container=document.getElementById('workingSteps');
-
-  const steps=container?Array.from(container.querySelectorAll('input')).map((inp,i)=>inp.value.trim()?`Step ${i+1}: ${inp.value.trim()}`:null).filter(Boolean):[];
-
-  const fin=(document.getElementById('num-final')?.value||'').trim();
-
+  var container=document.getElementById('workingSteps');
+  var steps=container?Array.from(container.querySelectorAll('.mq-wrap')).map(function(el,i){
+    var f=_mqFields[el.id];var val=f?f.latex().trim():'';
+    return val?'Step '+(i+1)+': '+val:null;
+  }).filter(Boolean):[];
+  var finF=_mqFields['num-final'];
+  var fin=finF?finF.latex().trim():'';
   if(!steps.length&&!fin) return '';
-
-  return [...steps,fin?`Final Answer: ${fin}`:null].filter(Boolean).join('\n');
-
+  return steps.concat(fin?['Final Answer: '+fin]:[]).join('\n');
 }
 
 // ── MathQuill setup ──
 var _mqFields={};
 var _mqActive=null;
 
+function _mqInitElSingle(el){
+  if(typeof MathQuill==='undefined'||typeof jQuery==='undefined'){
+    setTimeout(function(){_mqInitElSingle(el);},100);
+    return;
+  }
+  try{
+    var MQ=MathQuill.getInterface(2);
+    var id=el.id;
+    var isStep=el.classList.contains('step-mq');
+    var handlers={edit:function(){_mqActive=f;}};
+    if(isStep)(function(capturedId){handlers.enter=function(){addStepAfter(capturedId);};})(id);
+    var existing=MQ(el);
+    var f;
+    if(existing&&typeof existing.latex==='function'){f=existing;}
+    else{f=MQ.MathField(el,{spaceBehavesLikeTab:true,handlers:handlers});}
+    el.onmousedown=function(){_mqActive=f;setTimeout(function(){try{f.focus();}catch(x){}},0);};
+    el.onclick=function(){_mqActive=f;setTimeout(function(){try{f.focus();}catch(x){}},0);};
+    _mqFields[id]=f;
+    _mqActive=f;
+    setTimeout(function(){try{f.focus();}catch(x){}},50);
+  }catch(e){console.warn('MathQuill init error:',e);}
+}
+
 function _mqInit(){
   if(typeof MathQuill==='undefined'||typeof jQuery==='undefined'){
     setTimeout(_mqInit,100);
     return;
   }
-  try{
-    var MQ=MathQuill.getInterface(2);
-    _mqFields={};
-    _mqActive=null;
-    document.querySelectorAll('.mq-wrap').forEach(function(el){
-      // Skip already-initialized elements
+  _mqFields={};
+  _mqActive=null;
+  // Init each field (don't auto-focus here — we focus step-0 at the end)
+  document.querySelectorAll('.mq-wrap').forEach(function(el){
+    try{
+      var MQ=MathQuill.getInterface(2);
+      var id=el.id;
+      var isStep=el.classList.contains('step-mq');
+      var handlers={edit:function(){_mqActive=f;}};
+      if(isStep)(function(capturedId){handlers.enter=function(){addStepAfter(capturedId);};})(id);
       var existing=MQ(el);
       var f;
-      if(existing&&typeof existing.latex==='function'){
-        f=existing;
-      } else {
-        f=MQ.MathField(el,{spaceBehavesLikeTab:true,handlers:{edit:function(){_mqActive=f;}}});
-      }
-      el.onmousedown=function(e){_mqActive=f;setTimeout(function(){try{f.focus();}catch(x){}},0);};
-      el.onclick=function(){_mqActive=f;};
-      _mqFields[el.id]=f;
+      if(existing&&typeof existing.latex==='function'){f=existing;}
+      else{f=MQ.MathField(el,{spaceBehavesLikeTab:true,handlers:handlers});}
+      el.onmousedown=function(){_mqActive=f;setTimeout(function(){try{f.focus();}catch(x){}},0);};
+      el.onclick=function(){_mqActive=f;setTimeout(function(){try{f.focus();}catch(x){}},0);};
+      _mqFields[id]=f;
       if(!_mqActive) _mqActive=f;
-    });
-    // Auto-focus the first field so the user can type immediately
-    if(_mqActive) setTimeout(function(){try{_mqActive.focus();}catch(x){}},0);
-  }catch(e){console.warn('MathQuill init error:',e);}
+    }catch(e){console.warn('MathQuill field init error:',e);}
+  });
+  // Focus step-0 first (or first available field)
+  setTimeout(function(){
+    var first=_mqFields['step-0']||_mqActive;
+    if(first){_mqActive=first;try{first.focus();}catch(x){}}
+  },50);
 }
 
 function _mqVal(id){
@@ -3966,7 +3985,7 @@ async function submitAnswer(){
 
     if(q.type==='numerical'){
 
-      document.querySelectorAll('#workingSteps .step-input,#num-final').forEach(function(el){el.disabled=true;});
+      document.querySelectorAll('#workingSteps .mq-wrap,.final-answer-wrap .mq-wrap').forEach(function(el){el.classList.add('mq-disabled');});
 
       var addBtn=document.querySelector('.btn-add-step');
 
