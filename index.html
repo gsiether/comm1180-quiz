@@ -280,7 +280,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .mq-wrap{width:100%;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:8px 14px;min-height:54px;background:white;margin-bottom:8px;cursor:text;font-size:1.05rem;line-height:1.6;box-sizing:border-box}
 .mq-wrap.mq-focused,.mq-wrap:focus-within{border-color:var(--blue)}
 .mq-wrap.mq-disabled{background:var(--bg);opacity:.7;pointer-events:none}
-.mq-wrap .mq-editable-field{border:none!important;box-shadow:none!important;outline:none!important;min-width:1px}
+.mq-wrap .mq-editable-field{border:none!important;box-shadow:none!important;outline:none!important;display:block!important;width:100%!important;min-width:unset!important;cursor:text}
 .mq-keyboard{background:#eef0f3;border:1px solid var(--border);border-radius:var(--r-sm);padding:7px;margin-bottom:10px;user-select:none}
 .mkr{display:flex;gap:4px;margin-bottom:4px}
 .mkr:last-child{margin-bottom:0}
@@ -3457,7 +3457,7 @@ function renderQuestion(){
 
   area.innerHTML=html;
 
-  requestAnimationFrame(_mqInit);
+  setTimeout(_mqInit,50);
 
   const hasHints=settings.hints!==false&&(q.hint||q.hint2);
 
@@ -3660,15 +3660,24 @@ function _mqInit(){
   }
   try{
     var MQ=MathQuill.getInterface(2);
-    Object.keys(_mqFields).forEach(function(k){delete _mqFields[k];});
+    _mqFields={};
     _mqActive=null;
     document.querySelectorAll('.mq-wrap').forEach(function(el){
-      var f=MQ.MathField(el,{spaceBehavesLikeTab:true,handlers:{edit:function(){_mqActive=f;}}});
-      el.addEventListener('mousedown',function(){_mqActive=f;});
-      el.addEventListener('focusin',function(){_mqActive=f;});
+      // Skip already-initialized elements
+      var existing=MQ(el);
+      var f;
+      if(existing&&typeof existing.latex==='function'){
+        f=existing;
+      } else {
+        f=MQ.MathField(el,{spaceBehavesLikeTab:true,handlers:{edit:function(){_mqActive=f;}}});
+      }
+      el.onmousedown=function(e){_mqActive=f;setTimeout(function(){try{f.focus();}catch(x){}},0);};
+      el.onclick=function(){_mqActive=f;};
       _mqFields[el.id]=f;
       if(!_mqActive) _mqActive=f;
     });
+    // Auto-focus the first field so the user can type immediately
+    if(_mqActive) setTimeout(function(){try{_mqActive.focus();}catch(x){}},0);
   }catch(e){console.warn('MathQuill init error:',e);}
 }
 
