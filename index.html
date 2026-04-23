@@ -12,6 +12,8 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 
+<script defer src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
+
 <style>
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -258,11 +260,26 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 .num-hint-bar{background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:var(--r-sm);padding:8px 12px;margin-bottom:10px;font-size:.78rem;color:var(--blue)}
 
-.math-toolbar{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
-
-.math-btn{background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:3px 8px;font-size:.82rem;cursor:pointer;color:var(--text);font-family:serif;transition:all .12s}
-
-.math-btn:hover{border-color:var(--blue);background:var(--blue-light)}
+/* ── MATH FIELD (MathLive / Desmos-style) ── */
+math-field{display:block;width:100%;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:8px 12px;font-size:1.05rem;min-height:54px;background:white;margin-bottom:8px;--caret-color:#2563EB;--selection-background-color:#EFF6FF}
+math-field:focus-within{border-color:var(--blue)}
+math-field[read-only]{background:var(--bg);opacity:.75;pointer-events:none}
+.math-keyboard{background:#eef0f3;border:1px solid var(--border);border-radius:var(--r-sm);padding:8px;margin-bottom:10px;user-select:none}
+.mkey-row{display:flex;gap:4px;margin-bottom:4px}
+.mkey-row:last-child{margin-bottom:0}
+.mkey{flex:1;background:white;border:1px solid #c8cdd6;border-radius:6px;padding:9px 4px;font-size:.8rem;cursor:pointer;color:var(--text);transition:background .1s,border-color .1s;min-width:0;text-align:center;line-height:1;font-family:inherit}
+.mkey:active{transform:scale(.94)}
+.mkey:hover{background:var(--blue-light);border-color:var(--blue)}
+.mkey.sym{font-family:serif;color:var(--blue);font-weight:700;font-size:.85rem}
+.mkey.grey{background:#d8dbe0;border-color:#b8bbc4}
+.mkey.grey:hover{background:#c8cbd4}
+.mkey.nav{background:#d8dbe0;border-color:#b8bbc4;font-size:.75rem}
+.mkey.nav:hover{background:#c8cbd4}
+.mkey.del{background:#d8dbe0;border-color:#b8bbc4}
+.mkey.del:hover{background:#f8d7da;border-color:var(--red);color:var(--red)}
+.mkey.wide{flex:2}
+.mkey.submit-key{background:var(--blue);color:white;border-color:var(--blue);font-weight:700;font-size:.85rem}
+.mkey.submit-key:hover{background:var(--blue-dark)}
 
 .sa-textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:10px 12px;color:var(--text);font-size:.9rem;line-height:1.6;resize:vertical;min-height:80px;font-family:inherit}
 
@@ -1902,19 +1919,19 @@ const QUESTIONS=[
 
 {week:3,type:'mcq',question:'Which of the following is a LIMITATION of CVP analysis?',options:['A. It ignores contribution margin','B. It assumes costs can be separated into fixed and variable','C. It cannot calculate break-even','D. It does not use selling price'],answer:1,explanation:'CVP assumes all costs are either purely fixed or purely variable, ignores step costs and mixed cost complexities, and assumes a constant sales mix. Real-world cost behaviour is more complex.',hint:'CVP works by classifying all costs as either purely fixed or purely variable. What\'s unrealistic about this in the real world?',hint2:'In reality, many costs are mixed, step-costs exist, and sales mix changes. CVP\'s limitation is the simplifying assumption that all costs are neatly fixed or variable.'},
 
-{week:3,type:'mcq',question:'A firm has SP=$80, VC=$50, and FC=$150,000. If it sells 6,000 units, its Margin of Safety as a percentage of actual sales is:',options:['A. 16.7%','B. 25.0%','C. 33.3%','D. 50.0%'],answer:1,explanation:'CM=$30. BEP=150,000/30=5,000 units. MOS=6,000−5,000=1,000. MOS%=1,000/6,000=16.7%.',hint:'First find BEP units (FC ÷ CM). Then MOS = actual sales − BEP. MOS% = MOS ÷ actual sales.',hint2:'CM = $80 − $50 = $30. BEP = $150,000 ÷ $30 = 5,000 units. MOS = 6,000 − 5,000 = 1,000 units. MOS% = 1,000 ÷ 6,000.'},
+{week:3,type:'mcq',question:'A firm has SP=$80, VC=$50, and FC=$150,000. If it sells 6,000 units, its Margin of Safety as a percentage of actual sales is:',options:['A. 16.7%','B. 25.0%','C. 33.3%','D. 50.0%'],answer:0,explanation:'CM=$30. BEP=150,000/30=5,000 units. MOS=6,000−5,000=1,000. MOS%=1,000/6,000=16.7%.',hint:'First find BEP units (FC ÷ CM). Then MOS = actual sales − BEP. MOS% = MOS ÷ actual sales.',hint2:'CM = $80 − $50 = $30. BEP = $150,000 ÷ $30 = 5,000 units. MOS = 6,000 − 5,000 = 1,000 units. MOS% = 1,000 ÷ 6,000.'},
 
 {week:3,type:'numerical',
 
-  question:'Urbayn Restaurant: Dining (SP=$70, VC=$40, mix=60%) and Functions (SP=$90, VC=$50, mix=40%). Fixed Costs = $3,000,000. Calculate the Break-Even Point in total guests.',
+  question:'CityGym offers two membership types: Standard (SP=$50/month, VC=$15, sales mix=55%) and Premium (SP=$90/month, VC=$25, sales mix=45%). Monthly fixed costs = $180,000. (a) Calculate the CM for each type. (b) Calculate the Weighted Average Contribution Margin (WACM). (c) Calculate the BEP in total members per month.',
 
-  keywords:['CM dining','30','CM functions','40','WACM','34','88235','88236'],
+  keywords:['CM Standard','35','CM Premium','65','WACM','48.50','3711','3,711'],
 
-  modelAnswer:'CM Dining=$30; CM Functions=$40\nWACM = ($30×0.60)+($40×0.40) = $18+$16 = $34\nBEP = $3,000,000÷$34 = 88,235 guests (round up to 88,236)',
+  modelAnswer:'(a) CM Standard = $50−$15 = $35; CM Premium = $90−$25 = $65\n(b) WACM = ($35×0.55)+($65×0.45) = $19.25+$29.25 = $48.50\n(c) BEP = $180,000÷$48.50 ≈ 3,711 members',
 
-  hint:'Calculate CM for each product, then WACM = Σ(CM_i × mix_i).',
+  hint:'Calculate CM for each product, then WACM = Σ(CM_i × mix_i). BEP = FC ÷ WACM.',
 
-  hint2:'BEP = FC ÷ WACM = $3,000,000 ÷ $34'},
+  hint2:'WACM = ($35×0.55)+($65×0.45) = $48.50. BEP = $180,000÷$48.50.'},
 
 {week:3,type:'numerical',
 
@@ -3281,53 +3298,86 @@ function renderSA(q,id){
 }
 
 function renderNumerical(q){
-
-  const id='num-main';
-
-  return `<div class="num-hint-bar">📐 Show your working — formula, substitution, and final answer</div>${mathToolbar(id)}<textarea class="sa-textarea" id="${id}" placeholder="Write your formula, working, and answer here…" rows="5"></textarea>`;
-
+  return `<div class="num-hint-bar">📐 Enter your working — use the keyboard below or type directly</div>
+<math-field id="num-main" onfocusin="activeMathField=this"></math-field>
+${renderMathKeyboard()}`;
 }
 
 function renderMultipart(q){
-
+  const isFinance=[3,5,7,8,9].includes(Number(q.week));
   let html='';
-
   q.parts.forEach((p,i)=>{
-
     const id=`part-${i}`;
-
-    const financeWeek=[3,5,7,8,9].includes(Number(q.week));
-
-    html+=`<div class="part-block"><div class="part-label">Part (${p.label})</div><div class="part-question">${p.question}</div>${financeWeek?mathToolbar(id):''}<textarea class="sa-textarea" id="${id}" placeholder="Answer for part (${p.label})…" rows="3"></textarea><div id="fb-part-${i}" class="feedback-box" style="margin-top:8px"></div></div>`;
-
+    if(isFinance){
+      html+=`<div class="part-block"><div class="part-label">Part (${p.label})</div><div class="part-question">${p.question}</div><math-field id="${id}" onfocusin="activeMathField=this"></math-field><div id="fb-part-${i}" class="feedback-box" style="margin-top:8px"></div></div>`;
+    } else {
+      html+=`<div class="part-block"><div class="part-label">Part (${p.label})</div><div class="part-question">${p.question}</div><textarea class="sa-textarea" id="${id}" placeholder="Answer for part (${p.label})…" rows="3"></textarea><div id="fb-part-${i}" class="feedback-box" style="margin-top:8px"></div></div>`;
+    }
   });
-
+  if(isFinance) html+=renderMathKeyboard();
   return html;
-
 }
 
-function mathToolbar(targetId){
+let activeMathField=null;
 
-  const syms=['π','×','÷','√','^','²','³','∑','≈','≠','≤','≥','Δ','%','$','(',')'];
-
-  return `<div class="math-toolbar">${syms.map(s=>`<button class="math-btn" onclick="insertMath('${s}','${targetId}')">${s}</button>`).join('')}</div>`;
-
+function mki(latex){
+  if(activeMathField){activeMathField.insert(latex,{focus:true});}
+}
+function mkc(cmd){
+  if(activeMathField){activeMathField.executeCommand(cmd);activeMathField.focus();}
+}
+function mkclr(){
+  if(activeMathField){activeMathField.value='';activeMathField.focus();}
 }
 
-function insertMath(sym,targetId){
-
-  const ta=document.getElementById(targetId)||document.activeElement;
-
-  if(!ta||ta.tagName!=='TEXTAREA') return;
-
-  const s=ta.selectionStart,e=ta.selectionEnd;
-
-  ta.value=ta.value.slice(0,s)+sym+ta.value.slice(e);
-
-  ta.selectionStart=ta.selectionEnd=s+sym.length;
-
-  ta.focus();
-
+function renderMathKeyboard(){
+  return `<div class="math-keyboard">
+<div class="mkey-row">
+  <button class="mkey sym" onclick="mki('^{2}')">x²</button>
+  <button class="mkey sym" onclick="mki('^{}')">xᵇ</button>
+  <button class="mkey sym" onclick="mki('\\\\sqrt{}')">√</button>
+  <button class="mkey sym" onclick="mki('\\\\sqrt[]{}')">ⁿ√</button>
+  <button class="mkey sym" onclick="mki('\\\\frac{}{}')">a/b</button>
+  <button class="mkey sym" onclick="mki('\\\\left|\\\\right|')">|a|</button>
+  <button class="mkey grey" onclick="mki('7')">7</button>
+  <button class="mkey grey" onclick="mki('8')">8</button>
+  <button class="mkey grey" onclick="mki('9')">9</button>
+  <button class="mkey sym" onclick="mki('\\\\div')">÷</button>
+</div>
+<div class="mkey-row">
+  <button class="mkey sym" onclick="mki('\\\\sin(')">sin</button>
+  <button class="mkey sym" onclick="mki('\\\\cos(')">cos</button>
+  <button class="mkey sym" onclick="mki('\\\\tan(')">tan</button>
+  <button class="mkey sym" onclick="mki('\\\\pi')">π</button>
+  <button class="mkey sym" onclick="mki('%')">%</button>
+  <button class="mkey sym" onclick="mki('e')">e</button>
+  <button class="mkey grey" onclick="mki('4')">4</button>
+  <button class="mkey grey" onclick="mki('5')">5</button>
+  <button class="mkey grey" onclick="mki('6')">6</button>
+  <button class="mkey sym" onclick="mki('\\\\times')">×</button>
+</div>
+<div class="mkey-row">
+  <button class="mkey grey" onclick="mki('(')"> ( </button>
+  <button class="mkey grey" onclick="mki(')')"> ) </button>
+  <button class="mkey nav" onclick="mkc('moveToPreviousChar')">←</button>
+  <button class="mkey nav" onclick="mkc('moveToNextChar')">→</button>
+  <button class="mkey nav" onclick="mkc('moveToMathFieldStart')">|←</button>
+  <button class="mkey nav" onclick="mkc('moveToMathFieldEnd')">→|</button>
+  <button class="mkey grey" onclick="mki('1')">1</button>
+  <button class="mkey grey" onclick="mki('2')">2</button>
+  <button class="mkey grey" onclick="mki('3')">3</button>
+  <button class="mkey sym" onclick="mki('-')">−</button>
+</div>
+<div class="mkey-row">
+  <button class="mkey del wide" onclick="mkc('deleteBackward')">⌫</button>
+  <button class="mkey nav wide" onclick="mkclr()">clear</button>
+  <button class="mkey grey wide" onclick="mki('0')">0</button>
+  <button class="mkey grey" onclick="mki('.')">.</button>
+  <button class="mkey sym" onclick="mki('+')">+</button>
+  <button class="mkey sym" onclick="mki('=')"> = </button>
+  <button class="mkey sym" onclick="mki('\\\\$')">$</button>
+</div>
+</div>`;
 }
 
 
@@ -3542,15 +3592,15 @@ async function submitAnswer(){
 
   } else if(q.type==='sa'||q.type==='numerical'){
 
-    const ta=document.getElementById(q.type==='sa'?'sa-main':'num-main');
+    const el=document.getElementById(q.type==='sa'?'sa-main':'num-main');
 
-    const ans=ta?ta.value.trim():'';
+    const ans=el?el.value.trim():'';
 
     if(!ans){alert('Please enter an answer or click Skip.');return;}
 
     quizState.answered=true;
 
-    if(ta) ta.disabled=true;
+    if(el){if(el.tagName==='MATH-FIELD')el.readOnly=true;else el.disabled=true;}
 
     await aiMark(q,ans);
 
@@ -3562,7 +3612,7 @@ async function submitAnswer(){
 
     quizState.answered=true;
 
-    q.parts.forEach((_,i)=>{const ta=document.getElementById(`part-${i}`);if(ta)ta.disabled=true;});
+    q.parts.forEach((_,i)=>{const el=document.getElementById(`part-${i}`);if(!el)return;if(el.tagName==='MATH-FIELD')el.readOnly=true;else el.disabled=true;});
 
     await aiMarkMultipart(q,answers);
 
