@@ -3504,9 +3504,22 @@ function renderSA(q,id){
 }
 
 function renderNumerical(q){
-  return '<div class="num-hint-bar">📐 Type directly into the field, or use the keyboard below</div>'
-    +'<div class="mq-wrap" id="num-main"></div>'
-    +mqKeyboardHTML();
+  const syms=['π','×','÷','√','^','²','³','∑','≈','≠','≤','≥','Δ','%','$','(',')'];
+  const symBar='<div class="math-toolbar">'+syms.map(s=>'<button class="math-btn" onmousedown="event.preventDefault();insertSymbol(\''+s+'\')">'+s+'</button>').join('')+'</div>';
+  return '<div class="working-area">'
+    +'<div class="working-area-label">Working Steps</div>'
+    +'<div class="working-steps" id="workingSteps">'
+    +'<div class="step-row" data-step="1"><div class="step-num">1</div>'
+    +'<input class="step-input" placeholder="Step 1…" onfocus="activeStepInput=this"/>'
+    +'<button class="step-del" onclick="delStep(this)" title="Remove step">✕</button></div>'
+    +'</div>'
+    +'<button class="btn-add-step" onclick="addStep()">+ Add Step</button>'
+    +'<div class="final-answer-wrap">'
+    +'<div class="final-answer-label">Final Answer</div>'
+    +'<input class="final-answer-input" id="num-final" placeholder="Enter your final answer here…" onfocus="activeStepInput=this"/>'
+    +'</div>'
+    +'</div>'
+    +symBar;
 }
 
 function renderMultipart(q){
@@ -3928,7 +3941,7 @@ async function submitAnswer(){
 
     if(q.type==='numerical'){
 
-      ans=_mqVal('num-main');
+      ans=getWorkingAnswer();
 
     } else {
 
@@ -3944,9 +3957,11 @@ async function submitAnswer(){
 
     if(q.type==='numerical'){
 
-      var nw=document.getElementById('num-main');
+      document.querySelectorAll('#workingSteps .step-input,#num-final').forEach(function(el){el.disabled=true;});
 
-      if(nw) nw.classList.add('mq-disabled');
+      var addBtn=document.querySelector('.btn-add-step');
+
+      if(addBtn) addBtn.disabled=true;
 
     } else {
 
