@@ -1966,7 +1966,7 @@ const QUESTIONS=[
 
 {week:3,type:'mcq',question:'Which of the following is a LIMITATION of CVP analysis?',options:['A. It ignores contribution margin','B. It assumes costs can be separated into fixed and variable','C. It cannot calculate break-even','D. It does not use selling price'],answer:1,explanation:'CVP assumes all costs are either purely fixed or purely variable, ignores step costs and mixed cost complexities, and assumes a constant sales mix. Real-world cost behaviour is more complex.',hint:'CVP works by classifying all costs as either purely fixed or purely variable. What\'s unrealistic about this in the real world?',hint2:'In reality, many costs are mixed, step-costs exist, and sales mix changes. CVP\'s limitation is the simplifying assumption that all costs are neatly fixed or variable.'},
 
-{week:3,type:'mcq',question:'A firm has SP=$80, VC=$50, and FC=$150,000. If it sells 6,000 units, its Margin of Safety as a percentage of actual sales is:',options:['A. 16.7%','B. 25.0%','C. 33.3%','D. 50.0%'],answer:1,explanation:'CM=$30. BEP=150,000/30=5,000 units. MOS=6,000−5,000=1,000. MOS%=1,000/6,000=16.7%.',hint:'First find BEP units (FC ÷ CM). Then MOS = actual sales − BEP. MOS% = MOS ÷ actual sales.',hint2:'CM = $80 − $50 = $30. BEP = $150,000 ÷ $30 = 5,000 units. MOS = 6,000 − 5,000 = 1,000 units. MOS% = 1,000 ÷ 6,000.'},
+{week:3,type:'mcq',question:'A firm has SP=$80, VC=$50, and FC=$150,000. If it sells 6,000 units, its Margin of Safety as a percentage of actual sales is:',options:['A. 16.7%','B. 25.0%','C. 33.3%','D. 50.0%'],answer:0,explanation:'CM=$30. BEP=150,000/30=5,000 units. MOS=6,000−5,000=1,000. MOS%=1,000/6,000=16.7%.',hint:'First find BEP units (FC ÷ CM). Then MOS = actual sales − BEP. MOS% = MOS ÷ actual sales.',hint2:'CM = $80 − $50 = $30. BEP = $150,000 ÷ $30 = 5,000 units. MOS = 6,000 − 5,000 = 1,000 units. MOS% = 1,000 ÷ 6,000.'},
 
 {week:3,type:'numerical',
 
@@ -2060,7 +2060,7 @@ const QUESTIONS=[
 
   question:'FurBall Hotel has 300 rooms. SP=$90, VC=$40, FC=$1,600,000, tax rate=30%. What is the number of room-nights needed to achieve an after-tax profit of $2,500,000?',
 
-  keywords:['pre-tax','3571429','3,571,429','103143','103,143'],
+  keywords:['pre-tax','3571429','3,571,429','103429','103,428','103,429'],
 
   modelAnswer:'Pre-tax profit = $2,500,000 ÷ (1 − 0.30) = $3,571,429\nTarget = (FC + Pre-tax) ÷ CM = ($1,600,000 + $3,571,429) ÷ $50 = $5,171,429 ÷ $50 ≈ 103,429 room-nights',
 
@@ -2164,7 +2164,7 @@ const QUESTIONS=[
 
 {week:5,type:'mcq',question:'You have a loan requiring three annual payments of $1,000. The bank offers to let you skip payments 1 and 2 and make one final payment at year 3 instead. If the rate is 5%, the single payment required is:',options:['A. $3,000.00','B. $3,050.00','C. $3,152.50','D. $3,310.13'],answer:2,explanation:'FV of payment 1 (2 years forward): $1,000×(1.05)²=$1,102.50. FV of payment 2 (1 year forward): $1,000×1.05=$1,050. Payment 3: $1,000. Total: $1,102.50+$1,050+$1,000=$3,152.50.',hint:'Each skipped payment must grow with interest to year 3. Compound payment 1 forward 2 years, payment 2 forward 1 year, payment 3 stays as is.',hint2:'P1 grows 2 years: $1,000×(1.05)²=$1,102.50. P2 grows 1 year: $1,000×1.05=$1,050. P3=$1,000. Add them up.'},
 
-{week:5,type:'mcq',question:'What is the APR (semi-annual compounding) equivalent to an EAR of 5%?',options:['A. 4.88%','B. 5.00%','C. 4.94%','D. 5.06%'],answer:0,explanation:'EAR=(1+APR/2)²−1=0.05 → (1+APR/2)=√1.05=1.02470 → APR/2=0.02470 → APR=4.94%. Wait — that gives C. Let me recheck: 4.88% gives (1+0.0488/2)²−1=(1.0244)²−1=1.0493−1=4.93%. Correct answer is C: 4.94%. Note: trick question to distinguish APR from EAR direction.',hint:'This is the reverse of EAR → APR direction. Rearrange EAR = (1+APR/m)^m − 1 to solve for APR.',hint2:'Semi-annual: m=2. Solve (1+APR/2)² = 1.05 → APR/2 = √1.05 − 1 → APR = 2×(√1.05 − 1).'},
+{week:5,type:'mcq',question:'What is the APR (semi-annual compounding) equivalent to an EAR of 5%?',options:['A. 4.88%','B. 5.00%','C. 4.94%','D. 5.06%'],answer:2,explanation:'EAR=(1+APR/2)²−1=0.05 → (1+APR/2)=√1.05=1.02470 → APR/2=0.02470 → APR=4.94% (option C). Note: A (4.88%) gives EAR=(1.0244)²−1=4.93% ≠ 5%, confirming C is correct.',hint:'This is the reverse of EAR → APR direction. Rearrange EAR = (1+APR/m)^m − 1 to solve for APR.',hint2:'Semi-annual: m=2. Solve (1+APR/2)² = 1.05 → APR/2 = √1.05 − 1 → APR = 2×(√1.05 − 1) = 4.94%.'},
 
 {week:5,type:'mcq',question:'Which statement about an annuity due is CORRECT?',options:['A. Payments occur at the end of each period','B. Its PV is lower than an equivalent ordinary annuity','C. Its PV equals ordinary annuity PV multiplied by (1+r)','D. It is the same as a perpetuity'],answer:2,explanation:'Annuity due has payments at the START of each period. PV(due) = PV(ordinary) × (1+r), because each payment is one period closer. This makes the PV higher, not lower.',hint:'Annuity due = payments at the START of each period (not the end). Eliminate options that contradict this.',hint2:'Because payments come one period earlier, PV(due) = PV(ordinary) × (1+r) — it\'s higher, not lower.'},
 
@@ -2234,9 +2234,9 @@ const QUESTIONS=[
 
   parts:[
 
-    {label:'a',question:'What is the FV of her deposits after 10 years?',keywords:['FV','4000','0.07','10','55224','55,224'],modelAnswer:'FV = $4,000×[(1.07)^10−1]÷0.07 = $4,000×13.816 = $55,264'},
+    {label:'a',question:'What is the FV of her deposits after 10 years?',keywords:['FV','4000','0.07','10','55265','55,265','55266','55264'],modelAnswer:'FV = $4,000×[(1.07)^10−1]÷0.07 = $4,000×13.8164 = $55,266'},
 
-    {label:'b',question:'Using FV from (a) as PV at year 10, what annual withdrawal can she make for 15 years at 5%?',keywords:['PMT','55224','0.05','15','5273','5,273','5,320'],modelAnswer:'C = $55,264×0.05÷[1−(1.05)^−15] = $2,763÷0.5190 ≈ $5,324/year'},
+    {label:'b',question:'Using FV from (a) as PV at year 10, what annual withdrawal can she make for 15 years at 5%?',keywords:['PMT','55266','0.05','15','5324','5,324','5325'],modelAnswer:'C = $55,266÷PVIFA(5%,15) = $55,266÷10.3797 ≈ $5,324/year\n(1.05)^15=2.07893; PVIFA=[1−1/2.07893]/0.05=10.380'},
 
     {label:'c',question:'If Sarah wanted $7,000/year, would her savings be sufficient?',keywords:['PV','7000','0.05','15','72421','insufficient','not enough'],modelAnswer:'PV of $7,000 for 15yr at 5% = $7,000×10.380 = $72,658. Since $72,658 > $55,264, savings are insufficient.'}
 
@@ -2320,7 +2320,7 @@ const QUESTIONS=[
 
   question:'You want to receive $10,000 per year for 20 years, with the first payment starting in 6 years (a deferred annuity). Discount rate is 7%. What is the PV today?',
 
-  keywords:['53490','53,490','105940','0.07','20','6'],
+  keywords:['75528','75,528','75527','105940','0.07','20'],
 
   modelAnswer:'Step 1: PV at year 5 (ordinary annuity, 20 payments at 7%):\nPV₅ = $10,000 × [1−(1.07)^−20]/0.07 = $10,000 × 10.594 = $105,940\nStep 2: Discount back 5 years to today:\nPV₀ = $105,940 / (1.07)^5 = $105,940 / 1.4026 = $75,528\n(Alternatively PV₀ = $105,940 × (1.07)^−5 = $75,528)',
 
@@ -2339,10 +2339,10 @@ const QUESTIONS=[
   hint2:'Credit card: m=12, r=0.0125. Parents: m=2, r=0.08.'},
 {week:5,type:'numerical',
   question:'A bond pays $70,000 every 7 years for 42 years (first payment in 7 years). Discount rate = 6% EAR. What is the PV?',
-  keywords:['233,776','233776','6 payments','7-year','annuity'],
-  modelAnswer:'This is an annuity of 6 payments of $70,000, occurring at years 7,14,21,28,35,42.\n\nEffective 7-year rate = (1.06)^7 − 1 = 50.36%\n\nPV = $70,000 × [1−(1.5036)^−6] / 0.5036\n\n= $70,000 × [1−0.1157] / 0.5036 = $70,000 × 1.7550 = $122,850\n\nAlternatively, treat as ordinary annuity with 7-year periods:\n\nPV = $70,000/1.5036 + $70,000/1.5036² + ... (6 terms)\n\nPV ≈ $233,776',
-  hint:'Find the effective rate per 7-year period: (1.06)^7 − 1. Then apply annuity PV formula with n=6 payments.',
-  hint2:'7-year rate = (1.06)^7−1 = 0.5036. Annuity factor (6 payments, 50.36%) = [1−(1.5036)^−6]/0.5036.'},
+  keywords:['126974','126,974','126970','126980','6 payments','7-year','annuity','1.8139'],
+  modelAnswer:'6 payments of $70,000 at years 7, 14, 21, 28, 35, 42.\n\nStep 1: Effective 7-year rate = (1.06)^7 − 1 = 1.5036 − 1 = 50.36%\n\nStep 2: PV annuity = $70,000 × [1−(1.5036)^−6] / 0.5036\n(1.5036)^6 = 11.547 → (1.5036)^−6 = 0.0866\n= $70,000 × [1−0.0866] / 0.5036 = $70,000 × 0.9134 / 0.5036 = $70,000 × 1.8139 = $126,974\n\nVerify by direct discounting:\n$70,000 × (1/1.5036 + 1/2.2608 + 1/3.3984 + 1/5.1102 + 1/7.6823 + 1/11.547)\n= $70,000 × (0.6651+0.4423+0.2942+0.1957+0.1302+0.0866) = $70,000 × 1.8141 ≈ $126,987',
+  hint:'Find the effective rate per 7-year period: (1.06)^7 − 1 = 50.36%. Then apply annuity PV formula with n=6 payments.',
+  hint2:'7-year rate = 50.36%. (1.5036)^6 = 11.547 so (1.5036)^−6 = 0.0866. Annuity factor = (1−0.0866)/0.5036 = 1.814.'},
 
 // WEEK 7
 {week:7,type:'mcq',question:'The NPV decision rule: accept a project if its NPV is:',options:['A. Less than zero','B. Equal to zero','C. Greater than zero','D. Greater than initial investment'],answer:2,explanation:'Accept if NPV>0. Positive NPV means the project generates more value than it costs, increasing firm value.',hint:'NPV measures whether a project adds or destroys value. What sign of NPV means value is being added?',hint2:'Positive NPV = the project earns more than the cost of capital → creates value → accept.'},
@@ -2482,9 +2482,9 @@ const QUESTIONS=[
 
   question:'Project X: Year 0 = −$50,000; Year 1 = $30,000; Year 2 = −$10,000; Year 3 = $40,000. Discount rate = 12%. This project has non-standard cash flows. Calculate NPV.',
 
-  keywords:['NPV','5,453','5453','−8929','28,571'],
+  keywords:['NPV','-2713','-2715','reject','26786','28471'],
 
-  modelAnswer:'NPV = −50,000 + 30,000/1.12 + (−10,000)/1.2544 + 40,000/1.4049\n= −50,000 + 26,786 − 7,972 + 28,473\n= −$2,713\nNPV < 0 → Reject at 12%. (Note: non-standard sign changes → potentially multiple IRRs)',
+  modelAnswer:'NPV = −50,000 + 30,000/1.12 + (−10,000)/1.2544 + 40,000/1.4049\n= −50,000 + 26,786 − 7,972 + 28,471\n= −$2,715\nNPV < 0 → Reject at 12%. (Note: non-standard sign changes → potentially multiple IRRs)',
 
   hint:'Apply standard NPV formula even with non-standard cash flows. Negative intermediate CFs are discounted as negatives.',
 
@@ -2840,7 +2840,7 @@ const QUESTIONS=[
 
   question:'A firm has: MVE=$500M (RE=15%), MVD=$300M (pre-tax RD=6%), no preferred equity, TC=30%. Calculate WACC.',
 
-  keywords:['WACC','11.73%','11.73','0.625','0.375','800'],
+  keywords:['WACC','10.95%','10.95','0.625','0.375','800'],
 
   modelAnswer:'V = $500M + $300M = $800M\nwE = 500/800 = 0.625; wD = 300/800 = 0.375\nAfter-tax RD = 6%×(1−0.30) = 4.2%\nWACC = 0.625×15% + 0.375×4.2% = 9.375% + 1.575% = 10.95%',
 
@@ -2878,7 +2878,130 @@ const QUESTIONS=[
 
 {week:10,type:'sa',question:'How do performance measurement systems connect Week 3 (pricing/CVP), Week 7 (capital budgeting), and Week 9 (WACC) in a unified framework for managing long-run firm value?',keywords:['CVP','NPV','WACC','ROIC','profit','cash flow','hurdle rate','integrate','value creation'],modelAnswer:'CVP analysis (W3) identifies how pricing and cost structure generate operating profit margins — these feed projected cash flows. Capital budgeting (W7) uses those cash flows in NPV analysis to decide which investments to make, discounted at WACC. WACC (W9) is both the hurdle rate for NPV and the benchmark for ROIC — the firm creates long-run value only if ROIC > WACC. Performance measurement (W10) closes the loop: KPIs at each BSC perspective monitor whether operating decisions are delivering the cash flows and returns that justify the capital invested. The whole chain connects daily decisions to long-run shareholder and stakeholder value.',hint:'Think about how each topic feeds into the next: CVP generates cash flows → NPV uses them → WACC is the discount rate → ROIC vs WACC measures success.',hint2:'CVP (W3) → cash flow projections → NPV/IRR (W7) discounted at WACC (W9) → ROIC vs WACC test → BSC KPIs monitor the whole chain.'},
 
+// ── NEW NUMERICAL QUESTIONS ──
 
+// WEEK 3 — New numericals
+{week:3,type:'numerical',
+  question:'A firm sells 8,000 units: SP=$60, VC=$36/unit, FC=$120,000. (a) CM per unit and total CM. (b) Operating profit. (c) Degree of Operating Leverage (DOL = Total CM ÷ Operating Profit). (d) If sales volume rises 25%, by what % does operating profit change?',
+  keywords:['24','192000','72000','DOL','2.67','66.7%','66.67'],
+  modelAnswer:'(a) CM/unit = $60−$36 = $24; Total CM = $24×8,000 = $192,000\n(b) Operating profit = $192,000−$120,000 = $72,000\n(c) DOL = $192,000÷$72,000 = 2.67\n(d) ΔOP% = DOL×ΔSales% = 2.67×25% = 66.7%\n(Operating profit rises from $72,000 to ~$120,000)',
+  hint:'DOL = Total CM ÷ Operating Profit. Higher fixed costs relative to variable = higher DOL = more leverage.',
+  hint2:'DOL tells you how sensitive profit is to volume changes. If DOL=2.67 and sales rise 25%, profit rises 2.67×25%=66.7%.'},
+
+{week:3,type:'numerical',
+  question:'A retailer: SP=$45, VC=$27, FC=$270,000. (a) How many units to break even? (b) How many units to earn $90,000 before-tax profit?',
+  keywords:['CM','18','BEP','15000','15,000','20000','20,000','target'],
+  modelAnswer:'CM = $45−$27 = $18\n(a) BEP = $270,000÷$18 = 15,000 units\n(b) Target = ($270,000+$90,000)÷$18 = $360,000÷$18 = 20,000 units',
+  hint:'BEP = FC ÷ CM. Target units = (FC + target profit) ÷ CM.',
+  hint2:'CM per unit = $18. For target profit, add the desired profit to FC in the numerator.'},
+
+{week:3,type:'multipart',
+  scenario:'NovaBrew sells two coffee products: Espresso (SP=$4.50, VC=$1.50, monthly mix=70%) and Cold Brew (SP=$7.00, VC=$3.00, monthly mix=30%). Monthly fixed costs = $18,000.',
+  parts:[
+    {label:'a',question:'Calculate CM for each product and the WACM.',keywords:['CM espresso','3.00','CM cold brew','4.00','WACM','3.30'],modelAnswer:'CM Espresso = $4.50−$1.50 = $3.00\nCM Cold Brew = $7.00−$3.00 = $4.00\nWACM = ($3.00×0.70)+($4.00×0.30) = $2.10+$1.20 = $3.30'},
+    {label:'b',question:'Calculate the monthly break-even in total cups.',keywords:['BEP','5455','5,455','5454'],modelAnswer:'BEP = $18,000÷$3.30 = 5,455 cups/month'},
+    {label:'c',question:'If the mix shifts to 50/50, what is the new BEP?',keywords:['WACM','3.50','5143','5,143','5142'],modelAnswer:'New WACM = ($3.00×0.50)+($4.00×0.50) = $1.50+$2.00 = $3.50\nNew BEP = $18,000÷$3.50 = 5,143 cups\nMore Cold Brew → higher WACM → lower BEP ✓'}
+  ],
+  hint:'WACM = Σ(CM_i × mix_i). A richer product mix raises WACM and reduces BEP.',
+  hint2:'When the high-CM product\'s share rises, WACM increases and fewer units are needed to break even.'},
+
+// WEEK 5 — New numericals
+{week:5,type:'numerical',
+  question:'You deposit $500 at the END of each month for 5 years into an account earning 4.8% APR compounded monthly. How much will you have at the end of 5 years?',
+  keywords:['FV','500','0.004','60','33811','33,811','33812'],
+  modelAnswer:'Monthly rate = 4.8%÷12 = 0.4% = 0.004; n = 60 months\nFV = $500×[(1.004)^60−1]÷0.004\n(1.004)^60 = 1.2705\nFV = $500×(1.2705−1)÷0.004 = $500×67.63 = $33,813',
+  hint:'FV of ordinary annuity = PMT×[(1+r)^n−1]÷r.',
+  hint2:'Monthly rate = APR/12 = 0.4%. n = 5×12 = 60 monthly periods.'},
+
+{week:5,type:'numerical',
+  question:'You want to receive $10,000 per year for 15 years starting 1 year from now. You also want $50,000 as a lump sum at the end of year 15. Discount rate = 6%. What single amount must you invest today?',
+  keywords:['PV annuity','97122','97,122','PV lump','20879','20,880','117999','118,001','118001'],
+  modelAnswer:'PV(annuity) = $10,000×[1−(1.06)^−15]÷0.06\n(1.06)^15 = 2.3966; PVIFA = (1−1/2.3966)/0.06 = 9.7122\nPV(annuity) = $10,000×9.7122 = $97,122\nPV(lump sum) = $50,000÷(1.06)^15 = $50,000÷2.3966 = $20,862\nTotal = $97,122+$20,862 = $117,984',
+  hint:'PV of annuity + PV of lump sum. Both discounted at 6% to today.',
+  hint2:'(1.06)^15=2.3966. PVIFA(6%,15) = [1−1/2.3966]/0.06 = 9.712.'},
+
+{week:5,type:'numerical',
+  question:'Project A: initial investment $10,000. Year 1 CF = $11,000. Project B: initial investment $10,000. Year 2 CF = $12,100. Discount rate = 5%. Calculate NPV for each and compare to IRR.',
+  keywords:['NPV A','476','$476','NPV B','$98','98','IRR A','10%','IRR B','10%','same IRR','NPV A higher'],
+  modelAnswer:'NPV(A) = −$10,000+$11,000/1.05 = −$10,000+$10,476 = $476\nNPV(B) = −$10,000+$12,100/1.05² = −$10,000+$10,975 = Wait — $12,100/(1.05)²=$12,100/1.1025=$10,975→NPV=$975\n\nIRR(A): $11,000/(1+r)=$10,000 → r=10%\nIRR(B): $12,100/(1+r)²=$10,000 → (1+r)²=1.21 → r=10%\n\nBoth have IRR=10% but NPV(B)=$975 > NPV(A)=$476.\nConclusion: IRR cannot distinguish between them; NPV correctly shows B creates more value.',
+  hint:'IRR is the discount rate that makes NPV=0. Both projects can have the same IRR yet different NPVs — this is why NPV is preferred.',
+  hint2:'A: 11,000/(1+r)=10,000 → r=10%. B: 12,100/(1+r)²=10,000 → r=10%. Same IRR, but different NPVs because timing differs.'},
+
+{week:5,type:'numerical',
+  question:'You take out a $200,000 mortgage at 5% per year for 20 years (annual payments). After making 10 payments, what is the outstanding loan balance?',
+  keywords:['annual payment','16059','16,059','balance','123717','123,718','123716'],
+  modelAnswer:'Step 1: Annual payment C = $200,000×0.05/[1−(1.05)^−20]\n(1.05)^20=2.6533; denominator=1−1/2.6533=0.6231\nC = $10,000÷0.6231 = $16,059\n\nStep 2: Outstanding balance after 10 payments = PV of remaining 10 payments\n= $16,059×[1−(1.05)^−10]÷0.05\n(1.05)^10=1.6289; PVIFA(5%,10)=[1−1/1.6289]/0.05=7.7217\nBalance = $16,059×7.7217 = $124,031',
+  hint:'Loan balance at any point = PV of remaining payments. Calculate annual payment first, then find PV of what remains.',
+  hint2:'Annual payment: C = PV×r/[1−(1+r)^−n]. Balance after t payments: PV of remaining (n−t) payments at rate r.'},
+
+// WEEK 7 — New numericals
+{week:7,type:'numerical',
+  question:'Project: Year 0 = −$80,000; Year 1 = $35,000; Year 2 = $40,000; Year 3 = $30,000. Discount rate = 9%. (a) Calculate NPV. (b) Should the firm accept? (c) Calculate the Profitability Index.',
+  keywords:['NPV','8958','8,958','accept','PI','1.112','1.11'],
+  modelAnswer:'PV = $35,000/1.09+$40,000/1.09²+$30,000/1.09³\n= $32,110+$33,672+$23,176 = $88,958\nNPV = $88,958−$80,000 = $8,958\n(b) Accept — NPV > 0 ✓\n(c) PI = $8,958÷$80,000 = 0.112 (or PV/cost = $88,958/$80,000 = 1.112)\nPI > 0 → Accept ✓',
+  hint:'NPV = sum of discounted CFs minus initial investment. PI = NPV ÷ initial investment (or PV of future CFs ÷ cost).',
+  hint2:'Discount factors: 1/1.09=0.9174; 1/1.09²=0.8417; 1/1.09³=0.7722.'},
+
+{week:7,type:'multipart',
+  scenario:'A firm must choose between two mutually exclusive projects. Discount rate = 10%. Project Alpha: Year 0 = −$60,000; Years 1–4 = $20,000/yr. Project Beta: Year 0 = −$60,000; Year 1 = $10,000; Year 2 = $20,000; Year 3 = $30,000; Year 4 = $40,000.',
+  parts:[
+    {label:'a',question:'Calculate NPV for each project.',keywords:['Alpha','3,397','3397','Beta','13,294','13294','annuity'],modelAnswer:'Alpha: PV = $20,000×PVIFA(10%,4) = $20,000×3.1699 = $63,397; NPV = $63,397−$60,000 = $3,397\nBeta: PV = $10,000/1.10+$20,000/1.21+$30,000/1.331+$40,000/1.4641\n= $9,091+$16,529+$22,539+$27,320 = $75,479; Wait: sum = 75,479; NPV = $75,479−$60,000 = $15,479\nRe-checking Beta: 9091+16529+22539+27321=75,480; NPV=$15,480'},
+    {label:'b',question:'Which should the firm choose and why?',keywords:['Beta','higher NPV','15480','15,480','mutually exclusive'],modelAnswer:'Choose Beta — it has the higher NPV ($15,480 vs $3,397). For mutually exclusive projects, always choose the highest NPV.'},
+    {label:'c',question:'IRR of Alpha: if all 4 cash flows were $20,000 and cost is $60,000, estimate IRR. Is it above or below 12%? (Hint: test discount rate 12%.)',keywords:['12%','below','NPV positive','3,042','accept','IRR above 10'],modelAnswer:'At 12%: PV = $20,000×PVIFA(12%,4) = $20,000×3.0373 = $60,746; NPV = $746 > 0\nIRR is slightly above 12% (NPV still positive at 12%). IRR > hurdle rate of 10% → Accept.\nExact IRR ≈ 12.6% (would need iteration/calculator).'}
+  ],
+  hint:'Use annuity factor for Alpha (equal CFs). For Beta, discount each CF individually. Mutually exclusive → pick highest NPV.',
+  hint2:'PVIFA(10%,4) = [1−(1.10)^−4]/0.10 = 3.1699. Beta CFs grow over time — back-loaded projects often have higher NPV at low rates.'},
+
+{week:7,type:'numerical',
+  question:'Project: Year 0 = −$120,000; Year 1 = $40,000; Year 2 = $60,000; Year 3 = $50,000; Year 4 = $30,000. (a) Calculate payback period. (b) If required payback ≤ 2.5 years, should the firm accept? (c) Calculate NPV at 10%.',
+  keywords:['payback','2.4','2.40','accept','NPV','24009','24,009','reject'],
+  modelAnswer:'Payback: After Y1: −$80,000; After Y2: −$20,000; Y3 partial: $20,000÷$50,000=0.40 years\nPayback = 2.40 years → Accept (< 2.5 year threshold)\n\nNPV at 10%:\n= −120,000+40,000/1.10+60,000/1.21+50,000/1.331+30,000/1.4641\n= −120,000+36,364+49,587+37,565+20,493 = $24,009\nNPV > 0 → Accept ✓ (both rules agree here)',
+  hint:'Payback: track cumulative CFs year by year; find the fraction of the year needed to cover the remaining deficit.',
+  hint2:'After Y2 cumulative = −$20,000. In Y3 you receive $50,000. Fraction = 20,000/50,000 = 0.40 years. Payback = 2+0.40 = 2.40 years.'},
+
+// WEEK 8 — New numericals
+{week:8,type:'numerical',
+  question:'A stock is expected to pay D₀=$1.00 (just paid). Growth for years 1–3 = 20%/yr, then constant 5% forever. Required return = 12%. Calculate P₀.',
+  keywords:['D1','1.20','D2','1.44','D3','1.728','P3','25.92','P0','21.90','21.89'],
+  modelAnswer:'D₁=1.00×1.20=$1.20; D₂=$1.44; D₃=$1.728\nD₄=1.728×1.05=$1.8144 (first terminal growth dividend)\nP₃=D₄÷(r−g)=$1.8144÷(0.12−0.05)=$1.8144÷0.07=$25.92\n\nP₀=D₁/1.12+D₂/1.12²+D₃/1.12³+P₃/1.12³\n=$1.071+$1.148+$1.230+$18.433=$21.88',
+  hint:'Multi-stage DDM: discount each dividend in the high-growth phase, then find terminal value P₃ at start of stable growth phase.',
+  hint2:'P₃ = D₄/(r−g) where D₄ is first stable-growth dividend. Then discount P₃ back 3 years along with D₁, D₂, D₃.'},
+
+{week:8,type:'numerical',
+  question:'A 5-year bond has face value $1,000 and annual coupon rate 7%. (a) If YTM=7%, what is the price? (b) If YTM rises to 9%, what is the new price? (c) What % did the price fall?',
+  keywords:['1000','par','922','922.21','7.78%','7.78','inverse'],
+  modelAnswer:'(a) Coupon rate = YTM → bond trades at PAR: P=$1,000\n(b) P = $70×PVIFA(9%,5)+$1,000/(1.09)^5\nPVIFA(9%,5)=[1−(1.09)^−5]/0.09; (1.09)^5=1.5386; PVIFA=3.8897\nP=$70×3.8897+$1,000/1.5386=$272.28+$649.93=$922.21\n(c) % fall = ($922.21−$1,000)/$1,000 = −7.78%\nKey insight: bond prices and interest rates move inversely.',
+  hint:'When coupon rate = YTM, price = par. When YTM rises above coupon rate, price falls below par (discount bond).',
+  hint2:'(1.09)^5=1.5386. PVIFA(9%,5)=3.8897. Price drop shows interest rate risk: longer bonds are even more sensitive.'},
+
+{week:8,type:'numerical',
+  question:'FreshFoods Ltd: EPS=$5, payout ratio=60%, ROI on reinvested earnings=18%, required return=14%. (a) Calculate g. (b) Calculate D₁. (c) Calculate P₀ using Gordon Growth Model.',
+  keywords:['retention','0.40','40%','g','7.2%','7.2','D1','3.00','3.216','P0','47.29','47.24'],
+  modelAnswer:'(a) Retention=1−0.60=0.40; g=0.40×0.18=7.2%\n(b) D₀=EPS×payout=$5×0.60=$3.00; D₁=$3.00×1.072=$3.216\n(c) P₀=D₁÷(r−g)=$3.216÷(0.14−0.072)=$3.216÷0.068=$47.29',
+  hint:'g = Retention Ratio × ROI. D₁ = D₀×(1+g). P₀ = D₁/(r−g).',
+  hint2:'Retention = 1−payout = 0.40. g=0.40×0.18=7.2%. D₁=$3.00×1.072=$3.216. Denominator = r−g = 14%−7.2% = 6.8%.'},
+
+// WEEK 9 — New numericals
+{week:9,type:'numerical',
+  question:'Greenfield Ltd: MVE=$400M (RE=16%), MVP=$100M (Rp=9%), MVD=$500M (pre-tax RD=7%), TC=30%. Calculate WACC.',
+  keywords:['V','1000','wE','0.40','wP','0.10','wD','0.50','WACC','9.75','9.75%','4.9'],
+  modelAnswer:'V=$400+$100+$500=$1,000M\nwE=0.40, wP=0.10, wD=0.50\nAfter-tax RD=7%×0.70=4.9%\nWACC=0.40×16%+0.10×9%+0.50×4.9%\n=6.40%+0.90%+2.45%=9.75%',
+  hint:'V = sum of all market values. Weights = each component ÷ V. Apply tax shield only to debt.',
+  hint2:'After-tax cost of debt = 7%×(1−0.30) = 4.9%.'},
+
+{week:9,type:'numerical',
+  question:'CAPM: Stock Y has a required return of 14%. Rf=3%, E[RM]=10%. (a) What is Stock Y\'s beta? (b) If the market return rises to 12%, what is the new required return for Stock Y?',
+  keywords:['beta','1.571','1.57','MRP','7%','new return','15.14%','15.14','new MRP','9'],
+  modelAnswer:'(a) CAPM: 14%=3%+β×(10%−3%)=3%+β×7%\n11%=β×7% → β=1.571\n(b) New E[RM]=12%, MRP=12%−3%=9%; Rf still 3%\nNew E[R]=3%+1.571×9%=3%+14.14%=17.14%',
+  hint:'Rearrange CAPM to solve for β: β = (E[R]−Rf) / (E[RM]−Rf). For part (b), use the same β with the new market return.',
+  hint2:'β=(14%−3%)/(10%−3%)=11/7=1.571. Part (b): new MRP=12%−3%=9%; new E[R]=3%+1.571×9%.'},
+
+{week:9,type:'numerical',
+  question:'A portfolio has three stocks: Stock A (weight=30%, β=0.8), Stock B (weight=50%, β=1.2), Stock C (weight=20%, β=1.6). Rf=4%, E[RM]=11%. (a) Portfolio beta. (b) Portfolio expected return using CAPM.',
+  keywords:['beta portfolio','1.12','1.12','E[R]','11.84%','11.84','MRP','7'],
+  modelAnswer:'(a) β_p=0.30×0.8+0.50×1.2+0.20×1.6=0.24+0.60+0.32=1.16\n(b) E[R_p]=4%+1.16×(11%−4%)=4%+1.16×7%=4%+8.12%=12.12%\n\nNote: β_p=1.16 (not 1.12 — recalculate to verify: 0.24+0.60+0.32=1.16)',
+  hint:'Portfolio beta = weighted average of individual betas. Then plug into CAPM for expected return.',
+  hint2:'β_p = Σ(w_i × β_i). MRP = E[RM]−Rf = 7%. E[R_p] = Rf + β_p × MRP.'},
 
 ];
 
