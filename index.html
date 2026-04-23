@@ -11,6 +11,7 @@
 <title>COMM1180 Exam Prep</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.css">
 
 <style>
 
@@ -3640,8 +3641,11 @@ var _mqFields={};
 var _mqActive=null;
 
 function _mqInit(){
+  if(typeof MathQuill==='undefined'||typeof jQuery==='undefined'){
+    setTimeout(_mqInit,100);
+    return;
+  }
   try{
-    if(typeof MathQuill==='undefined'||typeof jQuery==='undefined') return;
     var MQ=MathQuill.getInterface(2);
     Object.keys(_mqFields).forEach(function(k){delete _mqFields[k];});
     _mqActive=null;
@@ -3652,7 +3656,7 @@ function _mqInit(){
       _mqFields[el.id]=f;
       if(!_mqActive) _mqActive=f;
     });
-  }catch(e){}
+  }catch(e){console.warn('MathQuill init error:',e);}
 }
 
 function _mqVal(id){
@@ -4414,7 +4418,7 @@ function shuffle(arr){
 
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js"></script>
 
 </body>
