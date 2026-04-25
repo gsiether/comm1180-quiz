@@ -1,13 +1,13 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-04-24
-**Tested by:** Automated QA Agent (second run)
+**Date:** 2026-04-25
+**Tested by:** Automated QA Agent (third run)
 
 ## Overall Status: PASS
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Latest: "Enhance notes overlay + formula sheet" (d16a4c3) — 5 commits since initial build |
+| New commit exists | ✅ | Latest: "QA report: automated code check" (f60567e, 2026-04-24) — 8 redesign/enhancement commits since initial build |
 | JS syntax valid | ✅ | `node --check` passed with no errors |
 | 118 questions intact | ✅ | 147 questions found — bank was intentionally expanded (see notes) |
 | Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, full design system with dark-mode override block |
@@ -60,12 +60,9 @@ Zero True/False questions exist. This was already the case at the previous QA ch
 ### Note: Dark mode uses CSS class on `<body>`, not a separate stylesheet
 The design correctly implements both light (default) and dark modes via CSS variables with a `.dark` class override block. This is the correct approach.
 
-## Changes Since Previous QA Run (2026-04-23)
-- **+16 numerical questions** added across W3, W5, W7, W8, W9 (commit `12e8e31`)
-- **+2 multipart questions** (count went 14→16)
-- **Payback period formula** added to W7 formula sheet (commit `b12f747`)
-- **Enhanced notes overlay** with exam approach guides and use-when descriptions (commit `d16a4c3`)
-- **No regressions** detected — all previously passing checks still pass
+## Changes Since Previous QA Run (2026-04-24)
+- No code changes since the 2026-04-24 QA run — all commits are prior to that report.
+- **No regressions** detected — all previously passing checks still pass.
 
 ## Recommendations
 1. **No immediate action required** — all core features present, JS syntax valid, netlify functions untouched.
