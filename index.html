@@ -375,7 +375,10 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .btn-formula.active{background:var(--green-border)}
 .hint-box.hf{background:var(--green-light);border:1px solid var(--green-border);color:#065f46;padding:12px 14px}
 .hint-box.hf .formula-list{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:5px}
-.hint-box.hf .formula-list li{font-family:serif;font-size:.9rem;background:rgba(255,255,255,.6);border-radius:6px;padding:4px 10px}
+.hint-box.hf .formula-list li{font-family:serif;font-size:.9rem;background:rgba(255,255,255,.6);border-radius:6px;padding:4px 10px;line-height:2.2}
+.qfrac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.15;margin:0 3px}
+.qfrac-n{border-bottom:1.5px solid #065f46;padding:0 4px;text-align:center;line-height:1.4}
+.qfrac-d{padding:0 4px;text-align:center;line-height:1.4}
 
 .ai-head{font-size:.78rem;font-weight:700;color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:6px}
 
@@ -2531,7 +2534,7 @@ const QUESTIONS=[
   hint:'PV = C₁÷(r−g). Ensure r > g.',
 
   hint2:'r−g = 0.10−0.04 = 0.06',
-  formulas:['PV growing perpetuity = C₁ ÷ (r − g)']},
+  formulas:['PV growing perpetuity = <frac>C₁~~r − g</frac>']},
 
 {week:5,type:'multipart',
 
@@ -2683,7 +2686,7 @@ const QUESTIONS=[
   hint:'NPV = CF₀ + Σ[CFₜ÷(1+r)^t]. CF₀ is negative.',
 
   hint2:'Discount: Y1÷1.10, Y2÷1.21, Y3÷1.331',
-  formulas:['NPV = Σ[CFₜ ÷ (1+r)ᵗ] − Cost']},
+  formulas:['NPV = Σ[<frac>CFₜ~~(1+r)ᵗ</frac>] − Cost']},
 
 {week:7,type:'numerical',
 
@@ -2693,10 +2696,10 @@ const QUESTIONS=[
 
   modelAnswer:'PI = $12,000÷$80,000 = 0.15 → Accept.',
 
-  hint:'PI = NPV ÷ |Initial Investment|',
+  hint:'PI = <frac>NPV~~|Initial Investment|</frac>',
 
   hint2:'PI>0 means positive NPV → accept.',
-  formulas:['PI = NPV ÷ |Initial Investment|']},
+  formulas:['PI = <frac>NPV~~|Initial Investment|</frac>']},
 
 {week:7,type:'numerical',
 
@@ -2751,7 +2754,7 @@ const QUESTIONS=[
   hint:'Part A: this is a growing perpetuity with g = −5.5% starting in year 2. Find PV at year 1 using C/(r−g), then discount back one more year.',
 
   hint2:'Part C: set NPV = 0 and rearrange to solve for g. The denominator on the right side is $234,828 × 1.095.',
-  formulas:['PV growing perp (at t=1) = C ÷ (r − g)','NPV = −Cost + PV at t=0']},
+  formulas:['PV growing perp (at t=1) = <frac>C~~r − g</frac>','NPV = −Cost + PV at t=0']},
 
 {week:7,type:'multipart',
 
@@ -2879,7 +2882,7 @@ const QUESTIONS=[
     q.hint='For payback: track cumulative CFs year by year, find the fractional year when cumulative turns positive. For PI: discount all future CFs at '+ratePct+'%, then divide PV by initial cost.';
     q.hint2='Discount factors at '+ratePct+'%: Y1='+d1+', Y2='+d2+', Y3='+d3+', Y4='+d4+'.';
   },
-  formulas:['Payback: track cumulative CFs until cost recovered','PI = PV(future CFs) ÷ Cost','NPV = PV(future CFs) − Cost']},
+  formulas:['Payback: track cumulative CFs until cost recovered','PI = <frac>PV(future CFs)~~Cost</frac>','NPV = PV(future CFs) − Cost']},
 
 
 
@@ -2894,7 +2897,7 @@ const QUESTIONS=[
   hint:'Apply standard NPV formula even with non-standard cash flows. Negative intermediate CFs are discounted as negatives.',
 
   hint2:'Discount factors: 1/1.12=0.8929; 1/1.2544=0.7972; 1/1.4049=0.7118',
-  formulas:['NPV = Σ[CFₜ ÷ (1+r)ᵗ]']},
+  formulas:['NPV = Σ[<frac>CFₜ~~(1+r)ᵗ</frac>]']},
 
 {week:7,type:'numerical',
 
@@ -2953,7 +2956,7 @@ const QUESTIONS=[
   hint:'P₀ = Σ[Coupon÷(1+r)^t]+Face÷(1+r)^n',
 
   hint2:'Coupon = 8%×$1,000 = $80/year',
-  formulas:['Bond price = Σ[C÷(1+r)ᵗ] + FV÷(1+r)ⁿ']},
+  formulas:['Bond price = Σ[<frac>C~~(1+r)ᵗ</frac>] + <frac>FV~~(1+r)ⁿ</frac>']},
 
 {week:8,type:'numerical',
 
@@ -2966,7 +2969,7 @@ const QUESTIONS=[
   hint:'D₁ = D₀×(1+g). Then Gordon: P₀ = D₁÷(r−g).',
 
   hint2:'r−g = 0.12−0.05 = 0.07',
-  formulas:['D₁ = D₀ × (1+g)','P₀ = D₁ ÷ (r − g)']},
+  formulas:['D₁ = D₀ × (1+g)','P₀ = <frac>D₁~~r − g</frac>']},
 
 {week:8,type:'numerical',
 
@@ -3009,7 +3012,7 @@ const QUESTIONS=[
   hint:'Convert all inputs to semi-annual: coupon = annual coupon/2, rate = APR/2, n = years × 2.',
 
   hint2:'(1.041)^4 = 1.17478, so (1.041)^−4 = 0.85161. Annuity factor = [1−0.85161]/0.041 = 3.6193.',
-  formulas:['Bond price = Σ[C÷(1+r)ᵗ] + FV÷(1+r)ⁿ','Semi-annual: coupon÷2, APR÷2, years×2']},
+  formulas:['Bond price = Σ[<frac>C~~(1+r)ᵗ</frac>] + <frac>FV~~(1+r)ⁿ</frac>','Semi-annual: <frac>coupon~~2</frac>, <frac>APR~~2</frac>, years×2']},
 
 {week:8,type:'multipart',
 
@@ -3039,7 +3042,7 @@ const QUESTIONS=[
   hint:'Since the dividend was just paid (D₀), you must first calculate D₁ = D₀ × (1+g) before applying the Gordon Growth Model.',
 
   hint2:'r − g = 0.111 − 0.035 = 0.076. P₀ = D₁ / (r − g).',
-  formulas:['D₁ = D₀ × (1+g)','P₀ = D₁ ÷ (r − g)']},
+  formulas:['D₁ = D₀ × (1+g)','P₀ = <frac>D₁~~r − g</frac>']},
 
 
 
@@ -3075,7 +3078,7 @@ const QUESTIONS=[
   ],
   hint:'P₁ = D₂/(r−g). D₂ = D₁×(1+g). Total return = (dividend + capital gain)/P₀.',
   hint2:'Total return should equal r — this verifies the Gordon Growth model is internally consistent.',
-  formulas:['P₀ = D₁ ÷ (r−g)','Total return = (D₁ + P₁ − P₀) ÷ P₀']},
+  formulas:['P₀ = D₁ ÷ (r−g)','Total return = <frac>D₁ + P₁ − P₀~~P₀</frac>']},
 
 {week:8,type:'numerical',
 
@@ -3088,7 +3091,7 @@ const QUESTIONS=[
   hint:'YTM approximation: (Annual coupon + (Face−Price)/n) ÷ ((Face+Price)/2)',
 
   hint2:'The bond trades at a discount ($950 < $1,000) so YTM must exceed the 6% coupon rate.',
-  formulas:['YTM ≈ (C + (FV−P)/n) ÷ ((FV+P)/2)']},
+  formulas:['YTM ≈ <frac>C + (FV−P)/n~~(FV+P)/2</frac>']},
 
 
 
@@ -3123,7 +3126,7 @@ const QUESTIONS=[
   hint:'HPR = (Ending Price − Beginning Price + Income) ÷ Beginning Price',
 
   hint2:'Capital gain=$5 + dividend=$2 = $7 return on $40',
-  formulas:['HPR = (P₁ − P₀ + Div) ÷ P₀']},
+  formulas:['HPR = <frac>P₁ − P₀ + Div~~P₀</frac>']},
 
 {week:9,type:'numerical',
 
@@ -3208,7 +3211,7 @@ const QUESTIONS=[
   hint:'Part A: rearrange CAPM to solve for MRP using Round Corp. MRP=(Return−Rf)/Beta.',
 
   hint2:'MRP=(7.50−4.30)/0.34=9.412%. Use this for all subsequent parts.',
-  formulas:['E[Rᵢ] = Rf + β × MRP','MRP = (E[R] − Rf) ÷ β']},
+  formulas:['E[Rᵢ] = Rf + β × MRP','MRP = <frac>E[R] − Rf~~β</frac>']},
 
 {week:9,type:'multipart',
 
@@ -3229,7 +3232,7 @@ const QUESTIONS=[
   hint:'For D/E ratio d: wD=d/(1+d), wE=1/(1+d). After-tax debt=6.20%×(1−0.30)=4.34%.',
 
   hint2:'After-tax cost of debt=4.34% is the same for all parts.',
-  formulas:['wD = (D/E) ÷ (1 + D/E)','wE = 1 ÷ (1 + D/E)','WACC = wE×RE + wD×RD×(1−TC)']},
+  formulas:['wD = <frac>D/E~~1 + D/E</frac>','wE = <frac>1~~1 + D/E</frac>','WACC = wE×RE + wD×RD×(1−TC)']},
 
 
 
@@ -3381,7 +3384,7 @@ const QUESTIONS=[
   ],
   hint:'NPV = sum of discounted CFs minus initial investment. PI = PV of future CFs ÷ initial cost.',
   hint2:'Discount factors: 1/1.09=0.9174; 1/1.09²=0.8417; 1/1.09³=0.7722.',
-  formulas:['NPV = Σ[CFₜ ÷ (1+r)ᵗ] − Cost','PI = PV(future CFs) ÷ Cost']},
+  formulas:['NPV = Σ[<frac>CFₜ~~(1+r)ᵗ</frac>] − Cost','PI = <frac>PV(future CFs)~~Cost</frac>']},
 
 {week:7,type:'multipart',
   scenario:'A firm must choose between two mutually exclusive projects. Discount rate = 10%. Project Alpha: Year 0 = −$60,000; Years 1–4 = $20,000/yr. Project Beta: Year 0 = −$60,000; Year 1 = $10,000; Year 2 = $20,000; Year 3 = $30,000; Year 4 = $40,000.',
@@ -3392,7 +3395,7 @@ const QUESTIONS=[
   ],
   hint:'Use annuity factor for Alpha (equal CFs). For Beta, discount each CF individually. Mutually exclusive → pick highest NPV.',
   hint2:'PVIFA(10%,4) = [1−(1.10)^−4]/0.10 = 3.1699. Beta CFs grow over time — back-loaded projects often have higher NPV at low rates.',
-  formulas:['NPV = −Cost + Σ[CFₜ ÷ (1+r)ᵗ]','PV annuity = C × [1−(1+r)⁻ⁿ] ÷ r']},
+  formulas:['NPV = −Cost + Σ[<frac>CFₜ~~(1+r)ᵗ</frac>]','PV annuity = C × [1−(1+r)⁻ⁿ] ÷ r']},
 
 {week:7,type:'multipart',
   scenario:'Project: Year 0 = −$120,000; Year 1 = $40,000; Year 2 = $60,000; Year 3 = $50,000; Year 4 = $30,000. Discount rate = 10%.',
@@ -3403,7 +3406,7 @@ const QUESTIONS=[
   ],
   hint:'Payback: track cumulative CFs year by year; find the fraction of the year needed to cover the deficit.',
   hint2:'After Y2 cumulative = −$20,000. In Y3 you receive $50,000. Fraction = 20,000/50,000 = 0.40 years.',
-  formulas:['Payback: cumulative CFs until cost recovered','NPV = Σ[CFₜ ÷ (1+r)ᵗ] − Cost']},
+  formulas:['Payback: cumulative CFs until cost recovered','NPV = Σ[<frac>CFₜ~~(1+r)ᵗ</frac>] − Cost']},
 
 // WEEK 8 — New numericals
 {week:8,type:'numerical',
@@ -3412,7 +3415,7 @@ const QUESTIONS=[
   modelAnswer:'D₁=1.00×1.20=$1.20; D₂=$1.44; D₃=$1.728\nD₄=1.728×1.05=$1.8144 (first terminal growth dividend)\nP₃=D₄÷(r−g)=$1.8144÷(0.12−0.05)=$1.8144÷0.07=$25.92\n\nP₀=D₁/1.12+D₂/1.12²+D₃/1.12³+P₃/1.12³\n=$1.071+$1.148+$1.230+$18.449=$21.90',
   hint:'Multi-stage DDM: discount each dividend in the high-growth phase, then find terminal value P₃ at start of stable growth phase.',
   hint2:'P₃ = D₄/(r−g) where D₄ is first stable-growth dividend. Then discount P₃ back 3 years along with D₁, D₂, D₃.',
-  formulas:['Pₙ = Dₙ₊₁ ÷ (r−g)','P₀ = Σ[Dₜ÷(1+r)ᵗ] + Pₙ÷(1+r)ⁿ']},
+  formulas:['Pₙ = Dₙ₊₁ ÷ (r−g)','P₀ = Σ[<frac>Dₜ~~(1+r)ᵗ</frac>] + <frac>Pₙ~~(1+r)ⁿ</frac>']},
 
 {week:8,type:'multipart',
   scenario:'A 5-year bond has face value $1,000 and annual coupon rate 7%.',
@@ -3423,7 +3426,7 @@ const QUESTIONS=[
   ],
   hint:'When coupon rate = YTM, price = par. When YTM rises above coupon rate, price falls below par.',
   hint2:'(1.09)^5=1.5386. PVIFA(9%,5)=3.8897.',
-  formulas:['Bond price = C × [1−(1+r)⁻ⁿ]/r + FV÷(1+r)ⁿ']},
+  formulas:['Bond price = C × <frac>1−(1+r)⁻ⁿ~~r</frac> + <frac>FV~~(1+r)ⁿ</frac>']},
 
 {week:8,type:'multipart',
   scenario:'FreshFoods Ltd: EPS=$5, payout ratio=60%, ROI on reinvested earnings=18%, required return=14%.',
@@ -4446,7 +4449,15 @@ function showFormulas(){
   if(!ha||!q.formulas) return;
   const existing=document.getElementById('formulaBox');
   if(existing){existing.remove();btn.classList.remove('active');return;}
-  const items=q.formulas.map(f=>`<li>${f}</li>`).join('');
+  function frac(n,d){return '<span class="qfrac"><span class="qfrac-n">'+n+'</span><span class="qfrac-d">'+d+'</span></span>';}
+  function fmtF(s){
+    // Explicit fraction tags: <frac>num~~denom</frac>
+    s=s.replace(/<frac>([\s\S]*?)~~([\s\S]*?)<\/frac>/g,(_,n,d)=>frac(n,d));
+    // Auto-convert remaining ÷: match the nearest non-space token on each side
+    s=s.replace(/(\S+)\s*÷\s*(\S+)/g,(_,n,d)=>frac(n,d));
+    return s;
+  }
+  const items=q.formulas.map(f=>`<li>${fmtF(f)}</li>`).join('');
   const box=document.createElement('div');
   box.id='formulaBox';
   box.className='hint-box hf';
