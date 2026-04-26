@@ -2331,16 +2331,14 @@ const QUESTIONS=[
 
 
 
-{week:3,type:'numerical',
-
-  question:'FurBall Hotel Ltd charges $90/night per room. Variable cost per room per night = $40. Fixed costs = $1,600,000 per year. (a) What is CM per unit? (b) What is the BEP in room-nights? (c) What is the BEP in sales revenue?',
-
-  keywords:['50','32000','32,000','1600000','2880000','2,880,000'],
-
-  modelAnswer:'(a) CM = $90 − $40 = $50 per room-night\n(b) BEP = $1,600,000 ÷ $50 = 32,000 room-nights\n(c) BEP revenue = 32,000 × $90 = $2,880,000 (or FC ÷ CM Ratio = $1,600,000 ÷ 0.556 = $2,880,000)',
-
+{week:3,type:'multipart',
+  scenario:'FurBall Hotel Ltd charges $90/night per room. Variable cost per room per night = $40. Fixed costs = $1,600,000 per year.',
+  parts:[
+    {label:'a',question:'What is the CM per room-night?',keywords:['CM','50','$50'],modelAnswer:'CM = $90 − $40 = $50 per room-night'},
+    {label:'b',question:'What is the BEP in room-nights?',keywords:['BEP','32000','32,000'],modelAnswer:'BEP = $1,600,000 ÷ $50 = 32,000 room-nights'},
+    {label:'c',question:'What is the BEP in sales revenue ($)?',keywords:['2880000','2,880,000'],modelAnswer:'BEP revenue = 32,000 × $90 = $2,880,000\n(or FC ÷ CM Ratio = $1,600,000 ÷ 0.556 = $2,880,000)'}
+  ],
   hint:'CM = SP − VC. BEP units = FC ÷ CM. BEP revenue = BEP units × SP.',
-
   hint2:'CM Ratio = $50/$90 = 55.6%. BEP revenue = FC ÷ CM Ratio.'},
 
 {week:3,type:'numerical',
@@ -2355,16 +2353,13 @@ const QUESTIONS=[
 
   hint2:'Target units = (FC + pre-tax profit) ÷ CM per unit.'},
 
-{week:3,type:'numerical',
-
-  question:'A company sells Product A (SP=$120, VC=$70, mix=40%) and Product B (SP=$80, VC=$30, mix=60%). Total fixed costs=$840,000. (a) Calculate WACM. (b) Calculate BEP in total units.',
-
-  keywords:['CM A','50','CM B','50','WACM','50','16800','16,800'],
-
-  modelAnswer:'CM A = $120−$70 = $50; CM B = $80−$30 = $50\nWACM = ($50×0.40)+($50×0.60) = $20+$30 = $50\nBEP = $840,000÷$50 = 16,800 units',
-
+{week:3,type:'multipart',
+  scenario:'A company sells Product A (SP=$120, VC=$70, mix=40%) and Product B (SP=$80, VC=$30, mix=60%). Total fixed costs=$840,000.',
+  parts:[
+    {label:'a',question:'Calculate the WACM.',keywords:['CM A','50','CM B','50','WACM','50'],modelAnswer:'CM A = $120−$70 = $50; CM B = $80−$30 = $50\nWACM = ($50×0.40)+($50×0.60) = $20+$30 = $50'},
+    {label:'b',question:'Calculate the BEP in total units.',keywords:['BEP','16800','16,800'],modelAnswer:'BEP = $840,000 ÷ $50 = 16,800 units'}
+  ],
   hint:'Calculate CM for each product, then WACM = Σ(CM_i × mix_i).',
-
   hint2:'When CM is the same for all products, WACM = that CM regardless of sales mix.'},
 
 {week:3,type:'numerical',
@@ -3011,29 +3006,24 @@ const QUESTIONS=[
 
   hint2:'(1.07)^5 = 1.4026'},
 
-{week:8,type:'numerical',
-
-  question:'A stock is expected to pay a constant annual dividend of $3.50 forever. The required return is 8%. (a) What is the stock price today? (b) If the required return rises to 10%, what is the new price?',
-
-  keywords:['43.75','43.75','35.00','35'],
-
-  modelAnswer:'(a) P₀ = D/r = $3.50/0.08 = $43.75\n(b) P₀ = $3.50/0.10 = $35.00\nRise in required return → fall in price (inverse relationship).',
-
+{week:8,type:'multipart',
+  scenario:'A stock is expected to pay a constant annual dividend of $3.50 forever.',
+  parts:[
+    {label:'a',question:'The required return is 8%. What is the stock price today ($)?',keywords:['43.75'],modelAnswer:'P₀ = D/r = $3.50/0.08 = $43.75'},
+    {label:'b',question:'If the required return rises to 10%, what is the new price ($)?',keywords:['35.00','35'],modelAnswer:'P₀ = $3.50/0.10 = $35.00\nRise in required return → fall in price (inverse relationship).'}
+  ],
   hint:'Constant dividend stock = perpetuity: P₀ = D ÷ r.',
+  hint2:'Higher required return → lower price. This is the inverse relationship between rates and stock prices.'},
 
-  hint2:'Part (b) shows bond-like interest rate sensitivity: higher r → lower price.'},
-
-{week:8,type:'numerical',
-
-  question:'XYZ Corp: D₁ = $2.50, r = 11%, g = 4%. (a) Calculate P₀. (b) Calculate P₁ (price one year from now). (c) What is the total one-year return?',
-
-  keywords:['35.71','35.71','37.14','37.14','11%','0.11'],
-
-  modelAnswer:'(a) P₀ = D₁/(r−g) = $2.50/(0.11−0.04) = $2.50/0.07 = $35.71\n(b) P₁ = D₂/(r−g). D₂=$2.50×1.04=$2.60. P₁=$2.60/0.07=$37.14\n(c) Total return = (D₁ + P₁ − P₀)/P₀ = ($2.50 + $37.14 − $35.71)/$35.71 = $3.93/$35.71 = 11% = r ✓',
-
+{week:8,type:'multipart',
+  scenario:'XYZ Corp: D₁ = $2.50, r = 11%, g = 4%.',
+  parts:[
+    {label:'a',question:'Calculate P₀ ($).',keywords:['35.71'],modelAnswer:'P₀ = D₁/(r−g) = $2.50/(0.11−0.04) = $2.50/0.07 = $35.71'},
+    {label:'b',question:'Calculate P₁ — the price one year from now ($).',keywords:['37.14'],modelAnswer:'D₂ = $2.50×1.04 = $2.60\nP₁ = D₂/(r−g) = $2.60/0.07 = $37.14'},
+    {label:'c',question:'What is the total one-year return (%)? Show your working.',keywords:['11%','0.11','3.93'],modelAnswer:'Total return = (D₁ + P₁ − P₀)/P₀ = ($2.50 + $37.14 − $35.71)/$35.71 = $3.93/$35.71 = 11% = r ✓'}
+  ],
   hint:'P₁ = D₂/(r−g). D₂ = D₁×(1+g). Total return = (dividend + capital gain)/P₀.',
-
-  hint2:'Total return should equal r — this verifies the Gordon Growth model is consistent.'},
+  hint2:'Total return should equal r — this verifies the Gordon Growth model is internally consistent.'},
 
 {week:8,type:'numerical',
 
@@ -3252,17 +3242,23 @@ const QUESTIONS=[
 // ── NEW NUMERICAL QUESTIONS ──
 
 // WEEK 3 — New numericals
-{week:3,type:'numerical',
-  question:'A firm sells 8,000 units: SP=$60, VC=$36/unit, FC=$120,000. (a) CM per unit and total CM. (b) Operating profit. (c) Degree of Operating Leverage (DOL = Total CM ÷ Operating Profit). (d) If sales volume rises 25%, by what % does operating profit change?',
-  keywords:['24','192000','72000','DOL','2.67','66.7%','66.67'],
-  modelAnswer:'(a) CM/unit = $60−$36 = $24; Total CM = $24×8,000 = $192,000\n(b) Operating profit = $192,000−$120,000 = $72,000\n(c) DOL = $192,000÷$72,000 = 2.67\n(d) ΔOP% = DOL×ΔSales% = 2.67×25% = 66.7%\n(Operating profit rises from $72,000 to ~$120,000)',
-  hint:'DOL = Total CM ÷ Operating Profit. Higher fixed costs relative to variable = higher DOL = more leverage.',
-  hint2:'DOL tells you how sensitive profit is to volume changes. If DOL=2.67 and sales rise 25%, profit rises 2.67×25%=66.7%.'},
+{week:3,type:'multipart',
+  scenario:'A firm sells 8,000 units: SP=$60, VC=$36/unit, FC=$120,000.',
+  parts:[
+    {label:'a',question:'Calculate CM per unit and total CM.',inputs:['CM per unit ($)','Total CM ($)'],keywords:['24','192000','192,000'],modelAnswer:'CM/unit = $60−$36 = $24\nTotal CM = $24 × 8,000 = $192,000'},
+    {label:'b',question:'Calculate operating profit ($).',keywords:['72000','72,000'],modelAnswer:'Operating profit = $192,000 − $120,000 = $72,000'},
+    {label:'c',question:'Calculate the Degree of Operating Leverage (DOL = Total CM ÷ Operating Profit).',keywords:['DOL','2.67'],modelAnswer:'DOL = $192,000 ÷ $72,000 = 2.67'},
+    {label:'d',type:'sa',question:'If sales volume rises 25%, by what % does operating profit change? Show your working.',keywords:['66.7','66.67','2.67','25'],modelAnswer:'ΔOP% = DOL × ΔSales% = 2.67 × 25% = 66.7%\nOperating profit rises from $72,000 to ~$120,000'}
+  ],
+  hint:'DOL = Total CM ÷ Operating Profit. Higher FC relative to VC = higher DOL = more operating leverage.',
+  hint2:'DOL tells you sensitivity to volume changes. DOL=2.67 means a 25% sales rise → 2.67×25%=66.7% profit rise.'},
 
-{week:3,type:'numerical',
-  question:'A retailer: SP=$45, VC=$27, FC=$270,000. (a) How many units to break even? (b) How many units to earn $90,000 before-tax profit?',
-  keywords:['CM','18','BEP','15000','15,000','20000','20,000','target'],
-  modelAnswer:'CM = $45−$27 = $18\n(a) BEP = $270,000÷$18 = 15,000 units\n(b) Target = ($270,000+$90,000)÷$18 = $360,000÷$18 = 20,000 units',
+{week:3,type:'multipart',
+  scenario:'A retailer: SP=$45, VC=$27, FC=$270,000.',
+  parts:[
+    {label:'a',question:'How many units to break even?',keywords:['CM','18','BEP','15000','15,000'],modelAnswer:'CM = $45−$27 = $18\nBEP = $270,000 ÷ $18 = 15,000 units'},
+    {label:'b',question:'How many units to earn $90,000 before-tax profit?',keywords:['20000','20,000','360000'],modelAnswer:'Target = ($270,000 + $90,000) ÷ $18 = $360,000 ÷ $18 = 20,000 units'}
+  ],
   hint:'BEP = FC ÷ CM. Target units = (FC + target profit) ÷ CM.',
   hint2:'CM per unit = $18. For target profit, add the desired profit to FC in the numerator.'},
 
@@ -3306,11 +3302,14 @@ const QUESTIONS=[
   hint2:'Annual payment: C = PV×r/[1−(1+r)^−n]. Balance after t payments: PV of remaining (n−t) payments at rate r.'},
 
 // WEEK 7 — New numericals
-{week:7,type:'numerical',
-  question:'Project: Year 0 = −$80,000; Year 1 = $35,000; Year 2 = $40,000; Year 3 = $30,000. Discount rate = 9%. (a) Calculate NPV. (b) Should the firm accept? (c) Calculate the Profitability Index.',
-  keywords:['NPV','8958','8,958','accept','PI','1.112','1.11'],
-  modelAnswer:'PV = $35,000/1.09+$40,000/1.09²+$30,000/1.09³\n= $32,110+$33,672+$23,176 = $88,958\nNPV = $88,958−$80,000 = $8,958\n(b) Accept — NPV > 0 ✓\n(c) PI = $8,958÷$80,000 = 0.112 (or PV/cost = $88,958/$80,000 = 1.112)\nPI > 0 → Accept ✓',
-  hint:'NPV = sum of discounted CFs minus initial investment. PI = NPV ÷ initial investment (or PV of future CFs ÷ cost).',
+{week:7,type:'multipart',
+  scenario:'Project: Year 0 = −$80,000; Year 1 = $35,000; Year 2 = $40,000; Year 3 = $30,000. Discount rate = 9%.',
+  parts:[
+    {label:'a',question:'Calculate NPV.',keywords:['NPV','8958','8,958','88958','88,958'],modelAnswer:'PV = $35,000/1.09+$40,000/1.09²+$30,000/1.09³\n= $32,110+$33,672+$23,176 = $88,958\nNPV = $88,958−$80,000 = $8,958'},
+    {label:'b',type:'sa',question:'Should the firm accept the project? Explain why.',keywords:['accept','NPV','positive','8958'],modelAnswer:'Accept — NPV = $8,958 > 0, so the project adds value to the firm.'},
+    {label:'c',question:'Calculate the Profitability Index (PI).',keywords:['PI','1.112','1.11','88958'],modelAnswer:'PI = PV of future CFs ÷ Initial cost = $88,958 ÷ $80,000 = 1.112\n(Alternatively: PI = 1 + NPV/Cost = 1 + $8,958/$80,000 = 1.112)\nPI > 1 → Accept ✓'}
+  ],
+  hint:'NPV = sum of discounted CFs minus initial investment. PI = PV of future CFs ÷ initial cost.',
   hint2:'Discount factors: 1/1.09=0.9174; 1/1.09²=0.8417; 1/1.09³=0.7722.'},
 
 {week:7,type:'multipart',
@@ -3323,12 +3322,15 @@ const QUESTIONS=[
   hint:'Use annuity factor for Alpha (equal CFs). For Beta, discount each CF individually. Mutually exclusive → pick highest NPV.',
   hint2:'PVIFA(10%,4) = [1−(1.10)^−4]/0.10 = 3.1699. Beta CFs grow over time — back-loaded projects often have higher NPV at low rates.'},
 
-{week:7,type:'numerical',
-  question:'Project: Year 0 = −$120,000; Year 1 = $40,000; Year 2 = $60,000; Year 3 = $50,000; Year 4 = $30,000. (a) Calculate payback period. (b) If required payback ≤ 2.5 years, should the firm accept? (c) Calculate NPV at 10%.',
-  keywords:['payback','2.4','2.40','accept','NPV','24009','24,009','reject'],
-  modelAnswer:'Payback: After Y1: −$80,000; After Y2: −$20,000; Y3 partial: $20,000÷$50,000=0.40 years\nPayback = 2.40 years → Accept (< 2.5 year threshold)\n\nNPV at 10%:\n= −120,000+40,000/1.10+60,000/1.21+50,000/1.331+30,000/1.4641\n= −120,000+36,364+49,587+37,565+20,493 = $24,009\nNPV > 0 → Accept ✓ (both rules agree here)',
-  hint:'Payback: track cumulative CFs year by year; find the fraction of the year needed to cover the remaining deficit.',
-  hint2:'After Y2 cumulative = −$20,000. In Y3 you receive $50,000. Fraction = 20,000/50,000 = 0.40 years. Payback = 2+0.40 = 2.40 years.'},
+{week:7,type:'multipart',
+  scenario:'Project: Year 0 = −$120,000; Year 1 = $40,000; Year 2 = $60,000; Year 3 = $50,000; Year 4 = $30,000. Discount rate = 10%.',
+  parts:[
+    {label:'a',question:'Calculate the payback period (in years, to 2 decimal places).',keywords:['payback','2.4','2.40'],modelAnswer:'After Y1: −$80,000; After Y2: −$20,000\nY3 partial: $20,000÷$50,000=0.40 years\nPayback = 2.40 years'},
+    {label:'b',type:'sa',question:'The required payback is ≤ 2.5 years. Should the firm accept? Explain.',keywords:['accept','2.40','less than','2.5'],modelAnswer:'Accept — payback of 2.40 years is within the 2.5-year limit.'},
+    {label:'c',question:'Calculate NPV at 10%.',keywords:['NPV','24009','24,009'],modelAnswer:'PV = 40,000/1.10 + 60,000/1.21 + 50,000/1.331 + 30,000/1.4641\n= 36,364 + 49,587 + 37,565 + 20,493 = $143,009\nNPV = $143,009 − $120,000 = $24,009 → Accept ✓'}
+  ],
+  hint:'Payback: track cumulative CFs year by year; find the fraction of the year needed to cover the deficit.',
+  hint2:'After Y2 cumulative = −$20,000. In Y3 you receive $50,000. Fraction = 20,000/50,000 = 0.40 years.'},
 
 // WEEK 8 — New numericals
 {week:8,type:'numerical',
@@ -3338,19 +3340,25 @@ const QUESTIONS=[
   hint:'Multi-stage DDM: discount each dividend in the high-growth phase, then find terminal value P₃ at start of stable growth phase.',
   hint2:'P₃ = D₄/(r−g) where D₄ is first stable-growth dividend. Then discount P₃ back 3 years along with D₁, D₂, D₃.'},
 
-{week:8,type:'numerical',
-  question:'A 5-year bond has face value $1,000 and annual coupon rate 7%. (a) If YTM=7%, what is the price? (b) If YTM rises to 9%, what is the new price? (c) What % did the price fall?',
-  keywords:['1000','par','922','922.21','7.78%','7.78','inverse'],
-  modelAnswer:'(a) Coupon rate = YTM → bond trades at PAR: P=$1,000\n(b) P = $70×PVIFA(9%,5)+$1,000/(1.09)^5\nPVIFA(9%,5)=[1−(1.09)^−5]/0.09; (1.09)^5=1.5386; PVIFA=3.8897\nP=$70×3.8897+$1,000/1.5386=$272.28+$649.93=$922.21\n(c) % fall = ($922.21−$1,000)/$1,000 = −7.78%\nKey insight: bond prices and interest rates move inversely.',
-  hint:'When coupon rate = YTM, price = par. When YTM rises above coupon rate, price falls below par (discount bond).',
-  hint2:'(1.09)^5=1.5386. PVIFA(9%,5)=3.8897. Price drop shows interest rate risk: longer bonds are even more sensitive.'},
+{week:8,type:'multipart',
+  scenario:'A 5-year bond has face value $1,000 and annual coupon rate 7%.',
+  parts:[
+    {label:'a',question:'If YTM=7%, what is the price?',keywords:['1000','par','1,000'],modelAnswer:'Coupon rate = YTM → bond trades at PAR: P = $1,000'},
+    {label:'b',question:'If YTM rises to 9%, what is the new price ($, to 2 decimal places)?',keywords:['922','922.21'],modelAnswer:'P = $70×PVIFA(9%,5) + $1,000/(1.09)^5\n(1.09)^5=1.5386; PVIFA(9%,5)=3.8897\nP = $70×3.8897 + $649.93 = $272.28 + $649.93 = $922.21'},
+    {label:'c',question:'By what % did the price fall from (a) to (b)?',keywords:['7.78%','7.78','−7.78'],modelAnswer:'% fall = ($922.21 − $1,000) / $1,000 = −7.78%\nKey: bond prices and interest rates move inversely.'}
+  ],
+  hint:'When coupon rate = YTM, price = par. When YTM rises above coupon rate, price falls below par.',
+  hint2:'(1.09)^5=1.5386. PVIFA(9%,5)=3.8897.'},
 
-{week:8,type:'numerical',
-  question:'FreshFoods Ltd: EPS=$5, payout ratio=60%, ROI on reinvested earnings=18%, required return=14%. (a) Calculate g. (b) Calculate D₁. (c) Calculate P₀ using Gordon Growth Model.',
-  keywords:['retention','0.40','40%','g','7.2%','7.2','D1','3.00','3.216','P0','47.29','47.24'],
-  modelAnswer:'(a) Retention=1−0.60=0.40; g=0.40×0.18=7.2%\n(b) D₀=EPS×payout=$5×0.60=$3.00; D₁=$3.00×1.072=$3.216\n(c) P₀=D₁÷(r−g)=$3.216÷(0.14−0.072)=$3.216÷0.068=$47.29',
+{week:8,type:'multipart',
+  scenario:'FreshFoods Ltd: EPS=$5, payout ratio=60%, ROI on reinvested earnings=18%, required return=14%.',
+  parts:[
+    {label:'a',question:'Calculate the growth rate g (%).',keywords:['retention','0.40','40%','g','7.2%','7.2'],modelAnswer:'Retention = 1 − 0.60 = 0.40\ng = 0.40 × 0.18 = 7.2%'},
+    {label:'b',question:'Calculate D₁ (next year\'s dividend, $).',keywords:['D0','3.00','D1','3.216','3.22'],modelAnswer:'D₀ = EPS × payout = $5 × 0.60 = $3.00\nD₁ = $3.00 × 1.072 = $3.216'},
+    {label:'c',question:'Calculate P₀ using the Gordon Growth Model ($).',keywords:['P0','47.29','47.24'],modelAnswer:'P₀ = D₁ ÷ (r − g) = $3.216 ÷ (0.14 − 0.072) = $3.216 ÷ 0.068 = $47.29'}
+  ],
   hint:'g = Retention Ratio × ROI. D₁ = D₀×(1+g). P₀ = D₁/(r−g).',
-  hint2:'Retention = 1−payout = 0.40. g=0.40×0.18=7.2%. D₁=$3.00×1.072=$3.216. Denominator = r−g = 14%−7.2% = 6.8%.'},
+  hint2:'Retention = 1−payout = 0.40. g=7.2%. r−g = 14%−7.2% = 6.8%.'},
 
 // WEEK 9 — New numericals
 {week:9,type:'numerical',
@@ -3360,17 +3368,21 @@ const QUESTIONS=[
   hint:'V = sum of all market values. Weights = each component ÷ V. Apply tax shield only to debt.',
   hint2:'After-tax cost of debt = 7%×(1−0.30) = 4.9%.'},
 
-{week:9,type:'numerical',
-  question:'CAPM: Stock Y has a required return of 14%. Rf=3%, E[RM]=10%. (a) What is Stock Y\'s beta? (b) If the market return rises to 12%, what is the new required return for Stock Y?',
-  keywords:['beta','1.571','1.57','MRP','7%','new return','15.14%','15.14','new MRP','9'],
-  modelAnswer:'(a) CAPM: 14%=3%+β×(10%−3%)=3%+β×7%\n11%=β×7% → β=1.571\n(b) New E[RM]=12%, MRP=12%−3%=9%; Rf still 3%\nNew E[R]=3%+1.571×9%=3%+14.14%=17.14%',
+{week:9,type:'multipart',
+  scenario:'CAPM: Stock Y has a required return of 14%. Rf=3%, E[RM]=10%.',
+  parts:[
+    {label:'a',question:'What is Stock Y\'s beta?',keywords:['beta','1.571','1.57'],modelAnswer:'CAPM: 14% = 3% + β×(10%−3%) = 3% + β×7%\n11% = β×7% → β = 1.571'},
+    {label:'b',question:'If the market return rises to 12%, what is the new required return for Stock Y (%)?',keywords:['17.14','17.14%','new MRP','9'],modelAnswer:'New MRP = 12%−3% = 9%; Rf still 3%\nNew E[R] = 3% + 1.571×9% = 3% + 14.14% = 17.14%'}
+  ],
   hint:'Rearrange CAPM to solve for β: β = (E[R]−Rf) / (E[RM]−Rf). For part (b), use the same β with the new market return.',
-  hint2:'β=(14%−3%)/(10%−3%)=11/7=1.571. Part (b): new MRP=12%−3%=9%; new E[R]=3%+1.571×9%.'},
+  hint2:'β=(14%−3%)/(10%−3%)=11/7=1.571. Part (b): new MRP=12%−3%=9%.'},
 
-{week:9,type:'numerical',
-  question:'A portfolio has three stocks: Stock A (weight=30%, β=0.8), Stock B (weight=50%, β=1.2), Stock C (weight=20%, β=1.6). Rf=4%, E[RM]=11%. (a) Portfolio beta. (b) Portfolio expected return using CAPM.',
-  keywords:['beta portfolio','1.12','1.12','E[R]','11.84%','11.84','MRP','7'],
-  modelAnswer:'(a) β_p=0.30×0.8+0.50×1.2+0.20×1.6=0.24+0.60+0.32=1.16\n(b) E[R_p]=4%+1.16×(11%−4%)=4%+1.16×7%=4%+8.12%=12.12%\n\nNote: β_p=1.16 (not 1.12 — recalculate to verify: 0.24+0.60+0.32=1.16)',
+{week:9,type:'multipart',
+  scenario:'A portfolio has three stocks: Stock A (weight=30%, β=0.8), Stock B (weight=50%, β=1.2), Stock C (weight=20%, β=1.6). Rf=4%, E[RM]=11%.',
+  parts:[
+    {label:'a',question:'Calculate the portfolio beta.',keywords:['1.16','1.12'],modelAnswer:'β_p = 0.30×0.8 + 0.50×1.2 + 0.20×1.6 = 0.24+0.60+0.32 = 1.16'},
+    {label:'b',question:'Calculate the portfolio expected return using CAPM (%).',keywords:['12.12','11.84','MRP','7'],modelAnswer:'E[R_p] = 4% + 1.16×(11%−4%) = 4% + 1.16×7% = 4% + 8.12% = 12.12%'}
+  ],
   hint:'Portfolio beta = weighted average of individual betas. Then plug into CAPM for expected return.',
   hint2:'β_p = Σ(w_i × β_i). MRP = E[RM]−Rf = 7%. E[R_p] = Rf + β_p × MRP.'},
 
