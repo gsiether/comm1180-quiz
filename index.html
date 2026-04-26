@@ -2520,7 +2520,7 @@ const QUESTIONS=[
 
     {label:'b',question:'Using FV from (a) as PV at year 10, what annual withdrawal can she make for 15 years at 5%?',keywords:['PMT','55266','0.05','15','5324','5,324','5325'],modelAnswer:'C = $55,266÷PVIFA(5%,15) = $55,266÷10.3797 ≈ $5,324/year\n(1.05)^15=2.07893; PVIFA=[1−1/2.07893]/0.05=10.380'},
 
-    {label:'c',question:'If Sarah wanted $7,000/year, would her savings be sufficient?',keywords:['PV','7000','0.05','15','72421','insufficient','not enough'],modelAnswer:'PV of $7,000 for 15yr at 5% = $7,000×10.380 = $72,658. Since $72,658 > $55,264, savings are insufficient.'}
+    {label:'c',question:'If Sarah wanted $7,000/year, would her savings be sufficient?',keywords:['PV','7000','0.05','15','72421','insufficient','not enough'],modelAnswer:'PV of $7,000 for 15yr at 5% = $7,000×10.380 = $72,658. Since $72,658 > $55,266, savings are insufficient.'}
 
   ],
 
@@ -2644,7 +2644,7 @@ const QUESTIONS=[
 
   question:'Project: initial investment $100,000. CFs: Y1=$40,000, Y2=$50,000, Y3=$30,000. Discount rate=10%. Calculate NPV.',
 
-  keywords:['NPV','36364','41322','22539','100000','225','3,225'],
+  keywords:['NPV','36364','41322','22539','100000','225'],
 
   modelAnswer:'NPV = −$100,000+$40,000÷1.10+$50,000÷1.21+$30,000÷1.331\n= −$100,000+$36,364+$41,322+$22,539 = $225\nNPV≈$225>0 → Accept.',
 
@@ -3296,8 +3296,8 @@ const QUESTIONS=[
 
 {week:5,type:'numerical',
   question:'You take out a $200,000 mortgage at 5% per year for 20 years (annual payments). After making 10 payments, what is the outstanding loan balance?',
-  keywords:['annual payment','16059','16,059','balance','123717','123,718','123716'],
-  modelAnswer:'Step 1: Annual payment C = $200,000×0.05/[1−(1.05)^−20]\n(1.05)^20=2.6533; denominator=1−1/2.6533=0.6231\nC = $10,000÷0.6231 = $16,059\n\nStep 2: Outstanding balance after 10 payments = PV of remaining 10 payments\n= $16,059×[1−(1.05)^−10]÷0.05\n(1.05)^10=1.6289; PVIFA(5%,10)=[1−1/1.6289]/0.05=7.7217\nBalance = $16,059×7.7217 = $124,031',
+  keywords:['annual payment','16046','16,046','balance','123901','123,901'],
+  modelAnswer:'Step 1: Annual payment C = $200,000×0.05/[1−(1.05)^−20]\n(1.05)^20=2.6533; denominator=1−1/2.6533=0.62311\nC = $10,000÷0.62311 = $16,046\n\nStep 2: Outstanding balance after 10 payments = PV of remaining 10 payments\n= $16,046×[1−(1.05)^−10]÷0.05\n(1.05)^10=1.6289; PVIFA(5%,10)=[1−1/1.6289]/0.05=7.7217\nBalance = $16,046×7.7217 = $123,901',
   hint:'Loan balance at any point = PV of remaining payments. Calculate annual payment first, then find PV of what remains.',
   hint2:'Annual payment: C = PV×r/[1−(1+r)^−n]. Balance after t payments: PV of remaining (n−t) payments at rate r.'},
 
@@ -3305,9 +3305,9 @@ const QUESTIONS=[
 {week:7,type:'multipart',
   scenario:'Project: Year 0 = −$80,000; Year 1 = $35,000; Year 2 = $40,000; Year 3 = $30,000. Discount rate = 9%.',
   parts:[
-    {label:'a',question:'Calculate NPV.',keywords:['NPV','8958','8,958','88958','88,958'],modelAnswer:'PV = $35,000/1.09+$40,000/1.09²+$30,000/1.09³\n= $32,110+$33,672+$23,176 = $88,958\nNPV = $88,958−$80,000 = $8,958'},
+    {label:'a',question:'Calculate NPV.',keywords:['NPV','8942','8,942','88942','88,942'],modelAnswer:'PV = $35,000/1.09+$40,000/1.09²+$30,000/1.09³\n= $32,110+$33,667+$23,165 = $88,942\nNPV = $88,942−$80,000 = $8,942'},
     {label:'b',type:'sa',question:'Should the firm accept the project? Explain why.',keywords:['accept','NPV','positive','8958'],modelAnswer:'Accept — NPV = $8,958 > 0, so the project adds value to the firm.'},
-    {label:'c',question:'Calculate the Profitability Index (PI).',keywords:['PI','1.112','1.11','88958'],modelAnswer:'PI = PV of future CFs ÷ Initial cost = $88,958 ÷ $80,000 = 1.112\n(Alternatively: PI = 1 + NPV/Cost = 1 + $8,958/$80,000 = 1.112)\nPI > 1 → Accept ✓'}
+    {label:'c',question:'Calculate the Profitability Index (PI).',keywords:['PI','1.112','1.11','88942'],modelAnswer:'PI = PV of future CFs ÷ Initial cost = $88,942 ÷ $80,000 = 1.112\n(Alternatively: PI = 1 + NPV/Cost = 1 + $8,942/$80,000 = 1.112)\nPI > 1 → Accept ✓'}
   ],
   hint:'NPV = sum of discounted CFs minus initial investment. PI = PV of future CFs ÷ initial cost.',
   hint2:'Discount factors: 1/1.09=0.9174; 1/1.09²=0.8417; 1/1.09³=0.7722.'},
@@ -3327,7 +3327,7 @@ const QUESTIONS=[
   parts:[
     {label:'a',question:'Calculate the payback period (in years, to 2 decimal places).',keywords:['payback','2.4','2.40'],modelAnswer:'After Y1: −$80,000; After Y2: −$20,000\nY3 partial: $20,000÷$50,000=0.40 years\nPayback = 2.40 years'},
     {label:'b',type:'sa',question:'The required payback is ≤ 2.5 years. Should the firm accept? Explain.',keywords:['accept','2.40','less than','2.5'],modelAnswer:'Accept — payback of 2.40 years is within the 2.5-year limit.'},
-    {label:'c',question:'Calculate NPV at 10%.',keywords:['NPV','24009','24,009'],modelAnswer:'PV = 40,000/1.10 + 60,000/1.21 + 50,000/1.331 + 30,000/1.4641\n= 36,364 + 49,587 + 37,565 + 20,493 = $143,009\nNPV = $143,009 − $120,000 = $24,009 → Accept ✓'}
+    {label:'c',question:'Calculate NPV at 10%.',keywords:['NPV','24007','24,007','24009'],modelAnswer:'PV = 40,000/1.10 + 60,000/1.21 + 50,000/1.331 + 30,000/1.4641\n= 36,364 + 49,587 + 37,566 + 20,490 = $144,007\nNPV = $144,007 − $120,000 = $24,007 → Accept ✓'}
   ],
   hint:'Payback: track cumulative CFs year by year; find the fraction of the year needed to cover the deficit.',
   hint2:'After Y2 cumulative = −$20,000. In Y3 you receive $50,000. Fraction = 20,000/50,000 = 0.40 years.'},
@@ -3336,7 +3336,7 @@ const QUESTIONS=[
 {week:8,type:'numerical',
   question:'A stock is expected to pay D₀=$1.00 (just paid). Growth for years 1–3 = 20%/yr, then constant 5% forever. Required return = 12%. Calculate P₀.',
   keywords:['D1','1.20','D2','1.44','D3','1.728','P3','25.92','P0','21.90','21.89'],
-  modelAnswer:'D₁=1.00×1.20=$1.20; D₂=$1.44; D₃=$1.728\nD₄=1.728×1.05=$1.8144 (first terminal growth dividend)\nP₃=D₄÷(r−g)=$1.8144÷(0.12−0.05)=$1.8144÷0.07=$25.92\n\nP₀=D₁/1.12+D₂/1.12²+D₃/1.12³+P₃/1.12³\n=$1.071+$1.148+$1.230+$18.433=$21.88',
+  modelAnswer:'D₁=1.00×1.20=$1.20; D₂=$1.44; D₃=$1.728\nD₄=1.728×1.05=$1.8144 (first terminal growth dividend)\nP₃=D₄÷(r−g)=$1.8144÷(0.12−0.05)=$1.8144÷0.07=$25.92\n\nP₀=D₁/1.12+D₂/1.12²+D₃/1.12³+P₃/1.12³\n=$1.071+$1.148+$1.230+$18.449=$21.90',
   hint:'Multi-stage DDM: discount each dividend in the high-growth phase, then find terminal value P₃ at start of stable growth phase.',
   hint2:'P₃ = D₄/(r−g) where D₄ is first stable-growth dividend. Then discount P₃ back 3 years along with D₁, D₂, D₃.'},
 
