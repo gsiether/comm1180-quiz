@@ -3550,9 +3550,15 @@ function buildWeekChips(){
 
   const total=QUESTIONS.length;
 
-  allChip.innerHTML=`<div class="wn" style="color:var(--text)">All Weeks</div><div class="wq">${total} questions</div>`;
+  allChip.innerHTML=`<div class="wn" style="color:var(--text)">All Weeks →</div><div class="wq">${total} questions</div>`;
 
-  allChip.onclick=()=>selectWeekChip('all');
+  allChip.onclick=()=>{
+    homeState.weeks=Object.keys(WEEKS).map(Number);
+    document.querySelectorAll('.week-chip:not(.all-chip)').forEach(c=>c.classList.add('active'));
+    allChip.classList.add('active');
+    document.getElementById('startBtn').disabled=false;
+    startQuizFromHome();
+  };
 
   grid.appendChild(allChip);
 
@@ -4074,7 +4080,7 @@ function renderQuestion(){
 
     ${hasHints&&q.hint2?`<button id="hintBtn2" class="btn-hint" onclick="showHint2()" style="display:none">🔍 Hint 2</button>`:''}
 
-    ${settings.hints!==false?`<button id="hintBtnAI" class="btn-hint" onclick="showHintAI()" style="${hasHints&&q.hint?'display:none':''};background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue)">😕 I'm Confused</button>`:''}
+    ${settings.hints!==false?`<button id="hintBtnAI" class="btn-hint" onclick="showHintAI()" style="background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue)">😕 I'm Confused</button>`:''}
 
     <div id="hintArea" class="hint-area"></div>
 
