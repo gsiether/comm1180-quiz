@@ -370,6 +370,13 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 .hint-box.hai{background:var(--blue-light);border:1px solid var(--blue-mid);color:var(--blue);padding:14px 16px}
 
+.btn-formula{background:var(--green-light);border:1px solid var(--green-border);border-radius:var(--r-sm);padding:8px 14px;font-size:.8rem;font-weight:600;color:var(--green);cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-formula:hover{background:var(--green-border)}
+.btn-formula.active{background:var(--green-border)}
+.hint-box.hf{background:var(--green-light);border:1px solid var(--green-border);color:#065f46;padding:12px 14px}
+.hint-box.hf .formula-list{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:5px}
+.hint-box.hf .formula-list li{font-family:serif;font-size:.9rem;background:rgba(255,255,255,.6);border-radius:6px;padding:4px 10px}
+
 .ai-head{font-size:.78rem;font-weight:700;color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:6px}
 
 .ai-row{display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:baseline;padding:6px 0;border-top:1px solid var(--blue-mid);font-size:.82rem;line-height:1.55;color:var(--text)}
@@ -2265,7 +2272,8 @@ const QUESTIONS=[
 
   hint:'Calculate CM for each product, then WACM = Σ(CM_i × mix_i).',
 
-  hint2:'BEP = FC ÷ WACM = $3,000,000 ÷ $34'},
+  hint2:'BEP = FC ÷ WACM = $3,000,000 ÷ $34',
+  formulas:['CM = SP − VC','WACM = Σ(CM_i × mix_i)','BEP (units) = FC ÷ WACM']},
 
 {week:3,type:'numerical',
 
@@ -2277,7 +2285,8 @@ const QUESTIONS=[
 
   hint:'Convert after-tax to pre-tax first: pre-tax = after-tax ÷ (1 − tax rate).',
 
-  hint2:'Target = (FC + pre-tax profit) ÷ WACM'},
+  hint2:'Target = (FC + pre-tax profit) ÷ WACM',
+  formulas:['Pre-tax profit = After-tax profit ÷ (1 − tax rate)','WACM = Σ(CM_i × mix_i)','Target units = (FC + Target Profit) ÷ WACM']},
 
 {week:3,type:'multipart',
 
@@ -2297,7 +2306,8 @@ const QUESTIONS=[
 
   hint:'CM per unit = SP − VC. CM Ratio = CM ÷ SP.',
 
-  hint2:'BEP revenue = FC ÷ CM Ratio. Check: 4,000 × $50 = $200,000 ✓'},
+  hint2:'BEP revenue = FC ÷ CM Ratio. Check: 4,000 × $50 = $200,000 ✓',
+  formulas:['CM = SP − VC','CM Ratio = CM ÷ SP','BEP (units) = FC ÷ CM','BEP (revenue) = FC ÷ CM Ratio']},
 
 {week:3,type:'numerical',
 
@@ -2309,7 +2319,8 @@ const QUESTIONS=[
 
   hint:'First find BEP, then subtract from actual sales.',
 
-  hint2:'MOS% = MOS units ÷ Actual sales × 100'},
+  hint2:'MOS% = MOS units ÷ Actual sales × 100',
+  formulas:['BEP (units) = FC ÷ CM','MOS = Actual Sales − BEP Sales','MOS% = MOS ÷ Actual Sales × 100']},
 
 {week:3,type:'multipart',
 
@@ -2327,7 +2338,8 @@ const QUESTIONS=[
 
   hint:'Use WACM formula, then convert after-tax to pre-tax before finding target units.',
 
-  hint2:'Split total units by sales mix % for part (c).'},
+  hint2:'Split total units by sales mix % for part (c).',
+  formulas:['CM = SP − VC','WACM = Σ(CM_i × mix_i)','Pre-tax profit = After-tax ÷ (1 − tax rate)','Target units = (FC + Target Profit) ÷ WACM','Product units = Total units × mix%']},
 
 
 
@@ -2339,7 +2351,8 @@ const QUESTIONS=[
     {label:'c',question:'What is the BEP in sales revenue ($)?',keywords:['2880000','2,880,000'],modelAnswer:'BEP revenue = 32,000 × $90 = $2,880,000\n(or FC ÷ CM Ratio = $1,600,000 ÷ 0.556 = $2,880,000)'}
   ],
   hint:'CM = SP − VC. BEP units = FC ÷ CM. BEP revenue = BEP units × SP.',
-  hint2:'CM Ratio = $50/$90 = 55.6%. BEP revenue = FC ÷ CM Ratio.'},
+  hint2:'CM Ratio = $50/$90 = 55.6%. BEP revenue = FC ÷ CM Ratio.',
+  formulas:['CM = SP − VC','CM Ratio = CM ÷ SP','BEP (units) = FC ÷ CM','BEP (revenue) = FC ÷ CM Ratio  (or BEP units × SP)']},
 
 {week:3,type:'numerical',
 
@@ -2351,7 +2364,8 @@ const QUESTIONS=[
 
   hint:'Convert after-tax to pre-tax: pre-tax = after-tax ÷ (1 − tax rate).',
 
-  hint2:'Target units = (FC + pre-tax profit) ÷ CM per unit.'},
+  hint2:'Target units = (FC + pre-tax profit) ÷ CM per unit.',
+  formulas:['Pre-tax profit = After-tax profit ÷ (1 − tax rate)','CM = SP − VC','Target units = (FC + Target Profit) ÷ CM']},
 
 {week:3,type:'multipart',
   scenario:'A company sells Product A (SP=$120, VC=$70, mix=40%) and Product B (SP=$80, VC=$30, mix=60%). Total fixed costs=$840,000.',
@@ -2360,7 +2374,8 @@ const QUESTIONS=[
     {label:'b',question:'Calculate the BEP in total units.',keywords:['BEP','16800','16,800'],modelAnswer:'BEP = $840,000 ÷ $50 = 16,800 units'}
   ],
   hint:'Calculate CM for each product, then WACM = Σ(CM_i × mix_i).',
-  hint2:'When CM is the same for all products, WACM = that CM regardless of sales mix.'},
+  hint2:'When CM is the same for all products, WACM = that CM regardless of sales mix.',
+  formulas:['CM = SP − VC','WACM = Σ(CM_i × mix_i)','BEP (units) = FC ÷ WACM']},
 
 {week:3,type:'numerical',
 
@@ -2372,7 +2387,8 @@ const QUESTIONS=[
 
   hint:'The pricing floor is variable cost; the ceiling is customer WTP. Competitor price sets the reference.',
 
-  hint2:'CM uses variable cost only — fixed cost allocations do not affect the contribution per unit.'},
+  hint2:'CM uses variable cost only — fixed cost allocations do not affect the contribution per unit.',
+  formulas:['Price floor = Variable Cost (VC)','Price ceiling = Customer WTP','CM = Price − VC  (fixed cost allocations excluded)']},
 
 
 
@@ -2460,7 +2476,8 @@ const QUESTIONS=[
 
   hint:'FV = PV × (1+r)^n',
 
-  hint2:'(1.06)^8 ≈ 1.5938'},
+  hint2:'(1.06)^8 ≈ 1.5938',
+  formulas:['FV = PV × (1+r)ⁿ']},
 
 {week:5,type:'numerical',
 
@@ -2472,7 +2489,8 @@ const QUESTIONS=[
 
   hint:'PV = FV÷(1+r)^n',
 
-  hint2:'(1.07)^5 ≈ 1.4026'},
+  hint2:'(1.07)^5 ≈ 1.4026',
+  formulas:['PV = FV ÷ (1+r)ⁿ']},
 
 {week:5,type:'numerical',
 
@@ -2484,7 +2502,8 @@ const QUESTIONS=[
 
   hint:'EAR = (1+APR/m)^m − 1, m=12 for monthly.',
 
-  hint2:'0.18/12 = 0.015 per month'},
+  hint2:'0.18/12 = 0.015 per month',
+  formulas:['EAR = (1 + APR/m)ᵐ − 1']},
 
 {week:5,type:'numerical',
 
@@ -2496,7 +2515,8 @@ const QUESTIONS=[
 
   hint:'PV annuity = C×[1−(1+r)^−n]÷r',
 
-  hint2:'(1.08)^5=1.4693, so (1.08)^−5=0.6806'},
+  hint2:'(1.08)^5=1.4693, so (1.08)^−5=0.6806',
+  formulas:['PV annuity = C × [1−(1+r)⁻ⁿ] ÷ r']},
 
 {week:5,type:'numerical',
 
@@ -2508,7 +2528,8 @@ const QUESTIONS=[
 
   hint:'PV = C₁÷(r−g). Ensure r > g.',
 
-  hint2:'r−g = 0.10−0.04 = 0.06'},
+  hint2:'r−g = 0.10−0.04 = 0.06',
+  formulas:['PV growing perpetuity = C₁ ÷ (r − g)']},
 
 {week:5,type:'multipart',
 
@@ -2526,7 +2547,8 @@ const QUESTIONS=[
 
   hint:'Part (a): FV annuity formula. Part (b): rearrange PV annuity for C.',
 
-  hint2:'For (c): calculate PV of desired withdrawal stream and compare to available funds.'},
+  hint2:'For (c): calculate PV of desired withdrawal stream and compare to available funds.',
+  formulas:['FV annuity = C × [(1+r)ⁿ−1] ÷ r','C = PV × r ÷ [1−(1+r)⁻ⁿ]','PV annuity = C × [1−(1+r)⁻ⁿ] ÷ r']},
 
 
 
@@ -2546,7 +2568,8 @@ const QUESTIONS=[
 
   hint:'Part A: divide APR by the number of compounding periods per year. Part B: use FV = PV × (1+r)^n with the monthly periodic rate.',
 
-  hint2:'Part A: 16% ÷ 12 = 1.33%. Part B: n = 12 monthly periods, r = 0.0133.'},
+  hint2:'Part A: 16% ÷ 12 = 1.33%. Part B: n = 12 monthly periods, r = 0.0133.',
+  formulas:['Periodic rate = APR ÷ m','FV = PV × (1+r)ⁿ']},
 
 {week:5,type:'numerical',
 
@@ -2558,7 +2581,8 @@ const QUESTIONS=[
 
   hint:'Rearrange FV = PV × (1+r)^n to solve for r: r = (FV/PV)^(1/n) − 1',
 
-  hint2:'FV/PV = 30,000/14,000 = 2.14286. Raise to the power of 1/10.'},
+  hint2:'FV/PV = 30,000/14,000 = 2.14286. Raise to the power of 1/10.',
+  formulas:['r = (FV/PV)^(1/n) − 1']},
 
 {week:5,type:'numerical',
 
@@ -2570,7 +2594,8 @@ const QUESTIONS=[
 
   hint:'A deferred perpetuity: first find the PV one period before the first payment, then discount that back to today.',
 
-  hint2:'PV at t=21: $128 ÷ 0.05 = $2,560. Then discount: $2,560 ÷ (1.05)^21.'},
+  hint2:'PV at t=21: $128 ÷ 0.05 = $2,560. Then discount: $2,560 ÷ (1.05)^21.',
+  formulas:['PV perpetuity = C ÷ r','PV₀ = PV_t ÷ (1+r)ᵗ']},
 
 {week:5,type:'numerical',
 
@@ -2582,7 +2607,8 @@ const QUESTIONS=[
 
   hint:'Loan amount = house price − down payment. Then use the annuity payment formula: C = PV × r / [1 − (1+r)^−n].',
 
-  hint2:'Loan = $260,000. (1.04)^25 = 2.6658, so (1.04)^−25 = 0.3751. Denominator = 1 − 0.3751 = 0.6249.'},
+  hint2:'Loan = $260,000. (1.04)^25 = 2.6658, so (1.04)^−25 = 0.3751. Denominator = 1 − 0.3751 = 0.6249.',
+  formulas:['C = PV × r ÷ [1−(1+r)⁻ⁿ]']},
 
 
 
@@ -2596,7 +2622,8 @@ const QUESTIONS=[
 
   hint:'Set FV = 2×PV in FV=PV×(1+r)^n, then take logarithms: n = ln(2)/ln(1+r).',
 
-  hint2:'ln(2)=0.6931; ln(1.06)=0.05827'},
+  hint2:'ln(2)=0.6931; ln(1.06)=0.05827',
+  formulas:['n = ln(FV/PV) ÷ ln(1+r)']},
 
 {week:5,type:'numerical',
 
@@ -2608,7 +2635,8 @@ const QUESTIONS=[
 
   hint:'First find PV at the period just before the first payment (year 5), then discount that back to today.',
 
-  hint2:'PV at year 5 = $10,000 × annuity factor(7%,20). Then divide by (1.07)^5.'},
+  hint2:'PV at year 5 = $10,000 × annuity factor(7%,20). Then divide by (1.07)^5.',
+  formulas:['PV annuity = C × [1−(1+r)⁻ⁿ] ÷ r','PV₀ = PV_t ÷ (1+r)ᵗ']},
 
 {week:5,type:'numerical',
 
@@ -2618,13 +2646,15 @@ const QUESTIONS=[
 
   modelAnswer:'Credit card EAR = (1 + 0.15/12)^12 − 1 = (1.0125)^12 − 1 = 16.08%\nParents: 8% per 6 months = EAR = (1.08)^2 − 1 = 16.64%\nThe credit card has the lower EAR (16.08% < 16.64%) — the parents\' rate is actually more expensive.',
   hint:'Convert both to EAR for comparison. EAR=(1+periodic rate)^m − 1.',
-  hint2:'Credit card: m=12, r=0.0125. Parents: m=2, r=0.08.'},
+  hint2:'Credit card: m=12, r=0.0125. Parents: m=2, r=0.08.',
+  formulas:['EAR = (1 + periodic rate)ᵐ − 1']},
 {week:5,type:'numerical',
   question:'A bond pays $70,000 every 7 years for 42 years (first payment in 7 years). Discount rate = 6% EAR. What is the PV?',
   keywords:['126974','126,974','126970','126980','6 payments','7-year','annuity','1.8139'],
   modelAnswer:'6 payments of $70,000 at years 7, 14, 21, 28, 35, 42.\n\nStep 1: Effective 7-year rate = (1.06)^7 − 1 = 1.5036 − 1 = 50.36%\n\nStep 2: PV annuity = $70,000 × [1−(1.5036)^−6] / 0.5036\n(1.5036)^6 = 11.547 → (1.5036)^−6 = 0.0866\n= $70,000 × [1−0.0866] / 0.5036 = $70,000 × 0.9134 / 0.5036 = $70,000 × 1.8139 = $126,974\n\nVerify by direct discounting:\n$70,000 × (1/1.5036 + 1/2.2608 + 1/3.3984 + 1/5.1102 + 1/7.6823 + 1/11.547)\n= $70,000 × (0.6651+0.4423+0.2942+0.1957+0.1302+0.0866) = $70,000 × 1.8141 ≈ $126,987',
   hint:'Find the effective rate per 7-year period: (1.06)^7 − 1 = 50.36%. Then apply annuity PV formula with n=6 payments.',
-  hint2:'7-year rate = 50.36%. (1.5036)^6 = 11.547 so (1.5036)^−6 = 0.0866. Annuity factor = (1−0.0866)/0.5036 = 1.814.'},
+  hint2:'7-year rate = 50.36%. (1.5036)^6 = 11.547 so (1.5036)^−6 = 0.0866. Annuity factor = (1−0.0866)/0.5036 = 1.814.',
+  formulas:['Effective period rate = (1+EAR)ⁿ − 1','PV annuity = C × [1−(1+r)⁻ⁿ] ÷ r']},
 
 // WEEK 7
 {week:7,type:'mcq',question:'The NPV decision rule: accept a project if its NPV is:',options:['A. Less than zero','B. Equal to zero','C. Greater than zero','D. Greater than initial investment'],answer:2,explanation:'Accept if NPV>0. Positive NPV means the project generates more value than it costs, increasing firm value.',hint:'NPV measures whether a project adds or destroys value. What sign of NPV means value is being added?',hint2:'Positive NPV = the project earns more than the cost of capital → creates value → accept.'},
@@ -2650,7 +2680,8 @@ const QUESTIONS=[
 
   hint:'NPV = CF₀ + Σ[CFₜ÷(1+r)^t]. CF₀ is negative.',
 
-  hint2:'Discount: Y1÷1.10, Y2÷1.21, Y3÷1.331'},
+  hint2:'Discount: Y1÷1.10, Y2÷1.21, Y3÷1.331',
+  formulas:['NPV = Σ[CFₜ ÷ (1+r)ᵗ] − Cost']},
 
 {week:7,type:'numerical',
 
@@ -2662,7 +2693,8 @@ const QUESTIONS=[
 
   hint:'PI = NPV ÷ |Initial Investment|',
 
-  hint2:'PI>0 means positive NPV → accept.'},
+  hint2:'PI>0 means positive NPV → accept.',
+  formulas:['PI = NPV ÷ |Initial Investment|']},
 
 {week:7,type:'numerical',
 
@@ -2674,7 +2706,8 @@ const QUESTIONS=[
 
   hint:'EAA = NPV×r÷[1−(1+r)^−n].',
 
-  hint2:'(1.10)^5=1.6105, so (1.10)^−5=0.6209'},
+  hint2:'(1.10)^5=1.6105, so (1.10)^−5=0.6209',
+  formulas:['EAA = NPV × r ÷ [1−(1+r)⁻ⁿ]']},
 
 {week:7,type:'multipart',
 
@@ -2692,7 +2725,8 @@ const QUESTIONS=[
 
   hint:'Use annuity PV formula. Compare NPVs.',
 
-  hint2:'For (c): IRR measures % return, NPV measures $ value — they can conflict on scale.'},
+  hint2:'For (c): IRR measures % return, NPV measures $ value — they can conflict on scale.',
+  formulas:['NPV = −Cost + C × [1−(1+r)⁻ⁿ] ÷ r']},
 
 
 
@@ -2714,7 +2748,8 @@ const QUESTIONS=[
 
   hint:'Part A: this is a growing perpetuity with g = −5.5% starting in year 2. Find PV at year 1 using C/(r−g), then discount back one more year.',
 
-  hint2:'Part C: set NPV = 0 and rearrange to solve for g. The denominator on the right side is $234,828 × 1.095.'},
+  hint2:'Part C: set NPV = 0 and rearrange to solve for g. The denominator on the right side is $234,828 × 1.095.',
+  formulas:['PV growing perp (at t=1) = C ÷ (r − g)','NPV = −Cost + PV at t=0']},
 
 {week:7,type:'multipart',
 
@@ -2730,7 +2765,8 @@ const QUESTIONS=[
 
   hint:'EAA = NPV × r / [1 − (1+r)^−n]. Since these are costs, NPV values are negative — choose the less negative (smaller absolute) EAA.',
 
-  hint2:'Annuity factor (7yr, 10%) = 4.8684. Annuity factor (4yr, 10%) = 3.1699. (1.10)^7 ≈ 1.9487; (1.10)^4 ≈ 1.4641.'},
+  hint2:'Annuity factor (7yr, 10%) = 4.8684. Annuity factor (4yr, 10%) = 3.1699. (1.10)^7 ≈ 1.9487; (1.10)^4 ≈ 1.4641.',
+  formulas:['NPV = −Cost + C × [1−(1+r)⁻ⁿ] ÷ r','EAA = NPV × r ÷ [1−(1+r)⁻ⁿ]']},
 
 {week:7,type:'multipart',
 
@@ -2840,7 +2876,8 @@ const QUESTIONS=[
 
     q.hint='For payback: track cumulative CFs year by year, find the fractional year when cumulative turns positive. For PI: discount all future CFs at '+ratePct+'%, then divide PV by initial cost.';
     q.hint2='Discount factors at '+ratePct+'%: Y1='+d1+', Y2='+d2+', Y3='+d3+', Y4='+d4+'.';
-  }},
+  },
+  formulas:['Payback: track cumulative CFs until cost recovered','PI = PV(future CFs) ÷ Cost','NPV = PV(future CFs) − Cost']},
 
 
 
@@ -2854,7 +2891,8 @@ const QUESTIONS=[
 
   hint:'Apply standard NPV formula even with non-standard cash flows. Negative intermediate CFs are discounted as negatives.',
 
-  hint2:'Discount factors: 1/1.12=0.8929; 1/1.2544=0.7972; 1/1.4049=0.7118'},
+  hint2:'Discount factors: 1/1.12=0.8929; 1/1.2544=0.7972; 1/1.4049=0.7118',
+  formulas:['NPV = Σ[CFₜ ÷ (1+r)ᵗ]']},
 
 {week:7,type:'numerical',
 
@@ -2866,7 +2904,8 @@ const QUESTIONS=[
 
   hint:'Calculate PI for each project. Rank by PI. Select highest PI projects that fit within the budget.',
 
-  hint2:'A+C=$100k exactly fits budget, total NPV=$30k. A+B exceeds budget. B+C=$90k gives NPV=$25k < $30k.'},
+  hint2:'A+C=$100k exactly fits budget, total NPV=$30k. A+B exceeds budget. B+C=$90k gives NPV=$25k < $30k.',
+  formulas:['PI = NPV ÷ Cost']},
 
 {week:7,type:'numerical',
 
@@ -2878,7 +2917,8 @@ const QUESTIONS=[
 
   hint:'EAA = NPV × r / [1−(1+r)^−n]. For cost-only projects, NPVs are negative; choose less negative EAA.',
 
-  hint2:'(1.10)^4=1.4641 → (1.10)^−4=0.6830. (1.10)^2=1.21 → (1.10)^−2=0.8264.'},
+  hint2:'(1.10)^4=1.4641 → (1.10)^−4=0.6830. (1.10)^2=1.21 → (1.10)^−2=0.8264.',
+  formulas:['EAA = NPV × r ÷ [1−(1+r)⁻ⁿ]']},
 
 
 
@@ -2910,7 +2950,8 @@ const QUESTIONS=[
 
   hint:'P₀ = Σ[Coupon÷(1+r)^t]+Face÷(1+r)^n',
 
-  hint2:'Coupon = 8%×$1,000 = $80/year'},
+  hint2:'Coupon = 8%×$1,000 = $80/year',
+  formulas:['Bond price = Σ[C÷(1+r)ᵗ] + FV÷(1+r)ⁿ']},
 
 {week:8,type:'numerical',
 
@@ -2922,7 +2963,8 @@ const QUESTIONS=[
 
   hint:'D₁ = D₀×(1+g). Then Gordon: P₀ = D₁÷(r−g).',
 
-  hint2:'r−g = 0.12−0.05 = 0.07'},
+  hint2:'r−g = 0.12−0.05 = 0.07',
+  formulas:['D₁ = D₀ × (1+g)','P₀ = D₁ ÷ (r − g)']},
 
 {week:8,type:'numerical',
 
@@ -2934,7 +2976,8 @@ const QUESTIONS=[
 
   hint:'r = D₁÷P₀+g (rearranged Gordon Growth)',
 
-  hint2:'Dividend yield = 3÷50 = 6%'},
+  hint2:'Dividend yield = 3÷50 = 6%',
+  formulas:['r = D₁ ÷ P₀ + g']},
 
 {week:8,type:'numerical',
 
@@ -2946,7 +2989,8 @@ const QUESTIONS=[
 
   hint:'g = Retention Ratio × ROI; Retention = 1 − payout',
 
-  hint2:'Retention = 1−0.40 = 0.60'},
+  hint2:'Retention = 1−0.40 = 0.60',
+  formulas:['g = Retention Ratio × ROI','Retention = 1 − Payout Ratio']},
 
 
 
@@ -2962,7 +3006,8 @@ const QUESTIONS=[
 
   hint:'Convert all inputs to semi-annual: coupon = annual coupon/2, rate = APR/2, n = years × 2.',
 
-  hint2:'(1.041)^4 = 1.17478, so (1.041)^−4 = 0.85161. Annuity factor = [1−0.85161]/0.041 = 3.6193.'},
+  hint2:'(1.041)^4 = 1.17478, so (1.041)^−4 = 0.85161. Annuity factor = [1−0.85161]/0.041 = 3.6193.',
+  formulas:['Bond price = Σ[C÷(1+r)ᵗ] + FV÷(1+r)ⁿ','Semi-annual: coupon÷2, APR÷2, years×2']},
 
 {week:8,type:'multipart',
 
@@ -2978,7 +3023,8 @@ const QUESTIONS=[
 
   hint:'Y1 growth comes from retaining 100% of EPS₀ at 38% ROI. Y2 growth comes from retaining (1 − payout₁) of EPS₁ at 23% ROI.',
 
-  hint2:'Y1: EPS₁ = 1.04 × 1.38 = 1.4352; D₁ = 1.4352 × 0.12. Y2: retention = 88%, g = 0.88 × 0.23 = 20.24%.'},
+  hint2:'Y1: EPS₁ = 1.04 × 1.38 = 1.4352; D₁ = 1.4352 × 0.12. Y2: retention = 88%, g = 0.88 × 0.23 = 20.24%.',
+  formulas:['EPS growth = 1 + Retention × ROI_reinvested','Dividend = EPS × Payout Ratio']},
 
 {week:8,type:'numerical',
 
@@ -2990,7 +3036,8 @@ const QUESTIONS=[
 
   hint:'Since the dividend was just paid (D₀), you must first calculate D₁ = D₀ × (1+g) before applying the Gordon Growth Model.',
 
-  hint2:'r − g = 0.111 − 0.035 = 0.076. P₀ = D₁ / (r − g).'},
+  hint2:'r − g = 0.111 − 0.035 = 0.076. P₀ = D₁ / (r − g).',
+  formulas:['D₁ = D₀ × (1+g)','P₀ = D₁ ÷ (r − g)']},
 
 
 
@@ -3004,7 +3051,8 @@ const QUESTIONS=[
 
   hint:'Zero-coupon bond price = FV ÷ (1+r)^n. No annuity component.',
 
-  hint2:'(1.07)^5 = 1.4026'},
+  hint2:'(1.07)^5 = 1.4026',
+  formulas:['P = FV ÷ (1+r)ⁿ']},
 
 {week:8,type:'multipart',
   scenario:'A stock is expected to pay a constant annual dividend of $3.50 forever.',
@@ -3013,7 +3061,8 @@ const QUESTIONS=[
     {label:'b',question:'If the required return rises to 10%, what is the new price ($)?',keywords:['35.00','35'],modelAnswer:'P₀ = $3.50/0.10 = $35.00\nRise in required return → fall in price (inverse relationship).'}
   ],
   hint:'Constant dividend stock = perpetuity: P₀ = D ÷ r.',
-  hint2:'Higher required return → lower price. This is the inverse relationship between rates and stock prices.'},
+  hint2:'Higher required return → lower price. This is the inverse relationship between rates and stock prices.',
+  formulas:['P₀ = D ÷ r (zero-growth / perpetuity)']},
 
 {week:8,type:'multipart',
   scenario:'XYZ Corp: D₁ = $2.50, r = 11%, g = 4%.',
@@ -3023,7 +3072,8 @@ const QUESTIONS=[
     {label:'c',question:'What is the total one-year return (%)? Show your working.',keywords:['11%','0.11','3.93'],modelAnswer:'Total return = (D₁ + P₁ − P₀)/P₀ = ($2.50 + $37.14 − $35.71)/$35.71 = $3.93/$35.71 = 11% = r ✓'}
   ],
   hint:'P₁ = D₂/(r−g). D₂ = D₁×(1+g). Total return = (dividend + capital gain)/P₀.',
-  hint2:'Total return should equal r — this verifies the Gordon Growth model is internally consistent.'},
+  hint2:'Total return should equal r — this verifies the Gordon Growth model is internally consistent.',
+  formulas:['P₀ = D₁ ÷ (r−g)','Total return = (D₁ + P₁ − P₀) ÷ P₀']},
 
 {week:8,type:'numerical',
 
@@ -3035,7 +3085,8 @@ const QUESTIONS=[
 
   hint:'YTM approximation: (Annual coupon + (Face−Price)/n) ÷ ((Face+Price)/2)',
 
-  hint2:'The bond trades at a discount ($950 < $1,000) so YTM must exceed the 6% coupon rate.'},
+  hint2:'The bond trades at a discount ($950 < $1,000) so YTM must exceed the 6% coupon rate.',
+  formulas:['YTM ≈ (C + (FV−P)/n) ÷ ((FV+P)/2)']},
 
 
 
@@ -3069,7 +3120,8 @@ const QUESTIONS=[
 
   hint:'HPR = (Ending Price − Beginning Price + Income) ÷ Beginning Price',
 
-  hint2:'Capital gain=$5 + dividend=$2 = $7 return on $40'},
+  hint2:'Capital gain=$5 + dividend=$2 = $7 return on $40',
+  formulas:['HPR = (P₁ − P₀ + Div) ÷ P₀']},
 
 {week:9,type:'numerical',
 
@@ -3081,7 +3133,8 @@ const QUESTIONS=[
 
   hint:'E[Ri] = Rf+β×MRP',
 
-  hint2:'β×MRP = 1.5×6% = 9%'},
+  hint2:'β×MRP = 1.5×6% = 9%',
+  formulas:['E[Rᵢ] = Rf + β × (E[RM] − Rf)']},
 
 {week:9,type:'numerical',
 
@@ -3093,7 +3146,8 @@ const QUESTIONS=[
 
   hint:'V=MVE+MVP+MVD. Weights=component÷V. After-tax RD=RD×(1−TC).',
 
-  hint2:'After-tax cost of debt=8%×0.70=5.6%'},
+  hint2:'After-tax cost of debt=8%×0.70=5.6%',
+  formulas:['WACC = wE×RE + wP×RP + wD×RD×(1−TC)','wᵢ = MVᵢ ÷ V']},
 
 {week:9,type:'numerical',
 
@@ -3105,7 +3159,8 @@ const QUESTIONS=[
 
   hint:'After-tax = pre-tax rate × (1 − tax rate)',
 
-  hint2:'(1−0.28) = 0.72'},
+  hint2:'(1−0.28) = 0.72',
+  formulas:['After-tax RD = RD × (1 − TC)']},
 
 {week:9,type:'multipart',
 
@@ -3123,7 +3178,8 @@ const QUESTIONS=[
 
   hint:'For (a): CAPM. For (b): V first, then weights, then WACC. For (c): compare return to WACC.',
 
-  hint2:'If project return < WACC → negative NPV → reject.'},
+  hint2:'If project return < WACC → negative NPV → reject.',
+  formulas:['E[RE] = Rf + β × (E[RM] − Rf)','WACC = wE×RE + wP×RP + wD×RD×(1−TC)']},
 
 
 
@@ -3149,7 +3205,8 @@ const QUESTIONS=[
 
   hint:'Part A: rearrange CAPM to solve for MRP using Round Corp. MRP=(Return−Rf)/Beta.',
 
-  hint2:'MRP=(7.50−4.30)/0.34=9.412%. Use this for all subsequent parts.'},
+  hint2:'MRP=(7.50−4.30)/0.34=9.412%. Use this for all subsequent parts.',
+  formulas:['E[Rᵢ] = Rf + β × MRP','MRP = (E[R] − Rf) ÷ β']},
 
 {week:9,type:'multipart',
 
@@ -3169,7 +3226,8 @@ const QUESTIONS=[
 
   hint:'For D/E ratio d: wD=d/(1+d), wE=1/(1+d). After-tax debt=6.20%×(1−0.30)=4.34%.',
 
-  hint2:'After-tax cost of debt=4.34% is the same for all parts.'},
+  hint2:'After-tax cost of debt=4.34% is the same for all parts.',
+  formulas:['wD = (D/E) ÷ (1 + D/E)','wE = 1 ÷ (1 + D/E)','WACC = wE×RE + wD×RD×(1−TC)']},
 
 
 
@@ -3183,7 +3241,8 @@ const QUESTIONS=[
 
   hint:'Portfolio expected return = Σ(weight × return). Portfolio beta = Σ(weight × beta).',
 
-  hint2:'Both are simple weighted averages.'},
+  hint2:'Both are simple weighted averages.',
+  formulas:['E[Rₚ] = Σ(wᵢ × E[Rᵢ])','βₚ = Σ(wᵢ × βᵢ)']},
 
 {week:9,type:'numerical',
 
@@ -3195,7 +3254,8 @@ const QUESTIONS=[
 
   hint:'Compare CAPM required return to actual return. If actual > required → undervalued (too cheap).',
 
-  hint2:'Alpha = actual − required return. Positive alpha = undervalued; negative alpha = overvalued.'},
+  hint2:'Alpha = actual − required return. Positive alpha = undervalued; negative alpha = overvalued.',
+  formulas:['E[Rᵢ] = Rf + β × (E[RM] − Rf)','Alpha = actual return − required return']},
 
 {week:9,type:'numerical',
 
@@ -3207,7 +3267,8 @@ const QUESTIONS=[
 
   hint:'V = MVE + MVD. Weights sum to 1. After-tax RD = RD×(1−TC).',
 
-  hint2:'wE=500/800=0.625; after-tax debt cost=6%×0.70=4.2%.'},
+  hint2:'wE=500/800=0.625; after-tax debt cost=6%×0.70=4.2%.',
+  formulas:['WACC = wE×RE + wD×RD×(1−TC)','After-tax RD = RD × (1−TC)']},
 
 
 
@@ -3251,7 +3312,8 @@ const QUESTIONS=[
     {label:'d',type:'sa',question:'If sales volume rises 25%, by what % does operating profit change? Show your working.',keywords:['66.7','66.67','2.67','25'],modelAnswer:'ΔOP% = DOL × ΔSales% = 2.67 × 25% = 66.7%\nOperating profit rises from $72,000 to ~$120,000'}
   ],
   hint:'DOL = Total CM ÷ Operating Profit. Higher FC relative to VC = higher DOL = more operating leverage.',
-  hint2:'DOL tells you sensitivity to volume changes. DOL=2.67 means a 25% sales rise → 2.67×25%=66.7% profit rise.'},
+  hint2:'DOL tells you sensitivity to volume changes. DOL=2.67 means a 25% sales rise → 2.67×25%=66.7% profit rise.',
+  formulas:['CM = SP − VC','Total CM = CM × Units','Operating Profit = Total CM − FC','DOL = Total CM ÷ Operating Profit','ΔOp Profit% = DOL × ΔSales%']},
 
 {week:3,type:'multipart',
   scenario:'A retailer: SP=$45, VC=$27, FC=$270,000.',
@@ -3260,7 +3322,8 @@ const QUESTIONS=[
     {label:'b',question:'How many units to earn $90,000 before-tax profit?',keywords:['20000','20,000','360000'],modelAnswer:'Target = ($270,000 + $90,000) ÷ $18 = $360,000 ÷ $18 = 20,000 units'}
   ],
   hint:'BEP = FC ÷ CM. Target units = (FC + target profit) ÷ CM.',
-  hint2:'CM per unit = $18. For target profit, add the desired profit to FC in the numerator.'},
+  hint2:'CM per unit = $18. For target profit, add the desired profit to FC in the numerator.',
+  formulas:['CM = SP − VC','BEP (units) = FC ÷ CM','Target units = (FC + Target Profit) ÷ CM']},
 
 {week:3,type:'multipart',
   scenario:'NovaBrew sells two coffee products: Espresso (SP=$4.50, VC=$1.50, monthly mix=70%) and Cold Brew (SP=$7.00, VC=$3.00, monthly mix=30%). Monthly fixed costs = $18,000.',
@@ -3270,7 +3333,8 @@ const QUESTIONS=[
     {label:'c',question:'If the mix shifts to 50/50, what is the new BEP?',keywords:['WACM','3.50','5143','5,143','5142'],modelAnswer:'New WACM = ($3.00×0.50)+($4.00×0.50) = $1.50+$2.00 = $3.50\nNew BEP = $18,000÷$3.50 = 5,143 cups\nMore Cold Brew → higher WACM → lower BEP ✓'}
   ],
   hint:'WACM = Σ(CM_i × mix_i). A richer product mix raises WACM and reduces BEP.',
-  hint2:'When the high-CM product\'s share rises, WACM increases and fewer units are needed to break even.'},
+  hint2:'When the high-CM product\'s share rises, WACM increases and fewer units are needed to break even.',
+  formulas:['CM = SP − VC','WACM = Σ(CM_i × mix_i)','BEP (units) = FC ÷ WACM']},
 
 // WEEK 5 — New numericals
 {week:5,type:'numerical',
@@ -3278,28 +3342,32 @@ const QUESTIONS=[
   keywords:['FV','500','0.004','60','33811','33,811','33812'],
   modelAnswer:'Monthly rate = 4.8%÷12 = 0.4% = 0.004; n = 60 months\nFV = $500×[(1.004)^60−1]÷0.004\n(1.004)^60 = 1.2705\nFV = $500×(1.2705−1)÷0.004 = $500×67.63 = $33,813',
   hint:'FV of ordinary annuity = PMT×[(1+r)^n−1]÷r.',
-  hint2:'Monthly rate = APR/12 = 0.4%. n = 5×12 = 60 monthly periods.'},
+  hint2:'Monthly rate = APR/12 = 0.4%. n = 5×12 = 60 monthly periods.',
+  formulas:['FV annuity = PMT × [(1+r)ⁿ−1] ÷ r']},
 
 {week:5,type:'numerical',
   question:'You want to receive $10,000 per year for 15 years starting 1 year from now. You also want $50,000 as a lump sum at the end of year 15. Discount rate = 6%. What single amount must you invest today?',
   keywords:['PV annuity','97122','97,122','PV lump','20879','20,880','117999','118,001','118001'],
   modelAnswer:'PV(annuity) = $10,000×[1−(1.06)^−15]÷0.06\n(1.06)^15 = 2.3966; PVIFA = (1−1/2.3966)/0.06 = 9.7122\nPV(annuity) = $10,000×9.7122 = $97,122\nPV(lump sum) = $50,000÷(1.06)^15 = $50,000÷2.3966 = $20,862\nTotal = $97,122+$20,862 = $117,984',
   hint:'PV of annuity + PV of lump sum. Both discounted at 6% to today.',
-  hint2:'(1.06)^15=2.3966. PVIFA(6%,15) = [1−1/2.3966]/0.06 = 9.712.'},
+  hint2:'(1.06)^15=2.3966. PVIFA(6%,15) = [1−1/2.3966]/0.06 = 9.712.',
+  formulas:['PV annuity = C × [1−(1+r)⁻ⁿ] ÷ r','PV lump sum = FV ÷ (1+r)ⁿ']},
 
 {week:5,type:'numerical',
   question:'Project A: initial investment $10,000. Year 1 CF = $11,000. Project B: initial investment $10,000. Year 2 CF = $12,100. Discount rate = 5%. Calculate NPV for each and compare to IRR.',
   keywords:['NPV A','476','$476','NPV B','$98','98','IRR A','10%','IRR B','10%','same IRR','NPV A higher'],
   modelAnswer:'NPV(A) = −$10,000+$11,000/1.05 = −$10,000+$10,476 = $476\nNPV(B) = −$10,000+$12,100/1.05² = −$10,000+$10,975 = Wait — $12,100/(1.05)²=$12,100/1.1025=$10,975→NPV=$975\n\nIRR(A): $11,000/(1+r)=$10,000 → r=10%\nIRR(B): $12,100/(1+r)²=$10,000 → (1+r)²=1.21 → r=10%\n\nBoth have IRR=10% but NPV(B)=$975 > NPV(A)=$476.\nConclusion: IRR cannot distinguish between them; NPV correctly shows B creates more value.',
   hint:'IRR is the discount rate that makes NPV=0. Both projects can have the same IRR yet different NPVs — this is why NPV is preferred.',
-  hint2:'A: 11,000/(1+r)=10,000 → r=10%. B: 12,100/(1+r)²=10,000 → r=10%. Same IRR, but different NPVs because timing differs.'},
+  hint2:'A: 11,000/(1+r)=10,000 → r=10%. B: 12,100/(1+r)²=10,000 → r=10%. Same IRR, but different NPVs because timing differs.',
+  formulas:['NPV = −Cost + Σ[CF ÷ (1+r)ᵗ]','IRR: set NPV = 0, solve for r']},
 
 {week:5,type:'numerical',
   question:'You take out a $200,000 mortgage at 5% per year for 20 years (annual payments). After making 10 payments, what is the outstanding loan balance?',
   keywords:['annual payment','16046','16,046','balance','123901','123,901'],
   modelAnswer:'Step 1: Annual payment C = $200,000×0.05/[1−(1.05)^−20]\n(1.05)^20=2.6533; denominator=1−1/2.6533=0.62311\nC = $10,000÷0.62311 = $16,046\n\nStep 2: Outstanding balance after 10 payments = PV of remaining 10 payments\n= $16,046×[1−(1.05)^−10]÷0.05\n(1.05)^10=1.6289; PVIFA(5%,10)=[1−1/1.6289]/0.05=7.7217\nBalance = $16,046×7.7217 = $123,901',
   hint:'Loan balance at any point = PV of remaining payments. Calculate annual payment first, then find PV of what remains.',
-  hint2:'Annual payment: C = PV×r/[1−(1+r)^−n]. Balance after t payments: PV of remaining (n−t) payments at rate r.'},
+  hint2:'Annual payment: C = PV×r/[1−(1+r)^−n]. Balance after t payments: PV of remaining (n−t) payments at rate r.',
+  formulas:['C = PV × r ÷ [1−(1+r)⁻ⁿ]','Balance = C × [1−(1+r)⁻ⁿ] ÷ r']},
 
 // WEEK 7 — New numericals
 {week:7,type:'multipart',
@@ -3310,7 +3378,8 @@ const QUESTIONS=[
     {label:'c',question:'Calculate the Profitability Index (PI).',keywords:['PI','1.112','1.11','88942'],modelAnswer:'PI = PV of future CFs ÷ Initial cost = $88,942 ÷ $80,000 = 1.112\n(Alternatively: PI = 1 + NPV/Cost = 1 + $8,942/$80,000 = 1.112)\nPI > 1 → Accept ✓'}
   ],
   hint:'NPV = sum of discounted CFs minus initial investment. PI = PV of future CFs ÷ initial cost.',
-  hint2:'Discount factors: 1/1.09=0.9174; 1/1.09²=0.8417; 1/1.09³=0.7722.'},
+  hint2:'Discount factors: 1/1.09=0.9174; 1/1.09²=0.8417; 1/1.09³=0.7722.',
+  formulas:['NPV = Σ[CFₜ ÷ (1+r)ᵗ] − Cost','PI = PV(future CFs) ÷ Cost']},
 
 {week:7,type:'multipart',
   scenario:'A firm must choose between two mutually exclusive projects. Discount rate = 10%. Project Alpha: Year 0 = −$60,000; Years 1–4 = $20,000/yr. Project Beta: Year 0 = −$60,000; Year 1 = $10,000; Year 2 = $20,000; Year 3 = $30,000; Year 4 = $40,000.',
@@ -3320,7 +3389,8 @@ const QUESTIONS=[
     {label:'c',type:'sa',question:'IRR of Alpha: if all 4 cash flows were $20,000 and cost is $60,000, estimate IRR. Is it above or below 12%? (Hint: test discount rate 12%.)',keywords:['12%','below','NPV positive','3,042','accept','IRR above 10'],modelAnswer:'At 12%: PV = $20,000×PVIFA(12%,4) = $20,000×3.0373 = $60,746; NPV = $746 > 0\nIRR is slightly above 12% (NPV still positive at 12%). IRR > hurdle rate of 10% → Accept.\nExact IRR ≈ 12.6% (would need iteration/calculator).'}
   ],
   hint:'Use annuity factor for Alpha (equal CFs). For Beta, discount each CF individually. Mutually exclusive → pick highest NPV.',
-  hint2:'PVIFA(10%,4) = [1−(1.10)^−4]/0.10 = 3.1699. Beta CFs grow over time — back-loaded projects often have higher NPV at low rates.'},
+  hint2:'PVIFA(10%,4) = [1−(1.10)^−4]/0.10 = 3.1699. Beta CFs grow over time — back-loaded projects often have higher NPV at low rates.',
+  formulas:['NPV = −Cost + Σ[CFₜ ÷ (1+r)ᵗ]','PV annuity = C × [1−(1+r)⁻ⁿ] ÷ r']},
 
 {week:7,type:'multipart',
   scenario:'Project: Year 0 = −$120,000; Year 1 = $40,000; Year 2 = $60,000; Year 3 = $50,000; Year 4 = $30,000. Discount rate = 10%.',
@@ -3330,7 +3400,8 @@ const QUESTIONS=[
     {label:'c',question:'Calculate NPV at 10%.',keywords:['NPV','24007','24,007','24009'],modelAnswer:'PV = 40,000/1.10 + 60,000/1.21 + 50,000/1.331 + 30,000/1.4641\n= 36,364 + 49,587 + 37,566 + 20,490 = $144,007\nNPV = $144,007 − $120,000 = $24,007 → Accept ✓'}
   ],
   hint:'Payback: track cumulative CFs year by year; find the fraction of the year needed to cover the deficit.',
-  hint2:'After Y2 cumulative = −$20,000. In Y3 you receive $50,000. Fraction = 20,000/50,000 = 0.40 years.'},
+  hint2:'After Y2 cumulative = −$20,000. In Y3 you receive $50,000. Fraction = 20,000/50,000 = 0.40 years.',
+  formulas:['Payback: cumulative CFs until cost recovered','NPV = Σ[CFₜ ÷ (1+r)ᵗ] − Cost']},
 
 // WEEK 8 — New numericals
 {week:8,type:'numerical',
@@ -3338,7 +3409,8 @@ const QUESTIONS=[
   keywords:['D1','1.20','D2','1.44','D3','1.728','P3','25.92','P0','21.90','21.89'],
   modelAnswer:'D₁=1.00×1.20=$1.20; D₂=$1.44; D₃=$1.728\nD₄=1.728×1.05=$1.8144 (first terminal growth dividend)\nP₃=D₄÷(r−g)=$1.8144÷(0.12−0.05)=$1.8144÷0.07=$25.92\n\nP₀=D₁/1.12+D₂/1.12²+D₃/1.12³+P₃/1.12³\n=$1.071+$1.148+$1.230+$18.449=$21.90',
   hint:'Multi-stage DDM: discount each dividend in the high-growth phase, then find terminal value P₃ at start of stable growth phase.',
-  hint2:'P₃ = D₄/(r−g) where D₄ is first stable-growth dividend. Then discount P₃ back 3 years along with D₁, D₂, D₃.'},
+  hint2:'P₃ = D₄/(r−g) where D₄ is first stable-growth dividend. Then discount P₃ back 3 years along with D₁, D₂, D₃.',
+  formulas:['Pₙ = Dₙ₊₁ ÷ (r−g)','P₀ = Σ[Dₜ÷(1+r)ᵗ] + Pₙ÷(1+r)ⁿ']},
 
 {week:8,type:'multipart',
   scenario:'A 5-year bond has face value $1,000 and annual coupon rate 7%.',
@@ -3348,7 +3420,8 @@ const QUESTIONS=[
     {label:'c',question:'By what % did the price fall from (a) to (b)?',keywords:['7.78%','7.78','−7.78'],modelAnswer:'% fall = ($922.21 − $1,000) / $1,000 = −7.78%\nKey: bond prices and interest rates move inversely.'}
   ],
   hint:'When coupon rate = YTM, price = par. When YTM rises above coupon rate, price falls below par.',
-  hint2:'(1.09)^5=1.5386. PVIFA(9%,5)=3.8897.'},
+  hint2:'(1.09)^5=1.5386. PVIFA(9%,5)=3.8897.',
+  formulas:['Bond price = C × [1−(1+r)⁻ⁿ]/r + FV÷(1+r)ⁿ']},
 
 {week:8,type:'multipart',
   scenario:'FreshFoods Ltd: EPS=$5, payout ratio=60%, ROI on reinvested earnings=18%, required return=14%.',
@@ -3358,7 +3431,8 @@ const QUESTIONS=[
     {label:'c',question:'Calculate P₀ using the Gordon Growth Model ($).',keywords:['P0','47.29','47.24'],modelAnswer:'P₀ = D₁ ÷ (r − g) = $3.216 ÷ (0.14 − 0.072) = $3.216 ÷ 0.068 = $47.29'}
   ],
   hint:'g = Retention Ratio × ROI. D₁ = D₀×(1+g). P₀ = D₁/(r−g).',
-  hint2:'Retention = 1−payout = 0.40. g=7.2%. r−g = 14%−7.2% = 6.8%.'},
+  hint2:'Retention = 1−payout = 0.40. g=7.2%. r−g = 14%−7.2% = 6.8%.',
+  formulas:['g = Retention × ROI','D₁ = D₀ × (1+g)','P₀ = D₁ ÷ (r−g)']},
 
 // WEEK 9 — New numericals
 {week:9,type:'numerical',
@@ -3366,7 +3440,8 @@ const QUESTIONS=[
   keywords:['V','1000','wE','0.40','wP','0.10','wD','0.50','WACC','9.75','9.75%','4.9'],
   modelAnswer:'V=$400+$100+$500=$1,000M\nwE=0.40, wP=0.10, wD=0.50\nAfter-tax RD=7%×0.70=4.9%\nWACC=0.40×16%+0.10×9%+0.50×4.9%\n=6.40%+0.90%+2.45%=9.75%',
   hint:'V = sum of all market values. Weights = each component ÷ V. Apply tax shield only to debt.',
-  hint2:'After-tax cost of debt = 7%×(1−0.30) = 4.9%.'},
+  hint2:'After-tax cost of debt = 7%×(1−0.30) = 4.9%.',
+  formulas:['WACC = wE×RE + wP×RP + wD×RD×(1−TC)','After-tax RD = RD × (1−TC)']},
 
 {week:9,type:'multipart',
   scenario:'CAPM: Stock Y has a required return of 14%. Rf=3%, E[RM]=10%.',
@@ -3375,7 +3450,8 @@ const QUESTIONS=[
     {label:'b',question:'If the market return rises to 12%, what is the new required return for Stock Y (%)?',keywords:['17.14','17.14%','new MRP','9'],modelAnswer:'New MRP = 12%−3% = 9%; Rf still 3%\nNew E[R] = 3% + 1.571×9% = 3% + 14.14% = 17.14%'}
   ],
   hint:'Rearrange CAPM to solve for β: β = (E[R]−Rf) / (E[RM]−Rf). For part (b), use the same β with the new market return.',
-  hint2:'β=(14%−3%)/(10%−3%)=11/7=1.571. Part (b): new MRP=12%−3%=9%.'},
+  hint2:'β=(14%−3%)/(10%−3%)=11/7=1.571. Part (b): new MRP=12%−3%=9%.',
+  formulas:['E[Rᵢ] = Rf + β × MRP','β = (E[R]−Rf) ÷ MRP']},
 
 {week:9,type:'multipart',
   scenario:'A portfolio has three stocks: Stock A (weight=30%, β=0.8), Stock B (weight=50%, β=1.2), Stock C (weight=20%, β=1.6). Rf=4%, E[RM]=11%.',
@@ -3384,7 +3460,8 @@ const QUESTIONS=[
     {label:'b',question:'Calculate the portfolio expected return using CAPM (%).',keywords:['12.12','11.84','MRP','7'],modelAnswer:'E[R_p] = 4% + 1.16×(11%−4%) = 4% + 1.16×7% = 4% + 8.12% = 12.12%'}
   ],
   hint:'Portfolio beta = weighted average of individual betas. Then plug into CAPM for expected return.',
-  hint2:'β_p = Σ(w_i × β_i). MRP = E[RM]−Rf = 7%. E[R_p] = Rf + β_p × MRP.'},
+  hint2:'β_p = Σ(w_i × β_i). MRP = E[RM]−Rf = 7%. E[R_p] = Rf + β_p × MRP.',
+  formulas:['βₚ = Σ(wᵢ × βᵢ)','E[Rₚ] = Rf + βₚ × MRP']},
 
 ];
 
@@ -3986,6 +4063,8 @@ function renderQuestion(){
 
     <button id="skipBtn" class="btn-skip" onclick="skipQuestion()">Skip</button>
 
+    ${q.formulas?`<button id="formulaBtn" class="btn-formula" onclick="showFormulas()">📐 Formulas</button>`:''}
+
     ${hasHints&&q.hint?`<button id="hintBtn1" class="btn-hint" onclick="showHint1()">💡 Hint 1</button>`:''}
 
     ${hasHints&&q.hint2?`<button id="hintBtn2" class="btn-hint" onclick="showHint2()" style="display:none">🔍 Hint 2</button>`:''}
@@ -4356,6 +4435,22 @@ function showHint2(){
 
   if(bAI) bAI.style.display='';
 
+}
+
+function showFormulas(){
+  const q=quizState.questions[quizState.idx];
+  const btn=document.getElementById('formulaBtn');
+  const ha=document.getElementById('hintArea');
+  if(!ha||!q.formulas) return;
+  const existing=document.getElementById('formulaBox');
+  if(existing){existing.remove();btn.classList.remove('active');return;}
+  const items=q.formulas.map(f=>`<li>${f}</li>`).join('');
+  const box=document.createElement('div');
+  box.id='formulaBox';
+  box.className='hint-box hf';
+  box.innerHTML=`<strong>📐 Formulas</strong><ul class="formula-list">${items}</ul>`;
+  ha.prepend(box);
+  btn.classList.add('active');
 }
 
 function showHintAI(){
