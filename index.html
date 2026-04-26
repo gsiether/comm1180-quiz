@@ -2687,11 +2687,11 @@ const QUESTIONS=[
 
   parts:[
 
-    {label:'a',question:'Calculate NPV for each project.',keywords:['Solar-A','15294','16162','Solar-B','29593','30135','annuity'],modelAnswer:'Annuity factor (3yr,12%)=2.4018\nNPV(A)=−$200,000+$90,000×2.4018=$16,162\nNPV(B)=−$150,000+$75,000×2.4018=$30,135'},
+    {label:'a',question:'Calculate NPV for each project.',inputs:['Solar-A NPV ($)','Solar-B NPV ($)'],keywords:['Solar-A','15294','16162','Solar-B','29593','30135','annuity'],modelAnswer:'Annuity factor (3yr,12%)=2.4018\nNPV(A)=−$200,000+$90,000×2.4018=$16,162\nNPV(B)=−$150,000+$75,000×2.4018=$30,135'},
 
-    {label:'b',question:'Which should GreenTech choose based on NPV?',keywords:['Solar-B','higher NPV','mutually exclusive'],modelAnswer:'Choose Solar-B — higher NPV ($30,135 vs $16,162). For mutually exclusive projects, select the highest NPV.'},
+    {label:'b',type:'sa',question:'Which should GreenTech choose based on NPV?',keywords:['Solar-B','higher NPV','mutually exclusive'],modelAnswer:'Choose Solar-B — higher NPV ($30,135 vs $16,162). For mutually exclusive projects, select the highest NPV.'},
 
-    {label:'c',question:'Could IRR give a different ranking? Explain briefly.',keywords:['IRR','conflict','scale','Solar-A'],modelAnswer:'Yes. IRR may favour Solar-A if its % return is higher. NPV and IRR conflict with mutually exclusive projects of different scale. NPV should be trusted.'}
+    {label:'c',type:'sa',question:'Could IRR give a different ranking? Explain briefly.',keywords:['IRR','conflict','scale','Solar-A'],modelAnswer:'Yes. IRR may favour Solar-A if its % return is higher. NPV and IRR conflict with mutually exclusive projects of different scale. NPV should be trusted.'}
 
   ],
 
@@ -2711,7 +2711,7 @@ const QUESTIONS=[
 
     {label:'A',question:'Assuming a cost of capital of 9.5% what is the NPV of the upgrade per location? (Round to the nearest dollar.)',keywords:['75674','75,674','310502','340000','234828'],modelAnswer:'This is a declining growing perpetuity with g = −5.5%, first cash flow in year 2.\nPV at year 1 = C/(r−g) = $51,000/(0.095−(−0.055)) = $51,000/0.15 = $340,000\nPV at year 0 = $340,000/1.095 = $310,502\nNPV = −$234,828 + $310,502 = $75,674'},
 
-    {label:'B',question:'Thus, the IRR of the project must be less than 9.5%. (True or False — select from the drop-down menu.)',keywords:['false','FALSE','greater','higher','positive NPV'],modelAnswer:'FALSE — because NPV > 0 at a cost of capital of 9.5%, the IRR must be GREATER than 9.5%.'},
+    {label:'B',type:'sa',question:'Thus, the IRR of the project must be less than 9.5%. (True or False?)',keywords:['false','FALSE','greater','higher','positive NPV'],modelAnswer:'FALSE — because NPV > 0 at a cost of capital of 9.5%, the IRR must be GREATER than 9.5%.'},
 
     {label:'C',question:'Keep the cost of capital as before. What rate of decline would make this project exactly break even? (Round to 2 decimal points; enter a negative growth rate with a minus.)',keywords:['-10.34','-10.34%','0.19836','257137'],modelAnswer:'Set NPV = 0:\n$234,828 = $51,000 / ((0.095 − g) × 1.095)\n(0.095 − g) = $51,000 / ($234,828 × 1.095) = $51,000 / $257,137 = 0.19836\ng = 0.095 − 0.19836 = −0.10336 = −10.34%'}
 
@@ -2727,9 +2727,9 @@ const QUESTIONS=[
 
   parts:[
 
-    {label:'a',question:'The annual cost of Long Life model as an equivalent annual annuity is $___. (Round to the nearest dollar.)\nThe annual cost of Short Life model as an equivalent annual annuity is $___. (Round to the nearest dollar.)',keywords:['46672','46,672','33498','33,498','227','106'],modelAnswer:'NPV(Long Life) = −208.7 − 3.8 × [1−(1.10)^−7]/0.10 = −208.7 − 3.8 × 4.8684 = −$227.20k\nEAA(Long) = −227.20 × 0.10 / [1−(1.10)^−7] = −22.72 / 0.4868 = −$46,672\nNPV(Short Life) = −100.8 − 1.7 × [1−(1.10)^−4]/0.10 = −100.8 − 5.39 = −$106.19k\nEAA(Short) = −106.19 × 0.10 / [1−(1.10)^−4] = −10.619 / 0.3170 = −$33,498'},
+    {label:'a',question:'The annual cost of Long Life model as an equivalent annual annuity is $___. (Round to the nearest dollar.)\nThe annual cost of Short Life model as an equivalent annual annuity is $___. (Round to the nearest dollar.)',inputs:['Long Life EAA ($)','Short Life EAA ($)'],keywords:['46672','46,672','33498','33,498','227','106'],modelAnswer:'NPV(Long Life) = −208.7 − 3.8 × [1−(1.10)^−7]/0.10 = −208.7 − 3.8 × 4.8684 = −$227.20k\nEAA(Long) = −227.20 × 0.10 / [1−(1.10)^−7] = −22.72 / 0.4868 = −$46,672\nNPV(Short Life) = −100.8 − 1.7 × [1−(1.10)^−4]/0.10 = −100.8 − 5.39 = −$106.19k\nEAA(Short) = −106.19 × 0.10 / [1−(1.10)^−4] = −10.619 / 0.3170 = −$33,498'},
 
-    {label:'b',question:'Based on the costs of each model, which should it choose? (Select the best choice.)\nA) AT&T should choose Short Life because the equivalent annual annuity of its costs is smaller.\nB) AT&T should choose Long Life because it lasts longer.\nC) AT&T should choose Short Life because the NPV of its costs is smaller.\nD) AT&T should choose Long Life because the equivalent annual annuity of its costs is smaller.',keywords:['Short Life','EAA','smaller','33498','A)','option A'],modelAnswer:'AT&T should choose Short Life because the equivalent annual annuity of its costs is smaller (−$33,498 vs −$46,672).'}
+    {label:'b',type:'sa',question:'Based on the costs of each model, which should it choose? (Select the best choice.)\nA) AT&T should choose Short Life because the equivalent annual annuity of its costs is smaller.\nB) AT&T should choose Long Life because it lasts longer.\nC) AT&T should choose Short Life because the NPV of its costs is smaller.\nD) AT&T should choose Long Life because the equivalent annual annuity of its costs is smaller.',keywords:['Short Life','EAA','smaller','33498','A)','option A'],modelAnswer:'AT&T should choose Short Life because the equivalent annual annuity of its costs is smaller (−$33,498 vs −$46,672).'}
 
   ],
 
@@ -2751,11 +2751,11 @@ const QUESTIONS=[
 
     {label:'D',question:'What is the internal rate of return of project A? ___% \nWhat is the internal rate of return of project B? ___%',inputs:['IRR(A) %','IRR(B) %'],keywords:['57','47'],modelAnswer:'IRR(A) ≈ 57%; IRR(B) ≈ 47% (both require Excel or financial calculator; both are above the 10.3% hurdle rate)'},
 
-    {label:'E',question:'According to the payback rule, which of these projects should be chosen?\n  ○ Project B\n  ○ Project A',keywords:['Project B','1.84','2 years','payback'],modelAnswer:'Project B — its payback period of 1.84 years is within the 2-year limit. Project A\'s payback of 2.04 years exceeds the limit.'},
+    {label:'E',type:'sa',question:'According to the payback rule, which of these projects should be chosen?\n  ○ Project B\n  ○ Project A',keywords:['Project B','1.84','2 years','payback'],modelAnswer:'Project B — its payback period of 1.84 years is within the 2-year limit. Project A\'s payback of 2.04 years exceeds the limit.'},
 
-    {label:'F',question:'According to the profitability index, which of these projects should be chosen?\n  ○ Project B\n  ○ Project A',keywords:['Project A','2.93','PI'],modelAnswer:'Project A — it has the higher profitability index (PI = 2.93 vs 1.98).'},
+    {label:'F',type:'sa',question:'According to the profitability index, which of these projects should be chosen?\n  ○ Project B\n  ○ Project A',keywords:['Project A','2.93','PI'],modelAnswer:'Project A — it has the higher profitability index (PI = 2.93 vs 1.98).'},
 
-    {label:'G',question:'Which one would you recommend the firm choose?\n  ○ Project B\n  ○ Project A',keywords:['Project A','NPV','100.44','maximise','value'],modelAnswer:'Project A — it has the higher NPV ($100.44 vs $48.90), which maximises firm value. NPV is the theoretically correct decision rule.'}
+    {label:'G',type:'sa',question:'Which one would you recommend the firm choose?\n  ○ Project B\n  ○ Project A',keywords:['Project A','NPV','100.44','maximise','value'],modelAnswer:'Project A — it has the higher NPV ($100.44 vs $48.90), which maximises firm value. NPV is the theoretically correct decision rule.'}
 
   ],
 
@@ -3127,7 +3127,7 @@ const QUESTIONS=[
 
     {label:'b',question:'Calculate StellarCorp\'s WACC.',keywords:['V','1500','wE','0.533','wP','0.133','wD','0.333','WACC','11.5'],modelAnswer:'V=$1,500M; wE=0.533, wP=0.133, wD=0.333\nAfter-tax RD=7%×0.75=5.25%\nWACC=0.533×16%+0.133×9%+0.333×5.25%=8.53%+1.20%+1.75%=11.48%'},
 
-    {label:'c',question:'Project expected return=10.5%. Should StellarCorp accept it?',keywords:['reject','10.5','less than','WACC','11.5','destroys value'],modelAnswer:'Reject — 10.5% < WACC (≈11.5%). Project doesn\'t earn enough to compensate all capital providers → destroys value.'}
+    {label:'c',type:'sa',question:'Project expected return=10.5%. Should StellarCorp accept it?',keywords:['reject','10.5','less than','WACC','11.5','destroys value'],modelAnswer:'Reject — 10.5% < WACC (≈11.5%). Project doesn\'t earn enough to compensate all capital providers → destroys value.'}
 
   ],
 
@@ -3151,7 +3151,7 @@ const QUESTIONS=[
 
     {label:'C',question:'Given the expected market return in A), what is the correct expected return for Beach Living Inc.? (%)',keywords:['17.76','13.46','1.43'],modelAnswer:'E[R]=4.30%+1.43×9.412%=4.30%+13.46%=17.76%'},
 
-    {label:'D',question:'Given the expected market return in A), are shares of Tasman Devils Corp. overvalued, undervalued or fairly valued? (Choose: undervalued / correctly valued / overvalued)',keywords:['overvalued','12.39','7.88','price too high'],modelAnswer:'Required=4.30%+0.86×9.412%=12.39%\nActual 7.88%<12.39% → OVERVALUED (price too high, return too low)'},
+    {label:'D',type:'sa',question:'Given the expected market return in A), are shares of Tasman Devils Corp. overvalued, undervalued or fairly valued? (Choose: undervalued / correctly valued / overvalued)',keywords:['overvalued','12.39','7.88','price too high'],modelAnswer:'Required=4.30%+0.86×9.412%=12.39%\nActual 7.88%<12.39% → OVERVALUED (price too high, return too low)'},
 
     {label:'E',question:'Assume that the market risk premium remains the same as before. What would the risk-free rate need to be in order for investors in Allied Metal Traders to have correct return expectations? (%)',keywords:['5.98','13.74','19.72'],modelAnswer:'19.72%=Rf+1.46×9.412% → Rf=19.72%−13.74%=5.98%'}
 
@@ -3317,8 +3317,8 @@ const QUESTIONS=[
   scenario:'A firm must choose between two mutually exclusive projects. Discount rate = 10%. Project Alpha: Year 0 = −$60,000; Years 1–4 = $20,000/yr. Project Beta: Year 0 = −$60,000; Year 1 = $10,000; Year 2 = $20,000; Year 3 = $30,000; Year 4 = $40,000.',
   parts:[
     {label:'a',question:'Calculate NPV for each project.',keywords:['Alpha','3,397','3397','Beta','13,294','13294','annuity'],modelAnswer:'Alpha: PV = $20,000×PVIFA(10%,4) = $20,000×3.1699 = $63,397; NPV = $63,397−$60,000 = $3,397\nBeta: PV = $10,000/1.10+$20,000/1.21+$30,000/1.331+$40,000/1.4641\n= $9,091+$16,529+$22,539+$27,320 = $75,479; Wait: sum = 75,479; NPV = $75,479−$60,000 = $15,479\nRe-checking Beta: 9091+16529+22539+27321=75,480; NPV=$15,480'},
-    {label:'b',question:'Which should the firm choose and why?',keywords:['Beta','higher NPV','15480','15,480','mutually exclusive'],modelAnswer:'Choose Beta — it has the higher NPV ($15,480 vs $3,397). For mutually exclusive projects, always choose the highest NPV.'},
-    {label:'c',question:'IRR of Alpha: if all 4 cash flows were $20,000 and cost is $60,000, estimate IRR. Is it above or below 12%? (Hint: test discount rate 12%.)',keywords:['12%','below','NPV positive','3,042','accept','IRR above 10'],modelAnswer:'At 12%: PV = $20,000×PVIFA(12%,4) = $20,000×3.0373 = $60,746; NPV = $746 > 0\nIRR is slightly above 12% (NPV still positive at 12%). IRR > hurdle rate of 10% → Accept.\nExact IRR ≈ 12.6% (would need iteration/calculator).'}
+    {label:'b',type:'sa',question:'Which should the firm choose and why?',keywords:['Beta','higher NPV','15480','15,480','mutually exclusive'],modelAnswer:'Choose Beta — it has the higher NPV ($15,480 vs $3,397). For mutually exclusive projects, always choose the highest NPV.'},
+    {label:'c',type:'sa',question:'IRR of Alpha: if all 4 cash flows were $20,000 and cost is $60,000, estimate IRR. Is it above or below 12%? (Hint: test discount rate 12%.)',keywords:['12%','below','NPV positive','3,042','accept','IRR above 10'],modelAnswer:'At 12%: PV = $20,000×PVIFA(12%,4) = $20,000×3.0373 = $60,746; NPV = $746 > 0\nIRR is slightly above 12% (NPV still positive at 12%). IRR > hurdle rate of 10% → Accept.\nExact IRR ≈ 12.6% (would need iteration/calculator).'}
   ],
   hint:'Use annuity factor for Alpha (equal CFs). For Beta, discount each CF individually. Mutually exclusive → pick highest NPV.',
   hint2:'PVIFA(10%,4) = [1−(1.10)^−4]/0.10 = 3.1699. Beta CFs grow over time — back-loaded projects often have higher NPV at low rates.'},
@@ -4029,9 +4029,16 @@ function renderNumerical(q){
 function renderMultipart(q){
   const isFinance=[3,5,7,8,9].includes(Number(q.week));
   let html='';
+  let hasMq=false;
   q.parts.forEach((p,i)=>{
     const id='part-'+i;
-    if(isFinance){
+    const useSa=p.type==='sa'||!isFinance;
+    if(useSa){
+      html+='<div class="part-block"><div class="part-label">Part ('+p.label+')</div><div class="part-question">'+p.question+'</div>'
+           +'<textarea class="sa-textarea" id="'+id+'" placeholder="Answer for part ('+p.label+')…" rows="3"></textarea>'
+           +'<div id="fb-part-'+i+'" class="feedback-box" style="margin-top:8px"></div></div>';
+    } else {
+      hasMq=true;
       var inputsHtml='';
       if(p.inputs&&p.inputs.length>1){
         inputsHtml=p.inputs.map(function(lbl,j){
@@ -4043,13 +4050,9 @@ function renderMultipart(q){
       html+='<div class="part-block"><div class="part-label">Part ('+p.label+')</div><div class="part-question">'+p.question+'</div>'
            +inputsHtml
            +'<div id="fb-part-'+i+'" class="feedback-box" style="margin-top:8px"></div></div>';
-    } else {
-      html+='<div class="part-block"><div class="part-label">Part ('+p.label+')</div><div class="part-question">'+p.question+'</div>'
-           +'<textarea class="sa-textarea" id="'+id+'" placeholder="Answer for part ('+p.label+')…" rows="3"></textarea>'
-           +'<div id="fb-part-'+i+'" class="feedback-box" style="margin-top:8px"></div></div>';
     }
   });
-  if(isFinance) html+=mqKeyboardHTML();
+  if(hasMq) html+=mqKeyboardHTML();
   return html;
 }
 
@@ -4516,7 +4519,8 @@ async function submitAnswer(){
     var isFinancePart=[3,5,7,8,9].includes(Number(q.week));
 
     var answers=q.parts.map(function(p,i){
-      if(isFinancePart){
+      var useMq=isFinancePart&&p.type!=='sa';
+      if(useMq){
         if(p.inputs&&p.inputs.length>1){
           var vals=p.inputs.map(function(lbl,j){return lbl+': '+_mqVal('part-'+i+'-'+j);});
           return {answer:vals.join('\n')};
@@ -4531,7 +4535,8 @@ async function submitAnswer(){
     quizState.answered=true;
 
     q.parts.forEach(function(p,i){
-      if(isFinancePart){
+      var useMq=isFinancePart&&p.type!=='sa';
+      if(useMq){
         if(p.inputs&&p.inputs.length>1){
           p.inputs.forEach(function(_,j){var el=document.getElementById('part-'+i+'-'+j);if(el)el.classList.add('mq-disabled');});
         } else {
