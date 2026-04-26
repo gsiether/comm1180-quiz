@@ -2004,6 +2004,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
           <div class="fml-card"><div class="fml-name">Price Rule</div><div class="fml-expr">Coupon &gt; YTM &rarr; Premium &nbsp;&middot;&nbsp; Coupon &lt; YTM &rarr; Discount</div><div class="fml-use">Use as a quick sanity check after computing bond price — verify premium/discount/par status before finalising your answer.</div></div>
 
+          <div class="fml-card"><div class="fml-name">YTM Approximation</div><div class="fml-expr">YTM &asymp; &nbsp; <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;gap:2px"><span style="border-bottom:1.5px solid currentColor;padding:0 6px">C + (FV &minus; P) &divide; n</span><span style="padding:0 6px">(FV + P) &divide; 2</span></span></div><div class="fml-vars">C = annual coupon &nbsp;&middot;&nbsp; FV = face value &nbsp;&middot;&nbsp; P = current price &nbsp;&middot;&nbsp; n = years to maturity</div><div class="fml-use">Use when you need a quick YTM estimate without a financial calculator. Not exact — discount bonds will have the true YTM slightly higher than this approximation.</div></div>
+
         </div>
 
         <div class="fml-group"><div class="fml-group-title">Gordon Growth Model (Equity)</div>
