@@ -281,6 +281,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .mq-wrap.mq-focused,.mq-wrap:focus-within{border-color:var(--blue)}
 .mq-wrap.mq-disabled{background:var(--bg);opacity:.7;pointer-events:none}
 .mq-wrap .mq-editable-field{border:none!important;box-shadow:none!important;outline:none!important;display:block!important;width:100%!important;min-width:unset!important;cursor:text}
+.mq-math-mode{line-height:1!important}
+.mq-math-mode .mq-paren{vertical-align:middle}
 .step-row .mq-wrap{flex:1;margin-bottom:0;min-height:40px;padding:6px 10px;font-size:.88rem}
 .final-answer-wrap .mq-wrap{background:transparent;border:none!important;padding:2px 0;min-height:unset;font-size:.95rem;font-weight:600;margin-bottom:0;box-shadow:none!important}
 .final-answer-wrap .mq-wrap.mq-focused,.final-answer-wrap .mq-wrap:focus-within{border-color:transparent}
@@ -309,6 +311,10 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .part-label{font-size:.75rem;font-weight:700;color:var(--purple);margin-bottom:5px}
 
 .part-question{font-size:.88rem;color:var(--text);margin-bottom:8px;line-height:1.5}
+.part-input-group{margin-bottom:8px}
+.part-input-group:last-of-type{margin-bottom:0}
+.part-input-label{font-size:.75rem;font-weight:600;color:var(--text-2);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
+.part-input-group .mq-wrap{margin-bottom:0}
 
 
 
@@ -1957,6 +1963,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
           <div class="fml-card"><div class="fml-expr">NPV = CF<sub>0</sub> + CF<sub>1</sub>&divide;(1+r) + CF<sub>2</sub>&divide;(1+r)&sup2; + &hellip; + CF<sub>n</sub>&divide;(1+r)<sup>n</sup></div><div class="fml-note">Accept if NPV &gt; 0 &nbsp;&middot;&nbsp; CF<sub>0</sub> is typically negative (initial outlay)</div><div class="fml-use">Use to evaluate any investment decision — the primary and theoretically correct capital budgeting rule. NPV tells you the dollar value added to the firm.</div></div>
 
+          <div class="fml-card"><div class="fml-name">Growing Perpetuity NPV</div><div class="fml-expr">NPV = <span style="display:inline-block;text-align:center;vertical-align:middle"><span style="display:block;border-bottom:1px solid currentColor;padding:0 4px">1</span><span style="display:block;padding:0 4px">(1+r)</span></span> &times; <span style="display:inline-block;text-align:center;vertical-align:middle"><span style="display:block;border-bottom:1px solid currentColor;padding:0 4px">C</span><span style="display:block;padding:0 4px">r &minus; g</span></span> &minus; Investment</div><div class="fml-note">CFs grow at rate g, first CF in year 2 &nbsp;&middot;&nbsp; C/(r&minus;g) gives PV at year 1; divide by (1+r) to get PV at year 0</div></div>
+
         </div>
 
         <div class="fml-group"><div class="fml-group-title">IRR &amp; Profitability Index</div>
@@ -2735,13 +2743,13 @@ const QUESTIONS=[
 
   parts:[
 
-    {label:'A',question:'The payback period of project A is ___ years. (Round to two decimal places.)\nThe payback period of project B is ___ years. (Round to two decimal places.)',keywords:['2.04','1.84'],modelAnswer:'Project A: After Y1: −52+24=−28; After Y2: −28+25=−3; Partial Y3: 2 + 3/68 = 2.04 years\nProject B: After Y1: −50+23=−27; After Y2: −27+32=+5; Partial Y2: 1 + 27/32 = 1.84 years'},
+    {label:'A',question:'The payback period of project A is ___ years. (Round to two decimal places.)\nThe payback period of project B is ___ years. (Round to two decimal places.)',inputs:['Project A (years)','Project B (years)'],keywords:['2.04','1.84'],modelAnswer:'Project A: After Y1: −52+24=−28; After Y2: −28+25=−3; Partial Y3: 2 + 3/68 = 2.04 years\nProject B: After Y1: −50+23=−27; After Y2: −27+32=+5; Partial Y2: 1 + 27/32 = 1.84 years'},
 
-    {label:'B',question:'What is the profitability index of project A?\nWhat is the profitability index of project B?',keywords:['2.93','1.98','152','98'],modelAnswer:'Discount factors at 10.3%: Y1=1/1.103, Y2=1/1.2166, Y3=1/1.3419, Y4=1/1.4801\nPV(A future CFs) = 24/1.103 + 25/1.2166 + 68/1.3419 + 88/1.4801 = 21.76+20.55+50.67+59.46 = $152.44\nPI(A) = 152.44/52 = 2.93\nPV(B future CFs) = 23/1.103 + 32/1.2166 + 35/1.3419 + 38/1.4801 = 20.85+26.30+26.08+25.67 = $98.90\nPI(B) = 98.90/50 = 1.98'},
+    {label:'B',question:'What is the profitability index of project A?\nWhat is the profitability index of project B?',inputs:['PI(A)','PI(B)'],keywords:['2.93','1.98','152','98'],modelAnswer:'Discount factors at 10.3%: Y1=1/1.103, Y2=1/1.2166, Y3=1/1.3419, Y4=1/1.4801\nPV(A future CFs) = 24/1.103 + 25/1.2166 + 68/1.3419 + 88/1.4801 = 21.76+20.55+50.67+59.46 = $152.44\nPI(A) = 152.44/52 = 2.93\nPV(B future CFs) = 23/1.103 + 32/1.2166 + 35/1.3419 + 38/1.4801 = 20.85+26.30+26.08+25.67 = $98.90\nPI(B) = 98.90/50 = 1.98'},
 
-    {label:'C',question:'What is the NPV of project A? $___\nWhat is the NPV of project B? $___',keywords:['100.44','48.90'],modelAnswer:'NPV(A) = PV of future CFs − Cost = $152.44 − $52 = $100.44\nNPV(B) = $98.90 − $50 = $48.90'},
+    {label:'C',question:'What is the NPV of project A? $___\nWhat is the NPV of project B? $___',inputs:['NPV(A) $','NPV(B) $'],keywords:['100.44','48.90'],modelAnswer:'NPV(A) = PV of future CFs − Cost = $152.44 − $52 = $100.44\nNPV(B) = $98.90 − $50 = $48.90'},
 
-    {label:'D',question:'What is the internal rate of return of project A? ___% \nWhat is the internal rate of return of project B? ___%',keywords:['57','47'],modelAnswer:'IRR(A) ≈ 57%; IRR(B) ≈ 47% (both require Excel or financial calculator; both are above the 10.3% hurdle rate)'},
+    {label:'D',question:'What is the internal rate of return of project A? ___% \nWhat is the internal rate of return of project B? ___%',inputs:['IRR(A) %','IRR(B) %'],keywords:['57','47'],modelAnswer:'IRR(A) ≈ 57%; IRR(B) ≈ 47% (both require Excel or financial calculator; both are above the 10.3% hurdle rate)'},
 
     {label:'E',question:'According to the payback rule, which of these projects should be chosen?\n  ○ Project B\n  ○ Project A',keywords:['Project B','1.84','2 years','payback'],modelAnswer:'Project B — its payback period of 1.84 years is within the 2-year limit. Project A\'s payback of 2.04 years exceeds the limit.'},
 
@@ -2753,7 +2761,91 @@ const QUESTIONS=[
 
   hint:'For payback: track cumulative cash flows year by year, then find the fraction of the final year needed. For PI: discount all future cash flows back at 10.3%, then divide by initial cost.',
 
-  hint2:'Discount factors at 10.3%: Y1=1/1.103=0.9066, Y2=1/1.2166=0.8220, Y3=1/1.3419=0.7452, Y4=1/1.4801=0.6756.'},
+  hint2:'Discount factors at 10.3%: Y1=1/1.103=0.9066, Y2=1/1.2166=0.8220, Y3=1/1.3419=0.7452, Y4=1/1.4801=0.6756.',
+
+  randomize:function(){
+    var q=this;
+    var ri=function(a,b){return a+Math.floor(Math.random()*(b-a+1));};
+    var pick=function(a){return a[Math.floor(Math.random()*a.length)];};
+    var f2=function(n){return isFinite(n)?n.toFixed(2):'N/A';};
+    var f4=function(n){return n.toFixed(4);};
+
+    var costA=pick([45,50,52,55,58,60,65]);
+    var costB=pick([38,40,42,45,48,50]);
+    var y1A=ri(18,28),y2A=ri(22,35),y3A=ri(55,80),y4A=ri(75,100);
+    var y1B=ri(16,26),y2B=ri(25,40),y3B=ri(25,45),y4B=ri(28,50);
+    var ratePct=pick([8.5,9.0,9.5,10.0,10.3,10.5,11.0,11.5,12.0]);
+    var rate=ratePct/100;
+
+    function pvFut(cfs,r){return cfs.reduce(function(s,c,i){return s+c/Math.pow(1+r,i+1);},0);}
+    function pbCalc(cost,cfs){
+      var cum=-cost;
+      for(var t=0;t<cfs.length;t++){if(cum+cfs[t]>=0)return t+(-cum/cfs[t]);cum+=cfs[t];}
+      return Infinity;
+    }
+    function pbSteps(cost,cfs){
+      var cum=-cost,s='−'+cost,t,prev;
+      for(t=0;t<cfs.length;t++){prev=cum;cum=+(cum+cfs[t]).toFixed(2);s+='; After Y'+(t+1)+': '+prev+'+'+cfs[t]+'='+cum;if(cum>=0)break;}
+      return s;
+    }
+    function irrCalc(cost,cfs){
+      var all=[-cost].concat(cfs);
+      var f=function(r){return all.reduce(function(s,c,t){return s+c/Math.pow(1+r,t);},0);};
+      var lo=-0.5,hi=5,mid,n;
+      if(f(lo)*f(hi)>0)return NaN;
+      for(n=0;n<200;n++){mid=(lo+hi)/2;if(Math.abs(f(mid))<0.001)break;if(f(mid)>0)lo=mid;else hi=mid;}
+      return mid*100;
+    }
+
+    var futsA=[y1A,y2A,y3A,y4A],futsB=[y1B,y2B,y3B,y4B];
+    var pbA=pbCalc(costA,futsA),pbB=pbCalc(costB,futsB);
+    var pvA=pvFut(futsA,rate),pvB=pvFut(futsB,rate);
+    var piA=pvA/costA,piB=pvB/costB;
+    var npvA=pvA-costA,npvB=pvB-costB;
+    var irrA=irrCalc(costA,futsA),irrB=irrCalc(costB,futsB);
+
+    var pbWinner=pbA<=2&&pbB<=2?(pbA<pbB?'Project A':'Project B'):pbA<=2?'Project A':pbB<=2?'Project B':'Neither project';
+    var piWinner=piA>=piB?'Project A':'Project B';
+    var npvWinner=npvA>=npvB?'Project A':'Project B';
+
+    var d1=f4(1/(1+rate)),d2=f4(1/Math.pow(1+rate,2)),d3=f4(1/Math.pow(1+rate,3)),d4=f4(1/Math.pow(1+rate,4));
+
+    q.scenario='A firm considers 2 mutually exclusive projects with a target payback of 2 years or less. Discount rate: '+ratePct+'%. IRRs require Excel or a financial calculator. PI = PV(Future Cash Flows) / Cost.<br>'
+      +'<table class="scenario-table"><thead><tr><th>Year</th><th>Project A ($)</th><th>Project B ($)</th></tr></thead>'
+      +'<tbody><tr><td>0</td><td>&minus;'+costA+'</td><td>&minus;'+costB+'</td></tr>'
+      +'<tr><td>1</td><td>'+y1A+'</td><td>'+y1B+'</td></tr>'
+      +'<tr><td>2</td><td>'+y2A+'</td><td>'+y2B+'</td></tr>'
+      +'<tr><td>3</td><td>'+y3A+'</td><td>'+y3B+'</td></tr>'
+      +'<tr><td>4</td><td>'+y4A+'</td><td>'+y4B+'</td></tr></tbody></table>';
+
+    q.parts[0].keywords=[f2(pbA),f2(pbB)];
+    q.parts[0].modelAnswer='Project A: '+pbSteps(costA,futsA)+' → payback = '+f2(pbA)+' years\nProject B: '+pbSteps(costB,futsB)+' → payback = '+f2(pbB)+' years';
+
+    q.parts[1].keywords=[f2(piA),f2(piB),f2(pvA),f2(pvB)];
+    q.parts[1].modelAnswer='Discount factors at '+ratePct+'%: Y1='+d1+', Y2='+d2+', Y3='+d3+', Y4='+d4
+      +'\nPV(A) = '+y1A+'×'+d1+' + '+y2A+'×'+d2+' + '+y3A+'×'+d3+' + '+y4A+'×'+d4+' = '+f2(pvA)
+      +'\nPI(A) = '+f2(pvA)+'/'+costA+' = '+f2(piA)
+      +'\nPV(B) = '+y1B+'×'+d1+' + '+y2B+'×'+d2+' + '+y3B+'×'+d3+' + '+y4B+'×'+d4+' = '+f2(pvB)
+      +'\nPI(B) = '+f2(pvB)+'/'+costB+' = '+f2(piB);
+
+    q.parts[2].keywords=[f2(npvA),f2(npvB)];
+    q.parts[2].modelAnswer='NPV(A) = '+f2(pvA)+' − '+costA+' = '+f2(npvA)+'\nNPV(B) = '+f2(pvB)+' − '+costB+' = '+f2(npvB);
+
+    q.parts[3].keywords=[Math.round(irrA).toString(),Math.round(irrB).toString()];
+    q.parts[3].modelAnswer='IRR(A) ≈ '+Math.round(irrA)+'%; IRR(B) ≈ '+Math.round(irrB)+'% (both require Excel or financial calculator)';
+
+    q.parts[4].keywords=[pbWinner.startsWith('Project A')?'Project A':'Project B',f2(pbA),f2(pbB)];
+    q.parts[4].modelAnswer=pbWinner+' — payback: A='+f2(pbA)+' yrs, B='+f2(pbB)+' yrs (target ≤ 2 years).';
+
+    q.parts[5].keywords=[piWinner,f2(piA),f2(piB)];
+    q.parts[5].modelAnswer=piWinner+' — higher PI ('+f2(piA)+' vs '+f2(piB)+').';
+
+    q.parts[6].keywords=[npvWinner,f2(npvA),f2(npvB),'NPV'];
+    q.parts[6].modelAnswer=npvWinner+' — higher NPV ($'+f2(npvA)+' vs $'+f2(npvB)+'), which maximises firm value. NPV is the correct decision rule.';
+
+    q.hint='For payback: track cumulative CFs year by year, find the fractional year when cumulative turns positive. For PI: discount all future CFs at '+ratePct+'%, then divide PV by initial cost.';
+    q.hint2='Discount factors at '+ratePct+'%: Y1='+d1+', Y2='+d2+', Y3='+d3+', Y4='+d4+'.';
+  }},
 
 
 
@@ -3766,6 +3858,14 @@ function startQuiz(mode){
 
   if(cnt!=='all'&&pool.length>Number(cnt)) pool=pool.slice(0,Number(cnt));
 
+  pool=pool.map(function(q){
+    if(!q.randomize) return q;
+    var clone=Object.assign({},q,{parts:q.parts.map(function(p){return Object.assign({},p);})});
+    clone.randomize=q.randomize;
+    clone.randomize();
+    return clone;
+  });
+
   const prevLearnMode=quizState.learnMode||false;
 
   quizState={questions:pool,idx:0,results:[],mode,answered:false,currentAnswer:null,missedPool:quizState.missedPool||null,startTime:Date.now(),learnMode:(mode==='retry')?false:prevLearnMode};
@@ -3932,8 +4032,16 @@ function renderMultipart(q){
   q.parts.forEach((p,i)=>{
     const id='part-'+i;
     if(isFinance){
+      var inputsHtml='';
+      if(p.inputs&&p.inputs.length>1){
+        inputsHtml=p.inputs.map(function(lbl,j){
+          return '<div class="part-input-group"><div class="part-input-label">'+lbl+'</div><div class="mq-wrap" id="'+id+'-'+j+'"></div></div>';
+        }).join('');
+      } else {
+        inputsHtml='<div class="mq-wrap" id="'+id+'"></div>';
+      }
       html+='<div class="part-block"><div class="part-label">Part ('+p.label+')</div><div class="part-question">'+p.question+'</div>'
-           +'<div class="mq-wrap" id="'+id+'"></div>'
+           +inputsHtml
            +'<div id="fb-part-'+i+'" class="feedback-box" style="margin-top:8px"></div></div>';
     } else {
       html+='<div class="part-block"><div class="part-label">Part ('+p.label+')</div><div class="part-question">'+p.question+'</div>'
@@ -4407,13 +4515,32 @@ async function submitAnswer(){
 
     var isFinancePart=[3,5,7,8,9].includes(Number(q.week));
 
-    var answers=q.parts.map(function(_,i){return {answer:isFinancePart?_mqVal('part-'+i):(document.getElementById('part-'+i)?.value||'').trim()};});
+    var answers=q.parts.map(function(p,i){
+      if(isFinancePart){
+        if(p.inputs&&p.inputs.length>1){
+          var vals=p.inputs.map(function(lbl,j){return lbl+': '+_mqVal('part-'+i+'-'+j);});
+          return {answer:vals.join('\n')};
+        }
+        return {answer:_mqVal('part-'+i)};
+      }
+      return {answer:(document.getElementById('part-'+i)?.value||'').trim()};
+    });
 
     if(!answers.some(function(a){return a.answer;})){alert('Please answer at least one part.');return;}
 
     quizState.answered=true;
 
-    q.parts.forEach(function(_,i){var el=document.getElementById('part-'+i);if(!el)return;if(isFinancePart)el.classList.add('mq-disabled');else el.disabled=true;});
+    q.parts.forEach(function(p,i){
+      if(isFinancePart){
+        if(p.inputs&&p.inputs.length>1){
+          p.inputs.forEach(function(_,j){var el=document.getElementById('part-'+i+'-'+j);if(el)el.classList.add('mq-disabled');});
+        } else {
+          var el=document.getElementById('part-'+i);if(el)el.classList.add('mq-disabled');
+        }
+      } else {
+        var el=document.getElementById('part-'+i);if(el)el.disabled=true;
+      }
+    });
 
     await aiMarkMultipart(q,answers);
 
