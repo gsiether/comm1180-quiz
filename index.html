@@ -311,10 +311,11 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .part-label{font-size:.75rem;font-weight:700;color:var(--purple);margin-bottom:5px}
 
 .part-question{font-size:.88rem;color:var(--text);margin-bottom:8px;line-height:1.5}
-.part-input-group{margin-bottom:8px}
+.part-input-group{margin-bottom:14px}
 .part-input-group:last-of-type{margin-bottom:0}
-.part-input-label{font-size:.75rem;font-weight:600;color:var(--text-2);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
-.part-input-group .mq-wrap{margin-bottom:0}
+.part-input-label{font-size:.75rem;font-weight:700;color:var(--blue);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.part-input-group>.mq-wrap{margin-bottom:0}
+.part-input-group .working-area{margin-top:4px}
 
 
 
@@ -3389,7 +3390,7 @@ const QUESTIONS=[
 {week:7,type:'multipart',
   scenario:'A firm must choose between two mutually exclusive projects. Discount rate = 10%. Project Alpha: Year 0 = −$60,000; Years 1–4 = $20,000/yr. Project Beta: Year 0 = −$60,000; Year 1 = $10,000; Year 2 = $20,000; Year 3 = $30,000; Year 4 = $40,000.',
   parts:[
-    {label:'a',question:'Calculate NPV for each project.',keywords:['Alpha','3,397','3397','Beta','13,294','13294','annuity'],modelAnswer:'Alpha: PV = $20,000×PVIFA(10%,4) = $20,000×3.1699 = $63,397; NPV = $63,397−$60,000 = $3,397\nBeta: PV = $10,000/1.10+$20,000/1.21+$30,000/1.331+$40,000/1.4641\n= $9,091+$16,529+$22,539+$27,320 = $75,479; Wait: sum = 75,479; NPV = $75,479−$60,000 = $15,479\nRe-checking Beta: 9091+16529+22539+27321=75,480; NPV=$15,480'},
+    {label:'a',question:'Calculate NPV for each project.',inputs:['Project Alpha NPV ($)','Project Beta NPV ($)'],keywords:['Alpha','3,397','3397','Beta','13,294','13294','annuity'],modelAnswer:'Alpha: PV = $20,000×PVIFA(10%,4) = $20,000×3.1699 = $63,397; NPV = $63,397−$60,000 = $3,397\nBeta: PV = $10,000/1.10+$20,000/1.21+$30,000/1.331+$40,000/1.4641\n= $9,091+$16,529+$22,539+$27,320 = $75,479; Wait: sum = 75,479; NPV = $75,479−$60,000 = $15,479\nRe-checking Beta: 9091+16529+22539+27321=75,480; NPV=$15,480'},
     {label:'b',type:'sa',question:'Which should the firm choose and why?',keywords:['Beta','higher NPV','15480','15,480','mutually exclusive'],modelAnswer:'Choose Beta — it has the higher NPV ($15,480 vs $3,397). For mutually exclusive projects, always choose the highest NPV.'},
     {label:'c',type:'sa',question:'IRR of Alpha: if all 4 cash flows were $20,000 and cost is $60,000, estimate IRR. Is it above or below 12%? (Hint: test discount rate 12%.)',keywords:['12%','below','NPV positive','3,042','accept','IRR above 10'],modelAnswer:'At 12%: PV = $20,000×PVIFA(12%,4) = $20,000×3.0373 = $60,746; NPV = $746 > 0\nIRR is slightly above 12% (NPV still positive at 12%). IRR > hurdle rate of 10% → Accept.\nExact IRR ≈ 12.6% (would need iteration/calculator).'}
   ],
@@ -4144,7 +4145,25 @@ function renderMultipart(q){
       var inputsHtml='';
       if(p.inputs&&p.inputs.length>1){
         inputsHtml=p.inputs.map(function(lbl,j){
-          return '<div class="part-input-group"><div class="part-input-label">'+lbl+'</div><div class="mq-wrap" id="'+id+'-'+j+'"></div></div>';
+          var stepsId='steps-'+id+'-'+j;
+          var finalId='final-'+id+'-'+j;
+          var firstStepId='step-'+id+'-'+j+'-0';
+          return '<div class="part-input-group">'
+            +'<div class="part-input-label">'+lbl+'</div>'
+            +'<div class="working-area">'
+            +'<div class="working-area-label">Working Steps</div>'
+            +'<div class="working-steps" id="'+stepsId+'">'
+            +'<div class="step-row" data-step="1"><div class="step-num">1</div>'
+            +'<div class="mq-wrap step-mq" id="'+firstStepId+'"></div>'
+            +'<button class="step-del" onmousedown="event.preventDefault();delStep(this)" title="Remove step">✕</button></div>'
+            +'</div>'
+            +'<button class="btn-add-step" onmousedown="event.preventDefault();addStep(\''+stepsId+'\')">+ Add Step</button>'
+            +'<div class="final-answer-wrap">'
+            +'<div class="final-answer-label">Final Answer</div>'
+            +'<div class="mq-wrap" id="'+finalId+'"></div>'
+            +'</div>'
+            +'</div>'
+            +'</div>';
         }).join('');
       } else {
         inputsHtml='<div class="mq-wrap" id="'+id+'"></div>';
@@ -4188,8 +4207,8 @@ function insertMath(sym,targetId){
 
 var _stepCount=0;
 
-function addStep(){
-  var container=document.getElementById('workingSteps');
+function addStep(containerId){
+  var container=document.getElementById(containerId||'workingSteps');
   if(!container) return;
   _stepCount++;
   var newId='step-'+_stepCount;
@@ -4203,10 +4222,10 @@ function addStep(){
 }
 
 function addStepAfter(stepId){
-  var container=document.getElementById('workingSteps');
-  if(!container) return;
   var sourceEl=document.getElementById(stepId);
   var sourceRow=sourceEl?sourceEl.closest('.step-row'):null;
+  var container=sourceEl?sourceEl.closest('.working-steps'):document.getElementById('workingSteps');
+  if(!container) return;
   _stepCount++;
   var newId='step-'+_stepCount;
   var row=document.createElement('div');
@@ -4217,12 +4236,12 @@ function addStepAfter(stepId){
   } else {
     container.appendChild(row);
   }
-  renumberSteps();
+  renumberSteps(container);
   _mqInitElSingle(row.querySelector('.mq-wrap'));
 }
 
-function renumberSteps(){
-  var container=document.getElementById('workingSteps');
+function renumberSteps(container){
+  if(!container) container=document.getElementById('workingSteps');
   if(!container) return;
   Array.from(container.children).forEach(function(r,i){
     r.dataset.step=i+1;
@@ -4233,12 +4252,12 @@ function renumberSteps(){
 
 function delStep(btn){
   var row=btn.closest('.step-row');
-  var container=document.getElementById('workingSteps');
+  var container=row?row.closest('.working-steps'):document.getElementById('workingSteps');
   if(!container||container.children.length<=1) return;
   var mqEl=row.querySelector('.mq-wrap');
   if(mqEl&&mqEl.id) delete _mqFields[mqEl.id];
   row.remove();
-  renumberSteps();
+  renumberSteps(container);
   var remaining=container.querySelectorAll('.mq-wrap');
   var last=remaining[remaining.length-1];
   if(last&&_mqFields[last.id]){var f=_mqFields[last.id];_mqActive=f;setTimeout(function(){try{f.focus();}catch(x){}},0);}
@@ -4254,6 +4273,17 @@ function getWorkingAnswer(){
   var fin=finF?finF.latex().trim():'';
   if(!steps.length&&!fin) return '';
   return steps.concat(fin?['Final Answer: '+fin]:[]).join('\n');
+}
+
+function getWorkingAreaAnswer(stepsId,finalId){
+  var container=document.getElementById(stepsId);
+  var steps=container?Array.from(container.querySelectorAll('.mq-wrap')).map(function(el,i){
+    var f=_mqFields[el.id];var val=f?f.latex().trim():'';
+    return val?'Step '+(i+1)+': '+val:null;
+  }).filter(Boolean):[];
+  var finF=_mqFields[finalId];
+  var fin=finF?finF.latex().trim():'';
+  return steps.concat(fin?['Final: '+fin]:[]).join('\n');
 }
 
 // ── MathQuill setup ──
@@ -4648,7 +4678,11 @@ async function submitAnswer(){
       var useMq=isFinancePart&&p.type!=='sa';
       if(useMq){
         if(p.inputs&&p.inputs.length>1){
-          var vals=p.inputs.map(function(lbl,j){return lbl+': '+_mqVal('part-'+i+'-'+j);});
+          var vals=p.inputs.map(function(lbl,j){
+            var stepsId='steps-part-'+i+'-'+j;
+            var finalId='final-part-'+i+'-'+j;
+            return lbl+': '+getWorkingAreaAnswer(stepsId,finalId);
+          });
           return {answer:vals.join('\n')};
         }
         return {answer:_mqVal('part-'+i)};
@@ -4664,7 +4698,13 @@ async function submitAnswer(){
       var useMq=isFinancePart&&p.type!=='sa';
       if(useMq){
         if(p.inputs&&p.inputs.length>1){
-          p.inputs.forEach(function(_,j){var el=document.getElementById('part-'+i+'-'+j);if(el)el.classList.add('mq-disabled');});
+          p.inputs.forEach(function(_,j){
+            var sc=document.getElementById('steps-part-'+i+'-'+j);
+            if(sc) sc.querySelectorAll('.mq-wrap').forEach(function(el){el.classList.add('mq-disabled');});
+            var fe=document.getElementById('final-part-'+i+'-'+j);
+            if(fe) fe.classList.add('mq-disabled');
+          });
+          document.querySelectorAll('.btn-add-step').forEach(function(b){b.disabled=true;});
         } else {
           var el=document.getElementById('part-'+i);if(el)el.classList.add('mq-disabled');
         }
