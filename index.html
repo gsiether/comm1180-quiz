@@ -5185,7 +5185,7 @@ function loadAdminPanel(){
 
   }
 
-  try{ctbInit();}catch(e){console.error('CTB init error:',e);}
+  try{ctbInit();}catch(e){var el=document.getElementById('ctbQList');if(el)el.innerHTML='<div style="padding:12px;color:var(--red);font-size:.8rem;">Error loading questions: '+e.message+'</div>';}
 
 }
 
@@ -5201,7 +5201,7 @@ let ctbActiveFilter='all';
 
 function ctbInit(){
   ctbSelected=new Set();
-  ctbActiveFilter='all';
+  ctbActiveFilter=0;
   ctbRenderFilters();
   ctbRenderList();
   ctbUpdateCount();
@@ -5210,10 +5210,12 @@ function ctbInit(){
 
 
 function ctbRenderFilters(){
-  var weeks=[...new Set(QUESTIONS.map(function(q){return q.week;}))].sort(function(a,b){return a-b;});
+  var seen={},weeks=[];
+  QUESTIONS.forEach(function(q){if(!seen[q.week]){seen[q.week]=true;weeks.push(q.week);}});
+  weeks.sort(function(a,b){return a-b;});
   var el=document.getElementById('ctbFilters');
   if(!el) return;
-  var chips=['<button class="ctb-filter-chip active" onclick="ctbSetFilter(\'all\',this)">All</button>'];
+  var chips=['<button class="ctb-filter-chip active" onclick="ctbSetFilter(0,this)">All</button>'];
   weeks.forEach(function(w){chips.push('<button class="ctb-filter-chip" onclick="ctbSetFilter('+w+',this)">W'+w+'</button>');});
   el.innerHTML=chips.join('');
 }
@@ -5232,7 +5234,7 @@ function ctbSetFilter(week,btn){
 function ctbRenderList(){
   var el=document.getElementById('ctbQList');
   if(!el) return;
-  var filtered=ctbActiveFilter==='all'?QUESTIONS:QUESTIONS.filter(function(q){return q.week===ctbActiveFilter;});
+  var filtered=ctbActiveFilter===0?QUESTIONS:QUESTIONS.filter(function(q){return q.week===ctbActiveFilter;});
   if(!filtered.length){el.innerHTML='<div style="padding:16px;text-align:center;font-size:.82rem;color:var(--text-3)">No questions</div>';return;}
   var byWeek={};
   filtered.forEach(function(q){var idx=QUESTIONS.indexOf(q);if(!byWeek[q.week])byWeek[q.week]=[];byWeek[q.week].push({q:q,idx:idx});});
@@ -5262,14 +5264,14 @@ function ctbToggle(idx,el){
 
 
 function ctbSelectAll(){
-  var filtered=ctbActiveFilter==='all'?QUESTIONS:QUESTIONS.filter(function(q){return q.week===ctbActiveFilter;});
+  var filtered=ctbActiveFilter===0?QUESTIONS:QUESTIONS.filter(function(q){return q.week===ctbActiveFilter;});
   filtered.forEach(function(q){ctbSelected.add(QUESTIONS.indexOf(q));});
   ctbRenderList();
   ctbUpdateCount();
 }
 
 function ctbClearAll(){
-  if(ctbActiveFilter==='all'){ctbSelected.clear();}
+  if(ctbActiveFilter===0){ctbSelected.clear();}
   else{QUESTIONS.forEach(function(q,i){if(q.week===ctbActiveFilter)ctbSelected.delete(i);});}
   ctbRenderList();
   ctbUpdateCount();
