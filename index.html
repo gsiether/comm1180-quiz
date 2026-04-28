@@ -5185,7 +5185,7 @@ function loadAdminPanel(){
 
   }
 
-  ctbInit();
+  try{ctbInit();}catch(e){console.error('CTB init error:',e);}
 
 }
 
@@ -5225,7 +5225,7 @@ function ctbRenderFilters(){
 
   el.innerHTML='<button class="ctb-filter-chip active" onclick="ctbSetFilter(\'all\',this)">All</button>'
 
-    +weeks.map(w=>`<button class="ctb-filter-chip" onclick="ctbSetFilter(${w},this)">W${w}</button>`).join('');
+    +weeks.map(function(w){return '<button class="ctb-filter-chip" onclick="ctbSetFilter('+w+',this)">W'+w+'</button>';}).join('');
 
 }
 
@@ -5271,23 +5271,29 @@ function ctbRenderList(){
 
   Object.keys(byWeek).sort((a,b)=>a-b).forEach(w=>{
 
-    html+=`<div class="ctb-week-header">Week ${w} · ${(WEEKS[w]&&WEEKS[w].label)||''} (${byWeek[w].length})</div>`;
+    html+='<div class="ctb-week-header">Week '+w+' · '+((WEEKS[w]&&WEEKS[w].label)||'')+' ('+byWeek[w].length+')</div>';
 
     byWeek[w].forEach(({q,idx})=>{
 
       const sel=ctbSelected.has(idx)?'selected':'';
 
-      const qtext=(q.type==='multipart'?q.parts[0].question:q.question)||'';
+      const rawtext=(q.type==='multipart'?(q.scenario||''):(q.question||'')).replace(/<[^>]*>/g,'');
 
-      const truncated=qtext.length>90?qtext.slice(0,90)+'…':qtext;
+      const truncated=rawtext.length>90?rawtext.slice(0,90)+'…':rawtext;
 
-      html+=`<div class="ctb-q-item ${sel}" onclick="ctbToggle(${idx},this)">
-        <div class="ctb-q-cb"></div>
-        <div class="ctb-q-body">
-          <div class="ctb-q-badges"><span class="ctb-q-badge week">W${q.week}</span><span class="ctb-q-badge type">${q.type}</span></div>
-          <div class="ctb-q-text">${truncated}</div>
-        </div>
-      </div>`;
+      const safe=truncated.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+      html+='<div class="ctb-q-item '+sel+'" onclick="ctbToggle('+idx+',this)">'
+
+        +'<div class="ctb-q-cb"></div>'
+
+        +'<div class="ctb-q-body">'
+
+        +'<div class="ctb-q-badges"><span class="ctb-q-badge week">W'+q.week+'</span><span class="ctb-q-badge type">'+q.type+'</span></div>'
+
+        +'<div class="ctb-q-text">'+safe+'</div>'
+
+        +'</div></div>';
 
     });
 
