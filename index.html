@@ -5200,187 +5200,96 @@ let ctbActiveFilter='all';
 
 
 function ctbInit(){
-
   ctbSelected=new Set();
-
   ctbActiveFilter='all';
-
   ctbRenderFilters();
-
   ctbRenderList();
-
   ctbUpdateCount();
-
 }
 
 
 
 function ctbRenderFilters(){
-
-  const weeks=[...new Set(QUESTIONS.map(q=>q.week))].sort((a,b)=>a-b);
-
-  const el=document.getElementById('ctbFilters');
-
+  var weeks=[...new Set(QUESTIONS.map(function(q){return q.week;}))].sort(function(a,b){return a-b;});
+  var el=document.getElementById('ctbFilters');
   if(!el) return;
-
-  el.innerHTML='<button class="ctb-filter-chip active" onclick="ctbSetFilter(\'all\',this)">All</button>'
-
-    +weeks.map(function(w){return '<button class="ctb-filter-chip" onclick="ctbSetFilter('+w+',this)">W'+w+'</button>';}).join('');
-
+  var chips=['<button class="ctb-filter-chip active" onclick="ctbSetFilter(\'all\',this)">All</button>'];
+  weeks.forEach(function(w){chips.push('<button class="ctb-filter-chip" onclick="ctbSetFilter('+w+',this)">W'+w+'</button>');});
+  el.innerHTML=chips.join('');
 }
 
 
 
 function ctbSetFilter(week,btn){
-
   ctbActiveFilter=week;
-
-  document.querySelectorAll('.ctb-filter-chip').forEach(b=>b.classList.remove('active'));
-
+  document.querySelectorAll('.ctb-filter-chip').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
-
   ctbRenderList();
-
 }
 
 
 
 function ctbRenderList(){
-
-  const el=document.getElementById('ctbQList');
-
+  var el=document.getElementById('ctbQList');
   if(!el) return;
-
-  const filtered=ctbActiveFilter==='all'?QUESTIONS:QUESTIONS.filter(q=>q.week===ctbActiveFilter);
-
+  var filtered=ctbActiveFilter==='all'?QUESTIONS:QUESTIONS.filter(function(q){return q.week===ctbActiveFilter;});
   if(!filtered.length){el.innerHTML='<div style="padding:16px;text-align:center;font-size:.82rem;color:var(--text-3)">No questions</div>';return;}
-
-  const byWeek={};
-
-  filtered.forEach((q,_)=>{
-
-    const idx=QUESTIONS.indexOf(q);
-
-    if(!byWeek[q.week]) byWeek[q.week]=[];
-
-    byWeek[q.week].push({q,idx});
-
-  });
-
-  let html='';
-
-  Object.keys(byWeek).sort((a,b)=>a-b).forEach(w=>{
-
-    html+='<div class="ctb-week-header">Week '+w+' · '+((WEEKS[w]&&WEEKS[w].label)||'')+' ('+byWeek[w].length+')</div>';
-
-    byWeek[w].forEach(({q,idx})=>{
-
-      const sel=ctbSelected.has(idx)?'selected':'';
-
-      const rawtext=(q.type==='multipart'?(q.scenario||''):(q.question||'')).replace(/<[^>]*>/g,'');
-
-      const truncated=rawtext.length>90?rawtext.slice(0,90)+'…':rawtext;
-
-      const safe=truncated.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-
-      html+='<div class="ctb-q-item '+sel+'" onclick="ctbToggle('+idx+',this)">'
-
-        +'<div class="ctb-q-cb"></div>'
-
-        +'<div class="ctb-q-body">'
-
-        +'<div class="ctb-q-badges"><span class="ctb-q-badge week">W'+q.week+'</span><span class="ctb-q-badge type">'+q.type+'</span></div>'
-
-        +'<div class="ctb-q-text">'+safe+'</div>'
-
-        +'</div></div>';
-
+  var byWeek={};
+  filtered.forEach(function(q){var idx=QUESTIONS.indexOf(q);if(!byWeek[q.week])byWeek[q.week]=[];byWeek[q.week].push({q:q,idx:idx});});
+  var parts=[];
+  Object.keys(byWeek).sort(function(a,b){return a-b;}).forEach(function(w){
+    parts.push('<div class="ctb-week-header">Week '+w+' · '+((WEEKS[w]&&WEEKS[w].label)||'')+' ('+byWeek[w].length+')</div>');
+    byWeek[w].forEach(function(item){
+      var q=item.q,idx=item.idx;
+      var sel=ctbSelected.has(idx)?'selected':'';
+      var raw=(q.type==='multipart'?(q.scenario||''):(q.question||'')).replace(/<[^>]*>/g,'');
+      var trunc=raw.length>90?raw.slice(0,90)+'…':raw;
+      var safe=trunc.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      parts.push('<div class="ctb-q-item '+sel+'" onclick="ctbToggle('+idx+',this)"><div class="ctb-q-cb"></div><div class="ctb-q-body"><div class="ctb-q-badges"><span class="ctb-q-badge week">W'+q.week+'</span><span class="ctb-q-badge type">'+q.type+'</span></div><div class="ctb-q-text">'+safe+'</div></div></div>');
     });
-
   });
-
-  el.innerHTML=html;
-
+  el.innerHTML=parts.join('');
 }
 
 
 
 function ctbToggle(idx,el){
-
   if(ctbSelected.has(idx)){ctbSelected.delete(idx);el.classList.remove('selected');}
-
   else{ctbSelected.add(idx);el.classList.add('selected');}
-
   ctbUpdateCount();
-
 }
 
 
 
 function ctbSelectAll(){
-
-  const filtered=ctbActiveFilter==='all'?QUESTIONS:QUESTIONS.filter(q=>q.week===ctbActiveFilter);
-
-  filtered.forEach(q=>ctbSelected.add(QUESTIONS.indexOf(q)));
-
+  var filtered=ctbActiveFilter==='all'?QUESTIONS:QUESTIONS.filter(function(q){return q.week===ctbActiveFilter;});
+  filtered.forEach(function(q){ctbSelected.add(QUESTIONS.indexOf(q));});
   ctbRenderList();
-
   ctbUpdateCount();
-
 }
-
-
 
 function ctbClearAll(){
-
-  if(ctbActiveFilter==='all'){
-
-    ctbSelected.clear();
-
-  } else {
-
-    QUESTIONS.forEach((q,i)=>{if(q.week===ctbActiveFilter) ctbSelected.delete(i);});
-
-  }
-
+  if(ctbActiveFilter==='all'){ctbSelected.clear();}
+  else{QUESTIONS.forEach(function(q,i){if(q.week===ctbActiveFilter)ctbSelected.delete(i);});}
   ctbRenderList();
-
   ctbUpdateCount();
-
 }
-
-
 
 function ctbUpdateCount(){
-
-  const n=ctbSelected.size;
-
-  const el=document.getElementById('ctbCount');
-
-  if(el) el.textContent=`${n} question${n===1?'':'s'} selected`;
-
-  const btn=document.getElementById('ctbStartBtn');
-
-  if(btn){btn.disabled=n===0;btn.textContent=n?`Start Custom Test (${n} question${n===1?'':'s'})`:'Start Custom Test';}
-
+  var n=ctbSelected.size;
+  var el=document.getElementById('ctbCount');
+  if(el) el.textContent=n+' question'+(n===1?'':'s')+' selected';
+  var btn=document.getElementById('ctbStartBtn');
+  if(btn){btn.disabled=n===0;btn.textContent=n?'Start Custom Test ('+n+' question'+(n===1?'':'s')+')':'Start Custom Test';}
 }
 
-
-
 function startCustomTest(){
-
   if(!ctbSelected.size) return;
-
-  const pool=Array.from(ctbSelected).map(i=>QUESTIONS[i]);
-
+  var pool=Array.from(ctbSelected).map(function(i){return QUESTIONS[i];});
   closeOverlay('admin-panel');
-
   quizState={questions:pool,idx:0,results:[],mode:'custom',answered:false,currentAnswer:null,missedPool:null,startTime:Date.now(),learnMode:false};
-
   showScreen('quiz');
-
   renderQuestion();
-
 }
 
 
