@@ -673,9 +673,17 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 .notes-formula-row{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}
 
-.notes-ftag{background:var(--blue);color:#fff;border-radius:4px;padding:2px 7px;font-size:.69rem;font-weight:700;white-space:nowrap;flex-shrink:0;font-family:'Courier New',monospace}
+.notes-ftag{background:var(--blue);color:#fff;border-radius:4px;padding:2px 7px;font-size:.69rem;font-weight:700;white-space:nowrap;flex-shrink:0;font-family:'Inter',system-ui,sans-serif}
 
-.notes-fexpr{font-family:'Courier New',monospace;font-size:.82rem;color:var(--text);line-height:1.4}
+.notes-fexpr{font-family:'Inter',system-ui,sans-serif;font-size:.82rem;color:var(--text);line-height:1.4}
+
+.notes-def-row{display:flex;gap:6px;margin-bottom:6px;font-size:.81rem;line-height:1.5;align-items:baseline;flex-wrap:wrap}
+
+.notes-dt{font-weight:700;color:var(--blue);white-space:nowrap;font-family:'Inter',system-ui,sans-serif;min-width:0;flex-shrink:0}
+
+.notes-dd{color:var(--text-2);font-family:'Inter',system-ui,sans-serif;flex:1;min-width:0}
+
+.notes-def-divider{border:none;border-top:1px solid var(--border);margin:8px 0 10px}
 
 .notes-bullet{font-size:.82rem;color:var(--text-2);padding:3px 0 3px 14px;position:relative;line-height:1.5}
 
@@ -1062,61 +1070,17 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
         <div class="notes-week-intro">Week 2 &middot; Market Opportunities</div>
 
-        <div class="notes-section"><div class="notes-section-title">Key Definitions</div>
-
-          <div class="notes-card">
-
-            <div class="notes-formula-row"><span class="notes-ftag">Customer Value</span><span class="notes-fexpr">The net benefit a customer receives from a product: &Sigma;Benefits &minus; &Sigma;Costs. Higher CV than competitors = competitive advantage.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Job to be Done</span><span class="notes-fexpr">Customers &ldquo;hire&rdquo; products to complete a specific task or solve a problem — not just to own features. (e.g. customers want a hole, not a drill.)</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Multi-Attribute Value</span><span class="notes-fexpr">Weighted performance score: &Sigma;(Importance<sub>i</sub> &times; Performance<sub>i</sub>). Used to compare perceived value across competitors.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Segmentation</span><span class="notes-fexpr">Dividing the market into distinct groups of customers with similar needs or characteristics (demographic, psychographic, behavioural, geographic, firmographic).</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Targeting</span><span class="notes-fexpr">Selecting which segment(s) to serve. Must follow segmentation — you cannot target without first defining segments.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Positioning</span><span class="notes-fexpr">How the firm wants its offering perceived in the minds of the target segment relative to competitors. Must follow targeting.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Firmographic Segmentation</span><span class="notes-fexpr">B2B equivalent of demographics — divides markets by firm-level characteristics: industry, company size, revenue, geography.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Cost Leadership</span><span class="notes-fexpr">Competing across the BROAD market by having the lowest cost structure — enabling the lowest price or highest margins.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Differentiation</span><span class="notes-fexpr">Competing across the BROAD market by offering unique features/quality that justify a premium price.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Cost Focus</span><span class="notes-fexpr">Cost leadership applied to a NARROW niche segment — same cost strategy, smaller competitive scope.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Differentiation Focus</span><span class="notes-fexpr">Differentiation applied to a NARROW niche segment — unique offering tailored to a specific customer group.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Market Penetration</span><span class="notes-fexpr">Ansoff: existing product + existing market. Lowest risk — the firm already has expertise in both dimensions.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Market Development</span><span class="notes-fexpr">Ansoff: existing product + new market. Risk from entering unfamiliar territory with no local expertise.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Product Development</span><span class="notes-fexpr">Ansoff: new product + existing market. Risk from developing something new for known customers.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Diversification</span><span class="notes-fexpr">Ansoff: new product + new market. Highest risk — no existing expertise in either dimension.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Value Proposition Canvas</span><span class="notes-fexpr">Tool mapping how a product&apos;s Value Map (pain relievers, gain creators, products/services) aligns with the Customer Profile (pains, gains, jobs). &ldquo;Fit&rdquo; = alignment between both sides.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">EVE</span><span class="notes-fexpr">Economic Value Estimation = Reference Value + Differentiation Value. Sets the maximum price a rational customer would pay before switching — the value-based pricing ceiling.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Functional Value</span><span class="notes-fexpr">Smith &amp; Colgate: value from a product performing a useful task (e.g. a vacuum cleaner that cleans effectively).</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Experiential Value</span><span class="notes-fexpr">Smith &amp; Colgate: value from positive emotions or feelings (e.g. a luxury spa experience).</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Symbolic Value</span><span class="notes-fexpr">Smith &amp; Colgate: value from what a product signals about the owner&apos;s identity or status (e.g. a Rolex watch).</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Cost/Sacrifice Value</span><span class="notes-fexpr">Smith &amp; Colgate: value from minimising what the customer gives up — price, time, effort (e.g. free shipping).</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Stakeholder Value</span><span class="notes-fexpr">Value created for (or costs imposed on) ALL affected parties — employees, communities, suppliers, society — beyond just buyers.</span></div>
-
-          </div>
-
-        </div>
-
         <div class="notes-section"><div class="notes-section-title">Customer Value</div>
 
           <div class="notes-card">
+
+            <div class="notes-def-row"><span class="notes-dt">Customer Value</span><span class="notes-dd">The net benefit a customer receives: &Sigma;Benefits &minus; &Sigma;Costs. Higher CV than competitors = competitive advantage.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Job to be Done</span><span class="notes-dd">Customers &ldquo;hire&rdquo; products to complete a specific task — not to own features. (e.g. customers want a hole, not a drill.)</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Multi-Attribute Value</span><span class="notes-dd">Weighted performance score: &Sigma;(Importance<sub>i</sub> &times; Performance<sub>i</sub>). Used to compare perceived value across competitors.</span></div>
+
+            <hr class="notes-def-divider">
 
             <div class="notes-formula-row"><span class="notes-ftag">CV</span><span class="notes-fexpr">= &Sigma; Benefits &minus; &Sigma; Costs</span></div>
 
@@ -1133,6 +1097,16 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <div class="notes-section"><div class="notes-section-title">STP Framework</div>
 
           <div class="notes-card">
+
+            <div class="notes-def-row"><span class="notes-dt">Segmentation</span><span class="notes-dd">Dividing the market into distinct groups with similar needs (Demographic, Psychographic, Behavioural, Geographic, Firmographic).</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Targeting</span><span class="notes-dd">Selecting which segment(s) to serve. Must follow segmentation — you cannot target without first defining segments.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Positioning</span><span class="notes-dd">How the firm wants its offering perceived in the minds of the target segment relative to competitors. Must follow targeting.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Firmographic Segmentation</span><span class="notes-dd">B2B equivalent of demographics — divides markets by firm characteristics: industry, size, revenue, geography.</span></div>
+
+            <hr class="notes-def-divider">
 
             <div class="notes-bullet"><strong>Segmentation &rarr;</strong> Divide market into groups (Demographic, Psychographic, Behavioural, Firmographic)</div>
 
@@ -1434,53 +1408,25 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
         <div class="notes-week-intro">Week 4 &middot; Balanced Scorecard &mdash; Translating strategy into measurable, balanced objectives</div>
 
-        <div class="notes-section"><div class="notes-section-title">Key Definitions</div>
+        <div class="notes-section"><div class="notes-section-title">Four Perspectives (foundation &rarr; outcome)</div>
 
           <div class="notes-card">
 
-            <div class="notes-formula-row"><span class="notes-ftag">Balanced Scorecard</span><span class="notes-fexpr">A strategic performance management tool (Kaplan &amp; Norton, 1992) that balances financial and non-financial, leading and lagging indicators across four perspectives to give a complete view of strategy execution.</span></div>
+            <div class="notes-def-row"><span class="notes-dt">Balanced Scorecard</span><span class="notes-dd">A strategic performance management tool (Kaplan &amp; Norton, 1992) that balances financial and non-financial, leading and lagging indicators across four perspectives to give a complete view of strategy execution.</span></div>
 
-            <div class="notes-formula-row"><span class="notes-ftag">Financial Perspective</span><span class="notes-fexpr">How does the firm look to shareholders? Measures monetary outcomes — revenue growth, ROI, profit margins. Typically lagging.</span></div>
+            <div class="notes-def-row"><span class="notes-dt">Financial</span><span class="notes-dd">How does the firm look to shareholders? Measures monetary outcomes — revenue growth, ROI, profit margins. Typically lagging.</span></div>
 
-            <div class="notes-formula-row"><span class="notes-ftag">Customer Perspective</span><span class="notes-fexpr">How do customers see the firm? Measures customer outcomes — NPS, satisfaction, retention rate, market share. Typically lagging.</span></div>
+            <div class="notes-def-row"><span class="notes-dt">Customer</span><span class="notes-dd">How do customers see the firm? Measures customer outcomes — NPS, satisfaction, retention rate, market share. Typically lagging.</span></div>
 
-            <div class="notes-formula-row"><span class="notes-ftag">Internal Process Perspective</span><span class="notes-fexpr">What must the firm excel at internally? Measures operational efficiency — cycle time, defect rate, order fulfilment accuracy.</span></div>
+            <div class="notes-def-row"><span class="notes-dt">Internal Process</span><span class="notes-dd">What must the firm excel at internally? Measures operational efficiency — cycle time, defect rate, order fulfilment accuracy.</span></div>
 
-            <div class="notes-formula-row"><span class="notes-ftag">Learning &amp; Growth Perspective</span><span class="notes-fexpr">Can the firm continue to improve? Measures capability building — training hours, staff turnover, IT system capability. The foundation enabling all other perspectives.</span></div>
+            <div class="notes-def-row"><span class="notes-dt">Learning &amp; Growth</span><span class="notes-dd">Can the firm continue to improve? Measures capability building — training hours, staff turnover, IT system capability. The foundation enabling all other perspectives.</span></div>
 
-            <div class="notes-formula-row"><span class="notes-ftag">Leading Indicator</span><span class="notes-fexpr">Predicts future performance (a CAUSE). Acts as an early warning signal — e.g. training hours predict future staff productivity. Enables proactive intervention.</span></div>
+            <div class="notes-def-row"><span class="notes-dt">KPI</span><span class="notes-dd">Key Performance Indicator — a quantitative metric used to monitor progress toward a strategic objective. Must be specific, measurable, and linked to strategy.</span></div>
 
-            <div class="notes-formula-row"><span class="notes-ftag">Lagging Indicator</span><span class="notes-fexpr">Measures past outcomes (an EFFECT). Reports what has already happened — e.g. net profit, customer churn rate. Cannot be used to intervene before the result is locked in.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Strategy Map</span><span class="notes-fexpr">A diagram showing cause-and-effect links between strategic objectives across all four BSC perspectives, making explicit how L&amp;G investments ultimately drive Financial outcomes.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">KPI</span><span class="notes-fexpr">Key Performance Indicator — a quantitative metric used to monitor progress toward a strategic objective. Must be specific, measurable, and linked to strategy.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Tunnel Vision</span><span class="notes-fexpr">Dysfunctional consequence: over-focus on one metric causes neglect of equally important unmeasured areas (e.g. measuring only speed causes quality to suffer).</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Gaming</span><span class="notes-fexpr">Dysfunctional consequence: manipulating the metric without improving the underlying performance (e.g. deferring R&amp;D to hit a short-term profit target).</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Perfect Transmission</span><span class="notes-fexpr">Digital information can be sent without loss, distortion, or degradation across any distance at minimal cost.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Indefinite Replication</span><span class="notes-fexpr">Digital products can be copied unlimited times with no quality loss, unlike physical goods that wear with use.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Near-Zero Marginal Cost</span><span class="notes-fexpr">After the initial infrastructure investment, the cost of serving one additional digital customer approaches zero — enabling massive scalability without proportional cost growth.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Business Model Canvas</span><span class="notes-fexpr">A strategic tool mapping how a firm creates, delivers, and captures value across 9 building blocks: Customer Segments, Value Propositions, Channels, Customer Relationships, Revenue Streams, Key Resources, Key Activities, Key Partnerships, Cost Structure.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Pipeline Model</span><span class="notes-fexpr">A business model where value flows linearly: firm creates product &rarr; sells to customer (e.g. traditional retailer, taxi company).</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Platform Model</span><span class="notes-fexpr">A business model that facilitates interactions between two or more user groups, creating value through network effects (e.g. Uber, Airbnb, eBay).</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Network Effect</span><span class="notes-fexpr">The phenomenon where a platform becomes more valuable as more users join — e.g. Uber is more useful with more drivers AND more riders. Creates exponential value growth.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Information Capital</span><span class="notes-fexpr">BSC term for technology assets (IT systems, databases, infrastructure) that sit in the Learning &amp; Growth perspective as a leading investment driving future process and financial outcomes.</span></div>
+            <hr class="notes-def-divider">
 
           </div>
-
-        </div>
-
-        <div class="notes-section"><div class="notes-section-title">Four Perspectives (foundation &rarr; outcome)</div>
 
           <table class="notes-tbl">
 
@@ -1504,6 +1450,12 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
           <div class="notes-card">
 
+            <div class="notes-def-row"><span class="notes-dt">Leading Indicator</span><span class="notes-dd">Predicts future performance (a CAUSE). Acts as an early warning signal — e.g. training hours predict future staff productivity. Enables proactive intervention.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Lagging Indicator</span><span class="notes-dd">Measures past outcomes (an EFFECT). Reports what has already happened — e.g. net profit, customer churn rate. Cannot be used to intervene before the result is locked in.</span></div>
+
+            <hr class="notes-def-divider">
+
             <div class="notes-formula-row"><span class="notes-ftag">Leading</span><span class="notes-fexpr">Predicts future performance (cause) &mdash; e.g. training hours</span></div>
 
             <div class="notes-formula-row"><span class="notes-ftag">Lagging</span><span class="notes-fexpr">Measures past outcomes (effect) &mdash; e.g. net profit, churn rate</span></div>
@@ -1517,6 +1469,10 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <div class="notes-section"><div class="notes-section-title">Strategy Map &amp; Origin</div>
 
           <div class="notes-card">
+
+            <div class="notes-def-row"><span class="notes-dt">Strategy Map</span><span class="notes-dd">A diagram showing cause-and-effect links between strategic objectives across all four BSC perspectives, making explicit how Learning &amp; Growth investments ultimately drive Financial outcomes.</span></div>
+
+            <hr class="notes-def-divider">
 
             <div class="notes-bullet">Strategy map = diagram of cause-and-effect links between objectives across all 4 perspectives</div>
 
@@ -1533,6 +1489,12 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <div class="notes-section"><div class="notes-section-title">Dysfunctional Consequences of Performance Measures</div>
 
           <div class="notes-card">
+
+            <div class="notes-def-row"><span class="notes-dt">Tunnel Vision</span><span class="notes-dd">Dysfunctional consequence: over-focus on one metric causes neglect of equally important unmeasured areas (e.g. measuring only speed causes quality to suffer).</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Gaming</span><span class="notes-dd">Dysfunctional consequence: manipulating the metric without improving the underlying performance (e.g. deferring R&amp;D to hit a short-term profit target).</span></div>
+
+            <hr class="notes-def-divider">
 
             <div class="notes-formula-row"><span class="notes-ftag">Tunnel Vision</span><span class="notes-fexpr">Focus on one metric &rarr; other important areas neglected (e.g. speed vs quality)</span></div>
 
@@ -1566,6 +1528,16 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
         <div class="notes-section"><div class="notes-section-title">Business Model Canvas (9 Blocks)</div>
 
+          <div class="notes-card">
+
+            <div class="notes-def-row"><span class="notes-dt">Business Model Canvas</span><span class="notes-dd">A strategic tool (Osterwalder) mapping how a firm creates, delivers, and captures value across 9 building blocks: Customer Segments, Value Propositions, Channels, Customer Relationships, Revenue Streams, Key Resources, Key Activities, Key Partnerships, Cost Structure.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Information Capital</span><span class="notes-dd">BSC term for technology assets (IT systems, databases, infrastructure) that sit in the Learning &amp; Growth perspective as a leading investment driving future process and financial outcomes.</span></div>
+
+            <hr class="notes-def-divider">
+
+          </div>
+
           <table class="notes-tbl">
 
             <tr><th>Block</th><th>What it captures</th></tr>
@@ -1597,6 +1569,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <div class="notes-section"><div class="notes-section-title">Platform vs Pipeline Business Models</div>
 
           <div class="notes-card">
+
+            <div class="notes-def-row"><span class="notes-dt">Pipeline Model</span><span class="notes-dd">A business model where value flows linearly: firm creates product &rarr; sells to customer (e.g. traditional retailer, taxi company).</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Platform Model</span><span class="notes-dd">A business model that facilitates interactions between two or more user groups, creating value through network effects (e.g. Uber, Airbnb, eBay).</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Network Effect</span><span class="notes-dd">The phenomenon where a platform becomes more valuable as more users join — e.g. Uber is more useful with more drivers AND more riders. Creates exponential value growth.</span></div>
+
+            <hr class="notes-def-divider">
 
             <div class="notes-formula-row"><span class="notes-ftag">Pipeline</span><span class="notes-fexpr">Linear: firm creates product &rarr; sells to customer (e.g. traditional taxi company)</span></div>
 
@@ -2074,55 +2054,19 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
         <div class="notes-week-intro">Week 10 &middot; Integration &mdash; Connecting all course topics to long-run value creation</div>
 
-        <div class="notes-section"><div class="notes-section-title">Key Definitions</div>
-
-          <div class="notes-card">
-
-            <div class="notes-formula-row"><span class="notes-ftag">ROIC</span><span class="notes-fexpr">Return on Invested Capital — the return a firm earns on the capital deployed in its operations. Compared to WACC to determine whether value is created or destroyed.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">WACC</span><span class="notes-fexpr">Weighted Average Cost of Capital — the minimum return a firm must earn to satisfy all capital providers (debt + equity). Acts as the hurdle rate in NPV analysis and the benchmark for ROIC.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Value Creation</span><span class="notes-fexpr">Occurs when ROIC &gt; WACC — the firm earns more on its invested capital than it costs to finance. Equivalent to NPV &gt; 0 at the project level.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Value Destruction</span><span class="notes-fexpr">Occurs when ROIC &lt; WACC — capital is deployed in projects that do not cover their financing cost. Equivalent to NPV &lt; 0.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Shareholder Theory</span><span class="notes-fexpr">Friedman: a firm&apos;s sole social responsibility is to maximise returns to shareholders, within legal and ethical rules. Social investment is shareholders&apos; private choice, not the firm&apos;s duty.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Stakeholder Theory</span><span class="notes-fexpr">Freeman: firms have responsibilities to ALL stakeholders — employees, customers, suppliers, communities, environment — not just shareholders. Ignoring stakeholders creates long-run risks that destroy value.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">ESG</span><span class="notes-fexpr">Environmental, Social, Governance — dimensions of non-financial risk. Poor ESG performance &rarr; higher perceived risk &rarr; higher cost of capital (WACC) &rarr; fewer value-creating projects pass the NPV hurdle.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Critical Success Factor (CSF)</span><span class="notes-fexpr">A strategic area where the organisation MUST excel to achieve its goals. Qualitative priority — e.g. &ldquo;patient safety&rdquo; for a hospital. Defines WHAT matters.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">KPI</span><span class="notes-fexpr">Key Performance Indicator — a quantitative measure monitoring progress toward a CSF. e.g. &ldquo;hospital-acquired infections per 1,000 patient days.&rdquo; Measures HOW WELL the CSF is being achieved.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Financial Measures</span><span class="notes-fexpr">Performance measures expressed in monetary terms (profit, ROI, revenue). Lagging — they show past outcomes but cannot predict future performance or capture how strategy is being executed.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Non-Financial Measures</span><span class="notes-fexpr">Performance measures not expressed in money (customer satisfaction, defect rate, training hours). Often leading — they predict future financial outcomes by tracking operational and human drivers.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Quantitative Measures</span><span class="notes-fexpr">Measures expressed as numbers, enabling comparison and benchmarking. Limitation: not everything important can be quantified (e.g. brand reputation, culture).</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Qualitative Measures</span><span class="notes-fexpr">Measures that capture important dimensions through description rather than numbers (e.g. management quality, brand strength). Subjective but captures what numbers miss.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Internal Measures</span><span class="notes-fexpr">Track performance within the firm — process efficiency, cost control, cycle times. Limitation: do not capture whether value is actually being delivered to external stakeholders.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">External Measures</span><span class="notes-fexpr">Track stakeholder outcomes beyond the firm — customer satisfaction, market share, community impact. Capture whether internal processes translate into real-world value.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Integrated Report</span><span class="notes-fexpr">A report communicating how an organisation creates value over time across six capitals (financial, manufactured, intellectual, human, social/relationship, natural) — beyond just financial profit.</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">6 Capitals</span><span class="notes-fexpr">Financial (funds) · Manufactured (physical assets) · Intellectual (IP, knowledge) · Human (employee skills) · Social &amp; Relationship (reputation, community) · Natural (environmental resources).</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Pieconomics</span><span class="notes-fexpr">Framework asking whether a firm&apos;s activity grows both the private AND social &ldquo;pie.&rdquo; Three tests: Multiplication ($1 cost &rarr; &gt;$1 social benefit), Comparative Advantage (firm creates more benefit than alternatives), Materiality (benefits a significant stakeholder group).</span></div>
-
-            <div class="notes-formula-row"><span class="notes-ftag">Dysfunctional Consequences</span><span class="notes-fexpr">Unintended negative behaviours caused by poorly designed performance measures — e.g. tunnel vision (focus on one metric neglects others), gaming (manipulate the number without improving real performance).</span></div>
-
-          </div>
-
-        </div>
-
         <div class="notes-section"><div class="notes-section-title">Value Creation Test</div>
 
           <div class="notes-card">
+
+            <div class="notes-def-row"><span class="notes-dt">ROIC</span><span class="notes-dd">Return on Invested Capital — the return a firm earns on the capital deployed in its operations. Compared to WACC to determine whether value is created or destroyed.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">WACC</span><span class="notes-dd">Weighted Average Cost of Capital — the minimum return a firm must earn to satisfy all capital providers (debt + equity). Acts as the hurdle rate in NPV analysis and the benchmark for ROIC.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Value Creation</span><span class="notes-dd">Occurs when ROIC &gt; WACC — the firm earns more on its invested capital than it costs to finance. Equivalent to NPV &gt; 0 at the project level.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Value Destruction</span><span class="notes-dd">Occurs when ROIC &lt; WACC — capital is deployed in projects that do not cover their financing cost. Equivalent to NPV &lt; 0.</span></div>
+
+            <hr class="notes-def-divider">
 
             <div class="notes-formula-row"><span class="notes-ftag">Creates Value</span><span class="notes-fexpr">ROIC &gt; WACC &mdash; firm earns more than cost of capital</span></div>
 
@@ -2184,6 +2128,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
           <div class="notes-card">
 
+            <div class="notes-def-row"><span class="notes-dt">Shareholder Theory (Friedman)</span><span class="notes-dd">A firm&apos;s sole social responsibility is to maximise returns to shareholders, within legal and ethical rules. Social investment is shareholders&apos; private choice, not the firm&apos;s duty.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Stakeholder Theory (Freeman)</span><span class="notes-dd">Firms have responsibilities to ALL stakeholders — employees, customers, suppliers, communities, environment — not just shareholders. Ignoring stakeholders creates long-run risks that destroy value.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">ESG</span><span class="notes-dd">Environmental, Social, Governance — dimensions of non-financial risk. Poor ESG performance &rarr; higher perceived risk &rarr; higher WACC &rarr; fewer value-creating projects pass the NPV hurdle.</span></div>
+
+            <hr class="notes-def-divider">
+
             <div class="notes-formula-row"><span class="notes-ftag">Friedman</span><span class="notes-fexpr">Firm&apos;s sole duty = maximise returns to shareholders. Social responsibility = shareholders&apos; private choice, not firm&apos;s.</span></div>
 
             <div class="notes-formula-row"><span class="notes-ftag">Freeman</span><span class="notes-fexpr">Firm must consider ALL stakeholders — employees, customers, suppliers, communities, environment.</span></div>
@@ -2202,6 +2154,12 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
           <div class="notes-card">
 
+            <div class="notes-def-row"><span class="notes-dt">Critical Success Factor (CSF)</span><span class="notes-dd">A strategic area where the organisation MUST excel to achieve its goals. Qualitative priority — e.g. &ldquo;patient safety&rdquo; for a hospital. Defines WHAT matters.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">KPI</span><span class="notes-dd">Key Performance Indicator — a quantitative measure monitoring progress toward a CSF. e.g. &ldquo;hospital-acquired infections per 1,000 patient days.&rdquo; Measures HOW WELL the CSF is being achieved.</span></div>
+
+            <hr class="notes-def-divider">
+
             <div class="notes-formula-row"><span class="notes-ftag">CSF</span><span class="notes-fexpr">Critical Success Factor — a strategic area the organisation MUST excel at (qualitative priority)</span></div>
 
             <div class="notes-formula-row"><span class="notes-ftag">KPI</span><span class="notes-fexpr">Key Performance Indicator — a quantitative measure that monitors progress toward the CSF</span></div>
@@ -2217,6 +2175,24 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         </div>
 
         <div class="notes-section"><div class="notes-section-title">Three Types of Performance Measures</div>
+
+          <div class="notes-card">
+
+            <div class="notes-def-row"><span class="notes-dt">Financial Measures</span><span class="notes-dd">Performance measures expressed in monetary terms (profit, ROI, revenue). Lagging — they show past outcomes but cannot predict future performance or capture how strategy is being executed.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Non-Financial Measures</span><span class="notes-dd">Performance measures not expressed in money (customer satisfaction, defect rate, training hours). Often leading — they predict future financial outcomes by tracking operational and human drivers.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Quantitative Measures</span><span class="notes-dd">Measures expressed as numbers, enabling comparison and benchmarking. Limitation: not everything important can be quantified (e.g. brand reputation, culture).</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Qualitative Measures</span><span class="notes-dd">Measures that capture important dimensions through description rather than numbers (e.g. management quality, brand strength). Subjective but captures what numbers miss.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">Internal Measures</span><span class="notes-dd">Track performance within the firm — process efficiency, cost control, cycle times. Limitation: do not capture whether value is actually being delivered to external stakeholders.</span></div>
+
+            <div class="notes-def-row"><span class="notes-dt">External Measures</span><span class="notes-dd">Track stakeholder outcomes beyond the firm — customer satisfaction, market share, community impact. Capture whether internal processes translate into real-world value.</span></div>
+
+            <hr class="notes-def-divider">
+
+          </div>
 
           <table class="notes-tbl">
 
@@ -2237,6 +2213,10 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <div class="notes-section"><div class="notes-section-title">Integrated Report — 6 Capitals</div>
 
           <div class="notes-card">
+
+            <div class="notes-def-row"><span class="notes-dt">Integrated Report</span><span class="notes-dd">A report communicating how an organisation creates value over time across six capitals (financial, manufactured, intellectual, human, social/relationship, natural) — beyond just financial profit.</span></div>
+
+            <hr class="notes-def-divider">
 
             <div class="notes-card-title">An Integrated Report measures value creation across all six capitals:</div>
 
@@ -2261,6 +2241,10 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <div class="notes-section"><div class="notes-section-title">Pieconomics — 3 Principles</div>
 
           <div class="notes-card">
+
+            <div class="notes-def-row"><span class="notes-dt">Pieconomics</span><span class="notes-dd">Framework asking whether a firm&apos;s activity grows both the private AND social &ldquo;pie.&rdquo; Three tests: Multiplication ($1 cost &rarr; &gt;$1 social benefit), Comparative Advantage (firm creates more benefit than alternatives), Materiality (benefits a significant stakeholder group).</span></div>
+
+            <hr class="notes-def-divider">
 
             <div class="notes-card-title">Asks: does growing the firm&apos;s &ldquo;pie&rdquo; also grow the social pie?</div>
 
