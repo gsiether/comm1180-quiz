@@ -559,6 +559,32 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 .api-key-display{font-family:monospace;font-size:.78rem;background:var(--bg);padding:7px 10px;border-radius:6px;color:var(--text-3);word-break:break-all;border:1px solid var(--border);margin-top:6px}
 
+/* Custom Test Builder */
+.ctb-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.ctb-filter-chip{background:var(--bg);border:1.5px solid var(--border);border-radius:20px;padding:4px 12px;font-size:.75rem;font-weight:600;color:var(--text-2);cursor:pointer;font-family:inherit;transition:all .15s}
+.ctb-filter-chip:hover{border-color:var(--blue);color:var(--blue)}
+.ctb-filter-chip.active{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
+.ctb-controls{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.ctb-count{font-size:.78rem;color:var(--text-3);flex:1}
+.ctb-qlist{max-height:340px;overflow-y:auto;border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:10px}
+.ctb-week-header{padding:6px 10px;background:var(--bg);font-size:.72rem;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:1}
+.ctb-q-item{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;user-select:none}
+.ctb-q-item:last-child{border-bottom:none}
+.ctb-q-item:hover{background:var(--blue-light)}
+.ctb-q-item.selected{background:var(--blue-light)}
+.ctb-q-cb{width:16px;height:16px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .1s}
+.ctb-q-item.selected .ctb-q-cb{background:var(--blue);border-color:var(--blue)}
+.ctb-q-item.selected .ctb-q-cb::after{content:'✓';color:#fff;font-size:.7rem;font-weight:700}
+.ctb-q-body{flex:1;min-width:0}
+.ctb-q-badges{display:flex;gap:4px;margin-bottom:3px;flex-wrap:wrap}
+.ctb-q-badge{display:inline-block;border-radius:20px;padding:2px 7px;font-size:.66rem;font-weight:600}
+.ctb-q-badge.week{background:var(--blue-light);color:var(--blue)}
+.ctb-q-badge.type{background:var(--purple-light);color:var(--purple)}
+.ctb-q-text{font-size:.8rem;color:var(--text);line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.btn-ctb-start{width:100%;padding:11px;background:var(--blue);color:#fff;border:none;border-radius:var(--r-sm);font-size:.88rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn-ctb-start:hover{background:var(--blue-dark)}
+.btn-ctb-start:disabled{background:var(--border);color:var(--text-3);cursor:not-allowed}
+
 
 
 /* Buttons */
@@ -2153,6 +2179,28 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <h3>Statistics</h3>
 
         <div id="adminStats" style="font-size:.84rem;color:var(--text-2);line-height:2"></div>
+
+      </div>
+
+      <div class="admin-section">
+
+        <h3>Custom Test Builder</h3>
+
+        <div class="ctb-filters" id="ctbFilters"></div>
+
+        <div class="ctb-controls">
+
+          <span class="ctb-count" id="ctbCount">0 questions selected</span>
+
+          <button class="btn btn-outline btn-sm" onclick="ctbSelectAll()">Select All</button>
+
+          <button class="btn btn-outline btn-sm" onclick="ctbClearAll()">Clear</button>
+
+        </div>
+
+        <div class="ctb-qlist" id="ctbQList"></div>
+
+        <button class="btn-ctb-start" id="ctbStartBtn" disabled onclick="startCustomTest()">Start Custom Test</button>
 
       </div>
 
@@ -5136,6 +5184,196 @@ function loadAdminPanel(){
     stats.innerHTML=`Total questions: <strong>${QUESTIONS.length}</strong><br>Sessions completed: <strong>${h.length}</strong><br>${Object.keys(WEEKS).map(w=>`Week ${w}: <strong>${QUESTIONS.filter(q=>q.week==w).length}</strong> questions`).join('<br>')}`;
 
   }
+
+  ctbInit();
+
+}
+
+
+
+// ── CUSTOM TEST BUILDER ──
+
+let ctbSelected=new Set();
+
+let ctbActiveFilter='all';
+
+
+
+function ctbInit(){
+
+  ctbSelected=new Set();
+
+  ctbActiveFilter='all';
+
+  ctbRenderFilters();
+
+  ctbRenderList();
+
+  ctbUpdateCount();
+
+}
+
+
+
+function ctbRenderFilters(){
+
+  const weeks=[...new Set(QUESTIONS.map(q=>q.week))].sort((a,b)=>a-b);
+
+  const el=document.getElementById('ctbFilters');
+
+  if(!el) return;
+
+  el.innerHTML='<button class="ctb-filter-chip active" onclick="ctbSetFilter(\'all\',this)">All</button>'
+
+    +weeks.map(w=>`<button class="ctb-filter-chip" onclick="ctbSetFilter(${w},this)">W${w}</button>`).join('');
+
+}
+
+
+
+function ctbSetFilter(week,btn){
+
+  ctbActiveFilter=week;
+
+  document.querySelectorAll('.ctb-filter-chip').forEach(b=>b.classList.remove('active'));
+
+  btn.classList.add('active');
+
+  ctbRenderList();
+
+}
+
+
+
+function ctbRenderList(){
+
+  const el=document.getElementById('ctbQList');
+
+  if(!el) return;
+
+  const filtered=ctbActiveFilter==='all'?QUESTIONS:QUESTIONS.filter(q=>q.week===ctbActiveFilter);
+
+  if(!filtered.length){el.innerHTML='<div style="padding:16px;text-align:center;font-size:.82rem;color:var(--text-3)">No questions</div>';return;}
+
+  const byWeek={};
+
+  filtered.forEach((q,_)=>{
+
+    const idx=QUESTIONS.indexOf(q);
+
+    if(!byWeek[q.week]) byWeek[q.week]=[];
+
+    byWeek[q.week].push({q,idx});
+
+  });
+
+  let html='';
+
+  Object.keys(byWeek).sort((a,b)=>a-b).forEach(w=>{
+
+    html+=`<div class="ctb-week-header">Week ${w} · ${(WEEKS[w]&&WEEKS[w].label)||''} (${byWeek[w].length})</div>`;
+
+    byWeek[w].forEach(({q,idx})=>{
+
+      const sel=ctbSelected.has(idx)?'selected':'';
+
+      const qtext=(q.type==='multipart'?q.parts[0].question:q.question)||'';
+
+      const truncated=qtext.length>90?qtext.slice(0,90)+'…':qtext;
+
+      html+=`<div class="ctb-q-item ${sel}" onclick="ctbToggle(${idx},this)">
+        <div class="ctb-q-cb"></div>
+        <div class="ctb-q-body">
+          <div class="ctb-q-badges"><span class="ctb-q-badge week">W${q.week}</span><span class="ctb-q-badge type">${q.type}</span></div>
+          <div class="ctb-q-text">${truncated}</div>
+        </div>
+      </div>`;
+
+    });
+
+  });
+
+  el.innerHTML=html;
+
+}
+
+
+
+function ctbToggle(idx,el){
+
+  if(ctbSelected.has(idx)){ctbSelected.delete(idx);el.classList.remove('selected');}
+
+  else{ctbSelected.add(idx);el.classList.add('selected');}
+
+  ctbUpdateCount();
+
+}
+
+
+
+function ctbSelectAll(){
+
+  const filtered=ctbActiveFilter==='all'?QUESTIONS:QUESTIONS.filter(q=>q.week===ctbActiveFilter);
+
+  filtered.forEach(q=>ctbSelected.add(QUESTIONS.indexOf(q)));
+
+  ctbRenderList();
+
+  ctbUpdateCount();
+
+}
+
+
+
+function ctbClearAll(){
+
+  if(ctbActiveFilter==='all'){
+
+    ctbSelected.clear();
+
+  } else {
+
+    QUESTIONS.forEach((q,i)=>{if(q.week===ctbActiveFilter) ctbSelected.delete(i);});
+
+  }
+
+  ctbRenderList();
+
+  ctbUpdateCount();
+
+}
+
+
+
+function ctbUpdateCount(){
+
+  const n=ctbSelected.size;
+
+  const el=document.getElementById('ctbCount');
+
+  if(el) el.textContent=`${n} question${n===1?'':'s'} selected`;
+
+  const btn=document.getElementById('ctbStartBtn');
+
+  if(btn){btn.disabled=n===0;btn.textContent=n?`Start Custom Test (${n} question${n===1?'':'s'})`:'Start Custom Test';}
+
+}
+
+
+
+function startCustomTest(){
+
+  if(!ctbSelected.size) return;
+
+  const pool=Array.from(ctbSelected).map(i=>QUESTIONS[i]);
+
+  closeOverlay('admin-panel');
+
+  quizState={questions:pool,idx:0,results:[],mode:'custom',answered:false,currentAnswer:null,missedPool:null,startTime:Date.now(),learnMode:false};
+
+  showScreen('quiz');
+
+  renderQuestion();
 
 }
 
