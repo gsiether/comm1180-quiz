@@ -721,6 +721,13 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 .fml-note{font-size:.72rem;color:var(--text-3);border-top:1px dashed var(--border);padding-top:5px;margin-top:5px;line-height:1.5}
 
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;gap:0;font-size:.85em;line-height:1.1}
+.frac .num{border-bottom:1.5px solid currentColor;padding:1px 5px;text-align:center}
+.frac .den{padding:1px 5px;text-align:center}
+.frac-inline{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;gap:0;font-size:.82em;line-height:1.1}
+.frac-inline .num{border-bottom:1px solid currentColor;padding:0 3px;text-align:center}
+.frac-inline .den{padding:0 3px;text-align:center}
+
 
 
 /* ── SCENARIO TABLES ── */
@@ -2384,11 +2391,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 <div class="overlay" id="formula-overlay">
 
-  <div class="overlay-panel">
+  <div class="overlay-panel" style="max-width:640px">
 
     <div class="overlay-head">
 
-      <h2>📐 Formula Reference</h2>
+      <div>
+        <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:2px">COMM1180 Value Creation</div>
+        <h2 style="margin:0;font-size:1.05rem">Final Exam Formula Sheet</h2>
+      </div>
 
       <button class="close-btn" onclick="closeOverlay('formula-overlay')">✕</button>
 
@@ -2410,152 +2420,195 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
     <div class="overlay-body">
 
+      <!-- ── W3 CVP ── -->
       <div id="f-cvp" class="tab-content active">
-
-        <div class="fml-group"><div class="fml-group-title">Contribution Margin</div>
-
-          <div class="fml-card"><div class="fml-name">CM per unit</div><div class="fml-expr">CM = Selling Price &minus; Variable Cost</div><div class="fml-use">Use this when calculating how much each unit contributes to covering fixed costs and profit. Needed for every CVP calculation.</div></div>
-
-          <div class="fml-card"><div class="fml-name">CM Ratio &amp; VC Ratio</div><div class="fml-expr">CM Ratio = CM &divide; SP &nbsp;&middot;&nbsp; VC Ratio = VC &divide; SP</div><div class="fml-note">CM Ratio + VC Ratio = 1 always</div><div class="fml-use">Use CM Ratio when you want revenue-based BEP, or to find how much profit changes for every $1 of extra revenue.</div></div>
-
-        </div>
 
         <div class="fml-group"><div class="fml-group-title">Break-Even Point</div>
 
-          <div class="fml-card"><div class="fml-name">In Units</div><div class="fml-expr">BEP = Fixed Costs &divide; CM per unit</div><div class="fml-use">Use when the question asks how many units must be sold to break even (profit = $0).</div></div>
+          <div class="fml-card">
+            <div class="fml-expr"><em>Breakeven point</em> &nbsp;⟹&nbsp; Total Sales Quantity = <span class="frac"><span class="num">Total fixed costs</span><span class="den">Contribution margin per unit</span></span></div>
+          </div>
 
-          <div class="fml-card"><div class="fml-name">In Revenue</div><div class="fml-expr">BEP$ = Fixed Costs &divide; CM Ratio</div><div class="fml-use">Use when asked for break-even in sales dollars. Equivalent: BEP revenue = BEP units &times; selling price.</div></div>
+          <div class="fml-card">
+            <div class="fml-expr"><em>Target profit</em> &nbsp;⟹&nbsp; Total Sales Quantity = <span class="frac"><span class="num">Total fixed costs + Target pretax profit</span><span class="den">Contribution margin per unit</span></span></div>
+          </div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">Multi-Product CVP</div>
+        <div class="fml-group"><div class="fml-group-title">Multi-Product</div>
 
-          <div class="fml-card"><div class="fml-name">Weighted Average CM</div><div class="fml-expr">WACM = &Sigma; (CM<sub>i</sub> &times; Sales Mix %<sub>i</sub>)</div><div class="fml-use">Use when multiple products are sold together in a fixed mix. WACM replaces CM per unit in BEP and target calculations.</div></div>
+          <div class="fml-card">
+            <div class="fml-expr"><em>Breakeven point</em> &nbsp;⟹&nbsp; Total Sales Quantity = <span class="frac"><span class="num">Total fixed costs</span><span class="den">Weighted average contribution margin per unit</span></span></div>
+          </div>
 
-          <div class="fml-card"><div class="fml-name">Target Volume</div><div class="fml-expr">Units = (FC + Pre-tax Profit) &divide; WACM</div><div class="fml-note">Pre-tax Profit = After-tax &divide; (1 &minus; tax rate)</div><div class="fml-use">Use when asked how many total units are needed to earn a specific profit. Always convert after-tax to pre-tax first.</div></div>
+          <div class="fml-card">
+            <div class="fml-expr"><em>Target profit</em> &nbsp;⟹&nbsp; Total Sales Quantity = <span class="frac"><span class="num">Total fixed costs + Target pretax profit</span><span class="den">Weighted average contribution margin per unit</span></span></div>
+          </div>
 
         </div>
 
         <div class="fml-group"><div class="fml-group-title">Margin of Safety</div>
 
-          <div class="fml-card"><div class="fml-expr">MOS = Actual Sales &minus; BEP Sales</div><div class="fml-note">MOS % = MOS &divide; Actual Sales &times; 100%</div><div class="fml-use">Use to measure how much sales can fall before reaching break-even. Higher MOS% = more cushion against downturns.</div></div>
+          <div class="fml-card">
+            <div class="fml-expr"><em>Margin of safety</em> = Actual or expected units of activity &minus; Units at BEP</div>
+          </div>
 
         </div>
 
       </div>
 
+      <!-- ── W5 TVM ── -->
       <div id="f-tvm" class="tab-content">
 
         <div class="fml-group"><div class="fml-group-title">Lump Sum</div>
 
-          <div class="fml-card"><div class="fml-name">Future Value</div><div class="fml-expr">FV = PV &times; (1 + r)<sup>n</sup></div><div class="fml-vars">r = periodic rate &nbsp;&middot;&nbsp; n = number of periods</div><div class="fml-use">Use when you have a sum today and want to know its value at a future date after earning interest.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>FV</em> = PV(1 + r)<sup>n</sup></div></div>
 
-          <div class="fml-card"><div class="fml-name">Present Value</div><div class="fml-expr">PV = FV &divide; (1 + r)<sup>n</sup></div><div class="fml-use">Use when you know a future cash flow and want to find what it is worth in today's dollars.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>PV</em> = <span class="frac"><span class="num">FV</span><span class="den">(1 + r)<sup>n</sup></span></span></div></div>
 
-          <div class="fml-card"><div class="fml-name">Solve for r / n</div><div class="fml-expr">r = (FV &divide; PV)<sup>1/n</sup> &minus; 1 &nbsp;&middot;&nbsp; n = ln(FV&divide;PV) &divide; ln(1+r)</div><div class="fml-use">Use when you have both PV and FV and need to find the unknown rate of return or time horizon.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>r</em> = <span style="display:inline-flex;align-items:center;gap:2px"><span style="font-size:.9em">(</span><span class="frac" style="font-size:.88em"><span class="num">FV</span><span class="den">PV</span></span><span style="font-size:.9em">)</span></span><sup style="font-size:.75em">1/n</sup> &minus; 1</div></div>
+
+          <div class="fml-card"><div class="fml-expr"><em>n</em> = <span class="frac"><span class="num">ln<span class="frac-inline"><span class="num">FV</span><span class="den">PV</span></span></span><span class="den">ln(1 + r)</span></span></div></div>
 
         </div>
 
         <div class="fml-group"><div class="fml-group-title">Compounding Rates</div>
 
-          <div class="fml-card"><div class="fml-name">Effective Annual Rate (EAR)</div><div class="fml-expr">EAR = (1 + APR &divide; m)<sup>m</sup> &minus; 1</div><div class="fml-vars">m = compounding periods per year (monthly=12, quarterly=4, semi-annual=2)</div><div class="fml-note">EAR &ge; APR always. Equal only when m = 1 (annual)</div><div class="fml-use">Use when comparing rates with different compounding frequencies — always convert to EAR for a fair comparison.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>EAR</em> = <span style="white-space:nowrap">(1 + <span class="frac-inline"><span class="num">APR</span><span class="den">m</span></span>)<sup>m</sup> &minus; 1</span></div></div>
+
+          <div class="fml-card"><div class="fml-expr"><em>APR</em> = m&thinsp;[(1 + EAR)<sup>1/m</sup> &minus; 1]</div></div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">Ordinary Annuity (end-of-period)</div>
+        <div class="fml-group"><div class="fml-group-title">Annuity (Ordinary)</div>
 
-          <div class="fml-card"><div class="fml-name">Present Value</div><div class="fml-expr">PV = C &times; [1 &minus; (1+r)<sup>&minus;n</sup>] &divide; r</div><div class="fml-use">Use for mortgages, loans, or any stream of equal periodic payments — find the lump sum equivalent today.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>PV</em> = C <span class="frac"><span class="num">1 &minus; (1 + r)<sup>&minus;n</sup></span><span class="den">r</span></span></div></div>
 
-          <div class="fml-card"><div class="fml-name">Future Value</div><div class="fml-expr">FV = C &times; [(1+r)<sup>n</sup> &minus; 1] &divide; r</div><div class="fml-use">Use when making regular savings deposits — find the accumulated value at the end of the saving period.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>FV</em> = C <span class="frac"><span class="num">(1 + r)<sup>n</sup> &minus; 1</span><span class="den">r</span></span></div></div>
 
-          <div class="fml-card"><div class="fml-name">Variations</div><div class="fml-expr">Annuity Due PV = Ordinary PV &times; (1+r)</div><div class="fml-note">Deferred (k periods delay): &times; (1+r)<sup>&minus;k</sup></div><div class="fml-use">Annuity due: use when payments are at the START of each period (e.g. rent paid in advance). Deferred: use when the annuity starts late — solve as ordinary PV at period before first payment, then discount back.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>C</em> = <span class="frac"><span class="num">PV</span><span class="den"><span class="frac-inline"><span class="num">1 &minus; (1+r)<sup>&minus;n</sup></span><span class="den">r</span></span></span></span></div></div>
+
+        </div>
+
+        <div class="fml-group"><div class="fml-group-title">Annuity Due &amp; Deferred</div>
+
+          <div class="fml-card"><div class="fml-expr"><em>PV (due)</em> = C <span class="frac"><span class="num">1 &minus; (1 + r)<sup>&minus;n</sup></span><span class="den">r</span></span> (1 + r)</div></div>
+
+          <div class="fml-card"><div class="fml-expr"><em>FV (due)</em> = C <span class="frac"><span class="num">(1 + r)<sup>n</sup> &minus; 1</span><span class="den">r</span></span> (1 + r)</div></div>
+
+          <div class="fml-card"><div class="fml-expr"><em>PV (deferred k periods)</em> = C <span class="frac"><span class="num">1 &minus; (1 + r)<sup>&minus;n</sup></span><span class="den">r</span></span> (1 + r)<sup>&minus;k</sup></div></div>
 
         </div>
 
         <div class="fml-group"><div class="fml-group-title">Perpetuities</div>
 
-          <div class="fml-card"><div class="fml-name">Flat Perpetuity</div><div class="fml-expr">PV = C &divide; r</div><div class="fml-note">C = first payment, one period from now</div><div class="fml-use">Use for a stream of equal payments that continue forever (e.g. consols, preferred dividends). Simplest formula in TVM.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>Flat</em> &nbsp;&nbsp; PV = <span class="frac"><span class="num">C</span><span class="den">r</span></span></div></div>
 
-          <div class="fml-card"><div class="fml-name">Growing Perpetuity</div><div class="fml-expr">PV = C<sub>1</sub> &divide; (r &minus; g)</div><div class="fml-note">Requires r &gt; g</div><div class="fml-use">Use for dividend streams that grow at a constant rate forever (Gordon Growth Model), or for operating cash flows that grow indefinitely.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>Perpetuity due</em> &nbsp;&nbsp; PV = <span class="frac"><span class="num">C</span><span class="den">r</span></span> (1 + r)</div></div>
+
+          <div class="fml-card"><div class="fml-expr"><em>Deferred (k periods)</em> &nbsp;&nbsp; PV = <span class="frac"><span class="num">C</span><span class="den">r</span></span> (1 + r)<sup>&minus;k</sup></div></div>
 
         </div>
 
       </div>
 
+      <!-- ── W7 NPV / IRR / EAA ── -->
       <div id="f-npv" class="tab-content">
 
-        <div class="fml-group"><div class="fml-group-title">Net Present Value</div>
+        <div class="fml-group"><div class="fml-group-title">NPV &amp; IRR</div>
 
-          <div class="fml-card"><div class="fml-expr">NPV = CF<sub>0</sub> + CF<sub>1</sub>&divide;(1+r) + CF<sub>2</sub>&divide;(1+r)&sup2; + &hellip; + CF<sub>n</sub>&divide;(1+r)<sup>n</sup></div><div class="fml-note">Accept if NPV &gt; 0 &nbsp;&middot;&nbsp; CF<sub>0</sub> is typically negative (initial outlay)</div><div class="fml-use">Use to evaluate any investment decision — the primary and theoretically correct capital budgeting rule. NPV tells you the dollar value added to the firm.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>NPV</em> = CF<sub>0</sub> + <span class="frac-inline"><span class="num">CF<sub>1</sub></span><span class="den">(1+r)<sup>1</sup></span></span> + <span class="frac-inline"><span class="num">CF<sub>2</sub></span><span class="den">(1+r)<sup>2</sup></span></span> + <span class="frac-inline"><span class="num">CF<sub>3</sub></span><span class="den">(1+r)<sup>3</sup></span></span> + &hellip;</div></div>
 
-          <div class="fml-card"><div class="fml-name">Growing Perpetuity NPV</div><div class="fml-expr">NPV = <span style="display:inline-block;text-align:center;vertical-align:middle"><span style="display:block;border-bottom:1px solid currentColor;padding:0 4px">1</span><span style="display:block;padding:0 4px">(1+r)</span></span> &times; <span style="display:inline-block;text-align:center;vertical-align:middle"><span style="display:block;border-bottom:1px solid currentColor;padding:0 4px">C</span><span style="display:block;padding:0 4px">r &minus; g</span></span> &minus; Investment</div><div class="fml-note">CFs grow at rate g, first CF in year 2 &nbsp;&middot;&nbsp; C/(r&minus;g) gives PV at year 1; divide by (1+r) to get PV at year 0</div></div>
-
-        </div>
-
-        <div class="fml-group"><div class="fml-group-title">IRR &amp; Profitability Index</div>
-
-          <div class="fml-card"><div class="fml-name">IRR</div><div class="fml-expr">Set NPV = 0, solve for r = IRR</div><div class="fml-note">Accept if IRR &gt; hurdle rate</div><div class="fml-use">Use as a secondary check, or when comparing one project to a hurdle rate. Do NOT use for ranking mutually exclusive projects — IRR ignores scale.</div></div>
-
-          <div class="fml-card"><div class="fml-name">Profitability Index</div><div class="fml-expr">PI = NPV &divide; |Initial Investment|</div><div class="fml-note">Accept if PI &gt; 0 &nbsp;&middot;&nbsp; Also defined as PV(future CFs) &divide; Cost</div><div class="fml-use">Use when you have a limited capital budget — PI ranks projects by value per dollar invested (bang for buck).</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>IRR</em>: &nbsp; 0 = CF<sub>0</sub> + <span class="frac-inline"><span class="num">CF<sub>1</sub></span><span class="den">(1+r̃)<sup>1</sup></span></span> + <span class="frac-inline"><span class="num">CF<sub>2</sub></span><span class="den">(1+r̃)<sup>2</sup></span></span> + <span class="frac-inline"><span class="num">CF<sub>3</sub></span><span class="den">(1+r̃)<sup>3</sup></span></span> + &hellip;</div></div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">Equivalent Annual Annuity</div>
+        <div class="fml-group"><div class="fml-group-title">Profitability Index</div>
 
-          <div class="fml-card"><div class="fml-expr">EAA = NPV &times; r &divide; [1 &minus; (1+r)<sup>&minus;n</sup>]</div><div class="fml-note">Use for mutually exclusive projects with different lives</div><div class="fml-use">Use when comparing projects that have different lifespans — converts NPV to a comparable annual figure so you compare like-for-like. For costs only: choose the least negative EAA.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>PI<sub>i</sub></em> = <span class="frac"><span class="num">NPV<sub>i</sub></span><span class="den">Cost<sub>i</sub></span></span> &emsp; <em>P̃I<sub>i</sub></em> = <span class="frac"><span class="num">PV<sub>i</sub></span><span class="den">Cost<sub>i</sub></span></span></div></div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">Payback Period</div>
+        <div class="fml-group"><div class="fml-group-title">Equivalent Annual Annuity (EAA)</div>
 
-          <div class="fml-card"><div class="fml-expr">Payback = Last Full Year + <span style="display:inline-block;text-align:center;vertical-align:middle"><span style="display:block;border-bottom:1px solid currentColor;padding:0 4px">Remaining Cost to Recover</span><span style="display:block;padding:0 4px">Cash Flow in Next Year</span></span></div><div class="fml-note">Accept if payback &le; target period &nbsp;&middot;&nbsp; Ignores time value of money</div><div class="fml-use">Use as a quick liquidity or risk screen, not as the primary decision rule. Payback ignores cash flows after the recovery date and does not account for time value of money.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>C<sub>EAA</sub></em> = <span class="frac"><span class="num">NPV</span><span class="den">AF<sub>n</sub></span></span> = <span class="frac"><span class="num">NPV</span><span class="den"><span class="frac-inline"><span class="num">1 &minus; (1+r)<sup>&minus;n</sup></span><span class="den">r</span></span></span></span></div></div>
+
+        </div>
+
+        <div class="fml-group"><div class="fml-group-title">Accounting Rate of Return</div>
+
+          <div class="fml-card"><div class="fml-expr"><em>r<sub>ARR</sub></em> = <span class="frac"><span class="num">Ave Acc Profit</span><span class="den">Upfront Cost</span></span></div></div>
 
         </div>
 
       </div>
 
+      <!-- ── W8 Valuation ── -->
       <div id="f-val" class="tab-content">
 
         <div class="fml-group"><div class="fml-group-title">Bond Pricing</div>
 
-          <div class="fml-card"><div class="fml-expr">P<sub>0</sub> = C &times; [1&minus;(1+r)<sup>&minus;n</sup>] &divide; r &nbsp;+&nbsp; F &divide; (1+r)<sup>n</sup></div><div class="fml-vars">C = coupon per period &nbsp;&middot;&nbsp; F = face value &nbsp;&middot;&nbsp; r = YTM per period &nbsp;&middot;&nbsp; n = total periods</div><div class="fml-note">Semi-annual: r = APR&divide;2, n = years&times;2, C = annual coupon&divide;2</div><div class="fml-use">Use when given a bond's coupon rate and YTM and asked to find the market price. Remember: price and yield move in opposite directions.</div></div>
-
-          <div class="fml-card"><div class="fml-name">Price Rule</div><div class="fml-expr">Coupon &gt; YTM &rarr; Premium &nbsp;&middot;&nbsp; Coupon &lt; YTM &rarr; Discount</div><div class="fml-use">Use as a quick sanity check after computing bond price — verify premium/discount/par status before finalising your answer.</div></div>
-
-          <div class="fml-card"><div class="fml-name">YTM Approximation</div><div class="fml-expr">YTM &asymp; &nbsp; <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;gap:2px"><span style="border-bottom:1.5px solid currentColor;padding:0 6px">C + (FV &minus; P) &divide; n</span><span style="padding:0 6px">(FV + P) &divide; 2</span></span></div><div class="fml-vars">C = annual coupon &nbsp;&middot;&nbsp; FV = face value &nbsp;&middot;&nbsp; P = current price &nbsp;&middot;&nbsp; n = years to maturity</div><div class="fml-use">Use when you need a quick YTM estimate without a financial calculator. Not exact — discount bonds will have the true YTM slightly higher than this approximation.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>P<sub>0</sub></em> = C <span class="frac"><span class="num">1 &minus; (1 + r)<sup>&minus;n</sup></span><span class="den">r</span></span> + <span class="frac"><span class="num">F</span><span class="den">(1 + r)<sup>n</sup></span></span></div></div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">Gordon Growth Model (Equity)</div>
+        <div class="fml-group"><div class="fml-group-title">Perpetuity / Growing Perpetuity</div>
 
-          <div class="fml-card"><div class="fml-name">Stock Price</div><div class="fml-expr">P<sub>0</sub> = D<sub>1</sub> &divide; (r &minus; g)</div><div class="fml-note">If given D<sub>0</sub> (just paid): D<sub>1</sub> = D<sub>0</sub> &times; (1+g)</div><div class="fml-use">Use to value a stock with constant dividend growth forever. Requires r &gt; g — if r &le; g the model breaks down (infinite value).</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>PV<sub>0</sub></em> = <span class="frac"><span class="num">C</span><span class="den">r</span></span></div></div>
 
-          <div class="fml-card"><div class="fml-name">Required Return &amp; Growth</div><div class="fml-expr">r = D<sub>1</sub>&divide;P<sub>0</sub> + g &nbsp;&middot;&nbsp; g = Retention &times; ROI</div><div class="fml-note">Retention Ratio = 1 &minus; Payout Ratio</div><div class="fml-use">Use &ldquo;r = D₁/P₀ + g&rdquo; when asked to back out the required return from current price and dividend. Use &ldquo;g = Retention × ROI&rdquo; when growth rate must be estimated from company data.</div></div>
+          <div class="fml-card"><div class="fml-expr">C<sub>2</sub> = (1 + g)C<sub>1</sub> &nbsp;&nbsp; &hellip; &nbsp;&nbsp; C<sub>n</sub> = (1 + g)<sup>n&minus;1</sup>C<sub>1</sub></div></div>
+
+          <div class="fml-card"><div class="fml-expr"><em>PV<sub>0</sub></em> = <span class="frac"><span class="num">C<sub>1</sub></span><span class="den">r &minus; g</span></span> &emsp; (first CF in year 1)</div></div>
+
+          <div class="fml-card"><div class="fml-expr"><em>PV<sub>0</sub></em> = <span class="frac"><span class="num">C<sub>0</sub></span><span class="den">r &minus; g</span></span> (1 + g) &emsp; (C<sub>0</sub> just paid)</div></div>
+
+        </div>
+
+        <div class="fml-group"><div class="fml-group-title">Equity Return &amp; Growth</div>
+
+          <div class="fml-card"><div class="fml-expr"><em>r<sub>e</sub></em> = <span class="frac"><span class="num">D<sub>1</sub></span><span class="den">P<sub>0</sub></span></span> + <span class="frac"><span class="num">P<sub>1</sub> &minus; P<sub>0</sub></span><span class="den">P<sub>0</sub></span></span></div></div>
+
+          <div class="fml-card"><div class="fml-expr"><em>r<sub>e</sub></em> = <span class="frac"><span class="num">D<sub>1</sub></span><span class="den">P<sub>0</sub></span></span> + g</div></div>
+
+          <div class="fml-card"><div class="fml-expr"><em>g<sub>t</sub></em> = Retention Rate<sub>%,t&minus;1</sub> &times; Return on new investments<sub>%,t</sub> &nbsp;=&nbsp; RR<sub>t&minus;1</sub> &times; ROI<sub>t</sub></div></div>
+
+          <div class="fml-card"><div class="fml-expr"><em>R<sub>E</sub></em> = <span class="frac"><span class="num">Div<sub>1</sub></span><span class="den">P<sub>0</sub></span></span> + g = <span class="frac"><span class="num">Div<sub>0</sub>(1 + g)</span><span class="den">P<sub>0</sub></span></span> + g</div></div>
 
         </div>
 
       </div>
 
+      <!-- ── W9 WACC / CAPM ── -->
       <div id="f-wacc" class="tab-content">
 
-        <div class="fml-group"><div class="fml-group-title">Returns</div>
+        <div class="fml-group"><div class="fml-group-title">Returns &amp; Beta</div>
 
-          <div class="fml-card"><div class="fml-name">Holding Period Return</div><div class="fml-expr">HPR = (P<sub>1</sub> &minus; P<sub>0</sub> + Dividends) &divide; P<sub>0</sub></div><div class="fml-use">Use to calculate the actual total return earned on a stock over a specific holding period (capital gain + income).</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>R<sub>t+1</sub></em> = <span class="frac"><span class="num">P<sub>t+1</sub> &minus; P<sub>t</sub> + Div<sub>t+1</sub></span><span class="den">P<sub>t</sub></span></span></div></div>
 
-          <div class="fml-card"><div class="fml-name">CAPM</div><div class="fml-expr">E[R<sub>i</sub>] = R<sub>f</sub> + &beta;<sub>i</sub> &times; (E[R<sub>M</sub>] &minus; R<sub>f</sub>)</div><div class="fml-vars">R<sub>f</sub> = risk-free rate &nbsp;&middot;&nbsp; MRP = E[R<sub>M</sub>]&minus;R<sub>f</sub> = market risk premium &nbsp;&middot;&nbsp; &beta; = sensitivity to market</div><div class="fml-use">Use to find the fair required return for any risky asset given its beta. Also use to assess over/undervaluation: compare CAPM return to observed return.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>&beta;<sub>i</sub></em> = &rho;<sub>i,M</sub> <span class="frac"><span class="num">&sigma;<sub>i</sub></span><span class="den">&sigma;<sub>M</sub></span></span></div></div>
+
+        </div>
+
+        <div class="fml-group"><div class="fml-group-title">CAPM</div>
+
+          <div class="fml-card"><div class="fml-expr">E[R<sub>i</sub>] = R<sub>f</sub> + &beta;<sub>i</sub> (E[R<sub>M</sub>] &minus; R<sub>f</sub>)</div></div>
 
         </div>
 
         <div class="fml-group"><div class="fml-group-title">WACC</div>
 
-          <div class="fml-card"><div class="fml-expr">WACC = w<sub>E</sub>&times;R<sub>E</sub> + w<sub>P</sub>&times;R<sub>P</sub> + w<sub>D</sub>&times;R<sub>D</sub>&times;(1&minus;T<sub>C</sub>)</div><div class="fml-vars">V = MVE + MVP + MVD &nbsp;&middot;&nbsp; w<sub>E</sub>=MVE&divide;V, w<sub>P</sub>=MVP&divide;V, w<sub>D</sub>=MVD&divide;V &nbsp;&middot;&nbsp; T<sub>C</sub> = corporate tax rate</div><div class="fml-note">Always use MARKET VALUE weights. After-tax debt = R<sub>D</sub>&times;(1&minus;T<sub>C</sub>)</div><div class="fml-use">Use as the discount rate in NPV for projects funded by the firm's capital structure. Also use as the hurdle rate: accept only if project return &gt; WACC.</div></div>
+          <div class="fml-card"><div class="fml-expr">R<sub>WACC</sub> = <span class="frac"><span class="num">MVE</span><span class="den">V</span></span>R<sub>E</sub> + <span class="frac"><span class="num">MVP</span><span class="den">V</span></span>R<sub>P</sub> + <span class="frac"><span class="num">MVD</span><span class="den">V</span></span>R<sub>D</sub>(1 &minus; T<sub>C</sub>) = w<sub>E</sub>R<sub>E</sub> + w<sub>P</sub>R<sub>P</sub> + w<sub>D</sub>R<sub>D</sub>(1 &minus; T<sub>C</sub>)</div></div>
 
-          <div class="fml-card"><div class="fml-name">From D/E Ratio</div><div class="fml-expr">w<sub>D</sub> = (D/E)&divide;(1+D/E) &nbsp;&middot;&nbsp; w<sub>E</sub> = 1&divide;(1+D/E)</div><div class="fml-use">Use when the question gives a target D/E ratio instead of individual market values. Convert to weights before applying WACC.</div></div>
+          <div class="fml-card"><div class="fml-expr"><em>V</em> = MVE + MVP + MVD &emsp; <em>MV<sub>ND</sub></em> = MV<sub>D</sub> &minus; Cash</div></div>
 
         </div>
 
       </div>
 
+    </div>
+
+    <div style="padding:10px 18px 14px;font-size:.7rem;color:var(--text-3);border-top:1px solid var(--border);font-style:italic">
+      * The formula sheet is provided as an aid for students and is not indicative of what will/will not be in the actual exam.
     </div>
 
   </div>
