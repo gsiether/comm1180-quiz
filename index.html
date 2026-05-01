@@ -803,7 +803,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
     <button class="hdr-btn" onclick="openOverlay('notes-overlay')">📋 <span>Notes</span></button>
 
-    <button class="hdr-btn" onclick="openOverlay('formula-overlay')">📐 <span>Formulas</span></button>
+    <a class="hdr-btn" href="/formula-sheet.pdf" target="_blank" style="text-decoration:none">📐 <span>Formulas</span></a>
 
     <button class="hdr-btn" onclick="openOverlay('settings-overlay')">⚙️</button>
 
@@ -941,7 +941,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
     <div style="background:var(--red-light);border:1px solid var(--red-border);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:16px;font-size:.82rem;color:var(--red);font-weight:600">
 
-      ⏱ 2 hr 15 min countdown &nbsp;·&nbsp; No hints &nbsp;·&nbsp; Formulas available &nbsp;·&nbsp; MathQuill for all calculations
+      ⏱ 2 hr 15 min countdown &nbsp;·&nbsp; No hints &nbsp;·&nbsp; <a href="/formula-sheet.pdf" target="_blank" style="color:inherit">Official formula sheet ↗</a> &nbsp;·&nbsp; MathQuill input
 
     </div>
 
@@ -963,7 +963,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
     <button class="back-btn" onclick="showScreen('home')">← Back</button>
 
-    <button class="hdr-btn" onclick="openOverlay('formula-overlay')">📐 Formulas</button>
+    <a class="hdr-btn" href="/formula-sheet.pdf" target="_blank" style="text-decoration:none">📐 Formulas</a>
 
   </div>
 
@@ -997,7 +997,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
     <div class="quiz-tools">
 
-      <button class="tool-btn" onclick="openOverlay('formula-overlay')">📐</button>
+      <a class="tool-btn" href="/formula-sheet.pdf" target="_blank" style="text-decoration:none;display:flex;align-items:center;justify-content:center">📐</a>
 
       <button class="tool-btn" onclick="openOverlay('notes-overlay')">📋</button>
 
@@ -6116,14 +6116,20 @@ function buildExamPool(){
 }
 
 function startExamMode(){
-  const built=buildExamPool();
-  const pool=[...built.sectionA,...built.sectionB];
-  quizState={questions:pool,idx:0,results:[],mode:'exam',answered:false,currentAnswer:null,
-    missedPool:null,startTime:Date.now(),learnMode:false,examMode:true,sectionACount:built.sectionA.length};
-  _examElapsedMs=0;
-  showScreen('quiz');
-  startExamTimer();
-  renderQuestion();
+  try{
+    const built=buildExamPool();
+    if(!built.sectionA.length&&!built.sectionB.length){alert('No questions found. Please check the question bank.');return;}
+    const pool=[...built.sectionA,...built.sectionB];
+    quizState={questions:pool,idx:0,results:[],mode:'exam',answered:false,currentAnswer:null,
+      missedPool:null,startTime:Date.now(),learnMode:false,examMode:true,sectionACount:built.sectionA.length};
+    _examElapsedMs=0;
+    showScreen('quiz');
+    startExamTimer();
+    renderQuestion();
+  }catch(e){
+    alert('Error starting exam: '+e.message);
+    console.error(e);
+  }
 }
 
 function startExamTimer(){
