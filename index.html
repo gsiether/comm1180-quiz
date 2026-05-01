@@ -746,6 +746,26 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .fml-legend-item{font-size:.7rem;color:var(--text-2)}
 .fml-legend-item b{color:var(--text);font-family:'Courier New',monospace}
 
+/* ── EXAM MODE ── */
+.exam-timer{display:flex;align-items:center;gap:5px;font-size:.85rem;font-weight:700;color:var(--text);white-space:nowrap;padding:4px 10px;border-radius:var(--r-sm);background:var(--bg);border:1px solid var(--border)}
+.exam-timer.warning{color:var(--amber);border-color:var(--amber-border);background:var(--amber-light)}
+.exam-timer.urgent{color:var(--red);border-color:var(--red-border);background:var(--red-light);animation:pulse .8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.exam-section-banner{border-radius:var(--r);padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px}
+.exam-section-banner.sec-a{background:var(--blue-light);border:1.5px solid var(--blue-mid)}
+.exam-section-banner.sec-b{background:var(--purple-light);border:1.5px solid #DDD6FE}
+.exam-section-icon{font-size:1.4rem;flex-shrink:0}
+.exam-section-label{font-size:.95rem;font-weight:800}
+.exam-section-label.sec-a{color:var(--blue)}
+.exam-section-label.sec-b{color:var(--purple)}
+.exam-section-sub{font-size:.78rem;color:var(--text-2);margin-top:3px}
+.exam-summary-sections{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.exam-summary-section-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:16px;box-shadow:var(--shadow-sm)}
+.exam-summary-section-card h4{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);margin-bottom:8px}
+.exam-summary-section-score{font-size:2rem;font-weight:800;color:var(--blue);margin-bottom:4px}
+.exam-summary-section-detail{font-size:.73rem;color:var(--text-2);line-height:1.6}
+.exam-summary-time{text-align:center;font-size:.84rem;color:var(--text-2);padding:8px;margin-bottom:12px;background:var(--bg);border-radius:var(--r-sm);border:1px solid var(--border)}
+
 </style>
 
 </head>
@@ -803,6 +823,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     <button class="mode-tab active" id="tab-quiz" onclick="switchMode('quiz')">📝 Quiz Mode</button>
 
     <button class="mode-tab" id="tab-learn" onclick="switchMode('learn-home')">📚 Learn Mode</button>
+
+    <button class="mode-tab" id="tab-exam" onclick="switchMode('exam')">🎓 Exam Mode</button>
 
   </div>
 
@@ -876,6 +898,52 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 
 
+  <!-- Exam Mode panel -->
+
+  <div class="mode-panel" id="panel-exam">
+
+    <div class="exam-card">
+
+      <div class="exam-date">🎓 Practice Exam — mirrors the real COMM1180 final</div>
+
+      <div class="exam-sections">
+
+        <div class="exam-section">
+
+          <strong>Section A — 50%</strong>
+
+          <span>10 MCQs + 6 Quant sets</span>
+
+          <span>Weeks 3, 5, 7, 8, 9</span>
+
+        </div>
+
+        <div class="exam-section">
+
+          <strong>Section B — 50%</strong>
+
+          <span>3 Qualitative questions</span>
+
+          <span>Weeks 2, 4, 10</span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div style="background:var(--red-light);border:1px solid var(--red-border);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:16px;font-size:.82rem;color:var(--red);font-weight:600">
+
+      ⏱ 2 hr 15 min countdown &nbsp;·&nbsp; No hints &nbsp;·&nbsp; Formulas available &nbsp;·&nbsp; MathQuill for all calculations
+
+    </div>
+
+    <button class="btn-start" onclick="startExamMode()">Start Practice Exam →</button>
+
+  </div>
+
+
+
 </div>
 
 
@@ -917,6 +985,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 
     <div class="quiz-meta" id="quizMeta">0/0</div>
+
+    <div id="examTimerDisplay" style="display:none" class="exam-timer">⏱ 2:15:00</div>
 
     <div class="quiz-tools">
 
@@ -973,6 +1043,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     <button class="btn btn-outline" onclick="showScreen('home')">Home</button>
 
   </div>
+
+  <div id="examSectionBreakdown"></div>
 
   <div class="result-list" id="resultList"></div>
 
@@ -4669,7 +4741,7 @@ function retryMissed(){
 
 function confirmExit(){
 
-  if(confirm('Exit quiz? Progress will be lost.')) showScreen('home');
+  if(confirm('Exit quiz? Progress will be lost.')){stopExamTimer();showScreen('home');}
 
 }
 
@@ -4677,13 +4749,19 @@ function confirmExit(){
 
 function updateProgress(){
 
-  const {idx,questions}=quizState;
+  const {idx,questions,examMode,sectionACount}=quizState;
 
   const pct=questions.length?((idx/questions.length)*100):0;
 
   document.getElementById('progressFill').style.width=pct+'%';
 
-  document.getElementById('quizMeta').textContent=`${idx}/${questions.length}`;
+  if(examMode&&sectionACount!=null){
+    const inB=idx>=sectionACount;
+    const label=inB?`B: ${idx-sectionACount}/${questions.length-sectionACount}`:`A: ${idx}/${sectionACount}`;
+    document.getElementById('quizMeta').textContent=label;
+  } else {
+    document.getElementById('quizMeta').textContent=`${idx}/${questions.length}`;
+  }
 
 }
 
@@ -4735,11 +4813,22 @@ function renderQuestion(){
 
   html+=`<div id="feedbackBox" class="feedback-box"></div><div id="aiLoading" class="ai-loading" style="display:none"><div class="spinner"></div>AI marking…</div></div>`;
 
-  area.innerHTML=html;
+  if(quizState.examMode&&quizState.sectionACount!=null){
+    const secACount=quizState.sectionACount;
+    let banner='';
+    if(idx===0){
+      banner=`<div class="exam-section-banner sec-a"><div class="exam-section-icon">📝</div><div><div class="exam-section-label sec-a">Section A — Multiple Choice &amp; Quantitative</div><div class="exam-section-sub">10 MCQs + 6 Quant questions · Weeks 3, 5, 7, 8, 9</div></div></div>`;
+    } else if(idx===secACount){
+      banner=`<div class="exam-section-banner sec-b"><div class="exam-section-icon">✍️</div><div><div class="exam-section-label sec-b">Section B — Qualitative Short Answer</div><div class="exam-section-sub">3 questions · Weeks 2, 4, 10</div></div></div>`;
+    }
+    area.innerHTML=banner+html;
+  } else {
+    area.innerHTML=html;
+  }
 
   setTimeout(_mqInit,50);
 
-  const hasHints=settings.hints!==false&&(q.hint||q.hint2);
+  const hasHints=!quizState.examMode&&settings.hints!==false&&(q.hint||q.hint2);
 
   const submitHidden=(q.type==='mcq'||q.type==='tf')?'style="display:none"':'';
 
@@ -4755,7 +4844,7 @@ function renderQuestion(){
 
     ${hasHints&&q.hint2?`<button id="hintBtn2" class="btn-hint" onclick="showHint2()" style="display:none">🔍 Hint 2</button>`:''}
 
-    ${settings.hints!==false?`<button id="hintBtnAI" class="btn-hint" onclick="showHintAI()" style="background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue)">😕 I'm Confused</button>`:''}
+    ${!quizState.examMode&&settings.hints!==false?`<button id="hintBtnAI" class="btn-hint" onclick="showHintAI()" style="background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue)">😕 I'm Confused</button>`:''}
 
     <div id="hintArea" class="hint-area"></div>
 
@@ -5619,7 +5708,9 @@ function recordResult(r){quizState.results.push(r);}
 
 function showSummary(){
 
-  const {results,mode}=quizState;
+  stopExamTimer();
+
+  const {results,mode,examMode,sectionACount}=quizState;
 
   let correct=0,partial=0,incorrect=0,skipped=0,totalMark=0,totalMax=0;
 
@@ -5645,7 +5736,7 @@ function showSummary(){
 
   document.getElementById('summaryScore').textContent=pct+'%';
 
-  const modeLabel=Array.isArray(mode)?`Weeks ${mode.join(', ')}`:mode==='all'?'All Weeks':mode==='retry'?'Retry':mode;
+  const modeLabel=examMode?'Practice Exam':Array.isArray(mode)?`Weeks ${mode.join(', ')}`:mode==='all'?'All Weeks':mode==='retry'?'Retry':mode;
 
   document.getElementById('summaryLabel').textContent=`${modeLabel} · ${results.length} questions`;
 
@@ -5654,6 +5745,35 @@ function showSummary(){
   document.getElementById('statPartial').textContent=partial;
 
   document.getElementById('statIncorrect').textContent=incorrect+skipped;
+
+  const breakdown=document.getElementById('examSectionBreakdown');
+  if(breakdown){
+    if(examMode&&sectionACount!=null){
+      const secAResults=results.slice(0,sectionACount);
+      const secBResults=results.slice(sectionACount);
+      function secStats(arr){let m=0,mx=0;arr.forEach(r=>{m+=r.mark||0;mx+=r.maxMark||1;});return{pct:mx>0?Math.round((m/mx)*100):0,n:arr.length};}
+      const a=secStats(secAResults),b=secStats(secBResults);
+      const elapsed=_examElapsedMs?Math.floor(_examElapsedMs/1000):0;
+      const eh=Math.floor(elapsed/3600),em=Math.floor((elapsed%3600)/60),es=elapsed%60;
+      const timeStr=eh>0?`${eh}h ${em}m ${es}s`:`${em}m ${es}s`;
+      breakdown.innerHTML=`
+        <div class="exam-summary-time">⏱ Time taken: ${timeStr}</div>
+        <div class="exam-summary-sections">
+          <div class="exam-summary-section-card">
+            <h4>Section A</h4>
+            <div class="exam-summary-section-score">${a.pct}%</div>
+            <div class="exam-summary-section-detail">MCQ + Quant · ${a.n} questions<br>Weeks 3, 5, 7, 8, 9</div>
+          </div>
+          <div class="exam-summary-section-card">
+            <h4>Section B</h4>
+            <div class="exam-summary-section-score">${b.pct}%</div>
+            <div class="exam-summary-section-detail">Qualitative · ${b.n} questions<br>Weeks 2, 4, 10</div>
+          </div>
+        </div>`;
+    } else {
+      breakdown.innerHTML='';
+    }
+  }
 
   const list=document.getElementById('resultList');
 
@@ -5673,7 +5793,7 @@ function showSummary(){
 
   document.getElementById('retryBtn').style.display=results.filter(r=>r.mark<1&&!r.skipped).length?'':'none';
 
-  saveHistory({date:new Date().toISOString(),mode,pct,correct,partial,incorrect,skipped,results:results.map(r=>({week:r.question.week,type:r.question.type,mark:r.mark,skipped:r.skipped,question:r.question.type==='multipart'?r.question.scenario:r.question.question}))});
+  saveHistory({date:new Date().toISOString(),mode:examMode?'exam':mode,pct,correct,partial,incorrect,skipped,results:results.map(r=>({week:r.question.week,type:r.question.type,mark:r.mark,skipped:r.skipped,question:r.question.type==='multipart'?r.question.scenario:r.question.question}))});
 
   showScreen('summary');
 
@@ -5921,6 +6041,76 @@ function startCustomTest(){
 }
 
 
+
+// ── EXAM MODE ──
+
+let _examTimerInterval=null;
+let _examTimerSecondsLeft=8100;
+let _examStartMs=null;
+let _examElapsedMs=0;
+
+function buildExamPool(){
+  const secAWeeks=[3,5,7,8,9];
+  const secBWeeks=[2,4,10];
+  const mcqs=shuffle(QUESTIONS.filter(q=>secAWeeks.includes(Number(q.week))&&q.type==='mcq')).slice(0,10);
+  const quant=shuffle(QUESTIONS.filter(q=>secAWeeks.includes(Number(q.week))&&(q.type==='multipart'||q.type==='numerical'))).slice(0,6);
+  const secB=[];
+  secBWeeks.forEach(function(w){
+    const pool=shuffle(QUESTIONS.filter(q=>Number(q.week)===w&&(q.type==='sa'||q.type==='multipart')));
+    if(pool.length) secB.push(pool[0]);
+  });
+  return {sectionA:[...mcqs,...quant],sectionB:secB};
+}
+
+function startExamMode(){
+  const built=buildExamPool();
+  const pool=[...built.sectionA,...built.sectionB];
+  quizState={questions:pool,idx:0,results:[],mode:'exam',answered:false,currentAnswer:null,
+    missedPool:null,startTime:Date.now(),learnMode:false,examMode:true,sectionACount:built.sectionA.length};
+  _examElapsedMs=0;
+  showScreen('quiz');
+  startExamTimer();
+  renderQuestion();
+}
+
+function startExamTimer(){
+  _examTimerSecondsLeft=8100;
+  _examStartMs=Date.now();
+  const d=document.getElementById('examTimerDisplay');
+  if(d) d.style.display='';
+  _updateExamTimerDisplay();
+  _examTimerInterval=setInterval(function(){
+    _examTimerSecondsLeft--;
+    _updateExamTimerDisplay();
+    if(_examTimerSecondsLeft<=0){
+      clearInterval(_examTimerInterval);_examTimerInterval=null;
+      _examElapsedMs=_examStartMs?Date.now()-_examStartMs:0;
+      _examStartMs=null;
+      alert('Time is up! Your practice exam is being submitted.');
+      const q=quizState.questions[quizState.idx];
+      if(q&&!quizState.answered){
+        quizState.results.push({question:q,mark:0,maxMark:q.type==='multipart'?q.parts.length:1,skipped:true});
+      }
+      showSummary();
+    }
+  },1000);
+}
+
+function stopExamTimer(){
+  if(_examTimerInterval){clearInterval(_examTimerInterval);_examTimerInterval=null;}
+  if(_examStartMs){_examElapsedMs=Date.now()-_examStartMs;_examStartMs=null;}
+  const d=document.getElementById('examTimerDisplay');
+  if(d) d.style.display='none';
+}
+
+function _updateExamTimerDisplay(){
+  const d=document.getElementById('examTimerDisplay');
+  if(!d) return;
+  const t=_examTimerSecondsLeft;
+  const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;
+  d.textContent='⏱ '+h+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  d.className=t<=300?'exam-timer urgent':t<=1200?'exam-timer warning':'exam-timer';
+}
 
 // ── UTILS ──
 
