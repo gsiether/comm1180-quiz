@@ -2779,6 +2779,11 @@ let quizState={questions:[],idx:0,results:[],mode:'all',answered:false,currentAn
 
 let homeState={weeks:[],count:10};
 
+let _examTimerInterval=null;
+let _examTimerSecondsLeft=8100;
+let _examStartMs=null;
+let _examElapsedMs=0;
+
 
 
 // ── QUESTIONS ──
@@ -6096,11 +6101,6 @@ function startCustomTest(){
 
 
 // ── EXAM MODE ──
-
-let _examTimerInterval=null;
-let _examTimerSecondsLeft=8100;
-let _examStartMs=null;
-let _examElapsedMs=0;
 
 function buildExamPool(){
   const secAWeeks=[3,5,7,8,9];
