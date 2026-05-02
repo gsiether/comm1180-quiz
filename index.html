@@ -753,6 +753,16 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .fml-legend-item{font-size:.7rem;color:var(--text-2)}
 .fml-legend-item b{color:var(--text);font-family:'Courier New',monospace}
 
+/* ── PRACTICE EXAM SELECTOR ── */
+.exam-select-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px}
+.exam-select-card{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:14px 12px;text-align:center}
+.exam-select-num{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);margin-bottom:3px}
+.exam-select-title{font-size:.84rem;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.3}
+.exam-select-desc{font-size:.72rem;color:var(--text-2);margin-bottom:10px;line-height:1.4;min-height:30px}
+.btn-start-exam{display:block;width:100%;background:var(--blue);color:#fff;border:none;border-radius:var(--r-sm);padding:9px 0;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn-start-exam:hover{background:var(--blue-dark)}
+@media(max-width:500px){.exam-select-grid{grid-template-columns:1fr}}
+
 /* ── EXAM MODE ── */
 .exam-timer{display:flex;align-items:center;gap:5px;font-size:.85rem;font-weight:700;color:var(--text);white-space:nowrap;padding:4px 10px;border-radius:var(--r-sm);background:var(--bg);border:1px solid var(--border)}
 .exam-timer.warning{color:var(--amber);border-color:var(--amber-border);background:var(--amber-light)}
@@ -945,7 +955,30 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
     </div>
 
-    <button class="btn-start" onclick="startExamMode()">Start Practice Exam →</button>
+    <div class="exam-select-grid">
+
+      <div class="exam-select-card">
+        <div class="exam-select-num">Practice Exam 1</div>
+        <div class="exam-select-title">Random</div>
+        <div class="exam-select-desc">Draws randomly from your question bank</div>
+        <button class="btn-start-exam" onclick="startExamMode()">Start →</button>
+      </div>
+
+      <div class="exam-select-card">
+        <div class="exam-select-num">Practice Exam 2</div>
+        <div class="exam-select-title">Canteen Kitchen Co.</div>
+        <div class="exam-select-desc">20 Section A + Canteen case study</div>
+        <button class="btn-start-exam" onclick="startFixedExam(2)">Start →</button>
+      </div>
+
+      <div class="exam-select-card">
+        <div class="exam-select-num">Practice Exam 3</div>
+        <div class="exam-select-title">VoltRide Technologies</div>
+        <div class="exam-select-desc">20 Section A + VoltRide case study</div>
+        <button class="btn-start-exam" onclick="startFixedExam(3)">Start →</button>
+      </div>
+
+    </div>
 
   </div>
 
@@ -6169,6 +6202,299 @@ function _updateExamTimerDisplay(){
   const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;
   d.textContent='⏱ '+h+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
   d.className=t<=300?'exam-timer urgent':t<=1200?'exam-timer warning':'exam-timer';
+}
+
+// ── FIXED PRACTICE EXAMS ──
+
+var _CS2='<div style="background:var(--purple-light);border:1.5px solid #DDD6FE;border-radius:var(--r);padding:14px 18px;margin-bottom:12px"><div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--purple);margin-bottom:6px">COMM1180 · Section B Case Study</div><div style="font-weight:700;font-size:.95rem;color:var(--text);margin-bottom:8px">Canteen Kitchen Co.</div><div style="font-size:.82rem;line-height:1.7;color:var(--text-2)">';
+var _CS2a=_CS2+'Canteen Kitchen Co. is an Australian online meal-kit subscription company with 180,000 active subscribers charged $89/week with an average variable cost of $54/week. Fixed annual operating costs are $14.2M. The company is evaluating <strong>FreshFlex</strong> — a new product line targeting health-conscious professionals aged 22–34.<br><br>FreshFlex requires a <strong>$2.5M upfront investment</strong> in Year 0. No cash inflows in Year 1. From Year 2, net cash flows of <strong>$680,000 p.a.</strong> growing at <strong>3% p.a. in perpetuity</strong>. Canteen\'s cost of capital is <strong>9% p.a.</strong></div></div>';
+var _CS2b=_CS2+'Canteen Kitchen Co. operates in a competitive meal-kit market alongside HelloFresh, Marley Spoon, and Dinnerly. Canteen\'s brand emphasises freshness and local produce. FreshFlex targets health-conscious professionals who value flexibility over fixed recipes. The corporate wellness market is a <strong>$1.2B market in Australia growing at 14% p.a.</strong></div></div>';
+var _CS2c=_CS2+'FreshFlex will be launched as a separate division. The $2.5M Year 0 investment constitutes invested capital. Expected EBIT once operational: <strong>$620,000 p.a.</strong> Corporate tax rate: <strong>28%</strong>. Canteen\'s WACC is <strong>9%</strong>.</div></div>';
+
+var _CS3='<div style="background:var(--purple-light);border:1.5px solid #DDD6FE;border-radius:var(--r);padding:14px 18px;margin-bottom:12px"><div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--purple);margin-bottom:6px">COMM1180 · Section B Case Study</div><div style="font-weight:700;font-size:.95rem;color:var(--text);margin-bottom:8px">VoltRide Technologies</div><div style="font-size:.82rem;line-height:1.7;color:var(--text-2)">';
+var _CS3a=_CS3+'VoltRide Technologies is an Australian electric scooter sharing company operating in Brisbane and Sydney. Current operations generate EBIT of <strong>$4.2M p.a.</strong> on <strong>$28M total assets</strong>. VoltRide is evaluating a <strong>Melbourne expansion</strong> requiring an <strong>$8M upfront investment</strong> in Year 0 (fleet, charging infrastructure, licences). No cash flows in Year 1 (regulatory approval). From Year 2, net cash flows of <strong>$1.4M p.a.</strong> growing at <strong>4% p.a. in perpetuity</strong>. Cost of capital: <strong>11% p.a.</strong></div></div>';
+var _CS3b=_CS3+'VoltRide operates in the micro-mobility market. Melbourne has 3 existing e-scooter operators. VoltRide\'s competitive advantages include its real-time fleet management app, predictive maintenance system, and brand recognition from Brisbane/Sydney. The Melbourne micro-mobility market is currently <strong>$280M and growing at 22% p.a.</strong> VoltRide\'s app has a 4.7-star rating and 340,000 registered users.</div></div>';
+var _CS3c=_CS3+'The Melbourne expansion will be evaluated as a separate division with <strong>$8M invested capital</strong>. Management forecasts divisional EBIT of <strong>$1.1M p.a.</strong> once operational. Corporate tax rate: <strong>25%</strong>. VoltRide\'s WACC is <strong>11%</strong>. The board also wants to implement a <strong>Balanced Scorecard</strong> to monitor the expansion\'s performance across all four perspectives.</div></div>';
+
+var EXAM2=[
+{section:'A',week:5,type:'multipart',
+ scenario:'<strong>Questions 1–2 refer to this information:</strong><br>A bank account offers a 14.4% APR with quarterly compounding.',
+ parts:[
+  {question:'What is the per period (quarterly) interest rate? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a percentage with 2 decimal places, excluding the % sign.</em>',keywords:['3.60','3.6'],modelAnswer:'Per period rate = APR ÷ periods per year = 14.4% ÷ 4 = 3.60% per quarter'},
+  {question:'How much would a $1,200 investment be worth after 9 years? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a dollar value with 2 decimal places, excluding the $ sign.</em>',keywords:['4285','4286'],modelAnswer:'n = 9 × 4 = 36 quarters; r = 3.60%/qtr\nFV = 1,200 × (1.036)^36 = 1,200 × 3.5711 = $4,285.31'}
+ ],
+ hint:'Q1: Divide APR by number of periods per year. Q2: FV = PV × (1+r)^n where n = total compounding periods.',
+ hint2:'Q1: 4 quarters/year → 14.4÷4. Q2: 9yrs × 4 = 36 periods; FV = 1200 × (1.036)^36.'},
+
+{section:'A',week:5,type:'numerical',
+ question:'You are purchasing a house for $450,000. You have $60,000 cash for a down payment, so you need to borrow $390,000. The bank offers a 20-year mortgage requiring <strong>annual</strong> payments at 5.5% p.a.<br><br>What is your annual payment? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 0 decimal places, excluding the $ sign.</em>',
+ keywords:['32635','32634','32636'],
+ modelAnswer:'PMT = PV × r / [1−(1+r)^−n] = 390,000 × 0.055 / [1−(1.055)^−20]\n(1.055)^20 = 2.9178; (1.055)^−20 = 0.3427\nPMT = 21,450 / 0.6573 = $32,635',
+ hint:'Annuity formula: PMT = PV × r / [1−(1+r)^−n]. PV = amount borrowed = $390,000.',
+ hint2:'(1.055)^20 = 2.9178; denominator = 1 − 1/2.9178 = 0.6573; PMT = 21,450/0.6573 = $32,635.'},
+
+{section:'A',week:7,type:'numerical',
+ question:'Coastline Hotels is upgrading HVAC across 50 properties. Upfront investment: <strong>$380,000</strong> in Year 0. No cash savings in Year 1. Starting Year 2, annual energy savings of <strong>$62,000</strong>, declining by <strong>5%</strong> each subsequent year forever. Cost of capital: <strong>9% p.a.</strong><br><br>What is the NPV of the upgrade? [2 marks]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 0 decimal places, excluding the $ sign.</em>',
+ keywords:['26292','26291','26293','26290'],
+ modelAnswer:'Declining perpetuity (first CF at Y2, g = −5%):\nPV at Y1 = C₂/(r+|g|) = 62,000/(0.09+0.05) = 62,000/0.14 = $442,857\nPV at Y0 = 442,857/1.09 = $406,292\nNPV = 406,292 − 380,000 = $26,292',
+ hint:'Declining perpetuity: PV at one period before first CF = C/(r+|g|). First CF is at Y2, so PV is at Y1, then discount back to Y0.',
+ hint2:'PV₁ = 62,000/(0.09+0.05) = 442,857. PV₀ = 442,857/1.09 = 406,292. NPV = PV₀ − 380,000.'},
+
+{section:'A',week:3,type:'multipart',
+ scenario:'<strong>Questions 5–8 refer to this information:</strong><br>CraftBrew Co. produces two craft beers. Last month: 3,000 Session Ale and 1,000 Premium IPA were produced and sold.<br><table class="scenario-table"><thead><tr><th></th><th>Session Ale</th><th>Premium IPA</th></tr></thead><tbody><tr><td>Selling price per unit</td><td>$20</td><td>$32</td></tr><tr><td>Variable cost per unit</td><td>$8</td><td>$8</td></tr><tr><td colspan="3">Annual fixed costs: $75,000</td></tr></tbody></table>Assume the sales mix is the same as last month.',
+ parts:[
+  {question:'What is the weighted average contribution margin per unit? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 0 decimal places, excluding the $ sign.</em>',keywords:['15'],modelAnswer:'CM Session = $20−$8 = $12; CM IPA = $32−$8 = $24\nMix: 3,000:1,000 = 75% Session, 25% IPA\nWACM = 0.75×$12 + 0.25×$24 = $9+$6 = $15'},
+  {question:'What is the total number of units CraftBrew must sell to breakeven? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 0 decimal places, excluding commas.</em>',keywords:['5000'],modelAnswer:'Total BEP = Fixed Costs / WACM = $75,000 / $15 = 5,000 units'},
+  {question:'What is the number of Session Ale units that must be sold to breakeven? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 0 decimal places.</em>',keywords:['3750'],modelAnswer:'Session Ale BEP = 5,000 × 75% = 3,750 units'},
+  {question:'What is the number of Premium IPA units that must be sold to breakeven? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 0 decimal places.</em>',keywords:['1250'],modelAnswer:'Premium IPA BEP = 5,000 × 25% = 1,250 units'}
+ ],
+ hint:'WACM = weighted average of (price−VC) weighted by sales mix proportions.',
+ hint2:'CM Session=$12, CM IPA=$24. Mix 75%/25%. WACM=$15. BEP=75,000/15=5,000. Apply mix %.'},
+
+{section:'A',week:7,type:'multipart',
+ scenario:'<strong>Questions 9–14 refer to this information:</strong><br>Riverton Industries is evaluating two mutually exclusive projects with a payback target of 2.5 years. Cost of capital: <strong>12% p.a.</strong><br><table class="scenario-table"><thead><tr><th>Year</th><th>Project Amber ($000)</th><th>Project Bravo ($000)</th></tr></thead><tbody><tr><td>0</td><td>−85</td><td>−65</td></tr><tr><td>1</td><td>30</td><td>28</td></tr><tr><td>2</td><td>35</td><td>40</td></tr><tr><td>3</td><td>45</td><td>30</td></tr><tr><td>4</td><td>60</td><td>25</td></tr></tbody></table>',
+ parts:[
+  {question:'What is the payback period of Project Amber? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 3 decimal places.</em>',keywords:['2.444','2.44'],modelAnswer:'After Y1: −85+30=−55; After Y2: −55+35=−20; After Y3: −20+45=+25\nFraction of Y3 needed: 20/45=0.444\nPayback = 2.444 years'},
+  {question:'What is the payback period of Project Bravo? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 3 decimal places.</em>',keywords:['1.925','1.92'],modelAnswer:'After Y1: −65+28=−37; After Y2: −37+40=+3\nFraction of Y2 needed: 37/40=0.925\nPayback = 1.925 years'},
+  {question:'What is the profitability index of Project Amber? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 3 decimal places.</em>',keywords:['1.469','1.47'],modelAnswer:'Discount factors at 12%: Y1=0.8929, Y2=0.7972, Y3=0.7118, Y4=0.6355\nPV(Amber)=30×0.8929+35×0.7972+45×0.7118+60×0.6355=26.79+27.90+32.03+38.13=$124.85k\nPI = 124.85/85 = 1.469'},
+  {question:'What is the profitability index of Project Bravo? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 3 decimal places.</em>',keywords:['1.448','1.45'],modelAnswer:'PV(Bravo)=28×0.8929+40×0.7972+30×0.7118+25×0.6355=25.00+31.89+21.35+15.89=$94.13k\nPI = 94.13/65 = 1.448'},
+  {question:'What is the NPV of Project Amber? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter with 2 decimal places. Values are in $000s.</em>',keywords:['39.85','39.84','39.86'],modelAnswer:'NPV(Amber) = PV(CFs) − Cost = 124.85 − 85 = $39.85 thousand'},
+  {question:'What is the NPV of Project Bravo? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter with 2 decimal places. Values are in $000s.</em>',keywords:['29.13','29.12','29.14'],modelAnswer:'NPV(Bravo) = 94.13 − 65 = $29.13 thousand'}
+ ],
+ hint:'Payback: track cumulative CFs until positive. PI = PV(future CFs)/initial cost. NPV = PV(CFs) − cost.',
+ hint2:'Discount factors at 12%: Y1=0.8929, Y2=0.7972, Y3=0.7118, Y4=0.6355.'},
+
+{section:'A',week:8,type:'numerical',
+ question:'RetailCo Ltd earned <strong>$4.20 per share</strong> in Year 0 and re-invested all of it. These investments promise to return <strong>35%</strong>. In Year 1, management plans to pay out <strong>8%</strong> of earnings and invest the rest for more growth, projected to return <strong>24%</strong>. They will then raise the payout ratio to <strong>62%</strong> and keep it there.<br><br>What is the expected dividend per share for Year 2? [3 marks]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a dollar value with 2 decimal places, excluding the $ sign.</em>',
+ keywords:['4.29','4.28','4.30'],
+ modelAnswer:'EPS₁ = 4.20 × 1.35 = $5.670\nReinvested in Y1 = 92% × 5.670 = $5.2164\nEPS₂ = EPS₁ + 24% × reinvested = 5.670 + 0.24×5.2164 = 5.670+1.252 = $6.922\nDiv₂ = EPS₂ × payout = 6.922 × 0.62 = $4.29',
+ hint:'EPS₂ = EPS₁ + (return on Y1 reinvestment × amount reinvested). Then multiply by new payout ratio.',
+ hint2:'Step 1: EPS₁=4.20×1.35=$5.67. Step 2: Reinvested=0.92×5.67=$5.2164. Step 3: EPS₂=5.67+0.24×5.2164. Step 4: Div₂=EPS₂×0.62.'},
+
+{section:'A',week:9,type:'multipart',
+ scenario:'<strong>Questions 16–17 refer to this information:</strong><br><table class="scenario-table"><thead><tr><th>Company</th><th>Expected Return (p.a.)</th><th>Beta</th></tr></thead><tbody><tr><td>CoreYield Fund</td><td>9.00%</td><td>0.40</td></tr><tr><td>AlphaGrowth Pty Ltd</td><td>19.65%</td><td>?</td></tr></tbody></table>The risk-free rate is 4.8% p.a.',
+ parts:[
+  {question:'Assuming CoreYield Fund is priced correctly, what is the expected market return per annum? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a percentage with 3 decimal places, excluding the % sign.</em>',keywords:['15.300','15.30'],modelAnswer:'CAPM: 9.00 = 4.8 + 0.40×(Rm−4.8)\n4.2 = 0.40×(Rm−4.8)\nRm−4.8 = 10.5\nRm = 15.300%'},
+  {question:'What beta for AlphaGrowth Pty Ltd is consistent with these market return expectations? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 3 decimal places.</em>',keywords:['1.414','1.41'],modelAnswer:'19.65 = 4.8 + β × 10.5\n14.85 = β × 10.5\nβ = 14.85/10.5 = 1.414'}
+ ],
+ hint:'CAPM: E[R] = Rf + β(Rm−Rf). Use CoreYield to solve for Rm, then use that Rm for AlphaGrowth.',
+ hint2:'Step 1: 9.00=4.8+0.40×(Rm−4.8) → Rm=15.3%. Step 2: 19.65=4.8+β×10.5 → β=1.414.'},
+
+{section:'A',week:9,type:'numerical',
+ question:'BlueWave Corp has a cost of equity of <strong>15.2%</strong> and a cost of debt of <strong>6.4%</strong>. Corporate tax rate: <strong>28%</strong>. Classical taxation system. Target <strong>debt-to-equity ratio: 0.35</strong>.<br><br>What is the after-tax WACC? [2 marks]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a percentage with 2 decimal places, excluding the % sign.</em>',
+ keywords:['12.45','12.44','12.46'],
+ modelAnswer:'D/E=0.35 → Wd=0.35/1.35=25.93%, We=74.07%\nWACC = 0.7407×15.2% + 0.2593×6.4%×(1−0.28)\n= 11.259% + 1.195% = 12.45%',
+ hint:'D/E=0.35 means D/(D+E)=0.35/1.35. After-tax cost of debt = Rd×(1−T).',
+ hint2:'We=1/1.35=74.07%; Wd=0.35/1.35=25.93%. WACC=We×Re+Wd×Rd×(1−T).'},
+
+{section:'A',week:7,type:'numerical',
+ question:'Lakeview Investments is evaluating two mutually exclusive projects. <strong>Project Sunrise</strong>: $500,000 initial investment, 3-year life; Year 1=$180,000, Year 2=$280,000, Year 3=$420,000. <strong>Project Moonlight</strong>: $750,000 initial investment, 5-year life, equal annual CFs. Cost of capital: <strong>10% p.a.</strong><br><br>What is the minimum equal annual CF that Project Moonlight must generate to have the same NPV as Project Sunrise? [3 marks]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 0 decimal places, excluding the $ sign.</em>',
+ keywords:['253376','253377','253375','253400','253300'],
+ modelAnswer:'NPV(Sunrise): PV = 180,000/1.10 + 280,000/1.21 + 420,000/1.331\n= 163,636 + 231,405 + 315,553 = $710,594\nNPV = 710,594−500,000 = $210,594\n\nFor Moonlight: X×PVIFA(10%,5) = 210,594+750,000 = 960,594\nPVIFA(10%,5) = (1−1/1.61051)/0.10 = 3.79079\nX = 960,594/3.79079 = $253,376',
+ hint:'First find NPV(Sunrise). Then: NPV(Moonlight) = X×PVIFA(10%,5) − 750,000 = NPV(Sunrise). Solve for X.',
+ hint2:'PVIFA(10%,5) = 3.7908. X = (NPV(Sunrise)+750,000)/3.7908.'},
+
+{section:'A',week:8,type:'numerical',
+ question:'AusInfra Ltd issued a 12-year corporate bond with face value <strong>$50,000</strong>, paying a <strong>7.6% p.a.</strong> coupon semi-annually. The bond was issued exactly <strong>4 years ago</strong>. An investor requires a nominal annual yield of <strong>8.4% p.a.</strong> compounded semi-annually.<br><br>What is the maximum price they would pay? [2 marks]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 2 decimal places, excluding commas and the $ sign.</em>',
+ keywords:['47703','47704','47702'],
+ modelAnswer:'Remaining: 12−4=8 years = 16 semi-annual periods\nSemi-annual coupon = 7.6%/2×50,000 = $1,900\nSemi-annual rate = 8.4%/2 = 4.2%\n(1.042)^16=1.9315; PVIF=0.5177; PVIFA=(1−0.5177)/0.042=11.483\nPrice = 1,900×11.483 + 50,000×0.5177 = $47,703.65',
+ hint:'Remaining life = 8 years = 16 semi-annual periods. Semi-annual coupon = 7.6%/2 × $50,000. Required rate = 8.4%/2 = 4.2%.',
+ hint2:'Price = Coupon×PVIFA(4.2%,16) + Face×PVIF(4.2%,16). (1.042)^16=1.9315.'},
+
+{section:'B',week:7,type:'multipart',
+ scenario:_CS2a,
+ parts:[
+  {question:'<strong>(a)</strong> Explain the investment decision rules that Canteen Kitchen Co.\'s management could use to evaluate the FreshFlex launch. Cover at least <strong>three decision rules</strong>, explaining how each is applied, what it measures, and its key limitations. [10 marks]',
+   marks:10,
+   keywords:['NPV','net present value','IRR','internal rate','payback','profitability index','PI','discount','WACC','cost of capital','value','maximise','limitation','accept'],
+   modelAnswer:'NPV (primary rule): Discount all future CFs at WACC (9%). FreshFlex: from Y2 a growing perpetuity → PV at Y1 = 680,000/(0.09−0.03) = $11,333,333; PV at Y0 = 11,333,333/1.09 = $10,397,553; NPV = 10,397,553−2,500,000 = +$7,897,553 → accept. NPV directly measures value created in dollars. Limitation: requires accurate WACC and CF forecasts.\n\nIRR: Rate at which NPV=0. Accept if IRR > 9%. Limitation: multiple IRRs possible with non-standard CFs; misleading for comparing mutually exclusive projects.\n\nPayback Period: Years to recover the $2.5M investment. Simple and intuitive. Limitation: ignores TVM; ignores CFs after payback; biased against long-term projects.\n\nPI: PV of future CFs / initial investment = 10,397,553/2,500,000 = 4.16 > 1 → accept. Useful when capital is rationed. Limitation: misleading for mutually exclusive projects of different sizes.\n\nConclusion: NPV is the gold standard — it directly measures dollar value creation and accounts for TVM and risk.'},
+  {question:'<strong>(b)</strong> FreshFlex targets a new customer segment with uncertain demand. Would FreshFlex represent a <strong>higher beta investment</strong> than Canteen\'s core subscription business? Discuss the implications. [5 marks]',
+   marks:5,
+   keywords:['beta','systematic risk','market','uncertain','discretionary','cyclical','WACC','required return','higher','covariance','co-movement'],
+   modelAnswer:'Beta measures systematic risk — how much an asset\'s returns co-move with the market.\n\nCore subscription: stable, recurring revenue; subscribers pay weekly regardless of economic conditions → low market sensitivity → relatively low beta.\n\nFreshFlex: new product, unproven demand, targets a younger demographic with more discretionary spending. In downturns, premium non-essential products are more likely to be cut → higher co-movement with market → higher beta.\n\nImplication: Canteen should not use its firm WACC (9%) to evaluate FreshFlex. A higher project-specific discount rate reflecting greater systematic risk should be used — otherwise Canteen may accept projects that appear positive NPV but actually destroy value at the correct risk-adjusted rate.'}
+ ],
+ hint:'(a) Explain NPV (primary), IRR, Payback, PI — how calculated, what it measures, limitations. (b) Define beta → compare core vs new business risk → implication for discount rate.',
+ hint2:'(a) NPV=PV(CFs)−cost; IRR=rate at NPV=0; Payback=years to recover; PI=PV/cost. (b) More uncertain/discretionary = higher beta = need higher discount rate.'},
+
+{section:'B',week:2,type:'multipart',
+ scenario:_CS2b,
+ parts:[
+  {question:'<strong>(a)</strong> Using relevant COMM1180 frameworks, analyse the <strong>market opportunity</strong> for Canteen Kitchen Co. to expand FreshFlex into the corporate wellness market. [10 marks]',
+   marks:10,
+   keywords:['market','segment','opportunity','TAM','value proposition','Porter','Five Forces','competitive','Blue Ocean','STP','positioning','differentiation','growth','target'],
+   modelAnswer:'Market Size & Attractiveness: $1.2B growing at 14% p.a. → large, high-growth opportunity. TAM/SAM/SOM framework helps Canteen estimate the reachable slice.\n\nSTP: Segment = corporate wellness buyers (HR departments). Target = mid-to-large firms with employee wellness programs. Position = premium, flexible, locally-sourced meal solution vs mass-market catering.\n\nValue Proposition (Canvas): Jobs: help professionals eat healthily at work without sacrificing flexibility. Pain relievers: no fixed recipes, portion-controlled. Gain creators: boosts employee productivity, wellness credentials for HR.\n\nPorter\'s Five Forces: Rivalry = competitive in consumer channel (HelloFresh, Marley Spoon) but corporate channel is less contested. Buyer power = moderate (HR buyers value outcomes). Supplier power = moderate (local produce). Substitutes = corporate canteens, UberEats. New entrants = possible but Canteen\'s logistics and brand provide a moat.\n\nBlue Ocean potential: Consumer meal-kits compete on price/recipes; FreshFlex creates a new corporate wellness space that avoids direct rivalry.',
+   },
+  {question:'<strong>(b)</strong> Describe how <strong>digital technology</strong> could enable Canteen Kitchen Co. to build a sustainable competitive advantage in the meal-kit market. [5 marks]',
+   marks:5,
+   keywords:['technology','data','analytics','app','platform','personalise','personalisation','network effect','algorithm','AI','competitive advantage','switching cost','supply chain'],
+   modelAnswer:'1. Data & Personalisation: 180,000 subscribers generate rich consumption data → AI-driven meal personalisation reduces churn. More subscribers → better data → better personalisation → network effect that competitors cannot easily replicate.\n\n2. App Platform: Creates switching costs — subscribers embedded in a platform are less likely to leave. Push notifications, loyalty rewards, and seamless reordering build stickiness.\n\n3. Supply Chain Technology: Real-time demand forecasting and inventory management reduce perishable waste (major cost driver in meal-kits), improving margins.\n\n4. Corporate Wellness Dashboard: Digital portal showing employee meal uptake and wellness metrics creates B2B value that differentiates Canteen from less-tech-enabled competitors.\n\nSustainability: Data moat + switching costs + network effects compound over time → hard to replicate vs price-based advantages that erode quickly.'}
+ ],
+ hint:'(a) Use 2–3 frameworks: STP, Porter\'s Five Forces, Value Proposition Canvas, Blue Ocean. (b) Think data network effects, app stickiness, supply chain tech.',
+ hint2:'(a) Market size → Segment/Target/Position → competitive forces. (b) Data → personalisation → network effects → switching costs = sustainable advantage.'},
+
+{section:'B',week:10,type:'multipart',
+ scenario:_CS2c,
+ parts:[
+  {question:'<strong>(a)</strong> Explain how <strong>EVA</strong> and <strong>ROI</strong> could be used to evaluate FreshFlex division performance. For each metric: explain how it is calculated, what it measures, and compare their strengths and weaknesses. [10 marks]',
+   marks:10,
+   keywords:['EVA','economic value added','NOPAT','invested capital','WACC','ROI','return on investment','value','destroy','create','cost of capital','game','short-term','limitation'],
+   modelAnswer:'ROI = NOPAT / Invested Capital\nNOPAT = EBIT×(1−T) = 620,000×0.72 = $446,400\nROI = 446,400/2,500,000 = 17.9%\n\nEVA = NOPAT − (WACC × Invested Capital) = 446,400 − (0.09×2,500,000) = 446,400−225,000 = $221,400 > 0 → value creating\n\nROI strengths: simple; easy to compare across divisions and industry benchmarks; intuitive %.\nROI weakness: ignores cost of capital — 17.9% ROI looks great but could be inadequate if WACC were higher. Managers may game ROI by rejecting positive-NPV projects that dilute divisional ROI.\n\nEVA strengths: explicitly charges for cost of capital; positive EVA = value creation; aligns manager incentives with shareholders.\nEVA weakness: requires accurate WACC and invested capital estimates; backward-looking; can be gamed via asset writedowns.\n\nConclusion: EVA is theoretically superior. ROI is useful for benchmarking but misleads if used alone.'},
+  {question:'<strong>(b)</strong> Discuss the <strong>limitations of relying solely on financial metrics</strong> (ROI and EVA) to evaluate FreshFlex division performance. [5 marks]',
+   marks:5,
+   keywords:['lagging','non-financial','intangible','customer','brand','satisfaction','short-term','Balanced Scorecard','BSC','employee','leading indicator'],
+   modelAnswer:'1. Lagging indicators: ROI and EVA reflect what already happened — cannot predict future performance or enable early intervention.\n\n2. Miss intangibles: FreshFlex\'s brand awareness, customer NPS, and employee engagement are not captured but drive future revenue.\n\n3. Short-termism: Managers may cut marketing or R&D (which damages long-term growth) to boost short-term ROI/EVA.\n\n4. No customer insight: Financial metrics don\'t reveal subscriber churn rate or whether FreshFlex is building a loyal base — critical for a subscription business.\n\nSolution: A Balanced Scorecard adds Customer (NPS, churn rate), Internal Process (fulfilment speed, waste%), and Learning & Growth (staff training, innovation pipeline) perspectives — giving a complete and balanced view of value creation.'}
+ ],
+ hint:'(a) Calculate ROI = NOPAT/Invested Capital; EVA = NOPAT − WACC×Capital. Then compare. (b) Lagging, intangibles, short-termism, BSC solution.',
+ hint2:'NOPAT=620,000×0.72=$446,400. ROI=446,400/2,500,000=17.9%. EVA=446,400−225,000=$221,400. (b) BSC solves over-reliance on financial metrics.'}
+]];
+
+var EXAM3=[
+{section:'A',week:5,type:'multipart',
+ scenario:'<strong>Questions 1–2 refer to this information:</strong><br>A savings account offers an 18.0% APR with monthly compounding.',
+ parts:[
+  {question:'What is the per period (monthly) interest rate? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a percentage with 2 decimal places, excluding the % sign.</em>',keywords:['1.50','1.5'],modelAnswer:'Per period rate = APR ÷ periods per year = 18.0% ÷ 12 = 1.50% per month'},
+  {question:'How much would a $2,500 investment be worth after 6 years? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a dollar value with 2 decimal places, excluding the $ sign.</em>',keywords:['7301','7302','7303'],modelAnswer:'n = 6×12 = 72 months; r = 1.50%/month\nFV = 2,500×(1.015)^72 = 2,500×2.9207 = $7,301.79'}
+ ],
+ hint:'Q1: Divide APR by 12. Q2: FV = PV×(1+r)^n where n = total months.',
+ hint2:'Q1: 18÷12=1.50%. Q2: 6yrs×12=72 periods; FV=2500×(1.015)^72.'},
+
+{section:'A',week:5,type:'numerical',
+ question:'You are purchasing a house for $650,000. You have $80,000 cash for a down payment, so you need to borrow $570,000. The bank offers a 30-year mortgage requiring <strong>annual</strong> payments at 6.0% p.a.<br><br>What is your annual payment? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 0 decimal places, excluding the $ sign.</em>',
+ keywords:['41410','41409','41411'],
+ modelAnswer:'PMT = PV×r/[1−(1+r)^−n] = 570,000×0.06/[1−(1.06)^−30]\n(1.06)^30=5.7435; (1.06)^−30=0.1741\nPMT = 34,200/0.8259 = $41,410',
+ hint:'PMT = PV×r/[1−(1+r)^−n]. PV = $570,000 (amount borrowed).',
+ hint2:'(1.06)^30=5.7435; denominator=1−1/5.7435=0.8259; PMT=34,200/0.8259.'},
+
+{section:'A',week:7,type:'numerical',
+ question:'FreshMart is upgrading refrigeration units across 40 stores. Upfront investment: <strong>$350,000</strong> in Year 0. No cash savings in Year 1. Starting Year 2, annual energy savings of <strong>$65,000</strong>, declining by <strong>5%</strong> each subsequent year forever. Cost of capital: <strong>9% p.a.</strong><br><br>What is the NPV of the upgrade? [2 marks]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 0 decimal places, excluding the $ sign.</em>',
+ keywords:['75949','75950','75948','75951'],
+ modelAnswer:'Declining perpetuity (first CF at Y2, g = −5%):\nPV at Y1 = 65,000/(0.09+0.05) = 65,000/0.14 = $464,286\nPV at Y0 = 464,286/1.09 = $425,949\nNPV = 425,949−350,000 = $75,949',
+ hint:'PV of declining perpetuity at Y1 = C/(r+|g|). First CF at Y2, so PV is at Y1. Discount back to Y0.',
+ hint2:'PV₁=65,000/0.14=464,286. PV₀=464,286/1.09=425,949. NPV=425,949−350,000.'},
+
+{section:'A',week:3,type:'multipart',
+ scenario:'<strong>Questions 5–8 refer to this information:</strong><br>LightPack Co. produces two products. Last month: 3,000 Standard Packs and 2,000 Pro Packs were produced and sold.<br><table class="scenario-table"><thead><tr><th></th><th>Standard Pack</th><th>Pro Pack</th></tr></thead><tbody><tr><td>Selling price per unit</td><td>$15</td><td>$30</td></tr><tr><td>Variable cost per unit</td><td>$5</td><td>$10</td></tr><tr><td colspan="3">Annual fixed costs: $84,000</td></tr></tbody></table>Assume the sales mix is the same as last month.',
+ parts:[
+  {question:'What is the weighted average contribution margin per unit? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 0 decimal places, excluding the $ sign.</em>',keywords:['14'],modelAnswer:'CM Standard = $15−$5=$10; CM Pro = $30−$10=$20\nMix: 3,000:2,000 = 60% Standard, 40% Pro\nWACM = 0.60×$10+0.40×$20 = $6+$8 = $14'},
+  {question:'What is the total number of units LightPack must sell to breakeven? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 0 decimal places, excluding commas.</em>',keywords:['6000'],modelAnswer:'Total BEP = Fixed Costs/WACM = $84,000/$14 = 6,000 units'},
+  {question:'What is the number of Standard Pack units that must be sold to breakeven? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 0 decimal places.</em>',keywords:['3600'],modelAnswer:'Standard BEP = 6,000 × 60% = 3,600 units'},
+  {question:'What is the number of Pro Pack units that must be sold to breakeven? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 0 decimal places.</em>',keywords:['2400'],modelAnswer:'Pro Pack BEP = 6,000 × 40% = 2,400 units'}
+ ],
+ hint:'WACM = weighted average of (price−VC) weighted by mix proportions.',
+ hint2:'CM Standard=$10, CM Pro=$20. Mix 60%/40%. WACM=$14. BEP=84,000/14=6,000. Apply mix %.'},
+
+{section:'A',week:7,type:'multipart',
+ scenario:'<strong>Questions 9–14 refer to this information:</strong><br>Zenith Corp is evaluating two mutually exclusive projects with a payback target of 2 years. Cost of capital: <strong>15% p.a.</strong><br><table class="scenario-table"><thead><tr><th>Year</th><th>Project Copper ($000)</th><th>Project Delta ($000)</th></tr></thead><tbody><tr><td>0</td><td>−90</td><td>−72</td></tr><tr><td>1</td><td>35</td><td>35</td></tr><tr><td>2</td><td>40</td><td>45</td></tr><tr><td>3</td><td>55</td><td>30</td></tr><tr><td>4</td><td>70</td><td>20</td></tr></tbody></table>',
+ parts:[
+  {question:'What is the payback period of Project Copper? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 3 decimal places.</em>',keywords:['2.273','2.27'],modelAnswer:'After Y1: −90+35=−55; After Y2: −55+40=−15; After Y3: −15+55=+40\nFraction of Y3: 15/55=0.273\nPayback = 2.273 years'},
+  {question:'What is the payback period of Project Delta? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 3 decimal places.</em>',keywords:['1.822','1.82'],modelAnswer:'After Y1: −72+35=−37; After Y2: −37+45=+8\nFraction of Y2: 37/45=0.822\nPayback = 1.822 years'},
+  {question:'What is the profitability index of Project Copper? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 3 decimal places.</em>',keywords:['1.521','1.52'],modelAnswer:'Discount factors at 15%: Y1=0.8696, Y2=0.7561, Y3=0.6575, Y4=0.5718\nPV(Copper)=35×0.8696+40×0.7561+55×0.6575+70×0.5718=30.43+30.24+36.16+40.03=$136.87k\nPI=136.87/90=1.521'},
+  {question:'What is the profitability index of Project Delta? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 3 decimal places.</em>',keywords:['1.328','1.33'],modelAnswer:'PV(Delta)=35×0.8696+45×0.7561+30×0.6575+20×0.5718=30.43+34.03+19.73+11.44=$95.62k\nPI=95.62/72=1.328'},
+  {question:'What is the NPV of Project Copper? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter with 2 decimal places. Values are in $000s.</em>',keywords:['46.87','46.86','46.88'],modelAnswer:'NPV(Copper)=136.87−90=$46.87 thousand'},
+  {question:'What is the NPV of Project Delta? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter with 2 decimal places. Values are in $000s.</em>',keywords:['23.62','23.61','23.63'],modelAnswer:'NPV(Delta)=95.62−72=$23.62 thousand'}
+ ],
+ hint:'Payback: track cumulative CFs. PI=PV(future CFs)/initial cost. NPV=PV(CFs)−cost.',
+ hint2:'Discount factors at 15%: Y1=0.8696, Y2=0.7561, Y3=0.6575, Y4=0.5718.'},
+
+{section:'A',week:8,type:'numerical',
+ question:'AusDev Ltd earned <strong>$5.10 per share</strong> in Year 0 and re-invested all of it. These investments promise to return <strong>28%</strong>. In Year 1, management plans to pay out <strong>15%</strong> of earnings and invest the rest for more growth, projected to return <strong>18%</strong>. They will then raise the payout ratio to <strong>70%</strong> and keep it there.<br><br>What is the expected dividend per share for Year 2? [3 marks]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a dollar value with 2 decimal places, excluding the $ sign.</em>',
+ keywords:['5.27','5.26','5.28'],
+ modelAnswer:'EPS₁ = 5.10×1.28 = $6.528\nReinvested in Y1 = 85%×6.528 = $5.549\nEPS₂ = EPS₁+18%×reinvested = 6.528+0.18×5.549 = 6.528+0.999 = $7.527\nDiv₂ = EPS₂×0.70 = 7.527×0.70 = $5.27',
+ hint:'EPS₂ = EPS₁ + (return on Y1 reinvestment × amount reinvested). Multiply by payout ratio for Div₂.',
+ hint2:'EPS₁=5.10×1.28=$6.528. Reinvested=0.85×6.528=$5.549. EPS₂=6.528+0.18×5.549. Div₂=EPS₂×0.70.'},
+
+{section:'A',week:9,type:'multipart',
+ scenario:'<strong>Questions 16–17 refer to this information:</strong><br><table class="scenario-table"><thead><tr><th>Company</th><th>Expected Return (p.a.)</th><th>Beta</th></tr></thead><tbody><tr><td>NorthPine Ltd</td><td>10.50%</td><td>0.55</td></tr><tr><td>SouthStar Pty Ltd</td><td>18.00%</td><td>?</td></tr></tbody></table>The risk-free rate is 4.0% p.a.',
+ parts:[
+  {question:'Assuming NorthPine Ltd is priced correctly, what is the expected market return per annum? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a percentage with 3 decimal places, excluding the % sign.</em>',keywords:['15.818','15.82'],modelAnswer:'CAPM: 10.50 = 4.0+0.55×(Rm−4.0)\n6.5 = 0.55×(Rm−4.0)\nRm−4.0 = 11.818\nRm = 15.818%'},
+  {question:'What beta for SouthStar Pty Ltd is consistent with these market return expectations? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 3 decimal places.</em>',keywords:['1.185','1.18'],modelAnswer:'MRP = 15.818−4.0 = 11.818%\n18.00 = 4.0+β×11.818\n14.0 = β×11.818\nβ = 14.0/11.818 = 1.185'}
+ ],
+ hint:'CAPM: E[R] = Rf+β×(Rm−Rf). Use NorthPine to find Rm first, then solve for SouthStar beta.',
+ hint2:'Step 1: 10.50=4.0+0.55×(Rm−4.0) → Rm=15.818%. Step 2: 18.00=4.0+β×11.818 → β=1.185.'},
+
+{section:'A',week:9,type:'numerical',
+ question:'RedRock Enterprises has a cost of equity of <strong>17.8%</strong> and a cost of debt of <strong>8.1%</strong>. Corporate tax rate: <strong>30%</strong>. Classical taxation system. Target <strong>debt-to-equity ratio: 0.60</strong>.<br><br>What is the after-tax WACC? [2 marks]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a percentage with 2 decimal places, excluding the % sign.</em>',
+ keywords:['13.25','13.24','13.26'],
+ modelAnswer:'D/E=0.60 → Wd=0.60/1.60=37.5%, We=62.5%\nWACC = 0.625×17.8%+0.375×8.1%×(1−0.30)\n= 11.125%+2.126% = 13.25%',
+ hint:'D/E=0.60 means D/(D+E)=0.60/1.60. After-tax Rd = 8.1%×(1−0.30).',
+ hint2:'We=1/1.60=62.5%; Wd=0.60/1.60=37.5%. WACC=We×Re+Wd×Rd×(1−T).'},
+
+{section:'A',week:7,type:'numerical',
+ question:'Summit Investments is evaluating two mutually exclusive projects. <strong>Project Atlas</strong>: $700,000 initial investment, 3-year life; Year 1=$250,000, Year 2=$350,000, Year 3=$500,000. <strong>Project Titan</strong>: $1,100,000 initial investment, 5-year life, equal annual CFs. Cost of capital: <strong>12% p.a.</strong><br><br>What is the minimum equal annual CF that Project Titan must generate to have the same NPV as Project Atlas? [3 marks]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 0 decimal places, excluding the $ sign.</em>',
+ keywords:['349015','349016','349000','349014'],
+ modelAnswer:'NPV(Atlas): PV=250,000/1.12+350,000/1.2544+500,000/1.4049\n=223,214+279,018+355,890=$858,122\nNPV=858,122−700,000=$158,122\n\nFor Titan: X×PVIFA(12%,5)=158,122+1,100,000=1,258,122\nPVIFA(12%,5)=(1−1/1.7623)/0.12=3.6048\nX=1,258,122/3.6048=$349,015',
+ hint:'Find NPV(Atlas) first. Then: X×PVIFA(12%,5)−1,100,000=NPV(Atlas). Solve for X.',
+ hint2:'PVIFA(12%,5)=3.6048. X=(NPV(Atlas)+1,100,000)/3.6048.'},
+
+{section:'A',week:8,type:'numerical',
+ question:'GoldBridge Corp issued a 10-year corporate bond with face value <strong>$80,000</strong>, paying an <strong>8.0% p.a.</strong> coupon semi-annually. The bond was issued exactly <strong>2 years ago</strong>. An investor requires a nominal annual yield of <strong>9.6% p.a.</strong> compounded semi-annually.<br><br>What is the maximum price they would pay? [2 marks]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 2 decimal places, excluding commas and the $ sign.</em>',
+ keywords:['72963','72964','72962'],
+ modelAnswer:'Remaining: 10−2=8 years = 16 semi-annual periods\nSemi-annual coupon = 8.0%/2×80,000 = $3,200\nSemi-annual rate = 9.6%/2 = 4.8%\n(1.048)^16=2.1173; PVIF=0.4723; PVIFA=(1−0.4723)/0.048=10.994\nPrice = 3,200×10.994+80,000×0.4723 = $72,963.84',
+ hint:'Remaining life = 8 years = 16 semi-annual periods. Semi-annual coupon = 8.0%/2×$80,000. Required rate = 9.6%/2=4.8%.',
+ hint2:'Price = Coupon×PVIFA(4.8%,16)+Face×PVIF(4.8%,16). (1.048)^16=2.1173.'},
+
+{section:'B',week:7,type:'multipart',
+ scenario:_CS3a,
+ parts:[
+  {question:'<strong>(a)</strong> Explain the investment decision rules that VoltRide\'s management could use to evaluate the Melbourne expansion. Cover at least <strong>three decision rules</strong>, explaining how each is applied, what it measures, and its key limitations. [10 marks]',
+   marks:10,
+   keywords:['NPV','net present value','IRR','internal rate','payback','profitability index','PI','discount','WACC','cost of capital','value','limitation','accept','reject'],
+   modelAnswer:'NPV (primary rule): Discount all future CFs at WACC (11%). Melbourne: growing perpetuity from Y2 → PV at Y1 = 1,400,000/(0.11−0.04) = $20,000,000; PV at Y0 = 20,000,000/1.11 = $18,018,018; NPV = 18,018,018−8,000,000 = +$10,018,018 → strongly accept. NPV measures value creation in dollars. Limitation: sensitive to WACC and CF estimates, especially for long-lived projects.\n\nIRR: Rate at which NPV=0. Accept if IRR > 11%. Limitation: multiple IRRs possible; misleading for comparing mutually exclusive projects; ignores scale.\n\nPayback Period: Years to recover $8M. Simple and intuitive — useful check on liquidity risk. Limitation: ignores TVM; ignores CFs after payback; biases against long-term infrastructure projects like VoltRide.\n\nPI: PV of future CFs/initial investment = 18,018,018/8,000,000 = 2.25 > 1 → accept. Useful when capital is rationed across multiple city expansions.\n\nConclusion: NPV is the primary rule — it measures dollar value added and is consistent with shareholder wealth maximisation.'},
+  {question:'<strong>(b)</strong> The Melbourne expansion involves entering a new regulatory environment with uncertain consumer adoption rates. Would this represent a <strong>higher beta investment</strong> than VoltRide\'s existing Brisbane/Sydney operations? Discuss the implications. [5 marks]',
+   marks:5,
+   keywords:['beta','systematic risk','market','uncertain','regulatory','new','cyclical','WACC','required return','higher','covariance','discretionary'],
+   modelAnswer:'Beta measures systematic risk — the degree to which an asset\'s returns co-move with the broader market.\n\nExisting Brisbane/Sydney operations: established customer base, known regulatory environment, predictable revenue → lower sensitivity to economic conditions → relatively lower beta.\n\nMelbourne expansion: new regulatory regime (licence approval risk), unproven local demand, higher initial uncertainty → cash flows more sensitive to economic conditions (e-scooters are discretionary transport) → higher covariance with the market → higher beta.\n\nImplication: VoltRide should not apply its firm WACC (11%) to the Melbourne expansion. A risk-adjusted, project-specific discount rate reflecting the expansion\'s higher systematic risk should be used — otherwise VoltRide may accept the project at too low a hurdle rate and risk destroying value.'}
+ ],
+ hint:'(a) NPV (primary), IRR, Payback, PI — calculation, meaning, limitations. (b) Beta = systematic risk → compare existing vs expansion risk → discount rate implication.',
+ hint2:'(a) NPV=PV(CFs)−cost; IRR=rate at NPV=0; Payback=years to recover. (b) New, uncertain market = higher beta = need higher project-specific discount rate.'},
+
+{section:'B',week:2,type:'multipart',
+ scenario:_CS3b,
+ parts:[
+  {question:'<strong>(a)</strong> Using relevant COMM1180 frameworks, analyse the <strong>market opportunity</strong> for VoltRide to expand into Melbourne. Assess the attractiveness of the opportunity and how VoltRide might create and capture value. [10 marks]',
+   marks:10,
+   keywords:['market','segment','opportunity','TAM','value proposition','Porter','Five Forces','competitive','Blue Ocean','STP','positioning','differentiation','growth','target'],
+   modelAnswer:'Market Size: $280M growing at 22% p.a. → large, fast-growing opportunity. VoltRide can use TAM/SAM/SOM to size the addressable slice given Melbourne\'s population and transport patterns.\n\nSTP: Segment = urban commuters, tourists, recreational users. Target = inner-city Melbourne commuters aged 18–45 (dense, transit-connected areas). Position = reliable, tech-forward e-scooter service with superior app UX vs existing operators.\n\nValue Proposition: Jobs: get from A to B quickly without owning a vehicle. Pain relievers: real-time availability (app-based), affordable vs taxis, zero parking stress. Gain creators: environmental credentials, fun/novelty.\n\nPorter\'s Five Forces: Rivalry = 3 existing operators → competitive, but VoltRide can differentiate on app quality and brand. Buyer power = high (users easily switch between apps). Supplier power = moderate (scooter manufacturers). Substitutes = Uber, trams, bikes. New entrants = possible if regulations relax.\n\nBlue Ocean potential: Rather than competing head-on on price, VoltRide could target corporate/tourism segments underserved by existing operators, creating a differentiated blue ocean position.'},
+  {question:'<strong>(b)</strong> VoltRide uses a real-time fleet management app and predictive analytics. Discuss how <strong>digital technology</strong> enables VoltRide to sustain a competitive advantage in the micro-mobility market. [5 marks]',
+   marks:5,
+   keywords:['technology','data','analytics','app','platform','predictive','real-time','competitive advantage','switching cost','network effect','maintenance','algorithm'],
+   modelAnswer:'1. Real-time Fleet Optimisation: Predictive algorithms place scooters where demand will peak (near train stations, offices, events) — reducing idle time and maximising utilisation. Competitors without this data capability cannot match operational efficiency.\n\n2. Predictive Maintenance: Sensor data identifies battery and mechanical issues before breakdowns, reducing downtime and maintenance costs — a structural cost advantage.\n\n3. App Platform & Switching Costs: A 4.7-star rated app with 340,000 users creates stickiness. Users learn the app, trust the brand, and avoid switching to less familiar competitors.\n\n4. Data Moat: More users → more trip data → better demand prediction → better scooter placement → better user experience → more users. This compounding network effect is hard for new entrants to replicate.\n\n5. B2B & Partnerships: VoltRide can use data to offer corporate travel packages (e.g. last-mile commute deals with Melbourne CBD employers), creating a revenue stream competitors without scale cannot access.'}
+ ],
+ hint:'(a) Use STP, Porter\'s Five Forces, Value Proposition Canvas. Size the market, identify target segment, assess competition. (b) Data network effects, app stickiness, predictive maintenance, B2B.',
+ hint2:'(a) Market size → Segment/Target/Position → competitive dynamics (5 Forces). (b) More users → more data → better service → more users = compounding advantage.'},
+
+{section:'B',week:4,type:'multipart',
+ scenario:_CS3c,
+ parts:[
+  {question:'<strong>(a)</strong> VoltRide\'s board wants to use a <strong>Balanced Scorecard (BSC)</strong> to monitor the Melbourne expansion. Design an appropriate BSC, identifying at least <strong>two specific KPIs for each of the four perspectives</strong> and explaining why each is relevant. [10 marks]',
+   marks:10,
+   keywords:['financial','customer','internal','learning','growth','KPI','perspective','Balanced Scorecard','BSC','lagging','leading','strategy','cause','effect'],
+   modelAnswer:'Financial Perspective (lagging — did we create value?):\n• Revenue per scooter per day: measures asset utilisation and pricing effectiveness\n• EBIT margin %: tracks operational profitability of the Melbourne division\n• EVA: ensures the expansion creates value above WACC\n\nCustomer Perspective (did we satisfy customers?):\n• App rating (target ≥4.5★): reflects user experience quality — leading indicator of retention\n• Monthly active users (MAU): tracks adoption and growth in Melbourne market\n• Net Promoter Score (NPS): captures loyalty and likelihood of word-of-mouth growth\n\nInternal Process Perspective (are our operations efficient?):\n• Fleet availability rate (% of scooters operational at peak times): measures maintenance effectiveness\n• Average response time to maintenance issues: operational efficiency metric\n• Regulatory compliance incidents: critical given new Melbourne regulatory environment\n\nLearning & Growth Perspective (are we building capability?):\n• Staff training completion rate: ensures team understands Melbourne-specific regulations and operations\n• Algorithm accuracy for demand prediction: measures improvement in tech capability over time\n• Employee satisfaction score: engaged staff deliver better customer service\n\nCause-and-effect logic: L&G investment → better processes → happier customers → financial results.'},
+  {question:'<strong>(b)</strong> Explain how VoltRide could use <strong>EVA</strong> to evaluate whether the Melbourne expansion is creating or destroying shareholder value. What specific challenges would arise in calculating EVA for this expansion? [5 marks]',
+   marks:5,
+   keywords:['EVA','economic value added','NOPAT','invested capital','WACC','value','destroy','create','challenge','intangible','tax','estimate','capital'],
+   modelAnswer:'EVA = NOPAT − (WACC × Invested Capital)\nFor Melbourne: NOPAT = EBIT×(1−T) = 1,100,000×0.75 = $825,000\nInvested Capital = $8,000,000\nCapital charge = WACC×Capital = 0.11×8,000,000 = $880,000\nEVA = 825,000−880,000 = −$55,000 → slightly value destroying initially\n\nPositive EVA eventually requires NOPAT > $880,000 → requires EBIT > $1,173,333 before tax.\n\nChallenges:\n1. WACC estimation: Melbourne has different risk profile from existing ops — should use project-specific WACC, not firm WACC (11% may understate risk).\n2. Invested capital definition: What counts? Scooter fleet depreciates rapidly — which depreciation method? R&D and app development costs: capitalise or expense?\n3. Intangible assets: VoltRide\'s brand and technology are not on the balance sheet but contribute to returns — this understates capital but also NOPAT.\n4. Early-stage distortion: In Year 2 when EBIT ramps up from zero, EVA will be very negative, discouraging investment that creates long-term value.'}
+ ],
+ hint:'(a) Four perspectives: Financial, Customer, Internal Process, Learning & Growth. Give 2+ KPIs each with justification. Show cause-effect chain. (b) Calculate EVA = NOPAT − WACC×Capital, then list specific challenges.',
+ hint2:'(a) L&G drives Process → drives Customer → drives Financial. (b) NOPAT=1,100,000×0.75=$825,000. Capital charge=0.11×8,000,000=$880,000. EVA=825,000−880,000=−$55,000 initially.'}
+]];
+
+function startFixedExam(n){
+  try{
+    var arr=n===2?EXAM2:EXAM3;
+    var secA=arr.filter(function(q){return q.section==='A';});
+    var secB=arr.filter(function(q){return q.section==='B';});
+    var pool=secA.concat(secB);
+    quizState={questions:pool,idx:0,results:[],mode:'exam',answered:false,currentAnswer:null,
+      missedPool:null,startTime:Date.now(),learnMode:false,examMode:true,sectionACount:secA.length};
+    _examElapsedMs=0;
+    showScreen('quiz');
+    startExamTimer();
+    renderQuestion();
+  }catch(e){
+    alert('Error starting exam: '+e.message);
+    console.error(e);
+  }
 }
 
 // ── UTILS ──
