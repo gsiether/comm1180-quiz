@@ -2816,6 +2816,7 @@ let _examTimerInterval=null;
 let _examTimerSecondsLeft=8100;
 let _examStartMs=null;
 let _examElapsedMs=0;
+let darkMode=localStorage.getItem('c1180_dark')==='true';
 
 
 
@@ -4826,8 +4827,6 @@ function applySettings(){
 
 
 // ── DARK MODE ──
-
-let darkMode=localStorage.getItem('c1180_dark')==='true';
 
 function applyDarkMode(){
 
