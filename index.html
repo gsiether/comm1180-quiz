@@ -978,6 +978,13 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <button class="btn-start-exam" onclick="startFixedExam(3)">Start →</button>
       </div>
 
+      <div class="exam-select-card" style="border-color:var(--blue-mid);background:var(--blue-light)">
+        <div class="exam-select-num" style="color:var(--blue)">Practice Exam 4</div>
+        <div class="exam-select-title">PulseWear — 2026 Case Study</div>
+        <div class="exam-select-desc" style="color:var(--blue)">Section A + the actual T1 2026 case study</div>
+        <button class="btn-start-exam" onclick="startFixedExam(4)">Start →</button>
+      </div>
+
     </div>
 
   </div>
@@ -6478,9 +6485,134 @@ var EXAM3=[
  hint2:'(a) L&G drives Process → drives Customer → drives Financial. (b) NOPAT=1,100,000×0.75=$825,000. Capital charge=0.11×8,000,000=$880,000. EVA=825,000−880,000=−$55,000 initially.'}
 ];
 
+// ── PRACTICE EXAM 4 — PulseWear (T1 2026 actual case study) ──
+
+var _CS4='<div style="background:var(--blue-light);border:1.5px solid var(--blue-mid);border-radius:var(--r);padding:14px 18px;margin-bottom:12px"><div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--blue);margin-bottom:6px">COMM1180 · Section B Case Study · T1 2026</div><div style="font-weight:700;font-size:.95rem;color:var(--text);margin-bottom:8px">PulseWear — Smart Apparel, Sustainable Value Creation</div><div style="font-size:.82rem;line-height:1.7;color:var(--text-2)">';
+
+var _CS4a=_CS4+'PulseWear is a Melbourne-based smart clothing startup founded in 2021 by <strong>Priya Shah (CEO)</strong> and <strong>Dylan Roberts (CTO)</strong>. Its flagship product, the <strong>PulseWear Tee ($89)</strong>, embeds biometric sensors (heart rate, steps, posture, stress) in everyday streetwear that syncs with a mobile app. A <strong>PulseWear Hoodie ($119)</strong> and <strong>Pro App Subscription ($6.99/month)</strong> round out the product range — apparel includes 1 free year of app access, and <strong>25% of customers convert</strong> to the paid subscription. PulseWear targets <strong>Gen Z consumers (18–25)</strong> who value health, digital connectivity, and ethical consumption. <strong>FY2024:</strong> Revenue $4.2M | COGS $2.1M | OpEx $1.3M | NPBT $800K. The company employs 28 staff in a functional structure and raised $2M Series A in 2022, with plans to raise $5M for SE Asia expansion, sustainable material innovation, and cybersecurity.</div></div>';
+
+var _CS4b=_CS4+'PulseWear operates in the highly competitive Australian athleisure and wearable technology market, dominated by global brands like Nike and Lululemon. Research shows <strong>over 70% of Gen Z consumers prefer brands with genuine environmental and social responsibility</strong>. PulseWear\'s sustainability credentials include: <strong>65% recycled polyester/organic cotton</strong> (target 90% by 2027), 100% recyclable packaging (40% less plastic), a <strong>product take-back program</strong> for recycling/refurbishment, annual third-party supply chain audits of its certified Vietnamese manufacturer, <strong>50% women in leadership</strong>, above-award wages, and a strict policy against selling personal health data. Following a <strong>minor data breach in early 2024</strong> (500 users\' emails exposed), PulseWear strengthened cybersecurity protocols and publicly communicated corrective actions. The Board is currently debating whether to raise the $5M from <strong>traditional VC or impact-focused investors</strong>.</div></div>';
+
+var _CS4c=_CS4+'PulseWear publishes a voluntary annual <strong>Sustainability Impact Statement</strong>. Its 28-person team is led by a functional structure with roles including CEO, CTO, CMO, CFO, Head of Product & Design, and Head of IT & Data Security. Organisational culture is described as "purpose-driven and innovation-led," with cross-functional collaboration and employee involvement in sustainability initiatives. <strong>Key strategic challenges:</strong> (1) balancing cost pressure with sustainable sourcing, (2) managing e-waste as smart apparel scales, (3) maintaining data trust amid cyber threats, and (4) demonstrating measurable sustainability outcomes to avoid greenwashing accusations. PulseWear views sustainability not as a compliance cost but as a <strong>core driver of long-term value creation</strong> and brand legitimacy with Gen Z consumers.</div></div>';
+
+var EXAM4=[
+// ── SECTION A — Numerical (W3, W5, W7, W8, W9) ──
+{section:'A',week:5,type:'multipart',
+ scenario:'<strong>Questions 1–2 refer to this information:</strong><br>A bank account offers a 16.0% APR with monthly compounding.',
+ parts:[
+  {question:'What is the per period (monthly) interest rate? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Round to 2 decimal places, enter as a % excluding the % sign.</em>',keywords:['1.33'],modelAnswer:'Periodic rate = APR ÷ m = 16% ÷ 12 = 1.33% per month'},
+  {question:'How much would a $700 investment be worth after 1 year? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Round to the nearest cent, excluding the $ sign.</em>',keywords:['820.59'],modelAnswer:'FV = $700 × (1.013333)^12 = $700 × 1.17227 = $820.59'}
+ ],
+ hint:'Q1: APR ÷ 12. Q2: FV = PV×(1+r)^n where r = monthly rate, n = 12.',
+ hint2:'1.33% per month. FV = 700×(1.013333)^12 = $820.59.'},
+
+{section:'A',week:5,type:'numerical',
+ question:'A saving account of $14,000 will be worth $30,000 in 10 years. What is the per year interest rate? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Give answer correct to 2 decimal places, excluding the % sign.</em>',
+ keywords:['7.92'],
+ modelAnswer:'r = (30,000/14,000)^(1/10) − 1 = (2.14286)^0.1 − 1 = 1.07918 − 1 = 7.92% per year',
+ hint:'Rearrange FV = PV×(1+r)^n: r = (FV/PV)^(1/n) − 1.',
+ hint2:'r = (30,000/14,000)^0.1 − 1 = 7.92%.'},
+
+{section:'A',week:5,type:'numerical',
+ question:'A perpetuity makes its first annual payment of $128 in 22 years. What is its present value at a discount rate of 5.0%? [2 marks]<br><em style="font-size:.78rem;color:var(--text-3)">Round to the nearest cent, excluding the $ sign.</em>',
+ keywords:['919.07','919.06','919.08'],
+ modelAnswer:'PV at Y21 = $128/0.05 = $2,560\nPV at Y0 = $2,560/(1.05)^21 = $2,560/2.7856 = $919.07',
+ hint:'Perpetuity formula gives PV one period before first payment (year 21 here). Then discount back 21 years.',
+ hint2:'PV₂₁ = 128/0.05 = 2,560. PV₀ = 2,560/(1.05)^21 = $919.07.'},
+
+{section:'A',week:3,type:'multipart',
+ scenario:'<strong>Questions 4–5 refer to this information:</strong><br>TechGear Co. sells two products:<br><table class="scenario-table"><thead><tr><th></th><th>Basic Model</th><th>Pro Model</th></tr></thead><tbody><tr><td>Selling price</td><td>$40</td><td>$100</td></tr><tr><td>Variable cost</td><td>$16</td><td>$40</td></tr><tr><td colspan="3">Fixed costs: $120,000/year. Sales mix: 3 Basic : 1 Pro.</td></tr></tbody></table>',
+ parts:[
+  {question:'What is the weighted average contribution margin per unit? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a dollar value with 0 decimal places.</em>',keywords:['33'],modelAnswer:'CM Basic = $40−$16 = $24; CM Pro = $100−$40 = $60\nMix: 75% Basic, 25% Pro\nWACM = 0.75×$24 + 0.25×$60 = $18 + $15 = $33'},
+  {question:'How many total units must TechGear sell to break even? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a whole number.</em>',keywords:['3636','3637'],modelAnswer:'BEP = Fixed Costs / WACM = $120,000 / $33 = 3,636 units (round up to 3,637)'}
+ ],
+ hint:'WACM = sum of (CM × weight) for each product. BEP = FC ÷ WACM.',
+ hint2:'CM Basic=$24, CM Pro=$60. 75%/25% mix. WACM=$18+$15=$33. BEP=120,000/33=3,636.'},
+
+{section:'A',week:7,type:'numerical',
+ scenario:'<strong>Question 6</strong>',
+ question:'The Sydney franchisee of McDonald\'s is replacing kitchen appliances. Upfront investment: <strong>$234,828</strong> (Year 0). No cash flows in Year 1. Starting Year 2: increase in operating cash flow of <strong>$51,000</strong>, declining by <strong>5.5%</strong> each subsequent year forever. Cost of capital: <strong>9.5%</strong>.<br><br>What is the NPV of the upgrade per location? [2 marks]<br><em style="font-size:.78rem;color:var(--text-3)">Round to the nearest dollar, excluding the $ sign.</em>',
+ keywords:['75674','75,674'],
+ modelAnswer:'Growing perpetuity (g = −5.5%) starting Y2:\nPV at Y1 = 51,000/(0.095−(−0.055)) = 51,000/0.15 = $340,000\nPV at Y0 = 340,000/1.095 = $310,502\nNPV = −234,828 + 310,502 = $75,674',
+ hint:'Declining perpetuity: PV at Y1 = C/(r−g), where g = −0.055. First CF at Y2, so PV is at Y1 — divide by (1+r) to get Y0.',
+ hint2:'PV₁ = 51,000/0.15 = 340,000. PV₀ = 340,000/1.095 = 310,502. NPV = 310,502 − 234,828 = $75,674.'},
+
+{section:'A',week:8,type:'numerical',
+ scenario:'<strong>Question 7</strong>',
+ question:'The yield to maturity of a $1,000 bond with a <strong>7.2% coupon rate</strong>, semi-annual coupons, and <strong>two years to maturity</strong> is <strong>8.2% APR</strong> compounded semi-annually. What must its price be? [2 marks]<br><em style="font-size:.78rem;color:var(--text-3)">Round to the nearest cent, excluding the $ sign.</em>',
+ keywords:['981.90','981.89','981.91'],
+ modelAnswer:'Semi-annual coupon = 7.2%/2 × $1,000 = $36\nSemi-annual YTM = 8.2%/2 = 4.1%; n = 4\nP = $36×[1−(1.041)^−4]/0.041 + $1,000/(1.041)^4\n(1.041)^4 = 1.17478\nP = $36×3.6193 + $851.61 = $130.29 + $851.61 = $981.90',
+ hint:'Semi-annual: halve coupon rate and YTM, double periods. PV = annuity of coupons + PV of face value.',
+ hint2:'Coupon = $36/period; r = 4.1%; n = 4. Bond price = 36×3.6193 + 1000/1.17478 = $981.90.'},
+
+{section:'A',week:9,type:'multipart',
+ scenario:'<strong>Questions 8–9:</strong> The risk-free rate is 4.30%. Round Corp. has an expected return of 7.50% and a beta of 0.34, and is correctly priced.',
+ parts:[
+  {question:'What is the expected market return per year that investors seem to expect? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a percentage with 2 decimal places, excluding the % sign.</em>',keywords:['13.71'],modelAnswer:'CAPM: 7.50 = 4.30 + 0.34×MRP → MRP = 3.20/0.34 = 9.412%\nE[RM] = 4.30 + 9.412 = 13.71%'},
+  {question:'What beta for Lemon LLC (expected return 14.36%) would be consistent with these market expectations? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a numerical value with 3 decimal places.</em>',keywords:['1.069','1.07'],modelAnswer:'14.36 = 4.30 + β×9.412 → β = 10.06/9.412 = 1.069'}
+ ],
+ hint:'Use Round Corp to find MRP first, then E[RM]. Apply same MRP to find Lemon LLC beta.',
+ hint2:'MRP = (7.50−4.30)/0.34 = 9.412%. E[RM] = 13.71%. Lemon: β = (14.36−4.30)/9.412 = 1.069.'},
+
+{section:'A',week:9,type:'multipart',
+ scenario:'<strong>Questions 10–11:</strong> The Sandwich With A Pretty Big Pickle On It Corporation has a cost of equity of 14.30%, cost of debt of 6.20%, and corporate tax rate of 30%.',
+ parts:[
+  {question:'What is the after-tax WACC if the target D/E ratio is 0.50? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a percentage with 2 decimal places, excluding the % sign.</em>',keywords:['10.99'],modelAnswer:'After-tax debt = 6.20%×0.70 = 4.34%\nwD = 0.50/1.50 = 0.333; wE = 1/1.50 = 0.667\nWACC = 0.667×14.30% + 0.333×4.34% = 9.54+1.45 = 10.99%'},
+  {question:'What is the after-tax WACC if the target D/E ratio is 1.00? [1 mark]<br><em style="font-size:.78rem;color:var(--text-3)">Enter as a percentage with 2 decimal places, excluding the % sign.</em>',keywords:['9.32'],modelAnswer:'wD = 1.00/2.00 = 0.50; wE = 1/2.00 = 0.50\nWACC = 0.50×14.30% + 0.50×4.34% = 7.15+2.17 = 9.32%'}
+ ],
+ hint:'wD = (D/E)/(1+D/E); wE = 1/(1+D/E). After-tax debt = 6.20%×(1−0.30).',
+ hint2:'D/E=0.50: wD=0.333, wE=0.667, WACC=10.99%. D/E=1.00: wD=0.50, wE=0.50, WACC=9.32%.'},
+
+// ── SECTION B — PulseWear Case Study ──
+{section:'B',week:2,type:'multipart',
+ scenario:_CS4a,
+ parts:[
+  {question:'<strong>(a)</strong> Identify the market opportunity PulseWear is targeting. Using <strong>two frameworks</strong> from Week 2, analyse why it represents a strong opportunity and how PulseWear is positioned to capture it. [10 marks]',
+   marks:10,
+   keywords:['Gen Z','Focus Differentiation','Porter','value proposition','job to be done','niche','sustainability','differentiation','unmet need','freemium','switching cost','market gap'],
+   modelAnswer:'Market opportunity: The Gen Z (18–25) athleisure + wearable tech segment — an underserved niche within a large, competitive Australian market dominated by Nike and Lululemon.\n\nFramework 1 — Porter\'s Generic Strategies (Focus Differentiation):\nPulseWear targets a narrow competitive scope (Gen Z only) and competes on differentiation, not price. The $89–$119 price point is premium relative to standard streetwear, justified by unique biometric functionality and sustainability credentials that no broad-market competitor currently offers. This is Focus Differentiation: PulseWear\'s small scale is an advantage, not a weakness — it can be authentically purpose-driven in a way Nike ($50B+ revenue) structurally cannot.\n\nFramework 2 — "Job to be Done" / Value Proposition:\nGen Z consumers want to look good (streetwear), track health (wearable tech), and express sustainability values — simultaneously. Nike and Lululemon satisfy only parts of this job. PulseWear is the only product completing the whole job, creating a clear market gap.\nValue proposition (three layers): functional (biometric tracking), identity/values (sustainability credentials), digital (app + social sharing). Unique and difficult to replicate at scale.\n\nStrength of opportunity: 70%+ of Gen Z prefer sustainability-credentialled brands. The freemium model (free app year → 25% subscription conversion) creates recurring revenue and switching costs via longitudinal health data history — compounding the opportunity beyond the one-time hardware sale.\n\nConclusion: PulseWear is well-positioned because: (a) it occupies a gap in the market that large incumbents cannot authentically fill, (b) its value proposition matches the job Gen Z is actually trying to get done, and (c) its business model builds lock-in.'},
+  {question:'<strong>(b)</strong> PulseWear plans to raise $5 million for expansion into Southeast Asia. The Board is debating between <strong>traditional venture capital</strong> and <strong>impact-focused investors</strong>. Using <strong>stakeholder theory</strong>, recommend which type of investor PulseWear should prefer and explain the risks of the alternative. [5 marks]',
+   marks:5,
+   keywords:['stakeholder','shareholder','Freeman','Friedman','impact','VC','short-term','data','sustainability','trust','Gen Z','cost of capital','mission'],
+   modelAnswer:'Recommendation: Impact-focused investors.\n\nStakeholder theory (Freeman) vs Shareholder theory (Friedman):\nFriedman: firms exist solely to maximise returns to shareholders — all other considerations are secondary.\nFreeman: firms must balance the interests of all stakeholders (customers, employees, suppliers, community, investors) because ignoring any group creates long-run costs that ultimately destroy firm value.\n\nWhy impact investors are right for PulseWear:\n1. Strategic alignment: PulseWear\'s sustainability practices — supplier audits, recycled materials, data ethics — ARE the competitive advantage with Gen Z. Impact investors will not pressure cuts to these costs to hit short-run return targets.\n2. Brand credibility: Accepting an impact fund\'s investment signals genuine sustainability commitment to Gen Z consumers. Traditional VC acceptance could be perceived as contradicting PulseWear\'s core brand positioning.\n3. Time horizon alignment: Impact investors accept longer timelines consistent with PulseWear\'s 2027 recycled materials target — traditional VC\'s typical 3–5 year exit horizon may force premature decisions.\n\nRisks of traditional VC (shareholder theory in action):\n• Pressure to monetise health data (sell to third parties) — highest-value short-term revenue source but directly contradicts PulseWear\'s stated data ethics policy and would destroy Gen Z trust.\n• Cutting sustainability sourcing costs to improve margins — erodes the differentiation that justifies the $89 price point.\n• Forced exit before long-run brand equity is established.\n• Fundamental conflict: shareholder theory optimises for investor return; stakeholder theory recognises that for PulseWear\'s specific model, the sustainability strategy IS shareholder value — they cannot be separated.'}
+ ],
+ hint:'(a) Use 2 frameworks — Porter\'s Focus Differentiation + "Job to be Done." Evidence: narrow scope (Gen Z), $89–$119 premium pricing, 70% Gen Z sustainability preference, freemium model. (b) Freeman vs Friedman. Core tension: traditional VC would pressure cuts to the exact practices that create PulseWear\'s competitive advantage.',
+ hint2:'(a) Focus Differentiation: narrow scope + differentiation basis. Job to be done: look good + track health + express values. (b) Impact investors: aligned values + time horizon. Traditional VC risk: monetise health data, cut sustainability costs, short exit — all destroy brand equity with Gen Z.'},
+
+{section:'B',week:4,type:'multipart',
+ scenario:_CS4b,
+ parts:[
+  {question:'<strong>(a)</strong> Apply the <strong>Balanced Scorecard</strong> to PulseWear. For each of the four perspectives, identify ONE strategic objective and ONE specific KPI. Then explain the <strong>cause-and-effect logic</strong> connecting Learning & Growth through to the Financial perspective. [10 marks]',
+   marks:10,
+   keywords:['financial','customer','internal','learning','BSC','KPI','subscription','NPS','cybersecurity','training','strategy map','cause','effect','chain','leads to'],
+   modelAnswer:'BALANCED SCORECARD FOR PULSEWEAR:\n\nFinancial Perspective\n  Objective: Grow recurring subscription revenue\n  KPI: Monthly Recurring Revenue (MRR) from Pro App subs / % customers converted to paid subscription (baseline: 25%)\n\nCustomer Perspective\n  Objective: Build Gen Z brand loyalty through sustainability and trust (especially post-2024 breach)\n  KPI: Net Promoter Score (NPS) / customer retention rate / subscription conversion rate\n\nInternal Process Perspective\n  Objective: Maintain data security and reduce breach risk / maintain sustainable sourcing standards\n  KPI: Number of cybersecurity incidents per year / % recycled fabric content (currently 65%)\n\nLearning & Growth Perspective\n  Objective: Build staff capability in data security and sustainable innovation\n  KPI: Training hours per employee in cybersecurity and sustainability / staff turnover rate\n\nCAUSE-AND-EFFECT STRATEGY MAP:\nThe BSC strategy map shows how lower-level investments enable higher-level outcomes:\n\nLearning & Growth:\n  → Invest in cybersecurity training and sustainability upskilling for 28 staff\n  ↓ enables\nInternal Process:\n  → Stronger data security protocols (fewer breaches); rigorous supply chain audits; improved sensor R&D\n  ↓ enables\nCustomer:\n  → Restored user trust post-breach; stronger sustainability brand credibility with Gen Z; higher app engagement and willingness to subscribe\n  ↓ enables\nFinancial:\n  → Higher subscription conversion (beyond 25% baseline); lower churn → higher customer lifetime value; sustained premium pricing → NPBT growth\n\nKey insight: Without the BSC strategy map, cybersecurity training looks like overhead. The BSC makes visible WHY it generates financial returns — through the causal chain of trust → retention → subscription revenue.'},
+  {question:'<strong>(b)</strong> How does <strong>technology</strong> create value for PulseWear? Use specific Week 4 digital concepts (such as switching costs, near-zero marginal cost, or network effects) to support your answer. Also identify the key technology risk PulseWear faces and explain how it manages it. [5 marks]',
+   marks:5,
+   keywords:['switching cost','near-zero marginal cost','network effect','data','sensor','app','differentiation','lock-in','breach','encryption','cybersecurity','trust'],
+   modelAnswer:'HOW TECHNOLOGY CREATES VALUE:\n\n1. Product differentiation: The embedded biometric sensor technology IS PulseWear\'s core product. Without it, a PulseWear Tee is a $20 garment. Technology enables real-time tracking of heart rate, posture, stress, and steps — the unique functional value that justifies $89–$119 pricing and Gen Z willingness-to-pay.\n\n2. Switching costs via app data history: The PulseWear app accumulates personalised health data over time (trends, goals, historical patterns). This data is unique to each user. Switching to a competitor means losing all longitudinal health data — creating high switching costs even if a better product launches. The longer a user stays, the more valuable (and irreplaceable) their data history becomes.\n\n3. Near-zero marginal cost (digital scalability): Once app infrastructure is built, each additional $6.99/month subscriber costs almost nothing to serve. This is the fundamental digital business advantage — the subscription model scales without proportional cost increases, making each new subscriber almost entirely incremental profit.\n\nKEY TECHNOLOGY RISK — Data breach / cybersecurity:\nPulseWear collects sensitive biometric health data. A breach catastrophically damages trust among a Gen Z audience that values data ethics and authenticity above most other brand attributes.\n\nHow managed: Following the 2024 breach (500 email addresses), PulseWear:\n  • Implemented end-to-end encryption and multi-factor authentication\n  • Publicly communicated corrective actions — transparency as a trust-rebuilding tool\n  • Maintained strict no-third-party-sale policy for health data\nThe transparent public response aligns with PulseWear\'s brand values and was itself a risk-management strategy — demonstrating accountability rather than concealment.'}
+ ],
+ hint:'(a) Four perspectives: Financial (subscription revenue), Customer (Gen Z loyalty/NPS), Internal Process (data security), L&G (staff training). Strategy map: L&G → Process → Customer → Financial — trace the chain. (b) Three value drivers: differentiation (sensors), switching costs (app history), near-zero marginal cost (subscription). Risk: data breach. Response: encryption + MFA + transparency.',
+ hint2:'(a) KPIs must be specific to PulseWear (not generic). Chain: training → better security → restored trust → subscription growth. (b) Switching cost = loss of health data history. Near-zero marginal cost = why the subscription model is so valuable. Breach: 500 emails in 2024, responded transparently.'},
+
+{section:'B',week:10,type:'multipart',
+ scenario:_CS4c,
+ parts:[
+  {question:'<strong>(a)</strong> Apply the <strong>Triple Bottom Line</strong> framework to PulseWear. For each of the three dimensions (Planet, People, Profit), identify TWO specific actions and critically assess how well PulseWear performs on each dimension. [10 marks]',
+   marks:10,
+   keywords:['planet','people','profit','triple bottom line','Elkington','recycled','organic','take-back','audit','wages','women','leadership','revenue','margin','greenwashing','assess'],
+   modelAnswer:'The Triple Bottom Line (Elkington) holds that firms should measure performance across three dimensions simultaneously — economic viability alone is insufficient for long-run value creation.\n\nPLANET (Environmental):\nAction 1: 65% recycled polyester/organic cotton → target 90% by 2027. Supplier audits monitor water usage and chemical dye processes. Packaging is 100% recyclable (40% less plastic).\nAction 2: Product take-back program — customers return old smart garments for recycling/refurbishment. R&D into modular sensor designs (reusable across garments). Electronic waste risk managed in partnership with Shenzhen supplier.\nAssessment: Strong intent with some measurable, third-party-verified outcomes. However, the 65% → 90% gap is real — if marketed as already "sustainable," this constitutes greenwashing. The take-back program addresses e-waste directly and credibly. Overall: above average but not yet complete.\n\nPEOPLE (Social):\nAction 1: Ethical supply chain — certified Vietnamese manufacturer, annual third-party audits, international labour standards (minimum age, wage, hours, safety). Locally: above-award wages, paid wellbeing days.\nAction 2: Diversity and inclusion — 50% women in leadership (significantly above Australia\'s ~30% average). Mental health programs, flexible working, learning budgets for staff development.\nAssessment: Strong and externally verified. The 50% female leadership stat is particularly credible and measurable. Annual third-party supply chain audits add credibility to overseas sourcing claims.\n\nPROFIT (Economic):\nFY2024: Revenue $4.2M | Gross Profit $2.1M (50% gross margin) | NPBT $800K.\nSustainability investments increased OpEx slightly but are treated as strategic investments in brand equity — not short-term expenses.\nAssessment: Profitable and growing for a startup stage. The 50% gross margin is healthy. Planning $5M raise signals investor confidence in economic sustainability. The commercial viability of the Planet and People investments strengthens TBL credibility — sustainability here funds itself through brand premium.\n\nConclusion: PulseWear performs consistently across all three dimensions. Main risk is the Planet gap (65% vs 90% target) — the rest of the TBL scorecard is strong and well-evidenced.'},
+  {question:'<strong>(b)</strong> Define "greenwashing" and explain why it is a specific risk for PulseWear. Recommend THREE measurable <strong>non-financial KPIs</strong> PulseWear should track and report publicly to demonstrate genuine sustainability performance. [5 marks]',
+   marks:5,
+   keywords:['greenwashing','KPI','measurable','verifiable','third-party','recycled','carbon','take-back','kg','CO2','non-financial','specific','audit'],
+   modelAnswer:'GREENWASHING: Making vague, exaggerated, or unverifiable environmental/social claims to appear sustainable without genuine underlying commitment. It is deceptive and, for Gen Z consumers who are highly sceptical and research brands deeply, can permanently destroy brand trust when exposed.\n\nWHY IT IS A SPECIFIC RISK FOR PULSEWEAR:\nSustainability is the central pillar of PulseWear\'s competitive differentiation and the primary reason Gen Z pays a premium. This creates heightened vulnerability:\n1. The 90% recycled materials target is for 2027 — currently only 65%. If marketing language suggests the company is already fully sustainable, this gap is greenwashing.\n2. The 2024 data breach showed that forced transparency is possible — proactive KPI disclosure pre-empts future reputational crises.\n3. Competitors (Nike, Lululemon) are increasingly making sustainability claims; PulseWear must stay ahead with measurable evidence, not just positioning.\n\nTHREE RECOMMENDED NON-FINANCIAL KPIs:\n\n1. % of fabrics from recycled or organic certified sources (current: 65%)\nTrack annually with third-party supplier verification. Creates a visible progress trail toward the 2027 target. Directly verifiable against purchase records and supplier audit reports.\n\n2. Volume of garments processed through take-back program (kg of materials diverted from landfill/e-waste per year)\nQuantifies circularity in physical, measurable terms — not just policy statements. Difficult to manipulate without actually running the program.\n\n3. Carbon footprint per unit produced (CO2e per garment, Scope 1+2+3)\nHardest to measure but increasingly expected by impact investors and likely future regulatory requirements. Directly tied to the $5M raise\'s stated carbon measurement objective and would pre-empt compliance requirements during SE Asia expansion.'}
+ ],
+ hint:'(a) TBL: Planet = recycled materials (65%→90%) + take-back program. People = ethical supply chain + 50% women in leadership. Profit = $4.2M revenue, 50% gross margin, $800K NPBT. Assess credibly — don\'t just list. (b) Greenwashing = unverifiable claims. Risk: sustainability IS the brand premium. Three KPIs must be specific, measurable, third-party verifiable.',
+ hint2:'(a) For each dimension, cite SPECIFIC numbers from the case. Assess: Planet = above average but 65% vs 90% gap is real. People = strong, externally verified. Profit = 50% GM healthy for a startup. (b) Three KPIs: % recycled fabrics (65%, heading to 90%), kg diverted via take-back, CO2e/garment. All must be independently verifiable.'}
+];
+
 function startFixedExam(n){
   try{
-    var arr=n===2?EXAM2:EXAM3;
+    var arr=n===2?EXAM2:n===3?EXAM3:EXAM4;
     var secA=arr.filter(function(q){return q.section==='A';});
     var secB=arr.filter(function(q){return q.section==='B';});
     var pool=secA.concat(secB);
