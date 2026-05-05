@@ -4948,7 +4948,7 @@ function renderQuestion(){
 
     ${hasHints&&q.hint2?`<button id="hintBtn2" class="btn-hint" onclick="showHint2()" style="display:none">🔍 Hint 2</button>`:''}
 
-    ${!quizState.examMode&&settings.hints!==false?`<button id="hintBtnAI" class="btn-hint" onclick="showHintAI()" style="background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue)">😕 I'm Confused</button>`:''}
+    ${!quizState.examMode&&settings.hints!==false?`<button id="hintBtnAI" class="btn-hint" onclick="showHintAI()" style="${hasHints?'display:none;':''}background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue)">😕 I'm Confused</button>`:''}
 
     <div id="hintArea" class="hint-area"></div>
 
