@@ -813,7 +813,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
     <button class="hdr-btn" onclick="openOverlay('notes-overlay')">📋 <span>Notes</span></button>
 
-    <a class="hdr-btn" href="/formula-sheet.pdf" target="_blank" style="text-decoration:none">📐 <span>Formulas</span></a>
+    <button class="hdr-btn" onclick="openOverlay('formula-overlay')">📐 <span>Formulas</span></button>
 
     <button class="hdr-btn" onclick="openOverlay('settings-overlay')">⚙️</button>
 
@@ -951,7 +951,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
     <div style="background:var(--red-light);border:1px solid var(--red-border);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:16px;font-size:.82rem;color:var(--red);font-weight:600">
 
-      ⏱ 2 hr 15 min countdown &nbsp;·&nbsp; No hints &nbsp;·&nbsp; <a href="/formula-sheet.pdf" target="_blank" style="color:inherit">Official formula sheet ↗</a> &nbsp;·&nbsp; MathQuill input
+      ⏱ 2 hr 15 min countdown &nbsp;·&nbsp; No hints &nbsp;·&nbsp; <button onclick="openOverlay('formula-overlay')" style="background:none;border:none;color:inherit;cursor:pointer;text-decoration:underline;font-size:inherit;padding:0;font-family:inherit">Formula sheet ↗</button> &nbsp;·&nbsp; MathQuill input
 
     </div>
 
@@ -1010,7 +1010,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
     <button class="back-btn" onclick="showScreen('home')">← Back</button>
 
-    <a class="hdr-btn" href="/formula-sheet.pdf" target="_blank" style="text-decoration:none">📐 Formulas</a>
+    <button class="hdr-btn" onclick="openOverlay('formula-overlay')">📐 Formulas</button>
 
   </div>
 
@@ -1044,7 +1044,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
     <div class="quiz-tools">
 
-      <a class="tool-btn" href="/formula-sheet.pdf" target="_blank" style="text-decoration:none;display:flex;align-items:center;justify-content:center">📐</a>
+      <button class="tool-btn" onclick="openOverlay('formula-overlay')" title="Formula Sheet">📐</button>
 
       <button class="tool-btn" onclick="openOverlay('notes-overlay')">📋</button>
 
