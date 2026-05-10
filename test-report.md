@@ -1,67 +1,57 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-05-09
-**Tested by:** Automated QA Agent (run 16)
+**Date:** 2026-05-10
+**Tested by:** Automated QA Agent
 
-## Overall Status: PASS
+## Overall Status: PASS (with notes)
 
-A fresh redesign commit (`a733fa5`) was found and all required features are present and functional. Two minor observations recorded below.
+All required features are present and the app is structurally sound. Question count exceeds the spec's expected 118 (likely due to prior sessions adding questions), and minor structural notes are listed below.
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | "Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions" (`a733fa5`, 2026-05-08 15:15:55) |
-| JS syntax valid | ✅ | `node --check` returned no errors on extracted inline script |
-| 118+ questions intact | ✅ | **178 questions** found — exceeds expected 118 (see notes) |
-| Light mode CSS | ✅ | `--bg: #F8FAFC`, `--surface: #FFFFFF` in `:root{}`; 42 light-colour references |
-| Dark mode toggle | ✅ | `toggleDarkMode()` function + `.dark{}` CSS overrides + 🌙/☀️ button in header (line 820) |
-| Multi-week selection | ✅ | `homeState.weeks[]` array + `selectWeekChip()` + `.week-chip.active` CSS; note: searched var names `selectedWeeks`/`toggleWeek` are not used — feature exists under different identifiers |
-| Learn mode | ✅ | 17 occurrences of learn-mode identifiers; `#learn` screen + `learnMode` state + `renderLearnCard()` |
-| I'm Confused button | ✅ | `😕 I'm Confused` button rendered in quiz card via `hintBtnAI` (line 5142) |
-| Hint 1 / Hint 2 | ✅ | 225 occurrences; 3-level hint system (hint → hint2 → Ask AI) fully present |
-| Multi-step math input | ✅ | 19 occurrences of `addStep`/`step-row`/`working-steps` |
-| Final Answer field | ✅ | 13 occurrences of `finalAnswer`/`final-answer`/`Final Answer` |
-| Notes overlay present | ✅ | `#notes-overlay` element + 8 occurrences; tabs for W2–W10 |
-| Formula overlay present | ✅ | `#formula-overlay` element + 8 occurrences; in-app overlay (not PDF links) |
-| Netlify functions unchanged | ✅ | HEAD commit only modified `index.html`; `netlify/functions/mark.js` and `explain.js` untouched |
-| File size increased | ✅ | 6,902 lines (up from 6,711 in prior commit; far exceeds original 1,458) |
+| New commit exists | ✅ | "Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions" (a733fa5, 2026-05-08) |
+| JS syntax valid | ✅ | `node --check` passed with no errors |
+| 118 questions intact | ⚠️ | 178 questions found in QUESTIONS array (lines 2839–4497) — exceeds expected 118, likely from prior sessions adding questions; array is not truncated |
+| Light mode CSS | ✅ | 69 matches; `--bg: #F8FAFC`, `--surface: #FFFFFF`, target design system CSS variables present |
+| Dark mode toggle | ✅ | `toggleDarkMode()` at line 4909; button at line 820; persists to localStorage |
+| Multi-week selection | ✅ | `week-chip` + `selectWeekChip()` at line 4647; supports multi-select and "All" chip toggle |
+| Learn mode | ✅ | `learnMode` flag in state; `#learn` screen; "📚 Learn Mode" tab at line 842; `learn-week-grid` at line 912 |
+| I'm Confused button | ✅ | "😕 I'm Confused" button at line 5142; only shown when hints enabled and not in exam mode |
+| Hint 1 / Hint 2 | ✅ | 229 matches; 3-level progressive hint system implemented |
+| Multi-step math input | ✅ | 23 matches for step-row/addStep patterns |
+| Final Answer field | ✅ | 13 matches for finalAnswer patterns |
+| Notes overlay present | ✅ | `notes-overlay` present; week tabs implemented via new-window popup |
+| Formula overlay present | ✅ | `formula-overlay` present with formula reference content |
+| Netlify functions unchanged | ✅ | Redesign commit only modified `index.html`; last netlify change was f60567e (prior QA run) |
+| File size increased | ✅ | 6902 lines (original spec referenced ~1458 lines) |
 
-## Question Distribution (178 total)
-| Week | Topic | Count |
-|------|-------|-------|
-| W2 | Market Opportunities | 15 |
-| W3 | CVP / Pricing | 23 |
-| W4 | Technology / BSC | 15 |
-| W5 | TVM | 34 |
-| W7 | Capital Budgeting | 26 |
-| W8 | Investors / Valuation | 26 |
-| W9 | WACC | 25 |
-| W10 | Performance Measurement | 14 |
-| **Total** | | **178** |
-
-## Question Type Breakdown
+## Question Type Breakdown (within QUESTIONS array, lines 2839–4497)
 | Type | Count |
 |------|-------|
-| `mcq` | 42 |
-| `numerical` | 53 |
-| `sa` | 70 |
-| `multipart` | 42 |
-| `tf` | 0 |
-| **Total** | **178** (grep-line counts; some types appear on multiple lines) |
+| MCQ | 42 |
+| True/False | 0 |
+| Numerical | 69 |
+| Short Answer | 70 |
+| Multipart | 66* |
+| **Total (array)** | **178** |
+
+*Multipart grep counts inflated across whole file (66 includes EXAM2–EXAM5 arrays); main array line count = 178 question objects.
 
 ## Issues Found
 
-### 1. Question count exceeds spec (minor, non-critical)
-The QA spec states "118 questions total", but **178 questions** are present — a surplus of 60. The redesign agent appears to have added all 12 practice exam questions **plus** substantial extra topic questions across weeks 5, 7, 8, 9. No questions appear missing or truncated. This is over-delivery, not truncation. Recommend spot-checking for unintentional duplicates in the high-count weeks (W5: 34, W7–W9: 26–26–25).
+1. **Question count is 178, not 118** — The spec says "should be 118 questions total." The QUESTIONS array currently has 178. This is not a truncation issue (the array is intact and has MORE questions than expected). Prior redesign sessions have added questions beyond the original spec count. No action required unless de-duplication is desired.
 
-### 2. Multiple `<script>` tags (minor, non-critical)
-The file has 3 real `<script>` elements:
-- Line 2817: main inline script (expected)
-- Line 6896: `<script src="jquery.min.js">` (required for MathQuill)
-- Line 6897: `<script src="mathquill.min.js">` (required for multi-step math input)
+2. **Multiple `<script>` tags (3 real)** — The spec check expected exactly one. The file has: (1) the main app logic at line 2817, (2) jQuery CDN at line 6896, (3) MathQuill CDN at line 6897. The CDN scripts are expected dependencies for the math input feature — this is not a defect.
 
-The CDN scripts are necessary dependencies. Not a defect. Note: jQuery 2.2.4 is end-of-life with known vulnerabilities; low risk for an internal exam prep tool.
+3. **No True/False question type** — `type:'tf'` returns 0 matches in the main QUESTIONS array. The original CLAUDE.md listed `tf` as a supported question type, but none are present. This appears to have been the case in prior versions as well; confirm whether TF questions were intentionally removed.
+
+4. **`selectedWeeks` variable not used** — The QA spec grep for `selectedWeeks` returns 0. The implementation correctly uses `week-chip.active` CSS state and `selectWeekChip()` function instead. Feature works as designed; the variable name just differs from what the spec searched for.
+
+5. **EXAM2–EXAM5 arrays** — Lines 6423–6856 contain additional practice exam question arrays (EXAM2 through EXAM5) with ~40 question objects. These appear to be supplementary exam simulation sets added in prior sessions. Confirm these are intentional and used by the UI.
 
 ## Recommendations
-1. **Spot-check W5/W7/W8/W9 questions** for duplicates. With 60 extra questions added, a quick scan for repeated question text is worthwhile.
-2. **Smoke-test the live deploy** once Netlify finishes: run a quiz session, trigger each hint level (including AI), and verify multi-step math submission for a numerical question.
-3. **Confirm dark mode persistence**: state is stored in `localStorage('c1180_dark')` — verify it survives page reloads.
+
+- **Verify TF questions**: Confirm whether true/false questions are needed; if so, add them to the QUESTIONS array.
+- **Audit EXAM2–EXAM5**: Confirm these arrays are wired to a UI flow and not orphaned dead code.
+- **Consider de-duplication check**: With 178 questions across 8 weeks, spot-check that questions were not duplicated across sessions.
+- **No changes needed to netlify functions** — confirmed unchanged.
