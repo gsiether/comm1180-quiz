@@ -1,68 +1,75 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-05-13
-**Tested by:** Automated QA Agent
+**Date:** 2026-05-14
+**Tested by:** Automated QA Agent (second pass — post deduplication commit `b5c53fa`)
 
 ## Overall Status: PARTIAL
 
-All required UI features are present and JS syntax is valid. However, the question count (173) exceeds the expected 118. The redesign added more questions than the 12 specified from `practice-questions.md`, and although a deduplication pass was done, the count remains 55 above target.
+All required UI features are present and JS syntax is valid. However, the question count (166) still exceeds the expected 118, despite three deduplication commits. The count has been reduced from 173 (previous QA) to 166, so Q1–Q7 duplicates were successfully removed, but 48 excess questions remain.
 
 ---
 
 ## Checklist
+
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `7cfc60f Restore index.html with duplicate questions removed` (preceded by `a733fa5 Major redesign`) |
-| JS syntax valid | ✅ | No errors detected |
-| 118 questions intact | ⚠️ | **173 questions found** (expected 118) — see Issues |
-| Light mode CSS | ✅ | Default light theme with `--bg: #F8FAFC`, `--surface: #FFFFFF` |
-| Dark mode toggle | ✅ | `.dark` CSS class defined; `toggleDarkMode()` + 🌙/☀️ button present |
-| Multi-week selection | ✅ | Implemented via `homeState.weeks[]` + `selectWeekChip()` — functionally complete |
-| Learn mode | ✅ | `showLearn()`, `renderLearnCard()`, `#learn` screen, Learn Mode tab all present |
-| I'm Confused button | ✅ | Renders as "😕 I'm Confused", calls `showHintAI()` |
-| Hint 1 / Hint 2 | ✅ | 3-level hint system implemented (`hint`, `hint2`, AI explain) |
-| Multi-step math input | ✅ | `addStep()`, `.working-steps`, `.step-row`, "+ Add Step" button all present |
-| Final Answer field | ✅ | `.final-answer-wrap`, `.final-answer-input`, `.final-answer-label` all present |
-| Notes overlay present | ✅ | `notes-overlay` present with week tabs |
-| Formula overlay present | ✅ | `formula-overlay` present with CVP/TVM/NPV/Valuation/WACC tabs |
-| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` not modified |
-| File size increased | ✅ | **6,824 lines** (was 1,458 lines — 4.7× increase) |
+| New commit exists | ✅ | `b5c53fa` — "Remove duplicate practice exam questions (Q1-Q7)" |
+| JS syntax valid | ✅ | No errors (bracket-depth-aware parse, Function constructor check) |
+| 118 questions intact | ❌ | **166 questions found** (expected 118, still 48 over target) |
+| Light mode CSS | ✅ | Default light theme: `--bg:#F8FAFC`, `--surface:#FFFFFF`, full var set |
+| Dark mode toggle | ✅ | `darkModeBtn`, `toggleDarkMode()`, 🌙/☀️ icons, localStorage persistence |
+| Multi-week selection | ✅ | `selectWeekChip()` + `homeState.weeks[]` — multi-select with chip toggling |
+| Learn mode | ✅ | `showLearn()`, `renderLearnCard()`, `#learn` screen, learnMode state flag |
+| I'm Confused button | ✅ | "😕 I'm Confused" → `showHintAI()` → inline AI explanation box |
+| Hint 1 / Hint 2 | ✅ | Full 3-level reveal: `showHint1()` → `showHint2()` → `showHintAI()` |
+| Multi-step math input | ✅ | `addStep()`, `.working-steps`, `.step-row`, MathQuill integration |
+| Final Answer field | ✅ | `.final-answer-wrap`, `.final-answer-label`, `.final-answer-input` |
+| Notes overlay present | ✅ | `#notes-overlay` with week tabs, scrollable content, close button |
+| Formula overlay present | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC content |
+| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` not modified in any recent commit |
+| File size increased | ✅ | **6,711 lines** (was 1,458 lines — 4.6× increase) |
 
 ---
 
-## Question Count Breakdown
-| Week | Questions | Topic |
-|------|-----------|-------|
-| W2 | 15 | Market Opportunities |
-| W3 | 23 | CVP/Pricing |
-| W4 | 15 | Technology/BSC |
-| W5 | 34 | TVM |
-| W7 | 26 | Investment/Capital Budgeting |
-| W8 | 23 | Investors/Valuation |
-| W9 | 23 | WACC |
-| W10 | 14 | Performance Measurement |
-| **Total** | **173** | **(expected 118)** |
+## Question Count Detail
+
+Verified with a bracket-depth-aware JS parser (string-literal-safe count of `{week:` at depth 0 of the QUESTIONS array):
+
+| Metric | Count |
+|--------|-------|
+| Total top-level questions | **166** |
+| Expected total | 118 |
+| Excess | +48 |
+| MCQ type | 42 |
+| TF type | 0 |
+| Numerical type (top-level) | 48 |
+| SA type | 58 |
+| Multipart type | 35 |
+
+Note: `grep -c` across the whole file over-reports counts because `{week:` also appears inside model answer strings. The parser-based count of 166 is authoritative.
 
 ---
 
 ## Issues Found
 
-### 1. Question count is 173, not 118 (HIGH PRIORITY)
-The QUESTIONS array contains 173 top-level questions vs the expected 118 (original ~106 + 12 new practice exam questions from `practice-questions.md`). The redesign agent added more than the 12 specified questions. Two deduplication commits were applied (`f5443f7`, `7cfc60f`) that reduced the count from ~178 to 173, but 55 excess questions remain.
+### 1. Question count still 48 over target after three dedup commits (HIGH PRIORITY)
+The QUESTIONS array has 166 entries vs the expected 118. The most recent commit (`b5c53fa`) removed duplicates for Q1–Q7 (practice exam TVM and capital budgeting questions), reducing from 173 to 166. Practice exam Q8–Q12 (valuation and WACC questions, Weeks 8–9) likely still have duplicates and should be audited.
 
-W5 (34 Qs) and W7 (26 Qs) are the primary candidates for remaining duplicates — both are substantially higher than would be expected from the original bank plus the 4 and 3 new practice questions added for those weeks respectively.
+**Suggested next step:** Run the following to spot near-duplicate question text in weeks 8–9:
+```
+grep -n "week:8\|week:9" index.html | grep "question:" | sort
+```
 
-**Action required:** Further audit of W5 and W7 for near-duplicate question text.
+### 2. No true/false (TF) questions (LOW)
+`type:'tf'` count is 0. The original app specification listed TF as a supported type. Either TF questions were never in this version's QUESTIONS array, or they were removed during the redesign.
 
-### 2. Multiple script tags (minor)
-There are 3 `<script>` tags total: one main inline block (lines 2817–6816) plus external CDN scripts for jQuery and MathQuill. The jQuery and MathQuill libraries are legitimate dependencies for the MathQuill math input feature. Not a functional issue.
-
-### 3. "I'm Confused" button hidden when hints disabled (minor)
-The button is conditionally rendered when `settings.hints !== false && !quizState.examMode`. Users who turn off hints in Settings will not see the AI explain button. This may be intentional but is worth confirming.
+### 3. "I'm Confused" hidden when hints disabled (minor/by design)
+The AI explain button is gated on `settings.hints !== false && !quizState.examMode`. Users who turn off hints in Settings also lose the "I'm Confused" AI shortcut. May be intentional (exam mode parity), but worth confirming with the designer.
 
 ---
 
 ## Recommendations
-1. **Further deduplicate W5 and W7** — run a text-similarity check on question strings within each week group.
-2. **Verify the 12 practice exam questions from `practice-questions.md`** are present: Q1–Q4 (TVM/W5), Q5–Q7 (Capital Budgeting/W7), Q8–Q10 (Valuation/W8), Q11–Q12 (WACC/W9).
-3. **No action needed** on netlify functions — `mark.js` and `explain.js` are untouched and working.
-4. All UI features (learn mode, 3-level hints, dark mode toggle, multi-week selection, MathQuill math input, final answer field, notes and formula overlays) are correctly implemented and present.
+
+1. **Deduplicate practice exam Q8–Q12** (Weeks 8 and 9 — Valuation, WACC). These weeks were not covered by the three previous dedup commits.
+2. **Verify TF omission is intentional** — if true/false questions were part of the original bank, restore them.
+3. **No changes needed to Netlify functions** — `mark.js` and `explain.js` are confirmed untouched.
+4. **All 13 other checks pass** — the redesign is complete and functional. Once question count is corrected to 118, status should be updated to PASS.
