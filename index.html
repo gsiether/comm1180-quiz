@@ -2470,34 +2470,69 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <!-- ── W3 CVP ── -->
       <div id="f-cvp" class="tab-content active">
 
-        <div class="fml-group"><div class="fml-group-title">Break-Even Point</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#0891B2">Break-Even &amp; Target Profit</div>
 
           <div class="fml-card">
-            <div class="fml-expr"><em>Breakeven point</em> &nbsp;⟹&nbsp; Total Sales Quantity = <span class="frac"><span class="num">Total fixed costs</span><span class="den">Contribution margin per unit</span></span></div>
+            <div class="fml-name">Contribution Margin</div>
+            <div class="fml-expr">CM per unit = SP &minus; VC &emsp; | &emsp; CM Ratio = <span class="frac"><span class="num">CM</span><span class="den">SP</span></span></div>
+            <div class="fml-use">Use this when: finding how much each unit contributes to covering fixed costs</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>SP</b> = selling price per unit</div>
+              <div class="fml-legend-item"><b>VC</b> = variable cost per unit</div>
+              <div class="fml-legend-item"><b>CM</b> = contribution margin</div>
+            </div>
           </div>
 
           <div class="fml-card">
-            <div class="fml-expr"><em>Target profit</em> &nbsp;⟹&nbsp; Total Sales Quantity = <span class="frac"><span class="num">Total fixed costs + Target pretax profit</span><span class="den">Contribution margin per unit</span></span></div>
+            <div class="fml-name">Breakeven Point</div>
+            <div class="fml-expr">BEP (units) = <span class="frac"><span class="num">FC</span><span class="den">CM per unit</span></span> &emsp; BEP ($) = <span class="frac"><span class="num">FC</span><span class="den">CM Ratio</span></span></div>
+            <div class="fml-use">Use this when: finding the minimum sales needed to avoid a loss</div>
+          </div>
+
+          <div class="fml-card">
+            <div class="fml-name">Target Profit</div>
+            <div class="fml-expr">Units = <span class="frac"><span class="num">FC + Pre-tax profit</span><span class="den">CM per unit</span></span> &emsp; Pre-tax = <span class="frac"><span class="num">After-tax profit</span><span class="den">1 &minus; t</span></span></div>
+            <div class="fml-use">Use this when: solving for the volume needed to hit a profit target (convert after-tax → pre-tax first!)</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>FC</b> = total fixed costs</div>
+              <div class="fml-legend-item"><b>t</b> = tax rate</div>
+            </div>
           </div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">Multi-Product</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#0891B2">Multi-Product CVP</div>
 
           <div class="fml-card">
-            <div class="fml-expr"><em>Breakeven point</em> &nbsp;⟹&nbsp; Total Sales Quantity = <span class="frac"><span class="num">Total fixed costs</span><span class="den">Weighted average contribution margin per unit</span></span></div>
+            <div class="fml-name">Weighted Average CM (WACM)</div>
+            <div class="fml-expr">WACM = &Sigma;(CM<sub>i</sub> &times; Sales Mix %<sub>i</sub>)</div>
+            <div class="fml-use">Use this when: multiple products share the same fixed cost base — find the blended average CM first</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>CM<sub>i</sub></b> = CM per unit of product i</div>
+              <div class="fml-legend-item"><b>Mix %</b> = proportion of total units sold</div>
+            </div>
           </div>
 
           <div class="fml-card">
-            <div class="fml-expr"><em>Target profit</em> &nbsp;⟹&nbsp; Total Sales Quantity = <span class="frac"><span class="num">Total fixed costs + Target pretax profit</span><span class="den">Weighted average contribution margin per unit</span></span></div>
+            <div class="fml-name">Multi-Product BEP</div>
+            <div class="fml-expr">BEP = <span class="frac"><span class="num">FC</span><span class="den">WACM</span></span> (total units) &emsp; Product BEP = Total BEP &times; Mix%</div>
+            <div class="fml-use">Use this when: two or more products share fixed costs and you need the combined BEP, then split by mix</div>
           </div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">Margin of Safety</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#0891B2">Margin of Safety &amp; Operating Leverage</div>
 
           <div class="fml-card">
-            <div class="fml-expr"><em>Margin of safety</em> = Actual or expected units of activity &minus; Units at BEP</div>
+            <div class="fml-name">Margin of Safety</div>
+            <div class="fml-expr">MOS = Actual Sales &minus; BEP Sales &emsp; MOS% = <span class="frac"><span class="num">MOS</span><span class="den">Actual Sales</span></span> &times; 100</div>
+            <div class="fml-use">Use this when: measuring how far sales can fall before the firm makes a loss</div>
+          </div>
+
+          <div class="fml-card">
+            <div class="fml-name">Degree of Operating Leverage (DOL)</div>
+            <div class="fml-expr">DOL = <span class="frac"><span class="num">Total CM</span><span class="den">Operating Profit</span></span> &emsp; &Delta;Profit% = DOL &times; &Delta;Sales%</div>
+            <div class="fml-use">Use this when: measuring how sensitive profit is to a change in sales volume</div>
           </div>
 
         </div>
@@ -2507,53 +2542,110 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <!-- ── W5 TVM ── -->
       <div id="f-tvm" class="tab-content">
 
-        <div class="fml-group"><div class="fml-group-title">Lump Sum</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#059669">Lump Sum</div>
 
-          <div class="fml-card"><div class="fml-expr"><em>FV</em> = PV(1 + r)<sup>n</sup></div></div>
+          <div class="fml-card">
+            <div class="fml-name">Future Value / Present Value</div>
+            <div class="fml-expr"><em>FV</em> = PV(1 + r)<sup>n</sup> &emsp; | &emsp; <em>PV</em> = <span class="frac"><span class="num">FV</span><span class="den">(1 + r)<sup>n</sup></span></span></div>
+            <div class="fml-use">Use this when: compounding a single amount forward, or discounting it back to today</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>PV</b> = present value (today)</div>
+              <div class="fml-legend-item"><b>FV</b> = future value</div>
+              <div class="fml-legend-item"><b>r</b> = periodic interest rate</div>
+              <div class="fml-legend-item"><b>n</b> = number of periods</div>
+            </div>
+          </div>
 
-          <div class="fml-card"><div class="fml-expr"><em>PV</em> = <span class="frac"><span class="num">FV</span><span class="den">(1 + r)<sup>n</sup></span></span></div></div>
-
-          <div class="fml-card"><div class="fml-expr"><em>r</em> = <span style="display:inline-flex;align-items:center;gap:2px"><span style="font-size:.9em">(</span><span class="frac" style="font-size:.88em"><span class="num">FV</span><span class="den">PV</span></span><span style="font-size:.9em">)</span></span><sup style="font-size:.75em">1/n</sup> &minus; 1</div></div>
-
-          <div class="fml-card"><div class="fml-expr"><em>n</em> = <span class="frac"><span class="num">ln<span class="frac-inline"><span class="num">FV</span><span class="den">PV</span></span></span><span class="den">ln(1 + r)</span></span></div></div>
-
-        </div>
-
-        <div class="fml-group"><div class="fml-group-title">Compounding Rates</div>
-
-          <div class="fml-card"><div class="fml-expr"><em>EAR</em> = <span style="white-space:nowrap">(1 + <span class="frac-inline"><span class="num">APR</span><span class="den">m</span></span>)<sup>m</sup> &minus; 1</span></div></div>
-
-          <div class="fml-card"><div class="fml-expr"><em>APR</em> = m&thinsp;[(1 + EAR)<sup>1/m</sup> &minus; 1]</div></div>
-
-        </div>
-
-        <div class="fml-group"><div class="fml-group-title">Annuity (Ordinary)</div>
-
-          <div class="fml-card"><div class="fml-expr"><em>PV</em> = C <span class="frac"><span class="num">1 &minus; (1 + r)<sup>&minus;n</sup></span><span class="den">r</span></span></div></div>
-
-          <div class="fml-card"><div class="fml-expr"><em>FV</em> = C <span class="frac"><span class="num">(1 + r)<sup>n</sup> &minus; 1</span><span class="den">r</span></span></div></div>
-
-          <div class="fml-card"><div class="fml-expr"><em>C</em> = <span class="frac"><span class="num">PV</span><span class="den"><span class="frac-inline"><span class="num">1 &minus; (1+r)<sup>&minus;n</sup></span><span class="den">r</span></span></span></span></div></div>
+          <div class="fml-card">
+            <div class="fml-name">Solve for Rate or Time</div>
+            <div class="fml-expr"><em>r</em> = (FV/PV)<sup>1/n</sup> &minus; 1 &emsp; | &emsp; <em>n</em> = <span class="frac"><span class="num">ln(FV/PV)</span><span class="den">ln(1 + r)</span></span></div>
+            <div class="fml-use">Use this when: you know PV and FV and need the rate, or when you need how many periods to reach a target</div>
+          </div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">Annuity Due &amp; Deferred</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#059669">Compounding Rates</div>
 
-          <div class="fml-card"><div class="fml-expr"><em>PV (due)</em> = C <span class="frac"><span class="num">1 &minus; (1 + r)<sup>&minus;n</sup></span><span class="den">r</span></span> (1 + r)</div></div>
-
-          <div class="fml-card"><div class="fml-expr"><em>FV (due)</em> = C <span class="frac"><span class="num">(1 + r)<sup>n</sup> &minus; 1</span><span class="den">r</span></span> (1 + r)</div></div>
-
-          <div class="fml-card"><div class="fml-expr"><em>PV (deferred k periods)</em> = C <span class="frac"><span class="num">1 &minus; (1 + r)<sup>&minus;n</sup></span><span class="den">r</span></span> (1 + r)<sup>&minus;k</sup></div></div>
+          <div class="fml-card">
+            <div class="fml-name">EAR &amp; APR Conversion</div>
+            <div class="fml-expr"><em>EAR</em> = (1 + APR/m)<sup>m</sup> &minus; 1 &emsp; | &emsp; Periodic rate = APR &divide; m</div>
+            <div class="fml-use">Use this when: comparing rates with different compounding frequencies — always convert to same basis first</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>m</b> = compounding periods per year (monthly=12, quarterly=4, semi-annual=2)</div>
+              <div class="fml-legend-item"><b>EAR</b> = effective annual rate (true annual cost/return)</div>
+              <div class="fml-legend-item"><b>APR</b> = annual percentage rate (stated rate)</div>
+            </div>
+          </div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">Perpetuities</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#059669">Annuity (Ordinary — payments at END)</div>
 
-          <div class="fml-card"><div class="fml-expr"><em>Flat</em> &nbsp;&nbsp; PV = <span class="frac"><span class="num">C</span><span class="den">r</span></span></div></div>
+          <div class="fml-card">
+            <div class="fml-name">PV of Ordinary Annuity</div>
+            <div class="fml-expr"><em>PV</em> = C &times; <span class="frac"><span class="num">1 &minus; (1 + r)<sup>&minus;n</sup></span><span class="den">r</span></span></div>
+            <div class="fml-use">Use this when: finding the present value of equal periodic payments (e.g. mortgage value, loan amount)</div>
+          </div>
 
-          <div class="fml-card"><div class="fml-expr"><em>Perpetuity due</em> &nbsp;&nbsp; PV = <span class="frac"><span class="num">C</span><span class="den">r</span></span> (1 + r)</div></div>
+          <div class="fml-card">
+            <div class="fml-name">FV of Ordinary Annuity</div>
+            <div class="fml-expr"><em>FV</em> = C &times; <span class="frac"><span class="num">(1 + r)<sup>n</sup> &minus; 1</span><span class="den">r</span></span></div>
+            <div class="fml-use">Use this when: finding how much periodic savings will accumulate to (e.g. retirement savings)</div>
+          </div>
 
-          <div class="fml-card"><div class="fml-expr"><em>Deferred (k periods)</em> &nbsp;&nbsp; PV = <span class="frac"><span class="num">C</span><span class="den">r</span></span> (1 + r)<sup>&minus;k</sup></div></div>
+          <div class="fml-card">
+            <div class="fml-name">Annuity Payment (Loan/Mortgage)</div>
+            <div class="fml-expr"><em>C</em> = PV &times; <span class="frac"><span class="num">r</span><span class="den">1 &minus; (1+r)<sup>&minus;n</sup></span></span></div>
+            <div class="fml-use">Use this when: calculating the fixed payment amount for a loan or mortgage given PV, rate, and term</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>C</b> = periodic payment amount</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="fml-group"><div class="fml-group-title" style="color:#059669">Annuity Due &amp; Deferred Annuity</div>
+
+          <div class="fml-card">
+            <div class="fml-name">Annuity Due (payments at START)</div>
+            <div class="fml-expr">PV<sub>due</sub> = PV<sub>ordinary</sub> &times; (1 + r) &emsp; FV<sub>due</sub> = FV<sub>ordinary</sub> &times; (1 + r)</div>
+            <div class="fml-use">Use this when: payments come at the BEGINNING of each period — multiply ordinary annuity by (1+r)</div>
+          </div>
+
+          <div class="fml-card">
+            <div class="fml-name">Deferred Annuity (starts in k+1 periods)</div>
+            <div class="fml-expr">PV<sub>0</sub> = PV<sub>ordinary</sub> &times; (1 + r)<sup>&minus;k</sup></div>
+            <div class="fml-use">Use this when: an annuity starts later than period 1 — first solve as if it starts now, then discount back k periods</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>k</b> = number of periods before the first payment</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="fml-group"><div class="fml-group-title" style="color:#059669">Perpetuities</div>
+
+          <div class="fml-card">
+            <div class="fml-name">Flat Perpetuity</div>
+            <div class="fml-expr">PV = <span class="frac"><span class="num">C</span><span class="den">r</span></span></div>
+            <div class="fml-use">Use this when: equal cash flows continue forever (e.g. preferred shares with fixed dividend)</div>
+          </div>
+
+          <div class="fml-card">
+            <div class="fml-name">Growing Perpetuity</div>
+            <div class="fml-expr">PV = <span class="frac"><span class="num">C<sub>1</sub></span><span class="den">r &minus; g</span></span> &emsp; (requires r &gt; g; C<sub>1</sub> = first payment)</div>
+            <div class="fml-use">Use this when: cash flows grow at a constant rate forever — used in Gordon Growth Model and project terminal values</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>C<sub>1</sub></b> = first cash flow (one period from now)</div>
+              <div class="fml-legend-item"><b>g</b> = constant growth rate (negative = declining)</div>
+            </div>
+          </div>
+
+          <div class="fml-card">
+            <div class="fml-name">Deferred Perpetuity (first payment at year k+1)</div>
+            <div class="fml-expr">Step 1: PV<sub>k</sub> = C &divide; r &emsp; Step 2: PV<sub>0</sub> = PV<sub>k</sub> &divide; (1+r)<sup>k</sup></div>
+            <div class="fml-use">Use this when: a perpetuity doesn't start until a future date — find PV one period before first payment, then discount back</div>
+          </div>
 
         </div>
 
@@ -2562,29 +2654,68 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <!-- ── W7 NPV / IRR / EAA ── -->
       <div id="f-npv" class="tab-content">
 
-        <div class="fml-group"><div class="fml-group-title">NPV &amp; IRR</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#DC2626">NPV &amp; IRR</div>
 
-          <div class="fml-card"><div class="fml-expr"><em>NPV</em> = CF<sub>0</sub> + <span class="frac-inline"><span class="num">CF<sub>1</sub></span><span class="den">(1+r)<sup>1</sup></span></span> + <span class="frac-inline"><span class="num">CF<sub>2</sub></span><span class="den">(1+r)<sup>2</sup></span></span> + <span class="frac-inline"><span class="num">CF<sub>3</sub></span><span class="den">(1+r)<sup>3</sup></span></span> + &hellip;</div></div>
+          <div class="fml-card">
+            <div class="fml-name">Net Present Value (NPV)</div>
+            <div class="fml-expr"><em>NPV</em> = CF<sub>0</sub> + <span class="frac-inline"><span class="num">CF<sub>1</sub></span><span class="den">(1+r)<sup>1</sup></span></span> + <span class="frac-inline"><span class="num">CF<sub>2</sub></span><span class="den">(1+r)<sup>2</sup></span></span> + <span class="frac-inline"><span class="num">CF<sub>t</sub></span><span class="den">(1+r)<sup>t</sup></span></span> + &hellip;</div>
+            <div class="fml-use">Use this when: evaluating whether a project creates value — accept if NPV &gt; 0; reject if NPV &lt; 0. The primary rule.</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>CF<sub>0</sub></b> = initial investment (negative)</div>
+              <div class="fml-legend-item"><b>CF<sub>t</sub></b> = cash flow at time t</div>
+              <div class="fml-legend-item"><b>r</b> = discount rate (WACC or required return)</div>
+            </div>
+          </div>
 
-          <div class="fml-card"><div class="fml-expr"><em>IRR</em>: &nbsp; 0 = CF<sub>0</sub> + <span class="frac-inline"><span class="num">CF<sub>1</sub></span><span class="den">(1+r̃)<sup>1</sup></span></span> + <span class="frac-inline"><span class="num">CF<sub>2</sub></span><span class="den">(1+r̃)<sup>2</sup></span></span> + <span class="frac-inline"><span class="num">CF<sub>3</sub></span><span class="den">(1+r̃)<sup>3</sup></span></span> + &hellip;</div></div>
+          <div class="fml-card">
+            <div class="fml-name">Internal Rate of Return (IRR)</div>
+            <div class="fml-expr"><em>IRR</em>: &nbsp; 0 = CF<sub>0</sub> + <span class="frac-inline"><span class="num">CF<sub>1</sub></span><span class="den">(1+r̃)<sup>1</sup></span></span> + <span class="frac-inline"><span class="num">CF<sub>2</sub></span><span class="den">(1+r̃)<sup>2</sup></span></span> + &hellip; &nbsp; Accept if IRR &gt; hurdle rate</div>
+            <div class="fml-use">Use this when: finding the discount rate at which NPV = 0. Caution: for mutually exclusive projects, always prefer NPV rule.</div>
+          </div>
+
+          <div class="fml-card">
+            <div class="fml-name">Payback Period</div>
+            <div class="fml-expr">Payback = years before full recovery + <span class="frac"><span class="num">Remaining balance at start of year</span><span class="den">CF in that year</span></span></div>
+            <div class="fml-use">Use this when: measuring how quickly the initial investment is recovered. Simple but ignores TVM and post-payback cash flows.</div>
+          </div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">Profitability Index</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#DC2626">Profitability Index</div>
 
-          <div class="fml-card"><div class="fml-expr"><em>PI<sub>i</sub></em> = <span class="frac"><span class="num">NPV<sub>i</sub></span><span class="den">Cost<sub>i</sub></span></span> &emsp; <em>P̃I<sub>i</sub></em> = <span class="frac"><span class="num">PV<sub>i</sub></span><span class="den">Cost<sub>i</sub></span></span></div></div>
+          <div class="fml-card">
+            <div class="fml-name">PI (two definitions — know which version is asked!)</div>
+            <div class="fml-expr"><em>PI</em> = <span class="frac"><span class="num">NPV</span><span class="den">|Initial Cost|</span></span> &emsp; <em>or</em> &emsp; <em>PI</em> = <span class="frac"><span class="num">PV(future CFs)</span><span class="den">|Initial Cost|</span></span></div>
+            <div class="fml-use">Use this when: ranking independent projects under capital rationing — accept if PI &gt; 0 (first version) or PI &gt; 1 (second version)</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>Version 1</b>: PI = NPV/Cost → accept if PI &gt; 0</div>
+              <div class="fml-legend-item"><b>Version 2</b>: PI = PV(future CFs)/Cost → accept if PI &gt; 1</div>
+            </div>
+          </div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">Equivalent Annual Annuity (EAA)</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#DC2626">Equivalent Annual Annuity (EAA)</div>
 
-          <div class="fml-card"><div class="fml-expr"><em>C<sub>EAA</sub></em> = <span class="frac"><span class="num">NPV</span><span class="den">AF<sub>n</sub></span></span> = <span class="frac"><span class="num">NPV</span><span class="den"><span class="frac-inline"><span class="num">1 &minus; (1+r)<sup>&minus;n</sup></span><span class="den">r</span></span></span></span></div></div>
+          <div class="fml-card">
+            <div class="fml-name">EAA — Comparing Projects with Different Lives</div>
+            <div class="fml-expr"><em>EAA</em> = NPV &times; <span class="frac"><span class="num">r</span><span class="den">1 &minus; (1+r)<sup>&minus;n</sup></span></span> = <span class="frac"><span class="num">NPV</span><span class="den">Annuity Factor (r, n)</span></span></div>
+            <div class="fml-use">Use this when: comparing two projects with DIFFERENT lifespans by converting NPV to an annual equivalent — choose the project with the higher (or less negative for costs) EAA</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>n</b> = project lifespan in years</div>
+              <div class="fml-legend-item"><b>r</b> = cost of capital</div>
+            </div>
+          </div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">Accounting Rate of Return</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#DC2626">Growing/Declining Perpetuity (Project Terminal Value)</div>
 
-          <div class="fml-card"><div class="fml-expr"><em>r<sub>ARR</sub></em> = <span class="frac"><span class="num">Ave Acc Profit</span><span class="den">Upfront Cost</span></span></div></div>
+          <div class="fml-card">
+            <div class="fml-name">Growing Perpetuity starting at Year t+1</div>
+            <div class="fml-expr">PV<sub>t</sub> = <span class="frac"><span class="num">CF<sub>t+1</sub></span><span class="den">r &minus; g</span></span> &emsp; then PV<sub>0</sub> = PV<sub>t</sub> &divide; (1+r)<sup>t</sup></div>
+            <div class="fml-use">Use this when: project cash flows grow (or decline) forever from a future year — g is negative for declining perpetuity</div>
+          </div>
 
         </div>
 
@@ -2593,33 +2724,67 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <!-- ── W8 Valuation ── -->
       <div id="f-val" class="tab-content">
 
-        <div class="fml-group"><div class="fml-group-title">Bond Pricing</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#7C3AED">Bond Pricing</div>
 
-          <div class="fml-card"><div class="fml-expr"><em>P<sub>0</sub></em> = C <span class="frac"><span class="num">1 &minus; (1 + r)<sup>&minus;n</sup></span><span class="den">r</span></span> + <span class="frac"><span class="num">F</span><span class="den">(1 + r)<sup>n</sup></span></span></div></div>
+          <div class="fml-card">
+            <div class="fml-name">Bond Price (Coupon Bond)</div>
+            <div class="fml-expr"><em>P<sub>0</sub></em> = C &times; <span class="frac"><span class="num">1 &minus; (1 + r)<sup>&minus;n</sup></span><span class="den">r</span></span> + <span class="frac"><span class="num">F</span><span class="den">(1 + r)<sup>n</sup></span></span></div>
+            <div class="fml-use">Use this when: pricing a bond with regular coupon payments plus face value at maturity</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>C</b> = coupon payment = Face × (coupon rate / periods per year)</div>
+              <div class="fml-legend-item"><b>r</b> = periodic YTM (= annual YTM / periods per year)</div>
+              <div class="fml-legend-item"><b>n</b> = total periods (years × periods/year)</div>
+              <div class="fml-legend-item"><b>F</b> = face/par value</div>
+            </div>
+          </div>
+
+          <div class="fml-card">
+            <div class="fml-name">Bond Premium / Discount Rule</div>
+            <div class="fml-expr">Coupon rate &gt; YTM &Rightarrow; P &gt; F (premium) &emsp; Coupon rate &lt; YTM &Rightarrow; P &lt; F (discount)</div>
+            <div class="fml-use">Use this when: checking your bond price answer — always verify the direction (premium/discount) matches the rate comparison</div>
+          </div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">Perpetuity / Growing Perpetuity</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#7C3AED">Gordon Growth Model (Equity Valuation)</div>
 
-          <div class="fml-card"><div class="fml-expr"><em>PV<sub>0</sub></em> = <span class="frac"><span class="num">C</span><span class="den">r</span></span></div></div>
+          <div class="fml-card">
+            <div class="fml-name">Gordon Growth Model / DDM</div>
+            <div class="fml-expr">P<sub>0</sub> = <span class="frac"><span class="num">D<sub>1</sub></span><span class="den">r &minus; g</span></span> = <span class="frac"><span class="num">D<sub>0</sub>(1 + g)</span><span class="den">r &minus; g</span></span> &emsp; (requires r &gt; g)</div>
+            <div class="fml-use">Use this when: valuing a stock with dividends that grow at a constant rate forever</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>D<sub>0</sub></b> = dividend just paid</div>
+              <div class="fml-legend-item"><b>D<sub>1</sub></b> = next dividend = D<sub>0</sub> × (1+g)</div>
+              <div class="fml-legend-item"><b>r</b> = required return on equity</div>
+              <div class="fml-legend-item"><b>g</b> = constant dividend growth rate</div>
+            </div>
+          </div>
 
-          <div class="fml-card"><div class="fml-expr">C<sub>2</sub> = (1 + g)C<sub>1</sub> &nbsp;&nbsp; &hellip; &nbsp;&nbsp; C<sub>n</sub> = (1 + g)<sup>n&minus;1</sup>C<sub>1</sub></div></div>
-
-          <div class="fml-card"><div class="fml-expr"><em>PV<sub>0</sub></em> = <span class="frac"><span class="num">C<sub>1</sub></span><span class="den">r &minus; g</span></span> &emsp; (first CF in year 1)</div></div>
-
-          <div class="fml-card"><div class="fml-expr"><em>PV<sub>0</sub></em> = <span class="frac"><span class="num">C<sub>0</sub></span><span class="den">r &minus; g</span></span> (1 + g) &emsp; (C<sub>0</sub> just paid)</div></div>
+          <div class="fml-card">
+            <div class="fml-name">Required Return from GGM</div>
+            <div class="fml-expr">r = <span class="frac"><span class="num">D<sub>1</sub></span><span class="den">P<sub>0</sub></span></span> + g &emsp; (dividend yield + capital gains yield)</div>
+            <div class="fml-use">Use this when: backing out the required return from observed price and known dividend/growth</div>
+          </div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">Equity Return &amp; Growth</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#7C3AED">Dividend Growth Rate</div>
 
-          <div class="fml-card"><div class="fml-expr"><em>r<sub>e</sub></em> = <span class="frac"><span class="num">D<sub>1</sub></span><span class="den">P<sub>0</sub></span></span> + <span class="frac"><span class="num">P<sub>1</sub> &minus; P<sub>0</sub></span><span class="den">P<sub>0</sub></span></span></div></div>
+          <div class="fml-card">
+            <div class="fml-name">Sustainable Growth Rate</div>
+            <div class="fml-expr">g = Retention Ratio &times; ROI &emsp; | &emsp; Retention = 1 &minus; Payout Ratio</div>
+            <div class="fml-use">Use this when: calculating the expected long-run growth rate from payout ratio and return on reinvested earnings</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>ROI</b> = return on new investment (reinvested earnings)</div>
+              <div class="fml-legend-item"><b>Payout ratio</b> = dividends / EPS</div>
+            </div>
+          </div>
 
-          <div class="fml-card"><div class="fml-expr"><em>r<sub>e</sub></em> = <span class="frac"><span class="num">D<sub>1</sub></span><span class="den">P<sub>0</sub></span></span> + g</div></div>
-
-          <div class="fml-card"><div class="fml-expr"><em>g<sub>t</sub></em> = Retention Rate<sub>%,t&minus;1</sub> &times; Return on new investments<sub>%,t</sub> &nbsp;=&nbsp; RR<sub>t&minus;1</sub> &times; ROI<sub>t</sub></div></div>
-
-          <div class="fml-card"><div class="fml-expr"><em>R<sub>E</sub></em> = <span class="frac"><span class="num">Div<sub>1</sub></span><span class="den">P<sub>0</sub></span></span> + g = <span class="frac"><span class="num">Div<sub>0</sub>(1 + g)</span><span class="den">P<sub>0</sub></span></span> + g</div></div>
+          <div class="fml-card">
+            <div class="fml-name">Multi-Stage EPS / Dividend Growth</div>
+            <div class="fml-expr">EPS<sub>t+1</sub> = EPS<sub>t</sub> × (1 + g<sub>t</sub>) &emsp; g<sub>t</sub> = Retention<sub>t</sub> &times; ROI<sub>t+1</sub></div>
+            <div class="fml-use">Use this when: dividends grow at different rates in different phases — forecast each dividend explicitly, then apply GGM for terminal value</div>
+          </div>
 
         </div>
 
@@ -2628,25 +2793,71 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <!-- ── W9 WACC / CAPM ── -->
       <div id="f-wacc" class="tab-content">
 
-        <div class="fml-group"><div class="fml-group-title">Returns &amp; Beta</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#D97706">Returns &amp; Beta</div>
 
-          <div class="fml-card"><div class="fml-expr"><em>R<sub>t+1</sub></em> = <span class="frac"><span class="num">P<sub>t+1</sub> &minus; P<sub>t</sub> + Div<sub>t+1</sub></span><span class="den">P<sub>t</sub></span></span></div></div>
+          <div class="fml-card">
+            <div class="fml-name">Holding Period Return (HPR)</div>
+            <div class="fml-expr">HPR = <span class="frac"><span class="num">P<sub>1</sub> &minus; P<sub>0</sub> + Dividends</span><span class="den">P<sub>0</sub></span></span></div>
+            <div class="fml-use">Use this when: calculating the total return over a holding period (capital gain + income)</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>P<sub>0</sub></b> = purchase price</div>
+              <div class="fml-legend-item"><b>P<sub>1</sub></b> = selling price</div>
+            </div>
+          </div>
 
-          <div class="fml-card"><div class="fml-expr"><em>&beta;<sub>i</sub></em> = &rho;<sub>i,M</sub> <span class="frac"><span class="num">&sigma;<sub>i</sub></span><span class="den">&sigma;<sub>M</sub></span></span></div></div>
+          <div class="fml-card">
+            <div class="fml-name">Beta Interpretation</div>
+            <div class="fml-expr">&beta; = 1: moves with market &ensp; &beta; &gt; 1: more volatile &ensp; &beta; &lt; 1: less volatile &ensp; &beta; = 0: earns R<sub>f</sub></div>
+            <div class="fml-use">Use this when: assessing systematic (market) risk — beta measures sensitivity to market movements. Cannot be diversified away.</div>
+          </div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">CAPM</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#D97706">CAPM — Capital Asset Pricing Model</div>
 
-          <div class="fml-card"><div class="fml-expr">E[R<sub>i</sub>] = R<sub>f</sub> + &beta;<sub>i</sub> (E[R<sub>M</sub>] &minus; R<sub>f</sub>)</div></div>
+          <div class="fml-card">
+            <div class="fml-name">CAPM Required Return</div>
+            <div class="fml-expr">E[R<sub>i</sub>] = R<sub>f</sub> + &beta;<sub>i</sub> &times; (E[R<sub>M</sub>] &minus; R<sub>f</sub>)</div>
+            <div class="fml-use">Use this when: finding the required return on a stock given its beta, or solving for an unknown beta/Rf/market return</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>R<sub>f</sub></b> = risk-free rate (e.g. government bond yield)</div>
+              <div class="fml-legend-item"><b>&beta;<sub>i</sub></b> = stock's beta (systematic risk)</div>
+              <div class="fml-legend-item"><b>E[R<sub>M</sub>] &minus; R<sub>f</sub></b> = market risk premium (MRP)</div>
+            </div>
+          </div>
+
+          <div class="fml-card">
+            <div class="fml-name">Overvalued vs Undervalued (CAPM)</div>
+            <div class="fml-expr">Actual return &gt; Required (CAPM) &Rightarrow; Undervalued (buy) &ensp; Actual &lt; Required &Rightarrow; Overvalued (sell)</div>
+            <div class="fml-use">Use this when: comparing a stock's observed return to its CAPM-required return to determine if it's mispriced</div>
+          </div>
 
         </div>
 
-        <div class="fml-group"><div class="fml-group-title">WACC</div>
+        <div class="fml-group"><div class="fml-group-title" style="color:#D97706">WACC — Weighted Average Cost of Capital</div>
 
-          <div class="fml-card"><div class="fml-expr">R<sub>WACC</sub> = <span class="frac"><span class="num">MVE</span><span class="den">V</span></span>R<sub>E</sub> + <span class="frac"><span class="num">MVP</span><span class="den">V</span></span>R<sub>P</sub> + <span class="frac"><span class="num">MVD</span><span class="den">V</span></span>R<sub>D</sub>(1 &minus; T<sub>C</sub>) = w<sub>E</sub>R<sub>E</sub> + w<sub>P</sub>R<sub>P</sub> + w<sub>D</sub>R<sub>D</sub>(1 &minus; T<sub>C</sub>)</div></div>
+          <div class="fml-card">
+            <div class="fml-name">WACC Formula</div>
+            <div class="fml-expr">WACC = w<sub>E</sub>&thinsp;R<sub>E</sub> + w<sub>P</sub>&thinsp;R<sub>P</sub> + w<sub>D</sub>&thinsp;R<sub>D</sub>(1 &minus; T<sub>C</sub>)</div>
+            <div class="fml-use">Use this when: finding the firm's blended cost of capital (used as discount rate in NPV, and as benchmark for ROIC)</div>
+            <div class="fml-legend">
+              <div class="fml-legend-item"><b>w<sub>E</sub>, w<sub>P</sub>, w<sub>D</sub></b> = market value weights (= MVᵢ ÷ V)</div>
+              <div class="fml-legend-item"><b>V</b> = MVE + MVP + MVD (total firm value)</div>
+              <div class="fml-legend-item"><b>T<sub>C</sub></b> = corporate tax rate (tax shield on debt only)</div>
+            </div>
+          </div>
 
-          <div class="fml-card"><div class="fml-expr"><em>V</em> = MVE + MVP + MVD &emsp; <em>MV<sub>ND</sub></em> = MV<sub>D</sub> &minus; Cash</div></div>
+          <div class="fml-card">
+            <div class="fml-name">Weights from D/E Ratio</div>
+            <div class="fml-expr">w<sub>D</sub> = <span class="frac"><span class="num">D/E</span><span class="den">1 + D/E</span></span> &emsp; w<sub>E</sub> = <span class="frac"><span class="num">1</span><span class="den">1 + D/E</span></span></div>
+            <div class="fml-use">Use this when: given a target D/E ratio instead of market values — convert to weights using these formulas</div>
+          </div>
+
+          <div class="fml-card">
+            <div class="fml-name">After-Tax Cost of Debt</div>
+            <div class="fml-expr">After-tax R<sub>D</sub> = R<sub>D</sub> &times; (1 &minus; T<sub>C</sub>)</div>
+            <div class="fml-use">Use this when: interest is tax-deductible — the government subsidises part of the borrowing cost, so the effective rate is lower</div>
+          </div>
 
         </div>
 
