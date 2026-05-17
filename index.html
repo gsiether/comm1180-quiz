@@ -5284,7 +5284,7 @@ function renderQuestion(){
 
     ${hasHints&&q.hint2?`<button id="hintBtn2" class="btn-hint" onclick="showHint2()" style="display:none">🔍 Hint 2</button>`:''}
 
-    ${!quizState.examMode&&settings.hints!==false?`<button id="hintBtnAI" class="btn-hint" onclick="showHintAI()" style="${hasHints?'display:none;':''}background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue)">😕 I'm Confused</button>`:''}
+    ${!quizState.examMode&&settings.hints!==false?`<button id="hintBtnAI" class="btn-hint" onclick="showHintAI()" style="background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue)">😕 I'm Confused</button>`:''}
 
     <div id="hintArea" class="hint-area"></div>
 
@@ -5647,17 +5647,13 @@ function showHint1(){
 
   const b2=document.getElementById('hintBtn2');
 
-  const bAI=document.getElementById('hintBtnAI');
-
   if(!ha) return;
 
   ha.innerHTML+=`<div class="hint-box h1"><strong>💡 Hint 1</strong><br>${q.hint}</div>`;
 
-  if(b1) b1.style.display='none';
+  if(b1){b1.textContent='💡 Hint 1 ✓';b1.disabled=true;b1.style.opacity='.6';}
 
   if(q.hint2&&b2) b2.style.display='';
-
-  else if(bAI) bAI.style.display='';
 
 }
 
@@ -5669,15 +5665,11 @@ function showHint2(){
 
   const b2=document.getElementById('hintBtn2');
 
-  const bAI=document.getElementById('hintBtnAI');
-
   if(!ha) return;
 
   ha.innerHTML+=`<div class="hint-box h2"><strong>🔍 Hint 2</strong><br>${q.hint2}</div>`;
 
-  if(b2) b2.style.display='none';
-
-  if(bAI) bAI.style.display='';
+  if(b2){b2.textContent='🔍 Hint 2 ✓';b2.disabled=true;b2.style.opacity='.6';}
 
 }
 
@@ -5769,9 +5761,10 @@ async function getExplanationInline(btn,ha,q){
 
   }
 
-  btn.style.display='none';
+  btn.textContent='😕 I\'m Confused ✓';
 
 }
+
 
 
 
