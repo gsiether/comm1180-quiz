@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-05-18
-**Tested by:** Automated QA Agent (sixth pass — post duplicate-removal commit `a940a02`)
+**Date:** 2026-05-19
+**Tested by:** Automated QA Agent (seventh pass)
 
 ## Overall Status: PASS
 
-The most recent commit (`a940a02`) correctly removed 12 duplicate practice exam questions that had been added twice in the QUESTIONS array (once in per-week blocks, once in a standalone block). All required features from the redesign remain intact. JS syntax is valid, netlify functions were not touched, and the file stands at 6,915 lines.
+No new commits since the last QA pass on 2026-05-18. All required features from the redesign (`137368f`) remain intact. JS syntax is valid, netlify functions were not touched, question bank is stable at 166 questions, and the file stands at 6,915 lines. App is ready for exam use (exam date: 2026-05-05 has passed — this report confirms the final state).
 
 ---
 
@@ -12,7 +12,7 @@ The most recent commit (`a940a02`) correctly removed 12 duplicate practice exam 
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `a940a02` — "Remove duplicate practice exam questions from QUESTIONS array" (2026-05-18) |
+| New commit exists | ✅ | Latest: `acd748f` "QA report: automated code check (2026-05-18)"; redesign commit `137368f` is present |
 | JS syntax valid | ✅ | `node --check` exits 0; no syntax errors in 3,878-line extracted script |
 | 118+ questions intact | ✅ | **166 questions** — 178 from prior redesign minus 12 confirmed duplicates properly removed; original CLAUDE.md estimate of 118 was stale |
 | Light mode CSS | ✅ | 70 matches: `--bg:#F8FAFC`, `--surface:#FFFFFF`, `--text:#0F172A` CSS variable system present |
@@ -30,9 +30,16 @@ The most recent commit (`a940a02`) correctly removed 12 duplicate practice exam 
 
 ---
 
-## What Changed in Latest Commit (`a940a02`)
+## Recent Commit History
 
-The 12 official practice exam questions (W5 Q1–Q4, W7 Q5–Q7, W8 Q8–Q10, W9 Q11–Q12) were present **twice** in the QUESTIONS array: once embedded in their per-week blocks (added by the major redesign commit `137368f`) and again in a separate block appended at the end (added by an earlier commit `112dd8a`). The duplicate tail block (125 lines) was removed. Each question now appears exactly once.
+| Commit | Description |
+|--------|-------------|
+| `acd748f` | QA report: automated code check (2026-05-18) |
+| `a940a02` | Remove duplicate practice exam questions from QUESTIONS array |
+| `42e67d0` | QA report: automated code check (2026-05-17) |
+| `137368f` | Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions |
+
+The 12 official practice exam questions (W5 Q1–Q4, W7 Q5–Q7, W8 Q8–Q10, W9 Q11–Q12) were previously duplicated; `a940a02` correctly removed the duplicate tail block. Each question now appears exactly once.
 
 ---
 
