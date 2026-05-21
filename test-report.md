@@ -1,53 +1,66 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-05-20
+**Date:** 2026-05-21
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-The latest commit (`cf54ca7`) adds 12 practice exam questions as required — count went from 166 → 178. JS syntax is valid. All redesign features are present. Netlify functions are untouched.
+Latest commit (`440e8af`) correctly removes 12 duplicate practice exam questions that were re-added erroneously by a prior session. All 12 practice exam questions remain present exactly once. All required features are intact. JS syntax is valid. Netlify functions are untouched.
 
 ---
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `cf54ca7` — "Add 12 practice exam questions to QUESTIONS array (W5, W7, W8, W9)" |
+| New commit exists | ✅ | `440e8af` — "Remove duplicate practice exam questions from QUESTIONS array" (2026-05-21) |
 | JS syntax valid | ✅ | `node --check` exits 0; no errors in extracted script |
-| 12 new questions added | ✅ | Count: 166 → 178 (net +12, matches commit message) |
-| Total question count | ⚠️ | 178 found; spec said 118 (see Issues section) |
-| Light mode CSS | ✅ | 83 matches for white/light backgrounds; `--bg:#F8FAFC`, `--surface:#FFFFFF` present |
-| Dark mode toggle | ✅ | `toggleDarkMode()` at line 5052; moon/sun button at line 820 |
-| Multi-week selection | ✅ | `selectWeekChip()` + `homeState.weeks[]` at lines 4790–4824 |
-| Learn mode | ✅ | `showLearn()`, `learnMode` flag, `#learn` screen — 68+ references |
-| I'm Confused button | ✅ | `😕 I'm Confused` button at line 5285 → `showHintAI()` |
-| Hint 1 / Hint 2 | ✅ | `hintBtn1`/`hintBtn2`, `showHint1()`/`showHint2()` at lines 5281–5670 |
-| Multi-step math input | ✅ | MathQuill integrated; `addStep()`, `.step-row`, `.working-steps` at lines 5319–5456 |
-| Final Answer field | ✅ | `.final-answer-wrap`, `.final-answer-label` at lines 5325–5326 |
-| Notes overlay present | ✅ | `#notes-overlay` at line 1153 with week-tabbed content |
-| Formula overlay present | ✅ | `#formula-overlay` at line 2439 |
-| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` shows no changes |
-| File size increased | ✅ | 7,038 lines (vs original ~1,458) |
+| 12 practice exam questions present | ✅ | Count: 178 → 166 (−12 duplicates); all 12 remain in first-batch location |
+| Total question count | ⚠️ | 166 found; original spec said 118 (stale — reflects multi-session additions, see Issues) |
+| Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, 36+ light-mode variable references |
+| Dark mode toggle | ✅ | `.dark{}` CSS override block at line 45; `toggleDarkMode()` + `#darkModeBtn` (🌙/☀️) |
+| Multi-week selection | ✅ | `selectWeekChip()`, `homeState.weeks[]`, `.week-chip.active` — multi-select fully implemented |
+| Learn mode | ✅ | `#learn` screen, `showLearn()`, `buildLearnGrid()` — 12+ references |
+| I'm Confused button | ✅ | `😕 I'm Confused` → `showHintAI()` at line 5163 |
+| Hint 1 / Hint 2 | ✅ | All questions carry `hint` + `hint2` fields; 215 hint-related references in code |
+| Multi-step math input | ✅ | MathQuill CDN loaded; `addStep()`, `.step-row`, `.working-steps` at lines 5197–5334 |
+| Final Answer field | ✅ | `.final-answer-wrap` + `.final-answer-label` at lines 5203–5204 |
+| Notes overlay present | ✅ | `#notes-overlay` at line 1153 with W2/W3/W4/W5/W7/W8/W9/W10 tabs and content |
+| Formula overlay present | ✅ | `#formula-overlay` at line 2439 with W3/W5/W7/W8/W9 tabs |
+| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` returns empty; no changes to mark.js or explain.js |
+| File size increased | ✅ | 6,916 lines (vs original ~1,458) |
 
 ---
 
 ## Issues Found
 
-### 1. Question count is 178, not 118 (LOW — stale spec)
-CLAUDE.md estimated 118 total questions (106 original + 12 new). The actual count is 178. This discrepancy reflects questions added across earlier sessions. The 12-question increment in this commit is correct. CLAUDE.md should be updated to reflect the actual count of 178.
+### 1. Question count is 166, not 118 (LOW — stale spec)
+CLAUDE.md estimated 118 total questions (106 original + 12 new practice exam questions). The actual count is 166 across W2/W3/W4/W5/W7/W8/W9/W10. This reflects questions added across multiple earlier sessions prior to the redesign. All 12 practice exam questions from `practice-questions.md` are confirmed present. CLAUDE.md's 118 figure is outdated and should be updated to 166.
 
-### 2. No true/false (`type:'tf'`) questions exist (LOW — pre-existing)
-`grep -c "type:'tf'"` returns 0. The question type `tf` is listed as supported in CLAUDE.md but no questions use it. All true/false content appears to be encoded as `type:'sa'`. Pre-existing condition; not introduced by this commit.
+### 2. Duplicate-add cycle pattern observed in git history (INFO)
+A recurring pattern has appeared: a build/add agent adds the 12 practice questions → QA notes the higher count → a subsequent agent re-adds them again → duplicates must be cleaned. Commits `a940a02` (2026-05-17) and `440e8af` (2026-05-21) both perform the same cleanup. Future sessions should grep before adding questions to confirm they are not already present.
 
-### 3. `grep` for `selectedWeeks`/`toggleWeek` returns 0 (INFO — naming mismatch only)
-The QA spec's expected grep patterns (`selectedWeeks`, `selected-weeks`, `toggleWeek`) return 0 matches, but the multi-week selection feature is fully implemented under the names `selectWeekChip()` and `homeState.weeks[]`. This is a grep pattern issue in the QA spec, not a code defect.
+### 3. No true/false (`type:'tf'`) questions (LOW — pre-existing)
+0 questions use `type:'tf'`. All boolean-style content is encoded as `type:'sa'` or `type:'mcq'`. Pre-existing condition not introduced by recent commits.
 
-### 4. Four `<script>` tag matches (INFO — by design)
-`grep -c "<script"` returns 4: (1) main inline script at line 3028, (2) a `<script>` literal inside a `document.write()` string (not a real DOM element), (3) jQuery CDN at line 7032, (4) MathQuill CDN at line 7033. External CDN scripts are required for MathQuill math input and are not a defect.
+### 4. Multi-week selection grep patterns in spec return 0 (INFO — naming mismatch only)
+The spec's suggested greps (`selectedWeeks`, `toggleWeek`) return 0 matches, but the feature is fully implemented under `selectWeekChip()` and `homeState.weeks[]`. The spec's grep patterns are stale; the feature itself is working correctly.
+
+---
+
+## Question Type Breakdown (166 total)
+| Type | Count |
+|------|-------|
+| `mcq` | 42 |
+| `numerical` | 48 |
+| `sa` | 41 |
+| `multipart` | 35 |
+| `tf` | 0 |
+| **Total** | **166** |
 
 ---
 
 ## Recommendations
 
-1. **Update CLAUDE.md** — change "118 questions total" to "178 questions total" to prevent QA confusion.
-2. **Verify live Netlify deploy** — confirm the new W5/W7/W8/W9 practice questions appear correctly in the quiz and that multi-step math input works for these question types.
-3. **Smoke-test AI endpoints** — `/explain` and `/mark` cannot be verified by static analysis; test against the deployed Netlify functions.
+1. **Update CLAUDE.md** — change "118 questions total" to "166 questions total" to prevent future QA confusion and avoid more duplicate-add cycles.
+2. **Guard against re-adds** — future build agents should run `python3 -c "import re; ..."` or `grep -c "{week:"` before adding questions to confirm they are not already present.
+3. **Smoke-test AI endpoints** — `/mark` and `/explain` Netlify functions cannot be verified by static analysis; test against the live Netlify deploy.
+4. **Verify MathQuill rendering** — numerical/multipart questions rely on jQuery + MathQuill CDN scripts; confirm these load correctly in the live deploy.
