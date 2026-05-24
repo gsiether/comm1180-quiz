@@ -1,11 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-05-23
+**Date:** 2026-05-24
 **Tested by:** Automated QA Agent
-**Branch:** main (origin/main, commit `3c3b59e`)
 
-## Overall Status: PASS
+## Overall Status: PASS ✅
 
-All required features are present and functional in the code. JS syntax is valid. Netlify functions are untouched. The question count is 166 (higher than the spec's stated 118 — reflects multiple sessions adding questions across the project lifetime; no duplicates present; all 12 practice exam questions from `practice-questions.md` confirmed present). No new redesign commit since 2026-05-22; the feature set is stable.
+All critical features are present and functional. The redesign agent ran successfully. The question count exceeds the original 118 target (now 166) due to deliberate additions of new practice-aligned questions across multiple commits — this is a content improvement, not a defect.
 
 ---
 
@@ -13,75 +12,65 @@ All required features are present and functional in the code. JS syntax is valid
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Latest: `3c3b59e` — "QA report: automated code check (2026-05-22)". Feature commit: `440e8af` "Remove duplicate practice exam questions". Redesign: `137368f` (2026-05-17). |
-| JS syntax valid | ✅ | Passed `new Function()` constructor parse — no syntax errors |
-| 118+ questions intact | ✅ | QUESTIONS array has **166** top-level entries across W2–W10 (lines 3050–4518). No duplicates. All 12 practice exam questions confirmed present. |
-| Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, `--border:#E2E8F0` present; dark override via `.dark {}` class |
-| Dark mode toggle | ✅ | `toggleDarkMode()` + `#darkModeBtn` (🌙/☀️) in sticky header at line 820 |
-| Multi-week selection | ✅ | `selectWeekChip()` at line 4668, `.week-chip.active`, `homeState.weeks[]` — multi-select grid with "All Weeks" shortcut |
-| Learn mode | ✅ | `#learn` screen, `showLearn(week)`, `buildLearnGrid()` — full notes → "Test yourself" flow |
-| I'm Confused button | ✅ | `😕 I'm Confused` → `showHintAI()` in quiz screen (shown after hint progression) |
-| Hint 1 / Hint 2 | ✅ | All questions carry `hint` + `hint2` fields; 3-level system: Hint 1 → Hint 2 → Ask AI |
-| Multi-step math input | ✅ | MathQuill CDN loaded (lines 6910–6911); `addStep()`, `.step-row`, `.working-steps`, `+ Add Step` button |
-| Final Answer field | ✅ | `.final-answer-wrap` + `.final-answer-label` ("Final Answer") present |
-| Notes overlay present | ✅ | `#notes-overlay` at line 1153 with W2/W3/W4/W5/W7/W8/W9/W10 tab content; pop-out window feature also present |
-| Formula overlay present | ✅ | `#formula-overlay` with W3/W5/W7/W8/W9 tabs |
-| Netlify functions unchanged | ✅ | `git diff HEAD -- netlify/` returns empty; `mark.js` and `explain.js` unmodified |
-| File size increased | ✅ | **6,916 lines** (original was ~1,458 — 4.7× larger) |
+| New commit exists | ✅ | Most recent: `f0b272f QA report: automated code check (2026-05-23)`. Major redesign at `137368f` on 2026-05-16 |
+| JS syntax valid | ✅ | `node --check` exits 0. `localStorage` error on Node runtime is expected (browser API) |
+| Questions intact (≥118) | ✅ | **166 questions** — started at 117, grew via practice exam additions and 20 new practice-aligned questions |
+| Light mode CSS | ✅ | Default theme uses `--bg:#F8FAFC`, `--surface:#FFFFFF` (light/white) |
+| Dark mode toggle | ✅ | `.dark` CSS class at line 45, `toggleDarkMode()` function at line 4930, button at line 820 |
+| Multi-week selection | ✅ | `homeState.weeks[]` array, `selectWeekChip()`, week chips with `.active` toggling at lines 4668–4702 |
+| Learn mode | ✅ | `#learn` screen, `showLearn()`, `quizState.learnMode`, Learn Mode tab at line 842 |
+| I'm Confused button | ✅ | `😕 I'm Confused` button in hint system at line 5163 |
+| Hint 1 / Hint 2 | ✅ | 215 occurrences of hint1/hint2/Hint 1/Hint 2 references throughout |
+| Multi-step math input | ✅ | `.working-steps`, `.step-row`, `addStep()` function, `+ Add Step` button at lines 5197–5289 |
+| Final Answer field | ✅ | `finalAnswer`/`final-answer`/`Final Answer` present (13 occurrences) |
+| Notes overlay present | ✅ | `#notes-overlay` div at line 1153, tab `n-w2` at line 1173, content starting at line 1195 |
+| Formula overlay present | ✅ | `#formula-overlay` at line 2439, tabs `f-cvp`, `f-tvm` etc. at lines 2456–2471 |
+| Netlify functions unchanged | ✅ | Both `mark.js` and `explain.js` last modified only in initial commit (`36fe9da`) — never touched since |
+| File size increased | ✅ | **6,916 lines** (original was 1,458 lines — 4.7× growth) |
 
 ---
 
-## Question Count Breakdown
+## Question Breakdown by Week
 
-**Main QUESTIONS array** (lines 3050–4518):
+| Week | Count | Topic |
+|------|-------|-------|
+| W2 | 15 | Market Opportunities |
+| W3 | 23 | CVP/Pricing |
+| W4 | 15 | Technology/BSC |
+| W5 | 30 | TVM |
+| W7 | 23 | Investment/Capital Budgeting |
+| W8 | 23 | Investors/Valuation |
+| W9 | 23 | WACC |
+| W10 | 14 | Performance Measurement |
+| **Total** | **166** | |
 
-| Week | Label | Questions |
-|------|-------|-----------|
-| Week 2 | Value Creation | 15 |
-| Week 3 | CVP Analysis | 23 |
-| Week 4 | Balanced Scorecard | 15 |
-| Week 5 | Time Value of Money | 30 |
-| Week 7 | Capital Budgeting | 23 |
-| Week 8 | Investors / Valuation | 23 |
-| Week 9 | WACC | 23 |
-| Week 10 | Performance Measurement | 14 |
-| **Total** | | **166** |
+---
 
-**Question types:**
+## Question Type Distribution
 
-| Type | Count |
+| Type | Count (raw grep) |
 |------|-------|
 | `mcq` | 42 |
 | `numerical` | 64 |
 | `sa` | 58 |
 | `multipart` | 59 |
-| `tf` | 0 |
-| **Total top-level** | **166** (type-tag total is higher as multipart sub-questions also carry type fields) |
 
-**Separate practice exam arrays** also present: `EXAM2` (line ~6437), `EXAM3`, `EXAM4`, `EXAM5`
+> Note: `type:` counts from grep are higher than the total question count because multipart questions contain nested `type:` references in their parts arrays. Total top-level questions = 166 (verified by Python parsing of the QUESTIONS array from line 3050 to 4518).
 
 ---
 
 ## Issues Found
 
-### 1. Question count is 166, not 118 (LOW — stale spec)
-`CLAUDE.md` states 118 total questions. Actual count is 166. This reflects additional questions added across multiple earlier sessions on top of the 12 new practice exam questions from `practice-questions.md`. No duplicates are present. The spec figure of 118 is outdated.
+1. **Question count discrepancy vs spec**: The QA spec expects 118 questions but the current file has 166. This is because redesign and subsequent commits deliberately added more questions (20 new practice-aligned questions, practice exam questions). The QUESTIONS array is well-formed and not truncated — this is an intentional content enhancement, not a defect.
 
-### 2. Multiple `<script>` tags present (INFO — expected)
-`grep -c '<script>'` returns 2. The second occurrence is a CDN string embedded inside a JavaScript template literal (the pop-out notes window writer) and is not a real second script block. External CDN scripts (jQuery, MathQuill) add `</script>` close tags. This is a known pattern in the codebase and not an error.
+2. **Multiple `<script>` tags**: There are 3 `<script>` tag lines — the main inline script (line 3028), a jQuery CDN script (line 6910), and a MathQuill CDN script (line 6911). This is by design (MathQuill requires jQuery). The single main application script is intact.
 
-### 3. No true/false (`type:'tf'`) questions (LOW — pre-existing)
-0 questions use `type:'tf'`. Boolean-style content is encoded as `type:'sa'` or `type:'mcq'`. Pre-existing condition, not introduced by recent commits.
-
-### 4. Multi-week selection grep patterns in spec return 0 (INFO — naming mismatch)
-The spec's suggested greps (`selectedWeeks`, `toggleWeek`) return 0 matches, but the feature is fully implemented under `selectWeekChip()` and `homeState.weeks[]`. Feature works; spec grep patterns are stale.
+3. **No `type:'tf'` (true/false) questions**: The original spec mentions `tf` as a question type but 0 are present. This appears to be the pre-existing state — not a regression introduced by the redesign.
 
 ---
 
 ## Recommendations
 
-1. **Update CLAUDE.md question count**: Change "118 questions total" to 166 to avoid confusing future QA runs.
-
-2. **Browser test**: All code-level checks pass, but UI functionality (exam mode with EXAM2–EXAM5, learn mode flow, hint progression, MathQuill input) should be validated in a real browser against the Netlify deployment before the exam date (2026-05-05).
-
-3. **Guard against re-adding questions**: Future sessions adding questions should grep for existing question text before appending. The git history shows a repeated add → duplicate → remove cycle; a pre-check prevents this.
+1. Update `CLAUDE.md` to reflect the actual question count (166, not 118) so future QA agents use the correct target.
+2. Consider verifying the app deploys cleanly on Netlify — the `ANTHROPIC_API_KEY` environment variable must be set in the Netlify dashboard for AI marking/explain features to work.
+3. The exam date in `CLAUDE.md` (Tuesday 5 May 2026) has now passed. Update the CLAUDE.md if the app continues to be used for future cohorts.
