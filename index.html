@@ -1778,13 +1778,17 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
             <div class="notes-formula-row"><span class="notes-ftag">EAR</span><span class="notes-fexpr">= (1 + APR &divide; m)<sup>m</sup> &minus; 1</span></div>
 
+            <div class="notes-formula-row"><span class="notes-ftag">APR from EAR</span><span class="notes-fexpr">= m &times; [(1 + EAR)<sup>1/m</sup> &minus; 1]</span></div>
+
             <div class="notes-formula-row"><span class="notes-ftag">Periodic rate</span><span class="notes-fexpr">= APR &divide; m &nbsp;(e.g. APR 12% monthly = 1% per month)</span></div>
 
             <div class="notes-bullet">m = compounding periods per year (monthly=12, quarterly=4, semi-annual=2)</div>
 
+            <div class="notes-bullet"><strong>EAR &rarr; APR:</strong> rearrange above or use periodic rate = (1+EAR)<sup>1/m</sup> &minus; 1, then &times; m</div>
+
           </div>
 
-          <div class="notes-key"><strong>Rule</strong>EAR &ge; APR always. Equal only when m = 1 (annual compounding).</div>
+          <div class="notes-key"><strong>Rule</strong>EAR &ge; APR always. Equal only when m = 1 (annual compounding). More frequent compounding = higher EAR for the same APR.</div>
 
         </div>
 
@@ -2569,7 +2573,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
           <div class="fml-card">
             <div class="fml-name">EAR &amp; APR Conversion</div>
             <div class="fml-expr"><em>EAR</em> = (1 + APR/m)<sup>m</sup> &minus; 1 &emsp; | &emsp; Periodic rate = APR &divide; m</div>
-            <div class="fml-use">Use this when: comparing rates with different compounding frequencies — always convert to same basis first</div>
+            <div class="fml-expr" style="margin-top:4px"><em>APR from EAR</em> = m &times; [(1 + EAR)<sup>1/m</sup> &minus; 1]</div>
+            <div class="fml-use">Use this when: comparing rates with different compounding frequencies — always convert to same basis first. APR from EAR reversal is rare but worth knowing.</div>
             <div class="fml-legend">
               <div class="fml-legend-item"><b>m</b> = compounding periods per year (monthly=12, quarterly=4, semi-annual=2)</div>
               <div class="fml-legend-item"><b>EAR</b> = effective annual rate (true annual cost/return)</div>
