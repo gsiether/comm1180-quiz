@@ -1996,6 +1996,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
           <div class="notes-key"><strong>Semi-annual bonds</strong>r = APR &divide; 2 &nbsp;&middot;&nbsp; n = years &times; 2 &nbsp;&middot;&nbsp; C = annual coupon &divide; 2</div>
 
+          <div class="notes-key"><strong>Pull to Par</strong>As a bond approaches maturity, its price converges to face value regardless of YTM. At maturity, P = face value always. This is why long-maturity bonds are more price-sensitive to rate changes than short-maturity bonds.</div>
+
         </div>
 
         <div class="notes-section"><div class="notes-section-title">Gordon Growth Model (DDM)</div>
@@ -4890,9 +4892,23 @@ function renderLearnCard(q){
 
     html+=`<div class="learn-card-section">
 
-      <div class="learn-card-section-label">Key hint for this question</div>
+      <div class="learn-card-section-label">Hint — approach nudge</div>
 
       <div class="learn-card-body" style="color:var(--blue);font-weight:500">${hint}</div>
+
+    </div>`;
+
+  }
+
+  const hint2=q.hint2||'';
+
+  if(hint2){
+
+    html+=`<div class="learn-card-section">
+
+      <div class="learn-card-section-label">Deeper hint — first key step</div>
+
+      <div class="learn-card-body" style="color:var(--purple);font-weight:500">${hint2}</div>
 
     </div>`;
 
