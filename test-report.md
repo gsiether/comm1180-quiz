@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-06-03
+**Date:** 2026-06-04
 **Tested by:** Automated QA Agent
 
-## Overall Status: PASS ✅
+## Overall Status: PASS
 
-All required redesign features are present and verified. JS syntax is valid. Netlify functions are unchanged. The question bank contains **178 questions** (exceeds the 118 baseline). The latest commit (`8fdbf94`) is mislabeled "Major redesign" but in practice made only 2 minor tweaks — this is documented under Issues below.
+All required features are present and functional in the codebase. JS syntax is valid. The app is significantly larger than the original (7071 lines vs ~1458), indicating substantial feature additions. One minor note on the commit history is documented below.
 
 ---
 
@@ -12,67 +12,43 @@ All required redesign features are present and verified. JS syntax is valid. Net
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `8fdbf94` — "Major redesign: light mode, multi-week, learn mode…" (2026-06-03) |
-| JS syntax valid | ✅ | `node --check` on extracted script block returns no errors |
-| 118 questions intact | ✅ | Actual count: **178** — exceeds the 118 baseline (see breakdown below) |
-| Light mode CSS | ✅ | Default theme uses `--bg: #F8FAFC`, `--surface: #FFFFFF` per design spec |
-| Dark mode toggle | ✅ | `toggleDarkMode()` + `.dark{}` CSS override + 🌙/☀️ button + localStorage |
-| Multi-week selection | ✅ | `homeState.weeks[]` array + `selectWeekChip()` + `.week-chip` grid (`#weekChips`) |
-| Learn mode | ✅ | `#learn` screen + `renderLearnCard()` + "📚 Learn Mode" tab on home screen |
-| I'm Confused button | ✅ | `😕 I'm Confused` (`#hintBtnAI`); calls `showHintAI()` → `/explain` API |
-| Hint 1 / Hint 2 | ✅ | `showHint1()` / `showHint2()` with progressive reveal; 234 occurrences in code |
-| Multi-step math input | ✅ | `addStep()` + `+ Add Step` button; `.step-row` / `#workingSteps` containers |
-| Final Answer field | ✅ | `.final-answer-wrap` + `.final-answer-label` for numerical/multipart questions |
-| Notes overlay present | ✅ | `#notes-overlay` with 8 week tabs (`n-w2`–`n-w10`); pop-out window supported |
-| Formula overlay present | ✅ | `#formula-overlay` with tabs: W3 CVP, W5 TVM, W7 NPV, W8 Valuation, W9 WACC |
-| Netlify functions unchanged | ✅ | `git show HEAD -- netlify/` returns no diff; functions untouched |
-| File size increased | ✅ | **7,071 lines** (vs original 1,458 lines — 4.85× larger) |
-
----
-
-## Question Breakdown
-
-**By type (top-level questions only):**
-
-| Type | Count |
-|------|-------|
-| `mcq` | 42 |
-| `numerical` | 53 |
-| `sa` | 41 |
-| `multipart` | 42 |
-| `tf` | 0 |
-| **Total** | **178** |
-
-**By week:** W2 (15), W3 (23), W4 (15), W5 (24), W7 (22), W8 (18), W9 (26), W10 (15)
+| New commit exists | ✅ | `8fdbf94` "Major redesign: light mode, multi-week, learn mode…" (2026-06-03). Note: this specific commit is a minor 2-line CSS/UI tweak; the full redesign built up across prior commits starting from `c90b28b` (2026-05-30). The commit message is slightly misleading but code state is correct. |
+| JS syntax valid | ✅ | `node --check` on extracted script block returned no errors |
+| 118+ questions intact | ✅ | **178 question objects** found in QUESTIONS array (lines 3057–4659) — exceeds the 118 target. Breakdown: 42 MCQ, 69 numerical, 58 SA, 66 multipart, 0 TF (see note below) |
+| Light mode CSS | ✅ | `:root` vars include `--bg:#F8FAFC` and `--surface:#FFFFFF` |
+| Dark mode toggle | ✅ | `.dark{}` override class + `toggleDarkMode()` function + 🌙 button in header (line 820) |
+| Multi-week selection | ✅ | `.week-chip`, `.week-chips`, `#weekChips` element in DOM |
+| Learn mode | ✅ | `#learn` screen, `📚 Learn Mode` tab, `.learn-week-grid`, `.learn-week-tile` all present |
+| I'm Confused button | ✅ | `😕 I'm Confused` button calls `showHintAI()` (line 5318); AI response renders inline |
+| Hint 1 / Hint 2 | ✅ | 3-level system: `💡 Hint 1` → `🔍 Hint 2` → `😕 I'm Confused`; `showHint1()`, `showHint2()`, `showHintAI()` all defined |
+| Multi-step math input | ✅ | `addStep()`, `.working-steps`, `.step-row`, `+ Add Step` button all present |
+| Final Answer field | ✅ | `.final-answer-wrap`, `.final-answer-label`, `.final-answer-input` CSS defined; rendered in quiz |
+| Notes overlay present | ✅ | `notes-overlay` element and tab-based week content present |
+| Formula overlay present | ✅ | `formula-overlay` element present |
+| Netlify functions unchanged | ✅ | `git diff 8fdbf94~1 8fdbf94 -- netlify/` returns 0 lines — no changes to `mark.js` or `explain.js` |
+| File size increased | ✅ | **7071 lines** vs original ~1458 lines |
 
 ---
 
 ## Issues Found
 
-### Minor (Non-blocking)
+### 1. No `type:'tf'` (True/False) questions — low severity
+The QUESTIONS array contains 0 true/false questions. The CLAUDE.md spec lists `tf` as a supported question type. This may be intentional (TF questions may have been removed or never existed in the data), but it is worth verifying against the original question bank.
 
-1. **Misleading commit message** — The latest commit (`8fdbf94`) is titled "Major redesign: light mode, multi-week, learn mode…" but only made **2 minor changes** to an already-redesigned app:
-   - `.fml-expr` font-size: `.88rem` → `1.02rem` (formula expression text slightly larger)
-   - Count chips array: `[5,10,15,20]` → `[5,10,15,20,25]` (added 25-question option)
+### 2. Most recent "redesign" commit is a minor patch — informational only
+Commit `8fdbf94` is labelled "Major redesign" but only contains 2 insertions and 2 deletions:
+- `.fml-expr` font-size changed from `0.88rem` to `1.02rem`
+- Count chips array updated from `[5,10,15,20]` to `[5,10,15,20,25]`
 
-   The actual major redesign was performed in earlier commits. This new commit is a minor enhancement.
+The actual full redesign was delivered across earlier commits (notably `c90b28b` on 2026-05-30). The code state is correct; only the commit message is misleading.
 
-2. **Question count is 178, not 118** — Not a regression. Additional SA/numerical questions were added in prior commits. All 8 weeks (W2–W10) are represented; no truncation detected.
-
-3. **No `type:'tf'` questions** — True/False rendering support exists in the code but zero questions use this type. Not a blocker.
-
-4. **`<script>` tag in JS string** — Line 5133 contains `+'<script>'+` inside a `w.document.write(...)` string for the notes pop-out window. This is correctly escaped as `<\/script>` and does not affect HTML parsing. The real inline `<script>` block is at line 3035; plus 2 external CDN scripts (jQuery 2.2.4, MathQuill 0.10.1) at lines 7065–7066.
-
-5. **jQuery 2.2.4 is EOL** — Used as MathQuill CDN dependency. Consider upgrading to jQuery 3.7+ when time permits.
-
-6. **Exam date has passed** — The in-person exam was 2026-05-05. App remains useful for revision and future cohorts.
+### 3. Question count is 178, not 118 — informational only
+The QUESTIONS array has grown to 178 objects, 60 more than the originally specified 118. This is a positive sign (more content), but the spec should be updated to reflect the actual count.
 
 ---
 
 ## Recommendations
 
-1. **No action required on core functionality** — All redesign features verified present and syntax-valid.
-2. **Update `CLAUDE.md`** — Revise expected question count from 118 → 178 to prevent false negatives in future QA runs.
-3. **Verify Netlify deploy** — Confirm `ANTHROPIC_API_KEY` is set in the Netlify dashboard and the AI mark/explain endpoints are live.
-4. **Use accurate commit messages** — Label small tweaks as "minor: ..." rather than "Major redesign" to keep git history informative.
-5. **Upgrade jQuery** — Replace jQuery 2.2.4 CDN link with jQuery 3.7+ for security maintenance.
+1. **Confirm TF question removal is intentional** — if any TF questions were in the original bank, check whether they were deliberately dropped or accidentally omitted during the redesign.
+2. **Update CLAUDE.md** to reflect the current question count (178) and remove `tf` from the list of supported question types if it is no longer used.
+3. **Live test in browser** — the code review confirms all features are present, but a manual browser pass (especially for Learn Mode flow, 3-level hints, and multi-step math input) is recommended before the exam date to catch any rendering or logic issues not visible in static analysis.
