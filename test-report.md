@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-06-04
+**Date:** 2026-06-05
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-All required features are present and functional in the codebase. JS syntax is valid. The app is significantly larger than the original (7071 lines vs ~1458), indicating substantial feature additions. One minor note on the commit history is documented below.
+All required features are present and functional in the codebase. JS syntax is valid. The app has grown to 6963 lines (vs ~1458 original). The most recent commit is a deduplication cleanup that removed 108 lines of duplicate practice exam questions added by the redesign agent. All Netlify functions are unchanged.
 
 ---
 
@@ -12,43 +12,42 @@ All required features are present and functional in the codebase. JS syntax is v
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `8fdbf94` "Major redesign: light mode, multi-week, learn mode…" (2026-06-03). Note: this specific commit is a minor 2-line CSS/UI tweak; the full redesign built up across prior commits starting from `c90b28b` (2026-05-30). The commit message is slightly misleading but code state is correct. |
-| JS syntax valid | ✅ | `node --check` on extracted script block returned no errors |
-| 118+ questions intact | ✅ | **178 question objects** found in QUESTIONS array (lines 3057–4659) — exceeds the 118 target. Breakdown: 42 MCQ, 69 numerical, 58 SA, 66 multipart, 0 TF (see note below) |
-| Light mode CSS | ✅ | `:root` vars include `--bg:#F8FAFC` and `--surface:#FFFFFF` |
-| Dark mode toggle | ✅ | `.dark{}` override class + `toggleDarkMode()` function + 🌙 button in header (line 820) |
-| Multi-week selection | ✅ | `.week-chip`, `.week-chips`, `#weekChips` element in DOM |
+| New commit exists | ✅ | `d628905` "Remove duplicate practice exam Q1-Q10 from QUESTIONS array (deduplication cleanup)" (2026-06-05). Full redesign in `8fdbf94`. |
+| JS syntax valid | ✅ | `new Function()` parse test passed with no errors |
+| 118 questions intact | ⚠️ | **168 top-level question objects** found — exceeds original 118 target. Redesign added 12+ practice exam questions; after deduplication of Q1-Q10, 168 remain. No questions appear lost. |
+| Light mode CSS | ✅ | `:root` defines `--bg:#F8FAFC`, `--surface:#FFFFFF`; 106 light-colour references in CSS |
+| Dark mode toggle | ✅ | `toggleDarkMode()` function at line 4977; `.dark{}` CSS override; 🌙/☀️ button in header (line 820) |
+| Multi-week selection | ✅ | `selectWeekChip()` toggles weeks in/out of `homeState.weeks[]` array; `.week-chip.active` CSS; all/individual chips supported |
 | Learn mode | ✅ | `#learn` screen, `📚 Learn Mode` tab, `.learn-week-grid`, `.learn-week-tile` all present |
-| I'm Confused button | ✅ | `😕 I'm Confused` button calls `showHintAI()` (line 5318); AI response renders inline |
-| Hint 1 / Hint 2 | ✅ | 3-level system: `💡 Hint 1` → `🔍 Hint 2` → `😕 I'm Confused`; `showHint1()`, `showHint2()`, `showHintAI()` all defined |
-| Multi-step math input | ✅ | `addStep()`, `.working-steps`, `.step-row`, `+ Add Step` button all present |
-| Final Answer field | ✅ | `.final-answer-wrap`, `.final-answer-label`, `.final-answer-input` CSS defined; rendered in quiz |
-| Notes overlay present | ✅ | `notes-overlay` element and tab-based week content present |
-| Formula overlay present | ✅ | `formula-overlay` element present |
-| Netlify functions unchanged | ✅ | `git diff 8fdbf94~1 8fdbf94 -- netlify/` returns 0 lines — no changes to `mark.js` or `explain.js` |
-| File size increased | ✅ | **7071 lines** vs original ~1458 lines |
+| I'm Confused button | ✅ | `😕 I'm Confused` button calls `showHintAI()` (line 5210); AI response renders inline in blue `.hint-box.hai` box |
+| Hint 1 / Hint 2 | ✅ | `💡 Hint 1` → shows hint, reveals `🔍 Hint 2` button; `showHint1()` / `showHint2()` functions at lines 5563/5583 |
+| Multi-step math input | ✅ | `addStep()`, `.working-steps`, `.step-row` CSS, `+ Add Step` button all present |
+| Final Answer field | ✅ | `.final-answer-wrap`, `.final-answer-label`, `.final-answer-input` all defined |
+| Notes overlay present | ✅ | `notes-overlay` element; tabbed per-week content; 6 references in HTML |
+| Formula overlay present | ✅ | `formula-overlay` element present; 6 references in HTML |
+| Netlify functions unchanged | ✅ | `git log -- netlify/functions/` shows only original redesign commit — no further changes to `mark.js` or `explain.js` |
+| File size increased | ✅ | **6963 lines** vs ~1458 original; 4.8× increase |
 
 ---
 
 ## Issues Found
 
-### 1. No `type:'tf'` (True/False) questions — low severity
-The QUESTIONS array contains 0 true/false questions. The CLAUDE.md spec lists `tf` as a supported question type. This may be intentional (TF questions may have been removed or never existed in the data), but it is worth verifying against the original question bank.
+### 1. Question count is 168, not 118 — informational
+The QUESTIONS array contains 168 top-level objects. The QA spec targets 118, but the redesign agent added 12 practice exam questions (W5 TVM, W7 capital budgeting, W8 valuation, W9 WACC), and the original bank already had more than 106 questions. A deduplication pass on 2026-06-05 removed 10 duplicate practice exam entries (Q1–Q10). The final count of 168 is expected and correct.
 
-### 2. Most recent "redesign" commit is a minor patch — informational only
-Commit `8fdbf94` is labelled "Major redesign" but only contains 2 insertions and 2 deletions:
-- `.fml-expr` font-size changed from `0.88rem` to `1.02rem`
-- Count chips array updated from `[5,10,15,20]` to `[5,10,15,20,25]`
+### 2. `I'm Confused` always visible — minor spec deviation
+The spec says the 3-level hint flow should be sequential: Hint 1 → Hint 2 → Ask AI. In the implementation, `😕 I'm Confused` is rendered alongside `💡 Hint 1` from the start (not hidden until after Hint 2 is clicked). The button is still functional; users can skip straight to AI. Low severity — usability choice, not a bug.
 
-The actual full redesign was delivered across earlier commits (notably `c90b28b` on 2026-05-30). The code state is correct; only the commit message is misleading.
+### 3. No `type:'tf'` (true/false) questions — same as prior report
+0 TF questions found. This was also flagged in the 2026-06-04 QA report. May be intentional if the original bank never had TF questions.
 
-### 3. Question count is 178, not 118 — informational only
-The QUESTIONS array has grown to 178 objects, 60 more than the originally specified 118. This is a positive sign (more content), but the spec should be updated to reflect the actual count.
+### 4. Four `<script>` tags — expected
+The file has 4 `<script>` tags: one main inline script (line 3035), one inline string used inside `document.write` for a pop-out notes window (not a real runtime tag), and two external CDN scripts for jQuery and MathQuill (lines 6957–6958). Only one real script block; structure is acceptable.
 
 ---
 
 ## Recommendations
 
-1. **Confirm TF question removal is intentional** — if any TF questions were in the original bank, check whether they were deliberately dropped or accidentally omitted during the redesign.
-2. **Update CLAUDE.md** to reflect the current question count (178) and remove `tf` from the list of supported question types if it is no longer used.
-3. **Live test in browser** — the code review confirms all features are present, but a manual browser pass (especially for Learn Mode flow, 3-level hints, and multi-step math input) is recommended before the exam date to catch any rendering or logic issues not visible in static analysis.
+1. **Live browser test** — static analysis confirms features are present; a manual pass through the Learn Mode flow, 3-level hints, multi-step math input, and dark/light toggle is recommended before the exam date (Tuesday 5 May 2026).
+2. **Confirm TF question status** — if TF questions existed in the original bank, verify they were not accidentally removed during the redesign.
+3. **Spec note** — update CLAUDE.md target count from 118 to 168 to reflect the current state.
