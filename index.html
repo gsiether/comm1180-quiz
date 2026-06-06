@@ -4521,33 +4521,6 @@ const QUESTIONS=[
   hint:'Think about THREE types of failure from financial-only measurement: timing (lagging nature), incentive effects (short-termism), and what financial measures structurally cannot capture (relationships, brand, innovation).',
   hint2:'1) Lagging → need leading non-financial indicators. 2) Short-termism → need to measure future capability investments (training, R&D). 3) Can\'t capture brand/customer assets → need NPS, retention, market share. The BSC addresses all three.'},
 
-// WEEK 9 — Q11: CAPM multi-company analysis (multipart)
-{week:9,type:'multipart',
-  scenario:'The risk-free rate is 4.30%. Company data:\nA (Round Corp): E[R]=7.50%, β=0.34\nB (Lemon LLC): E[R]=14.36%, β=?\nC (Beach Living Inc): E[R]=?, β=1.43\nD (Tasman Devils Corp): E[R]=7.88%, β=0.86\nE (Allied Metal Traders): E[R]=19.72%, β=1.46',
-  parts:[
-    {label:'a',question:'Round Corp is correctly priced. What does this tell you about the expected market return per year? (%)',keywords:['13.71','13.71%','13.7','9.412','MRP'],modelAnswer:'CAPM using Round Corp: 7.50% = 4.30% + 0.34 × (E[RM]−4.30%)\n3.20% = 0.34 × MRP → MRP = 9.412%\nE[RM] = 4.30% + 9.412% = 13.71%'},
-    {label:'b',question:'What beta for Lemon LLC would make investor expectations consistent with your findings in A)?',keywords:['1.069','1.07','beta Lemon'],modelAnswer:'14.36% = 4.30% + β × 9.412% → β = (14.36%−4.30%)/9.412% = 10.06/9.412 = 1.069'},
-    {label:'c',question:'Given the expected market return in A), what is the correct expected return for Beach Living Inc? (%)',keywords:['17.76','17.76%','17.8'],modelAnswer:'E[R] = 4.30% + 1.43 × 9.412% = 4.30% + 13.46% = 17.76%'},
-    {label:'d',question:'Given the expected market return in A), are shares of Tasman Devils Corp overvalued, undervalued, or fairly valued?',keywords:['overvalued','over-valued','over valued','12.39','price too high'],modelAnswer:'CAPM required: 4.30% + 0.86 × 9.412% = 4.30% + 8.09% = 12.39%\nActual: 7.88% < 12.39% required → stock is OVERVALUED (price too high, return too low to justify its risk)'},
-    {label:'e',question:'Assume the market risk premium remains the same. What risk-free rate would be needed for Allied Metal Traders to have correct return expectations? (%)',keywords:['5.98','5.98%','6.0'],modelAnswer:'19.72% = Rf + 1.46 × 9.412% → 19.72% = Rf + 13.74% → Rf = 19.72% − 13.74% = 5.98%'}
-  ],
-  hint:'Use CAPM: E[R] = Rf + β × (E[RM] − Rf). Market Risk Premium (MRP) = E[RM] − Rf. If a stock\'s actual return is BELOW CAPM required return → overvalued (price too high).',
-  hint2:'From Round Corp: MRP = (7.50%−4.30%)/0.34 = 9.412%. E[RM] = 4.30% + 9.412% = 13.71%. Use this MRP for all subsequent parts.',
-  formulas:['E[Ri] = Rf + βi × (E[RM] − Rf)','MRP = E[RM] − Rf','β = (E[Ri] − Rf) ÷ MRP']},
-
-// WEEK 9 — Q12: WACC with varying D/E ratios (multipart)
-{week:9,type:'multipart',
-  scenario:'The Sandwich With A Pretty Big Pickle On It Corporation has a cost of equity of 14.30% and a cost of debt of 6.20%. The corporate tax rate is 30.00%.\n\nAfter-tax cost of debt = 6.20% × (1−0.30) = 4.34%\nFor D/E ratio d: wD = d/(1+d), wE = 1/(1+d)',
-  parts:[
-    {label:'a',question:'Find the after-tax WACC if the firm\'s target debt-to-equity ratio is 0.25',keywords:['12.31','12.31%'],modelAnswer:'D/E=0.25: wD=0.25/1.25=0.20, wE=0.80\nWACC = 0.80×14.30% + 0.20×4.34% = 11.44% + 0.87% = 12.31%'},
-    {label:'b',question:'Find the after-tax WACC if the firm\'s target debt-to-equity ratio is 0.50',keywords:['10.99','10.99%','11%'],modelAnswer:'D/E=0.50: wD=0.333, wE=0.667\nWACC = 0.667×14.30% + 0.333×4.34% = 9.54% + 1.45% = 10.99%'},
-    {label:'c',question:'Find the after-tax WACC if the firm\'s target debt-to-equity ratio is 1.00',keywords:['9.32','9.32%'],modelAnswer:'D/E=1.00: wD=0.50, wE=0.50\nWACC = 0.50×14.30% + 0.50×4.34% = 7.15% + 2.17% = 9.32%'},
-    {label:'d',question:'Find the after-tax WACC if the firm\'s target debt-to-equity ratio is 1.50',keywords:['8.32','8.32%'],modelAnswer:'D/E=1.50: wD=0.60, wE=0.40\nWACC = 0.40×14.30% + 0.60×4.34% = 5.72% + 2.60% = 8.32%'}
-  ],
-  hint:'Convert D/E ratio to weights: wD = (D/E) ÷ (1 + D/E) and wE = 1 ÷ (1 + D/E). Apply the after-tax cost of debt = RD × (1 − TC). WACC = wE×RE + wD×RD×(1−TC).',
-  hint2:'After-tax RD = 6.20% × 0.70 = 4.34%. For D/E=0.25: wD=0.20, wE=0.80. For D/E=0.50: wD=0.333, wE=0.667. WACC falls as leverage increases (cheaper debt replaces expensive equity).',
-  formulas:['WACC = wE×RE + wD×RD×(1−TC)','wD = (D/E) ÷ (1 + D/E)','wE = 1 ÷ (1 + D/E)','After-tax RD = RD × (1 − TC)']},
-
 ];
 
 
