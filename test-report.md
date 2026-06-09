@@ -1,54 +1,62 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-06-04
+**Date:** 2026-06-09
 **Tested by:** Automated QA Agent
+**Commit tested:** 13172b0 — "Add 12 practice exam questions from official practice exam (W5, W7, W8, W9)"
 
 ## Overall Status: PASS
 
-All required features are present and functional in the codebase. JS syntax is valid. The app is significantly larger than the original (7071 lines vs ~1458), indicating substantial feature additions. One minor note on the commit history is documented below.
-
----
+All required features are present and intact. The latest commit successfully added 12 practice exam questions across W5, W7, W8, and W9, bringing the total from 166 to 178 questions. No regressions detected.
 
 ## Checklist
-
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `8fdbf94` "Major redesign: light mode, multi-week, learn mode…" (2026-06-03). Note: this specific commit is a minor 2-line CSS/UI tweak; the full redesign built up across prior commits starting from `c90b28b` (2026-05-30). The commit message is slightly misleading but code state is correct. |
-| JS syntax valid | ✅ | `node --check` on extracted script block returned no errors |
-| 118+ questions intact | ✅ | **178 question objects** found in QUESTIONS array (lines 3057–4659) — exceeds the 118 target. Breakdown: 42 MCQ, 69 numerical, 58 SA, 66 multipart, 0 TF (see note below) |
-| Light mode CSS | ✅ | `:root` vars include `--bg:#F8FAFC` and `--surface:#FFFFFF` |
-| Dark mode toggle | ✅ | `.dark{}` override class + `toggleDarkMode()` function + 🌙 button in header (line 820) |
-| Multi-week selection | ✅ | `.week-chip`, `.week-chips`, `#weekChips` element in DOM |
-| Learn mode | ✅ | `#learn` screen, `📚 Learn Mode` tab, `.learn-week-grid`, `.learn-week-tile` all present |
-| I'm Confused button | ✅ | `😕 I'm Confused` button calls `showHintAI()` (line 5318); AI response renders inline |
-| Hint 1 / Hint 2 | ✅ | 3-level system: `💡 Hint 1` → `🔍 Hint 2` → `😕 I'm Confused`; `showHint1()`, `showHint2()`, `showHintAI()` all defined |
-| Multi-step math input | ✅ | `addStep()`, `.working-steps`, `.step-row`, `+ Add Step` button all present |
-| Final Answer field | ✅ | `.final-answer-wrap`, `.final-answer-label`, `.final-answer-input` CSS defined; rendered in quiz |
-| Notes overlay present | ✅ | `notes-overlay` element and tab-based week content present |
-| Formula overlay present | ✅ | `formula-overlay` element present |
-| Netlify functions unchanged | ✅ | `git diff 8fdbf94~1 8fdbf94 -- netlify/` returns 0 lines — no changes to `mark.js` or `explain.js` |
-| File size increased | ✅ | **7071 lines** vs original ~1458 lines |
+| New commit exists | ✅ | 13172b0 "Add 12 practice exam questions from official practice exam (W5, W7, W8, W9)" |
+| JS syntax valid | ✅ | `node --check` passed with no errors |
+| 118+ questions intact | ✅ | 178 question objects in QUESTIONS array (target was 118 minimum; previously 166, +12 new) |
+| Light mode CSS | ✅ | `--bg: #F8FAFC`, `--surface: #FFFFFF`, white/light theme throughout |
+| Dark mode toggle | ✅ | `toggleDarkMode()` / `applyDarkMode()` toggle `.dark` on `document.documentElement` |
+| Multi-week selection | ✅ | `homeState.weeks[]`, `buildWeekChips()`, `selectWeekChip()` — 16 references |
+| Learn mode | ✅ | Learn Mode tab, `buildLearnGrid()`, learn screen flow — 71 references |
+| I'm Confused button | ✅ | Present (2 references — HTML element + JS handler) |
+| Hint 1 / Hint 2 | ✅ | 3-level hint system (230 references) |
+| Multi-step math input | ✅ | MathQuill integration, `addStep`, step-row UI — 19 references |
+| Final Answer field | ✅ | `finalAnswer` field present — 13 references |
+| Notes overlay present | ✅ | `#notes-overlay` with per-week tab content — 8 references |
+| Formula overlay present | ✅ | `#formula-overlay` present — 8 references |
+| Netlify functions unchanged | ✅ | Zero diff on `netlify/functions/mark.js` and `netlify/functions/explain.js` |
+| File size increased | ✅ | 7,059 lines (vs original 1,458 lines — 4.8× larger; up from 6,936 in prev commit) |
 
----
+## Question Breakdown
+
+| Week | Prev Count | New Count | Change | Topic |
+|------|-----------|-----------|--------|-------|
+| W2 | 15 | 15 | — | Market Opportunities |
+| W3 | 23 | 23 | — | CVP / Pricing |
+| W4 | 15 | 15 | — | Technology / BSC |
+| W5 | 30 | 34 | **+4** | TVM (Q1 APR/EAR/FV, Q2 solve-r, Q3 deferred perpetuity, Q4 mortgage) |
+| W7 | 23 | 26 | **+3** | Capital Budgeting (Q5 NPV perpetuity, Q6 EAA, Q7 NPV/IRR/PI/Payback) |
+| W8 | 23 | 26 | **+3** | Valuation (Q8 bond pricing, Q9 multi-stage DDM, Q10 Gordon Growth) |
+| W9 | 23 | 25 | **+2** | WACC (Q11 CAPM 5-part, Q12 WACC with D/E ratios) |
+| W10 | 14 | 14 | — | Performance Measurement |
+| **Total** | **166** | **178** | **+12** | |
+
+All 12 expected practice exam questions are accounted for and landed in the correct weeks.
+
+## Changes Since Last QA Report (2026-06-08)
+
+- **13172b0**: Added 12 practice exam questions (123 insertions, 0 deletions). W5 +4, W7 +3, W8 +3, W9 +2. No other files modified.
 
 ## Issues Found
 
-### 1. No `type:'tf'` (True/False) questions — low severity
-The QUESTIONS array contains 0 true/false questions. The CLAUDE.md spec lists `tf` as a supported question type. This may be intentional (TF questions may have been removed or never existed in the data), but it is worth verifying against the original question bank.
+1. **Pre-existing: `type:'tf'` absent from question bank** — The rendering code supports true/false questions but there are zero `tf`-type entries in the array. Low priority unless the exam includes T/F questions.
 
-### 2. Most recent "redesign" commit is a minor patch — informational only
-Commit `8fdbf94` is labelled "Major redesign" but only contains 2 insertions and 2 deletions:
-- `.fml-expr` font-size changed from `0.88rem` to `1.02rem`
-- Count chips array updated from `[5,10,15,20]` to `[5,10,15,20,25]`
+2. **Pre-existing: CDN dependency for MathQuill/jQuery** — Two external CDN `<script>` tags load jQuery and MathQuill from `cdnjs.cloudflare.com`. If the CDN is unavailable, math step input breaks silently. Low risk for exam day but worth noting.
 
-The actual full redesign was delivered across earlier commits (notably `c90b28b` on 2026-05-30). The code state is correct; only the commit message is misleading.
-
-### 3. Question count is 178, not 118 — informational only
-The QUESTIONS array has grown to 178 objects, 60 more than the originally specified 118. This is a positive sign (more content), but the spec should be updated to reflect the actual count.
-
----
+3. **Note on `<script>` tag count** — `grep -c '<script>'` returns 2 and `grep -c '</script>'` returns 3. This is expected and harmless: the third occurrence is an escaped `<\/script>` inside a JS string literal in the `openNotesWindow()` popup helper, which is the correct way to embed an end-tag inside a script block.
 
 ## Recommendations
 
-1. **Confirm TF question removal is intentional** — if any TF questions were in the original bank, check whether they were deliberately dropped or accidentally omitted during the redesign.
-2. **Update CLAUDE.md** to reflect the current question count (178) and remove `tf` from the list of supported question types if it is no longer used.
-3. **Live test in browser** — the code review confirms all features are present, but a manual browser pass (especially for Learn Mode flow, 3-level hints, and multi-step math input) is recommended before the exam date to catch any rendering or logic issues not visible in static analysis.
+1. No action required on the question bank — all 12 practice exam questions are present and in the correct weeks.
+2. Manual browser smoke-test of the new practice questions recommended before exam day.
+3. No action required on Netlify functions — both are unchanged.
+4. Consider adding `type:'tf'` questions if the exam has true/false coverage.
