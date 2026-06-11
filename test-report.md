@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-06-10
+**Date:** 2026-06-11
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PARTIAL
 
-> Most new features are implemented correctly, but **the redesign agent dropped 12 questions** compared to the version it replaced. W5, W7, W8, and W9 each lost questions that had been deliberately added in commit `13172b0`. Restoration required before next exam session.
+The app is largely functional with all required features present and JS syntax clean. However, the QUESTIONS array contains **178 questions instead of the expected 118**, with **5 confirmed duplicate questions** introduced by repeated practice-question addition commits across multiple sessions.
 
 ---
 
@@ -12,64 +12,66 @@
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `56f3fd5` — "Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions" |
+| New commit exists | ✅ | `693ec73` — "Add 12 practice exam questions from official COMM1180 practice materials" (2026-06-11) |
 | JS syntax valid | ✅ | `node --check` exited 0 — no parse errors |
-| 118 questions (spec target) | ⚠️ | Actual: **166 questions** — exceeds spec of 118, but **12 fewer than the 178 in the version being replaced** (see Issues) |
-| Light mode CSS | ✅ | Full design-system variables present (`--bg:#F8FAFC`, `--surface:#FFFFFF`, etc.) |
-| Dark mode toggle | ✅ | `darkModeBtn` (🌙/☀️) calls `toggleDarkMode()`; `.dark{…}` CSS block overrides all variables |
-| Multi-week selection | ✅ | `week-chip` grid + `selectWeekChip()` + "All" chip; filters questions by active chips |
-| Learn mode | ✅ | Learn Mode tab, `#learn` screen, "Test yourself" button present (71 matches) |
-| I'm Confused button | ✅ | `😕 I'm Confused` button calls `showHintAI()` after hints shown |
-| Hint 1 / Hint 2 | ✅ | 218 matches; progressive hint reveal logic present |
-| Multi-step math input | ✅ | `addStep`, `step-row` present (19 matches); MathQuill via CDN |
-| Final Answer field | ✅ | `finalAnswer` / `Final Answer` present (13 matches) |
-| Notes overlay present | ✅ | `#notes-overlay` with W2–W10 tabs and inline HTML content |
-| Formula overlay present | ✅ | `#formula-overlay` at line 2445 with full formula content |
-| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` returned no output — mark.js and explain.js untouched |
-| File size increased | ✅ | **6,936 lines** (up from ~1,458 lines in original CLAUDE.md baseline) |
+| 118 questions intact | ❌ | **178 questions found** (60 over target; 5 confirmed duplicates) |
+| Light mode CSS | ✅ | `--bg:#F8FAFC; --surface:#FFFFFF` in `:root`; `.dark{…}` override also present |
+| Dark mode toggle | ✅ | `darkModeBtn` (🌙/☀️) calls `toggleDarkMode()`; state persisted in localStorage |
+| Multi-week selection | ✅ | `.week-chip` grid with active-state toggling and "All" chip |
+| Learn mode | ✅ | `learnMode` flag in `quizState`, Learn Mode tab, `#learn` screen, "Test yourself" button |
+| I'm Confused button | ✅ | `hintBtnAI` renders `😕 I'm Confused` calling `showHintAI()` when hints enabled |
+| Hint 1 / Hint 2 | ✅ | `hint` + `hint2` fields on questions; 3-level progressive hint reveal logic present |
+| Multi-step math input | ✅ | `.working-steps`, `.step-row`, `addStep()` function; MathQuill CDN integrated |
+| Final Answer field | ✅ | `.final-answer-wrap` + "Final Answer" label in CSS and HTML templates |
+| Notes overlay present | ✅ | `#notes-overlay` at line 1153 with W2–W10 tabs and inline HTML content |
+| Formula overlay present | ✅ | `#formula-overlay` at line 2445 with CVP/TVM/NPV/Valuation/WACC tabs |
+| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` shows no changes; last touched in old pre-redesign commit |
+| File size increased | ✅ | **7,061 lines** (up from ~1,458 lines original baseline) |
 
 ---
 
 ## Issues Found
 
-### 🔴 CRITICAL — 12 Questions Dropped by Redesign
+### Issue 1 — Question Count Inflation (Significant)
 
-Comparing `index.html` before the redesign (commit `ee005e6`) against the current version (`56f3fd5`):
+**Expected:** 118 questions (106 original + 12 new practice questions)
+**Actual:** 178 questions
 
-| Week | Before redesign | After redesign | Lost |
-|------|----------------|----------------|------|
-| W5 (TVM) | 34 | 30 | **−4** |
-| W7 (Capital Budgeting) | 26 | 23 | **−3** |
-| W8 (Valuation) | 26 | 23 | **−3** |
-| W9 (WACC) | 25 | 23 | **−2** |
-| **Total** | **178** | **166** | **−12** |
+The QUESTIONS array has accumulated 60 extra questions across multiple agent sessions. Git history analysis:
 
-These are the exact same weeks where the 12 practice exam questions were added in commit `13172b0`. The redesign agent likely truncated the end of those week blocks when rewriting the file, silently dropping the recently-added multipart and numerical practice questions.
+| Commit | Action | Net Effect |
+|--------|--------|------------|
+| `27c685c` | First practice-question add (+12) | ~118 |
+| `d628905`, `9c5e904` | Dedup cleanup | back to ~106? |
+| `8fdbf94` | Major redesign | unclear |
+| `13172b0` | Re-added 12 questions | +12 |
+| `56f3fd5` | Redesign removed them | −12 (now 166) |
+| `693ec73` | Re-added 12 again | +12 = **178** |
 
-**To restore:** run `git show ee005e6:index.html` and diff the QUESTIONS array for W5, W7, W8, W9 against the current file to identify and re-add the missing `{week:…}` objects.
+The 166-question baseline before the latest add indicates prior redesign sessions added extra questions beyond the original 106. Net result: 60 excess questions.
 
-### ⚠️ Minor — Multiple `<script>` Tags
+### Issue 2 — Five Duplicate Questions Confirmed
 
-There are 3 `<script>` entries in the HTML:
-- Line 3035: main inline `<script>` ✅
-- Line 6930: `<script src="…jquery.min.js">` (CDN)
-- Line 6931: `<script src="…mathquill.min.js">` (CDN)
+`grep -o "question:'[^']*'" index.html | sort | uniq -d` identifies these exact duplicates:
 
-The spec says "exactly one `<script>` tag." The external CDN tags are required for MathQuill and are not a functional issue, but they introduce a CDN availability dependency for math input.
+1. PulseWear Balanced Scorecard (BSC) four-perspectives question
+2. PulseWear market opportunity + Week 2 frameworks question
+3. "Calculate NPV for each project" (capital budgeting)
+4. McDonald's declining perpetuity NPV question
+5. Weighted average contribution margin per unit (Week 3)
 
-### ℹ️ Informational — Question Count vs Spec
+### Issue 3 — External Script Tags (Minor)
 
-The QA spec states "118 questions total." Current count is **166**. The discrepancy is because additional questions and practice exams were added after CLAUDE.md was written. 166 > 118 is fine — but CLAUDE.md should be updated once the 12 dropped questions are restored (making the true target 178).
+`grep -c '<script>' index.html` matches 2. The second match is a `<script>` tag inside a `w.document.write(...)` string (notes popup window — legitimate). External CDN tags for jQuery and MathQuill use `<script src=` (different pattern) and are required for math input functionality.
 
 ---
 
 ## Recommendations
 
-1. **Restore the 12 dropped questions** (priority: high, before next exam):
-   - Run: `git show ee005e6:index.html | grep "^{week:[5789]," > /tmp/old_qs.txt`
-   - Compare against current to identify which entries are missing in W5, W7, W8, W9.
-   - Re-insert them into the QUESTIONS array.
+1. **Deduplicate QUESTIONS array** (priority: high) — remove the 5 confirmed duplicate entries. A one-liner can identify them: `grep -o "question:'[^']*'" index.html | sort | uniq -d`
 
-2. **Update CLAUDE.md** expected question count from 118 to 178 (the correct post-restore target).
+2. **Audit question count baseline** — determine whether the 166-question baseline (before latest add) is intentional or whether extra questions crept in from earlier sessions. If 178 is the correct target going forward, update CLAUDE.md accordingly.
 
-3. **Add a question-count assertion** in CI (e.g. a `make check` or `node` one-liner that asserts `QUESTIONS.length >= 178`) so future redesign agents cannot silently reduce the bank.
+3. **Add a question-count guard** — a `console.assert(QUESTIONS.length === N, ...)` at startup would prevent future agents silently inflating or deflating the bank.
+
+4. **No changes needed to Netlify functions** — `mark.js` and `explain.js` are intact and untouched across all recent commits.
