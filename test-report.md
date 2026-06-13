@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-06-12
+**Date:** 2026-06-13
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PARTIAL
 
-All required features are present and JS syntax is clean. However, **no redesign agent ran today** — the most recent commit is a QA report from 2026-06-11 (yesterday); `index.html` was last modified by commit `693ec73` on 2026-06-11. Additionally, the QUESTIONS array remains at **178 questions instead of the expected 118**, with **5 confirmed duplicate questions** that have persisted across multiple sessions.
+The redesign **is present** on `main` (completed 2026-06-03) and all required features are functional. However, **no redesign agent ran today** — `index.html` has not changed since 2026-06-03, and the last commit was a QA report on 2026-06-04. The **QUESTIONS array has 178 questions instead of the expected 118**, and the most recent "Major redesign" commit (`8fdbf94`) is misleadingly labelled — it only changed 4 lines (formula font size + count chip range), not a full redesign.
 
 ---
 
@@ -12,77 +12,87 @@ All required features are present and JS syntax is clean. However, **no redesign
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists (today) | ❌ | Last commit is `4a698f8` — QA report only, dated 2026-06-11. No redesign commit for 2026-06-12. |
-| JS syntax valid | ✅ | `new Function()` parse succeeded — no syntax errors |
-| 118 questions intact | ❌ | **178 questions found** (42 mcq, 0 tf, 53 numerical, 41 sa, 42 multipart); 5 confirmed duplicates |
-| Light mode CSS | ✅ | `--bg:#F8FAFC; --surface:#FFFFFF` in `:root`; `.dark{…}` override present |
-| Dark mode toggle | ✅ | `darkModeBtn` calls `toggleDarkMode()` at line 5075; state persisted in localStorage |
-| Multi-week selection | ✅ | `.week-chip` grid with active-state toggling and "All" chip |
-| Learn mode | ✅ | `learnMode` flag in `quizState`, Learn Mode tab, `#learn` screen, "Test yourself" button |
-| I'm Confused button | ✅ | `hintBtnAI` renders `😕 I'm Confused` calling `showHintAI()` when hints enabled |
-| Hint 1 / Hint 2 | ✅ | `hint` + `hint2` fields on questions; 3-level progressive hint reveal logic present |
-| Multi-step math input | ✅ | `.working-steps`, `.step-row`, `addStep()` function; MathQuill CDN integrated |
-| Final Answer field | ✅ | `.final-answer-wrap` + "Final Answer" label in CSS and HTML templates |
-| Notes overlay present | ✅ | `#notes-overlay` at line 1153 with W2–W10 tabs and inline HTML content |
-| Formula overlay present | ✅ | `#formula-overlay` at line 2445 with CVP/TVM/NPV/Valuation/WACC tabs |
-| Netlify functions unchanged | ✅ | `git diff HEAD -- netlify/` shows 0 lines changed; functions untouched since initial build |
-| File size increased | ✅ | **7,061 lines** (up from ~1,458 lines original baseline) |
+| New commit exists | ✅ | `8fdbf94` "Major redesign…" (2026-06-03) is present on main. Note: this commit is a minor 4-line tweak; the full redesign was built across earlier commits. |
+| JS syntax valid | ✅ | `new Function(js)` parse succeeded — no syntax errors |
+| 118 questions intact | ❌ | **178 questions found** (mcq:42, sa:41, numerical:53, multipart:42, tf:0) |
+| Light mode CSS | ✅ | `--bg:#F8FAFC; --surface:#FFFFFF` in `:root`; `.dark{}` override class present |
+| Dark mode toggle | ✅ | `toggleDarkMode()` function + moon button in header; 8 matches for dark/toggle logic |
+| Multi-week selection | ✅ | `homeState.weeks[]` array; `.week-chip` grid with active-state toggling; "All" chip |
+| Learn mode | ✅ | `#learn` screen, Learn Mode tab, `learnMode` flag, "Test yourself" button |
+| I'm Confused button | ✅ | Renders as `hintBtnAI`, calls `showHintAI()` |
+| Hint 1 / Hint 2 | ✅ | 3-level progressive system: `hint` + `hint2` fields present; 230 occurrences |
+| Multi-step math input | ✅ | `addStep()`, `.working-steps`, `.step-row`; MathQuill CDN loaded |
+| Final Answer field | ✅ | `.final-answer-wrap` + "Final Answer" label in HTML and CSS |
+| Notes overlay present | ✅ | `#notes-overlay` with W2–W10 tabs and inline HTML content |
+| Formula overlay present | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC tabs |
+| Netlify functions unchanged | ✅ | Only one commit ever touched functions (initial build); 0 bytes diff vs HEAD |
+| File size increased | ✅ | **7,071 lines** (up from ~1,458 original) |
 
 ---
 
 ## Issues Found
 
-### Issue 1 — No Redesign Agent Ran Today (Critical)
+### Issue 1 — No New Activity Since 2026-06-04 (Critical)
 
-The task expects a redesign agent to have run and committed changes to `index.html` before this QA pass. The git log shows no such commit for today (2026-06-12):
+The task expects a redesign agent to have run today. The git log on `main` shows no changes since 2026-06-04:
 
 ```
-4a698f8  2026-06-11  QA report: automated code check (2026-06-11)   ← HEAD
-693ec73  2026-06-11  Add 12 practice exam questions ...              ← last index.html change
-c9234aa  2026-06-10  QA report: automated code check
-56f3fd5  2026-06-10  Major redesign: ...
+27f3c6f  2026-06-04  QA report: automated code check (2026-06-04)  <- HEAD / origin/main
+89de3bb  2026-06-03  QA report: automated code check (2026-06-03)
+8fdbf94  2026-06-03  Major redesign (4-line tweak)                  <- last index.html change
+27c685c  2026-06-02  Add 12 practice exam questions (W5, W7, W8, W9)
+c90b28b  2026-06-01  Major redesign: light mode, multi-week, ...
 ```
 
-The working tree is clean with no uncommitted changes. Either the redesign agent did not run, or it ran and produced no output. This QA pass is therefore re-auditing the same codebase state as the 2026-06-11 report.
+`index.html` has not been modified in 10 days. Previous QA agent sessions (2026-06-10 through 2026-06-12) committed to a **detached HEAD** that was never merged into `main`, so their work is unreachable on any branch.
 
-### Issue 2 — Question Count Inflation (Significant, Persistent)
+### Issue 2 — Misleading "Major Redesign" Commit Label (Informational)
 
-**Expected:** 118 questions (106 original + 12 new practice questions)
-**Actual:** 178 questions (42 mcq / 53 numerical / 41 sa / 42 multipart)
+The most recent commit touching `index.html` (`8fdbf94`) is labelled "Major redesign" but only changed **4 lines**:
+- `.fml-expr` font-size: `.88rem` to `1.02rem`
+- Count chips: `[5,10,15,20]` to `[5,10,15,20,25]`
 
-This has been flagged in every QA report since 2026-06-09. The QUESTIONS array accumulated 60 extra questions from repeated practice-question add commits across multiple agent sessions. Net commit history:
+The actual full redesign was built across earlier commits (starting from `c90b28b` on 2026-06-01). The code state is correct; only the commit message is misleading.
 
-| Commit | Action | Net Effect |
-|--------|--------|------------|
-| `8fdbf94` | Major redesign (added extras) | ~166 |
-| `13172b0` | Add 12 practice Qs | ~178 |
-| `56f3fd5` | Redesign (stripped practice Qs) | ~166 |
-| `693ec73` | Re-added 12 practice Qs | **178** |
+### Issue 3 — Question Count: 178 vs Expected 118 (Significant)
 
-### Issue 3 — Five Duplicate Questions Confirmed (Persistent)
+**Expected:** 118 questions (106 original + 12 practice exam questions per CLAUDE.md)
+**Actual:** 178 questions
 
-Exact duplicates still present (confirmed via `sort | uniq -d`):
+Week-by-week breakdown within QUESTIONS array:
 
-1. PulseWear Balanced Scorecard four-perspectives question
-2. PulseWear market opportunity + Week 2 frameworks question
-3. "Calculate NPV for each project" (capital budgeting)
-4. McDonald's declining perpetuity NPV question
-5. Weighted average contribution margin per unit (Week 3)
+| Week | Count | Topic |
+|------|-------|-------|
+| 2 | 15 | Market Opportunities |
+| 3 | 23 | CVP/Pricing |
+| 4 | 15 | Technology/BSC |
+| 5 | 34 | TVM |
+| 7 | 26 | Capital Budgeting |
+| 8 | 26 | Investors/Valuation |
+| 9 | 25 | WACC |
+| 10 | 14 | Performance Measurement |
+| **Total** | **178** | |
+
+The bank has 60 more questions than the 118 target. Multiple "Add 12 practice exam questions" commits contributed. Prior QA sessions confirmed 5 exact duplicates remain in the array.
 
 ### Issue 4 — No `type:'tf'` Questions (Minor)
 
-There are 0 true/false questions in the bank. If this was an intentional removal (all converted to MCQ), CLAUDE.md should be updated to remove `tf` from the supported question types list.
+There are 0 true/false questions in the QUESTIONS array. The code supports the `tf` type (`renderTF()` function exists, type label map includes `tf`), but no questions use it.
+
+### Issue 5 — Dangling Commits from Prior QA Sessions (Informational)
+
+Prior agent sessions (2026-06-10 to 2026-06-12) created 17 commits in a detached HEAD that were never merged into `main`. These are unreachable and will be garbage-collected. They represent wasted compute from 3 prior QA cycles that were never persisted.
 
 ---
 
 ## Recommendations
 
-1. **Investigate why redesign agent did not run today** (priority: critical) — check the pipeline/trigger for the redesign agent for 2026-06-12.
+1. **Investigate why no redesign pipeline ran since 2026-06-03** (priority: critical) — 10 days of inactivity on index.html. Check the trigger/schedule.
 
-2. **Deduplicate QUESTIONS array** (priority: high) — 5 duplicate questions remain from prior sessions. These should be removed before the exam date (2026-05-05 has passed; still relevant for ongoing use).
+2. **Merge detached HEAD work or prune it** (priority: medium) — cherry-pick useful commits from the dangling 17-commit chain onto main, or run `git gc` to clean up.
 
-3. **Fix question count baseline** (priority: high) — the 178 count has drifted significantly from the 118 target. Either revert to 118 by removing 60 inflated questions, or update CLAUDE.md to reflect 178 as the new canonical count so future QA agents stop flagging it.
+3. **Resolve question count baseline** (priority: medium) — prune back to 118 by removing duplicate/excess questions, or update CLAUDE.md to declare 178 as the canonical count.
 
-4. **Add a question-count guard** — add `console.assert(QUESTIONS.length === N, 'Question bank drift detected')` at startup to prevent future agents silently inflating the bank.
+4. **Clarify `tf` question status** (priority: low) — restore true/false questions from the original spec or remove `tf` handling from the codebase.
 
-5. **No changes needed to Netlify functions** — `mark.js` and `explain.js` are intact and untouched since the initial build.
+5. **Netlify functions are intact** — `mark.js` and `explain.js` unchanged since initial build. Verify `ANTHROPIC_API_KEY` is set in Netlify dashboard.
