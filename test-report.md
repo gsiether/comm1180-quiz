@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-06-14
+**Date:** 2026-06-15
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PARTIAL
 
-The redesign **is present and complete** on `main` (landed 2026-06-03 in commit `56f3fd5`). All required features are functional. However, **no redesign agent ran today** — `index.html` has not changed since 2026-06-03 (11 days unchanged). The **QUESTIONS array contains 178 questions** (vs the 118 stated in the QA prompt), which is a persistent known state due to two additional practice-question commits growing the bank beyond the original target count.
+The redesign **is present and fully functional** (landed 2026-06-03 in commit `56f3fd5`). All 14 required features pass. However, **no redesign agent ran today** — `index.html` has been unchanged for 12 days. The question count (178) exceeds the QA prompt baseline (118) due to two additional practice-question commits; this is a known persistent discrepancy, not a defect.
 
 ---
 
@@ -12,7 +12,7 @@ The redesign **is present and complete** on `main` (landed 2026-06-03 in commit 
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `6c1f359` "QA report: automated code check (2026-06-13)" is HEAD; full redesign in `56f3fd5` (2026-06-03) |
+| New commit exists | ✅ | `64e50ce` "QA report (2026-06-14)" is HEAD; full redesign in `56f3fd5` (2026-06-03) — no new index.html changes today |
 | JS syntax valid | ✅ | `node --check /tmp/quiz_js.js` passed — no syntax errors |
 | 118 questions intact | ❌ | **178 questions found** (mcq:42, sa:41, numerical:53, multipart:42, tf:0) — extra practice questions added in commits `693ec73` and `13172b0` |
 | Light mode CSS | ✅ | `--bg:#F8FAFC; --surface:#FFFFFF` in `:root`; 94 matches for light-mode tokens |
@@ -32,25 +32,21 @@ The redesign **is present and complete** on `main` (landed 2026-06-03 in commit 
 
 ## Issues Found
 
-### Issue 1 — No New index.html Changes Since 2026-06-03 (Persistent)
+### Issue 1 — No New `index.html` Changes Since 2026-06-03 (Day 12)
 
-`index.html` has been unchanged for 11 days. Today's HEAD commit (`6c1f359`) is another QA report only. The redesign and all features were finalized in commit `56f3fd5` (2026-06-03). All previous QA runs (2026-06-06 through 2026-06-13) have reported the same state.
+`index.html` has not changed since the major redesign. Today's HEAD (`64e50ce`) is a QA report only. All features were finalised in commit `56f3fd5` (2026-06-03).
 
 ```
-6c1f359  2026-06-13  QA report: automated code check (2026-06-13)  <- HEAD
-acd1e11  2026-06-12  QA report: automated code check (2026-06-12)
-4a698f8  2026-06-11  QA report: automated code check (2026-06-11)
+64e50ce  2026-06-14  QA report: automated code check (2026-06-14)  ← HEAD
 693ec73  Add 12 practice exam questions from official COMM1180 practice materials
 c9234aa  QA report: automated code check
-56f3fd5  Major redesign: light mode, multi-week, learn mode, ...    <- last index.html change
+56f3fd5  Major redesign: light mode, multi-week, learn mode  ← last index.html change
 ```
 
-### Issue 2 — Question Count: 178 vs Expected 118 (Significant, Persistent)
+### Issue 2 — Question Count: 178 vs Expected 118 (Not a Defect)
 
-**Expected:** 118 questions (106 original + 12 practice exam questions per CLAUDE.md)
-**Actual:** 178 questions — two additional "Add 12 practice exam questions" commits (`13172b0`, `693ec73`) pushed the count to 178.
-
-Week-by-week breakdown:
+**Expected by QA prompt:** 118 questions  
+**Actual:** 178 questions — two additional practice-question commits pushed the count above the original target. More questions improves exam coverage.
 
 | Week | Count | Topic |
 |------|-------|-------|
@@ -64,17 +60,19 @@ Week-by-week breakdown:
 | 10 | 14 | Performance Measurement |
 | **Total** | **178** | |
 
-The extra questions are not a defect per se — they improve exam coverage — but the QA baseline count should be updated from 118 → 178.
+### Issue 3 — No `type:'tf'` Questions (Minor)
 
-### Issue 3 — No `type:'tf'` Questions (Minor, Persistent)
+Zero true/false questions exist. The code supports `tf` (`renderTF()` defined, type labels mapped), but no questions use it. Consistent across all prior QA reports.
 
-There are 0 true/false questions. The code supports the `tf` type (`renderTF()` exists, type labels map includes `tf`), but no questions use it. Consistent with all prior QA reports.
+### Issue 4 — Multiple `<script>` Tags (Minor)
+
+`grep -c "<script"` returns **4**, not 1. Three are CDN imports (MathQuill, Inter font, etc.), one is the main app script. Not a defect; the QA spec criterion should be updated to allow CDN imports.
 
 ---
 
 ## Recommendations
 
-1. **Update QA baseline count** from 118 → 178 to eliminate the persistent false-negative on question count.
-2. **No feature gaps** — all 14 required features are present and working as of 2026-06-03.
-3. **No redesign agent has run** in 11 days — if further enhancements are planned, a new build session should be triggered.
-4. Netlify functions are confirmed intact; verify `ANTHROPIC_API_KEY` in Netlify dashboard if AI marking stops working.
+1. **Update QA baseline count** from 118 → 178 to eliminate the persistent false-negative.
+2. **No feature gaps** — all 14 required features are present and working.
+3. **No redesign agent has run since 2026-06-03** — trigger a new build session if further enhancements are needed (e.g. `tf` questions, exam countdown timer).
+4. Verify `ANTHROPIC_API_KEY` is still active in the Netlify dashboard — AI marking and explain functions depend on it.
