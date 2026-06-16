@@ -4,7 +4,7 @@
 
 ## Overall Status: PASS ✅
 
-All 14 required features confirmed present and functional. The redesign landed in commit `56f3fd5` (2026-06-03) and all subsequent QA sessions have found the app in good shape. **178 questions total** across 8 weeks. Note: exam date was 2026-05-05 (6 weeks ago) — this app now serves as revision reference.
+No redesign agent ran since the last QA cycle — code is unchanged from yesterday. All 14 required features confirmed present. **178 questions total** across 8 weeks. Note: exam date was 2026-05-05 (6 weeks ago); app now serves as post-exam revision reference.
 
 ---
 
@@ -12,20 +12,21 @@ All 14 required features confirmed present and functional. The redesign landed i
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| JS syntax (node --check) | ✅ | No syntax errors detected |
-| Question count | ✅ | **178 questions** (mcq:42, sa:41, numerical:53, multipart:42, tf:0) |
-| Light mode CSS | ✅ | `--bg:#F8FAFC; --surface:#FFFFFF` in `:root` (light mode default) |
-| Dark mode toggle | ✅ | `toggleDarkMode()` at line 5075; 🌙/☀️ button in header (`#darkModeBtn`) |
-| Multi-week selection | ✅ | `homeState.weeks[]` array toggled by `selectWeekChip()`; `.week-chip` grid with "All Weeks" chip |
+| New commit (redesign) exists | ⚠️ | No redesign commit today — last code change was `693ec73` (2026-06-11) |
+| JS syntax valid | ✅ | `node --check` passed with no errors |
+| 178 questions intact | ✅ | **178** (mcq:42, sa:41, numerical:53, multipart:42, tf:0) — above original 118 target |
+| Light mode CSS | ✅ | `--bg:#F8FAFC; --surface:#FFFFFF` in `:root`; light mode is default |
+| Dark mode toggle | ✅ | `toggleDarkMode()` at line ~5075; 🌙/☀️ `#darkModeBtn` in header |
+| Multi-week selection | ✅ | `homeState.weeks[]` toggled by `selectWeekChip()`; `.week-chip` grid + "All Weeks" chip |
 | Learn mode | ✅ | `#learn` screen, Learn Mode tab, `learnMode` flag, "Test yourself" button |
-| I'm Confused button | ✅ | `#hintBtnAI` calls `showHintAI()` — 😕 I'm Confused button in quiz actions |
-| Hint 1 / Hint 2 | ✅ | 3-level progressive hint system: `hint` + `hint2` data fields on all questions |
+| I'm Confused button | ✅ | `#hintBtnAI` calls `showHintAI()` — 😕 I'm Confused renders inline AI explanation |
+| Hint 1 / Hint 2 | ✅ | 3-level progressive hint system; `hint` + `hint2` data fields on all questions |
 | Multi-step math input | ✅ | `addStep()`, `.working-steps`, `.step-row`; MathQuill CDN loaded |
-| Final Answer field | ✅ | `.final-answer-wrap` + `#num-final` — indigo-bordered final answer input |
-| Notes overlay | ✅ | `#notes-overlay` with W2–W10 tabs, comprehensive study notes HTML |
-| Formula overlay | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC tabs + variable legends |
-| Practice exam Qs | ✅ | All 12 official practice exam questions present (W5 Q1-4, W7 Q5-7, W8 Q8-10, W9 Q11-12) |
-| Netlify functions | ✅ | `mark.js` (136 lines) and `explain.js` (79 lines) — unchanged; `claude-haiku-4-5-20251001` model |
+| Final Answer field | ✅ | `.final-answer-wrap` + `#num-final` — final answer input with indigo border |
+| Notes overlay present | ✅ | `#notes-overlay` with W2–W10 tabs; comprehensive study notes HTML |
+| Formula overlay present | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC tabs |
+| Netlify functions unchanged | ✅ | `mark.js` (136 lines), `explain.js` (79 lines) — no diff vs previous commit |
+| File size increased | ✅ | **7061 lines** (vs original 1458) |
 
 ---
 
@@ -45,30 +46,19 @@ All 14 required features confirmed present and functional. The redesign landed i
 
 ---
 
-## Notes
+## Issues Found
 
-### Question Type Breakdown
-- **MCQ (42):** Multiple choice — auto-marked by JS
-- **SA (41):** Short answer — AI marked via Netlify `mark.js`
-- **Numerical (53):** Calculation with MathQuill step-by-step input — AI marked
-- **Multipart (42):** Multi-part questions — each part marked separately
-- **TF (0):** True/False type defined in code (`renderTF()`) but no questions use it (not a defect — exam format doesn't emphasise TF)
+None. App is stable. No redesign agent ran today — expected given the exam has passed. The app is functioning as a post-exam revision tool.
 
-### App Architecture Verified
-- **Screens:** home, learn, quiz, summary, history, history-detail — all present
-- **Overlays:** notes, formula, settings, admin-modal, admin-panel — all present
-- **Exam Mode:** timed 2hr15min mode with Section A/B split — present
-- **Custom Test Builder:** in admin panel — present
-- **History:** localStorage persistence with per-session breakdown — present
-- **Dark mode:** persisted in `localStorage ('c1180_dark')` — present
-
-### Exam Status
-The COMM1180 exam date (2026-05-05) has passed. This app continues to serve as a post-exam revision reference. `ANTHROPIC_API_KEY` should be verified active in Netlify dashboard for AI marking to function.
+### Non-defects (confirmed acceptable):
+- **Q count 178 > 118:** Expected — practice exam questions and expansions added in earlier sessions
+- **TF questions = 0:** `renderTF()` function exists in code; exam format simply doesn't use this type
+- **Multiple `<script>` tags (4 per grep):** Expected — CDN imports for MathQuill and jQuery; one tag is inside a `document.write()` string, not a real HTML script element
 
 ---
 
-## No Issues Found
-All previously noted issues have been resolved or are non-defects:
-- Q count 178 > 118: expected (practice exam + additional questions added)
-- No TF questions: not a defect (code supports it, exam format doesn't use it)
-- Multiple `<script>` tags: expected (CDN imports for MathQuill, jQuery, Inter font)
+## Recommendations
+
+1. **Netlify `ANTHROPIC_API_KEY`:** Confirm still active in Netlify dashboard — AI marking/explain requires this.
+2. **Exam has passed (2026-05-05):** Consider whether to keep running daily QA or wind down the schedule.
+3. **No code changes required** — all features present and verified.
