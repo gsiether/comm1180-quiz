@@ -1,5 +1,5 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-06-17
+**Date:** 2026-06-17 (re-verified)
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS ✅
@@ -13,16 +13,16 @@ All 7 requested features are implemented and all 12 practice exam questions are 
 | Check | Result | Notes |
 |-------|--------|-------|
 | New commit (redesign) exists | ⚠️ | No redesign commit today — last code change was `693ec73` (2026-06-11) |
-| JS syntax valid | ✅ | Python bracket-depth validation confirmed 178 questions; no structural errors |
+| JS syntax valid | ✅ | `node --check` on extracted `<script>` block — no errors; 178 question objects confirmed via `grep -c "^{week:"` in array range (lines 3057–4649) |
 | 178 questions intact | ✅ | **178** top-level question objects (mcq:42, sa:41, numerical:53, multipart:42) |
 | Light mode CSS | ✅ | `--bg:#F8FAFC; --surface:#FFFFFF` in `:root`; light mode is default |
 | Dark mode toggle | ✅ | `toggleDarkMode()` at line ~5075; 🌙/☀️ `#darkModeBtn` in header; persists via localStorage |
 | Multi-week selection | ✅ | `homeState.weeks[]` toggled by `selectWeekChip()`; `.week-chip` grid + "All Weeks" chip |
 | Learn mode | ✅ | `#learn` screen, Learn Mode tab, `learnMode` flag, "Test yourself" button |
 | I'm Confused button | ✅ | `#hintBtnAI` calls `showHintAI()` — 😕 I'm Confused renders inline AI explanation |
-| Hint 1 / Hint 2 | ✅ | 3-level progressive hint system; `hint` + `hint2` data fields on all questions |
-| Multi-step math input | ✅ | `addStep()`, `.working-steps`, `.step-row`; MathQuill CDN loaded |
-| Final Answer field | ✅ | `.final-answer-wrap` + `#num-final` — final answer input with indigo border |
+| Hint 1 / Hint 2 | ✅ | 3-level progressive hint system; `showHint1()` / `showHint2()` / `showHintAI()` at lines 5661/5681/5721; Hint 2 button hidden until Hint 1 clicked |
+| Multi-step math input | ✅ | `.working-steps`, `.step-row`; MathQuill CDN (jQuery 2.2.4 + MathQuill 0.10.1) at file end |
+| Final Answer field | ✅ | `.final-answer-wrap`, `.final-answer-input`, `.final-answer-label` CSS at lines 627-631 |
 | Notes overlay present | ✅ | `#notes-overlay` with W2–W10 tabs; comprehensive study notes HTML |
 | Formula overlay present | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC tabs |
 | Practice Q1–Q12 present | ✅ | All 12 practice exam questions at lines 4528–4648 in QUESTIONS array |
