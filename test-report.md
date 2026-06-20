@@ -4,82 +4,60 @@
 
 ## Overall Status: PASS
 
-All required features are present and functional. The redesign was completed in a prior session (commit `56f3fd5`). The question bank contains **178 questions**. JS syntax is valid. No changes to `index.html` since `693ec73` (2026-06-11). Note: exam date was 2026-05-05 (46 days ago); app now serves as post-exam revision reference.
+All critical features are present and functional. JS syntax is valid. Questions exceed the minimum target count (178 vs 118). Netlify functions are unchanged.
 
 ---
 
 ## Checklist
-
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit (redesign) exists | ✅ | Redesign at `56f3fd5`; practice Qs added at `693ec73` (2026-06-11); only QA reports since |
-| JS syntax valid | ✅ | `node --check` on extracted `<script>` block exits 0 — no errors |
-| 178 questions in bank | ✅ | 178 top-level question objects confirmed (exceeds 118 target — extra content added across sessions) |
-| Light mode CSS | ✅ | `--bg:#F8FAFC; --surface:#FFFFFF` in `:root`; light mode is default |
-| Dark mode toggle | ✅ | `toggleDarkMode()` in header with 🌙/☀️; persists via localStorage |
-| Multi-week selection | ✅ | `.week-chip` toggle grid; `homeState.weeks` array; "All Weeks" chip |
-| Learn mode | ✅ | `#learn` screen, `learnMode` flag, "📚 Learn Mode" tab, `renderLearnCard()` |
-| I'm Confused button | ✅ | `#hintBtnAI` calls `showHintAI()` — inline AI explanation |
-| Hint 1 / Hint 2 | ✅ | 3-level: Hint 1 → Hint 2 → I'm Confused |
-| Multi-step math input | ✅ | `addStep()` with MathQuill fields; `.working-steps` / `.step-row` CSS |
-| Final Answer field | ✅ | `.final-answer-wrap` rendered for numerical/multipart |
-| Notes overlay | ✅ | `#notes-overlay` with W2–W10 tabs and full HTML study notes |
-| Formula overlay | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC tabs |
-| Practice Q1–Q12 present | ✅ | All 12 practice exam questions confirmed in QUESTIONS array |
-| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` unmodified |
-| File size | ✅ | **7,061 lines** (vs original 1,458 — 4.8× larger) |
+| New commit exists | ✅ | Redesign at `56f3fd5` (2026-06-10); practice Qs added at `693ec73` (2026-06-11); only QA reports since |
+| JS syntax valid | ✅ | `node --check` on extracted script block exits 0 — no errors |
+| 118+ questions intact | ✅ | **178 questions** found (target 118; grew via subsequent practice-exam commits) |
+| Light mode CSS | ✅ | `--bg:#F8FAFC; --surface:#FFFFFF`; Inter font; full design token set in `:root` |
+| Dark mode toggle | ✅ | `toggleDarkMode()` + `darkModeBtn` with 🌙/☀️; persisted to localStorage |
+| Multi-week selection | ✅ | `homeState.weeks[]` array + `.week-chip` toggle grid; "All Weeks" chip wired |
+| Learn mode | ✅ | 71 matches; `#learn` screen + `learnMode` flag + "Test yourself" button |
+| I'm Confused button | ✅ | `#hintBtnAI` at line 5308 calls `showHintAI()` → inline AI explanation box |
+| Hint 1 / Hint 2 | ✅ | 230 matches; 3-level system: Hint 1 → Hint 2 → I'm Confused (AI) |
+| Multi-step math input | ✅ | 23 matches for `addStep`/`working-steps`/`step-row`; MathQuill CDN loaded |
+| Final Answer field | ✅ | 13 matches for `finalAnswer`/`final-answer` rendered for numerical/multipart |
+| Notes overlay present | ✅ | `#notes-overlay` with tabbed W2–W10 content |
+| Formula overlay present | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC tabs |
+| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` last touched in `7cfc60f` (initial restore); redesign did not modify them |
+| File size increased | ✅ | **7,061 lines** (original: 1,458 lines; +484%) |
 
 ---
 
-## Practice Question Verification
+## Question Breakdown
+| Week | Count | Topics |
+|------|-------|--------|
+| W2 | 15 | Market Opportunities |
+| W3 | 23 | CVP/Pricing |
+| W4 | 15 | Technology/BSC |
+| W5 | 34 | TVM (incl. practice exam Qs Q1–Q4) |
+| W7 | 26 | Capital Budgeting (incl. Q5–Q7) |
+| W8 | 26 | Valuation (incl. Q8–Q10) |
+| W9 | 25 | WACC (incl. Q11–Q12) |
+| W10 | 14 | Performance Measurement |
+| **Total** | **178** | |
 
-| Q# | Topic | Present |
-|----|-------|---------|
-| Q1 | APR/EAR/FV multipart (16% APR monthly) | ✅ |
-| Q2 | Solve for r ($14k → $30k in 10y) | ✅ |
-| Q3 | Deferred perpetuity ($128 first payment yr 22) | ✅ |
-| Q4 | Mortgage payment ($300k house, 25yr, 4%) | ✅ |
-| Q5 | McDonald's NPV declining perpetuity | ✅ |
-| Q6 | AT&T EAA comparison | ✅ |
-| Q7 | NPV/IRR/PI/Payback 7-part | ✅ |
-| Q8 | Bond pricing semi-annual (7.2% coupon) | ✅ |
-| Q9 | Hush Puppies multi-stage dividend growth | ✅ |
-| Q10 | Gordon Growth Model ($4.5 dividend) | ✅ |
-| Q11 | CAPM multi-company analysis (Round Corp) | ✅ |
-| Q12 | WACC varying D/E ratios (Sandwich Corp) | ✅ |
-
----
-
-## Question Distribution
-
-| Week | Topic | Count |
-|------|-------|-------|
-| 2 | Market Opportunities | SA, multipart |
-| 3 | CVP/Pricing | MCQ, numerical, multipart |
-| 4 | Technology/BSC | SA, multipart |
-| 5 | Time Value of Money | MCQ, numerical, multipart |
-| 7 | Capital Budgeting | Numerical, multipart |
-| 8 | Valuation | Numerical, multipart |
-| 9 | Risk & WACC | Numerical, multipart |
-| 10 | Performance Measurement | SA, multipart |
-| **Total** | | **178 questions** |
+**By type:** `mcq` 42 · `numerical` 53 · `sa` 41 · `multipart` 42 · `tf` 0
 
 ---
 
 ## Issues Found
 
-### Minor / Informational
+1. **No `tf` (true/false) questions** — The `tf` type is listed as supported in CLAUDE.md spec but 0 tf questions are in the current QUESTIONS array. The rendering code for tf questions exists but is unused. Content gap only, not a code bug.
 
-1. **Question count is 178, not 118.** The QUESTIONS array grew through multiple practice question batches. This is additional content (not data loss). No deduplication action taken this run — code is stable.
+2. **3 `<script>` tags present** (spec says 1) — Main inline block (line 3035) + jQuery CDN (line 7055) + MathQuill CDN (line 7056). The external scripts are required for MathQuill math input rendering. A 4th apparent `<script>` appears only inside a JS string for a popup window — not a real tag. Intentional and correct.
 
-2. **No `type:'tf'` questions in the question bank.** The code supports true/false (`renderTF`, `selectTF`, scoring) but no questions currently use this type. Some multipart sub-questions embed "True or False?" wording but are typed as `sa`. Content gap only, not a code bug.
-
-3. **Three `<script>` tags present.** One inline block (main app) + two external CDN imports (jQuery 2.2.4 + MathQuill 0.10.1). Required for MathQuill math input. Not a defect.
+3. **Question count is 178, not 118** — The bank grew through multiple practice-question sessions. This is additional content, not data loss. Count appears stable (same as last two QA runs).
 
 ---
 
 ## Recommendations
 
-1. **Consider stopping this scheduled QA routine** — The exam was on 2026-05-05 (46 days ago). The app is stable with no pending changes. Routine has been running daily since June 13.
-2. **Netlify `ANTHROPIC_API_KEY`:** Confirm still active in Netlify dashboard — AI marking and explain features require this env var.
-3. **Add tf questions** — True/false question support is built in; no questions currently use it.
+- No blocking issues. The app is functionally complete.
+- If tf (true/false) questions are wanted, the rendering code is already in place — questions just need to be added to the QUESTIONS array.
+- Consider confirming Netlify `ANTHROPIC_API_KEY` is still active — AI marking and explain features depend on it.
