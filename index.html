@@ -5256,7 +5256,7 @@ function renderQuestion(){
 
   if(q.type==='multipart'){
 
-    html+=`<div class="q-scenario">${q.scenario}</div>${renderMultipart(q)}`;
+    html+=`<div class="q-scenario">${q.scenario||q.question||''}</div>${renderMultipart(q)}`;
 
   } else {
 
@@ -6046,7 +6046,7 @@ async function aiMarkMultipart(q,answers){
 
       method:'POST',headers:{'Content-Type':'application/json'},
 
-      body:JSON.stringify({questionType:'multipart',scenario:q.scenario,parts:q.parts.map((p,i)=>({label:p.label,question:p.question,answer:answers[i]?.answer||'',keywords:p.keywords||[],modelAnswer:p.modelAnswer||''}))})
+      body:JSON.stringify({questionType:'multipart',scenario:q.scenario||q.question||'',parts:q.parts.map((p,i)=>({label:p.label,question:p.question,answer:answers[i]?.answer||'',keywords:p.keywords||[],modelAnswer:p.modelAnswer||''}))})
 
     });
 
@@ -6239,7 +6239,7 @@ function showSummary(){
 
     const icon=r.skipped?'⏭':r.mark>=1?'✅':r.mark>0?'🔶':'❌';
 
-    const txt=q.type==='multipart'?q.scenario.substring(0,80)+'…':q.question.substring(0,80)+(q.question.length>80?'…':'');
+    const _sq=q.type==='multipart'?(q.scenario||q.question||''):(q.question||'');const txt=_sq.replace(/<[^>]*>/g,'').substring(0,80)+(_sq.length>80?'…':'');
 
     return `<div class="result-item ${cls}"><div class="result-icon">${icon}</div><div class="result-q">W${q.week} · ${txt}</div><div class="result-mark">${r.skipped?'skip':Math.round(r.mark*100)+'%'}</div></div>`;
 
@@ -6444,7 +6444,7 @@ function ctbRenderList(){
     byWeek[w].forEach(function(item){
       var q=item.q,idx=item.idx;
       var sel=ctbSelected.has(idx)?'selected':'';
-      var raw=(q.type==='multipart'?(q.scenario||''):(q.question||'')).replace(/<[^>]*>/g,'');
+      var raw=(q.type==='multipart'?(q.scenario||q.question||''):(q.question||'')).replace(/<[^>]*>/g,'');
       var trunc=raw.length>90?raw.slice(0,90)+'…':raw;
       var safe=trunc.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
       parts.push('<div class="ctb-q-item '+sel+'" onclick="ctbToggle('+idx+',this)"><div class="ctb-q-cb"></div><div class="ctb-q-body"><div class="ctb-q-badges"><span class="ctb-q-badge week">W'+q.week+'</span><span class="ctb-q-badge type">'+q.type+'</span></div><div class="ctb-q-text">'+safe+'</div></div></div>');
