@@ -4791,59 +4791,44 @@ function showLearn(week){
 
 
 
+const CONCEPT_MAP={
+  2:'Customer value, STP, Porter\'s Generic Strategies, Ansoff Matrix, Value Proposition Canvas',
+  3:'Contribution Margin, Break-Even Point, Multi-Product CVP, Margin of Safety',
+  4:'Balanced Scorecard, Four Perspectives, Leading vs Lagging Indicators, Strategy Map',
+  5:'Time Value of Money, FV/PV, APR/EAR, Annuities, Perpetuities',
+  7:'NPV, IRR, Profitability Index, EAA, Payback Period, Capital Budgeting',
+  8:'Bond Pricing, Gordon Growth Model, Dividend Discount Model, YTM',
+  9:'CAPM, Beta, Systematic Risk, WACC, Market Risk Premium',
+  10:'ROIC vs WACC, ESG, Corporate Governance, Integration of all topics'
+};
+
+const FORMULA_MAP={
+  3:'CM=SP−VC  |  BEP=FC÷CM  |  WACM=Σ(CMi×Mixi)  |  MOS=Actual−BEP',
+  5:'FV = PV×(1+r)^n  |  PV = FV÷(1+r)^n  |  EAR = (1+APR/m)^m−1  |  PV(annuity) = C×[1−(1+r)^−n]÷r  |  PV(perp) = C÷r  |  PV(grow perp) = C₁÷(r−g)',
+  7:'NPV = CF₀+Σ[CFₜ÷(1+r)^t]  |  IRR: set NPV=0  |  PI = NPV÷|Investment|  |  EAA = NPV×r÷[1−(1+r)^−n]',
+  8:'Bond: P₀=C×[1−(1+r)^−n]÷r+F÷(1+r)^n  |  P₀=D₁÷(r−g)  |  g=Retention×ROI  |  r=D₁÷P₀+g',
+  9:'E[Ri]=Rf+β×(E[RM]−Rf)  |  WACC=wE×RE+wD×RD×(1−TC)  |  wD=(D/E)÷(1+D/E)'
+};
+
+const APPROACH_MAP={
+  numerical:'1. Identify what is given and what you are solving for.\n2. Write the relevant formula.\n3. Substitute the values.\n4. Calculate step by step.\n5. State your final answer with units.',
+  mcq:'1. Read the question carefully.\n2. Eliminate obviously wrong options.\n3. Apply the relevant concept or formula.\n4. Check your reasoning before selecting.',
+  tf:'1. Re-read the statement slowly.\n2. Think of any exception that makes it false.\n3. Apply the relevant definition or rule.',
+  sa:'1. Identify the key concept being tested.\n2. Define any relevant terms.\n3. Apply the concept to the specific context.\n4. Keep your answer focused and concise.',
+  multipart:'1. Read the full scenario first.\n2. Answer each part independently.\n3. Use results from earlier parts where needed.\n4. Show all working for numerical parts.'
+};
+
 function renderLearnCard(q){
 
   const meta=WEEKS[q.week];
 
   const typeLabel={mcq:'Multiple Choice',tf:'True/False',sa:'Short Answer',numerical:'Calculation',multipart:'Multi-Part'}[q.type]||q.type.toUpperCase();
 
-  const conceptMap={
+  const conceptMap=CONCEPT_MAP;
 
-    2:'Customer value, STP, Porter\'s Generic Strategies, Ansoff Matrix, Value Proposition Canvas',
+  const formulaMap=FORMULA_MAP;
 
-    3:'Contribution Margin, Break-Even Point, Multi-Product CVP, Margin of Safety',
-
-    4:'Balanced Scorecard, Four Perspectives, Leading vs Lagging Indicators, Strategy Map',
-
-    5:'Time Value of Money, FV/PV, APR/EAR, Annuities, Perpetuities',
-
-    7:'NPV, IRR, Profitability Index, EAA, Payback Period, Capital Budgeting',
-
-    8:'Bond Pricing, Gordon Growth Model, Dividend Discount Model, YTM',
-
-    9:'CAPM, Beta, Systematic Risk, WACC, Market Risk Premium',
-
-    10:'ROIC vs WACC, ESG, Corporate Governance, Integration of all topics'
-
-  };
-
-  const formulaMap={
-
-    5:'FV = PV×(1+r)^n  |  PV = FV÷(1+r)^n  |  EAR = (1+APR/m)^m−1  |  PV(annuity) = C×[1−(1+r)^−n]÷r  |  PV(perp) = C÷r  |  PV(grow perp) = C₁÷(r−g)',
-
-    7:'NPV = CF₀+Σ[CFₜ÷(1+r)^t]  |  IRR: set NPV=0  |  PI = NPV÷|Investment|  |  EAA = NPV×r÷[1−(1+r)^−n]',
-
-    8:'Bond: P₀=C×[1−(1+r)^−n]÷r+F÷(1+r)^n  |  P₀=D₁÷(r−g)  |  g=Retention×ROI  |  r=D₁÷P₀+g',
-
-    9:'E[Ri]=Rf+β×(E[RM]−Rf)  |  WACC=wE×RE+wD×RD×(1−TC)  |  wD=(D/E)÷(1+D/E)',
-
-    3:'CM=SP−VC  |  BEP=FC÷CM  |  WACM=Σ(CMi×Mixi)  |  MOS=Actual−BEP'
-
-  };
-
-  const approachMap={
-
-    numerical:'1. Identify what is given and what you are solving for.\n2. Write the relevant formula.\n3. Substitute the values.\n4. Calculate step by step.\n5. State your final answer with units.',
-
-    mcq:'1. Read the question carefully.\n2. Eliminate obviously wrong options.\n3. Apply the relevant concept or formula.\n4. Check your reasoning before selecting.',
-
-    tf:'1. Re-read the statement slowly.\n2. Think of any exception that makes it false.\n3. Apply the relevant definition or rule.',
-
-    sa:'1. Identify the key concept being tested.\n2. Define any relevant terms.\n3. Apply the concept to the specific context.\n4. Keep your answer focused and concise.',
-
-    multipart:'1. Read the full scenario first.\n2. Answer each part independently.\n3. Use results from earlier parts where needed.\n4. Show all working for numerical parts.'
-
-  };
+  const approachMap=APPROACH_MAP;
 
   const hint=q.hint||'';
 
@@ -5605,7 +5590,32 @@ function showHintAI(){
 
   if(!ha) return;
 
-  getExplanationInline(bAI,ha,q);
+  bAI.disabled=true;
+
+  bAI.textContent='😕 I\'m Confused ✓';
+
+  // Show local concept guide immediately (no API needed)
+  const meta=WEEKS[q.week];
+  const concept=CONCEPT_MAP[q.week]||`Week ${q.week} — ${meta?.label||''}`;
+  const formula=FORMULA_MAP[q.week]||'';
+  const approach=APPROACH_MAP[q.type]||APPROACH_MAP.sa;
+
+  let localHtml=`<div class="ai-head">📖 Concept Guide</div>`;
+  localHtml+=`<div class="ai-row"><span class="ai-tag">Concept</span><span>${concept}</span></div>`;
+  if(formula){
+    const fItems=formula.split('|').map(f=>`<code style="display:block;font-family:'Courier New',monospace;font-size:.79rem;background:rgba(255,255,255,.5);border-radius:4px;padding:2px 6px;margin:2px 0">${f.trim()}</code>`).join('');
+    localHtml+=`<div class="ai-row"><span class="ai-tag">Formulas</span><span>${fItems}</span></div>`;
+  }
+  localHtml+=`<div class="ai-row"><span class="ai-tag">Approach</span><span style="white-space:pre-line;font-size:.81rem">${approach}</span></div>`;
+  if(q.hint2){localHtml+=`<div class="ai-row"><span class="ai-tag">Key step</span><span style="color:var(--purple);font-size:.81rem">${q.hint2}</span></div>`;}
+
+  const localDiv=document.createElement('div');
+  localDiv.className='hint-box hai';
+  localDiv.innerHTML=localHtml;
+  ha.appendChild(localDiv);
+
+  // Then try AI for additional explanation
+  getExplanationInline(null,ha,q);
 
 }
 
@@ -5613,9 +5623,7 @@ function showHintAI(){
 
 async function getExplanationInline(btn,ha,q){
 
-  btn.disabled=true;
-
-  btn.textContent='Loading…';
+  if(btn){btn.disabled=true;btn.textContent='Loading…';}
 
   const loadDiv=document.createElement('div');
 
@@ -5655,11 +5663,11 @@ async function getExplanationInline(btn,ha,q){
 
   } catch(e){
 
-    loadDiv.innerHTML='🤖 Could not load explanation.';
+    loadDiv.remove();
 
   }
 
-  btn.textContent='😕 I\'m Confused ✓';
+  if(btn) btn.textContent='😕 I\'m Confused ✓';
 
 }
 

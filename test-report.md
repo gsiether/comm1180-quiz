@@ -1,37 +1,43 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-06-22
+**Date:** 2026-06-23
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-All critical features are present and functional. JS syntax is valid. Questions total 166 (above the 118 target). Today's commit cleanly removed 12 duplicate practice exam questions that had been double-entered in a prior session, leaving 166 unique questions. Netlify functions are unchanged.
+All critical features are present and functional. JS syntax is valid. Questions total 166 (above the 118 target). Today's change improves the "I'm Confused" button to show local concept/formula/approach content immediately (without requiring an API call), then adds AI explanation below if available. This matches the original task spec more closely.
 
 ---
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `5d4419e` — "Remove duplicate practice exam questions from QUESTIONS array" (2026-06-22) |
-| JS syntax valid | ✅ | `node --check` on extracted script block: no errors |
-| 118+ questions intact | ✅ | **166 questions** (target ≥118; 12 duplicates removed from prior 178) |
+| New commit exists | ✅ | Today: improve "I'm Confused" button with local fallback content |
+| JS syntax valid | ✅ | `new Function()` parse of extracted script block: no errors |
+| 118+ questions intact | ✅ | **166 questions** (target ≥118) |
 | Light mode CSS | ✅ | `--bg:#F8FAFC`; `--surface:#FFFFFF`; full design token set in `:root` |
 | Dark mode toggle | ✅ | `toggleDarkMode()` + `darkModeBtn` with 🌙/☀️ (line 820) |
-| Multi-week selection | ✅ | `.week-chip` grid + `toggleWeek` function; 16 matches |
-| Learn mode | ✅ | `#learn` screen + `learnMode` flag; 12 matches |
-| I'm Confused button | ✅ | `#hintBtnAI` calls `showHintAI()` → inline AI explanation box |
-| Hint 1 / Hint 2 | ✅ | 3-level system; 223 matches for hint1/hint2/hintBtn |
+| Multi-week selection | ✅ | `.week-chip` grid + `homeState.weeks[]` array; "All Weeks" chip wired |
+| Learn mode | ✅ | `#learn` screen + `learnMode` flag + "Test yourself" button |
+| I'm Confused button | ✅ | Shows local concept/formula/approach immediately; AI added below if available |
+| Hint 1 / Hint 2 | ✅ | 3-level system: Hint 1 → Hint 2 → I'm Confused |
 | Multi-step math input | ✅ | `addStep`/`working-steps`/`step-row`; MathQuill CDN loaded |
-| Final Answer field | ✅ | `finalAnswer`/`final-answer`; 13 matches |
-| Notes overlay present | ✅ | `#notes-overlay` with tabbed W2–W10 content; 8 matches |
-| Formula overlay present | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC tabs; 8 matches |
-| Netlify functions unchanged | ✅ | No changes in `netlify/` since initial function commit (`112dd8a`) |
-| File size increased | ✅ | **6,938 lines** (original: 1,458 lines; +376%) |
+| Final Answer field | ✅ | `final-answer-wrap` with distinct indigo styling |
+| Notes overlay present | ✅ | `#notes-overlay` with tabbed W2–W10 content |
+| Formula overlay present | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC tabs |
+| Netlify functions unchanged | ✅ | No changes in `netlify/` since initial function commit |
+| File size | ✅ | ~6,960 lines |
 
 ---
 
-## Today's Commit: Duplicate Question Removal (2026-06-22)
+## Today's Commit: "I'm Confused" local fallback (2026-06-23)
 
-**Commit `5d4419e`** removed 123 lines (12 duplicate questions) from the QUESTIONS array. The 12 practice exam questions from `practice-questions.md` had been inserted twice: once at their correct week positions (W5/W7/W8/W9) and again as a second block appended at the end of the array. The duplicate block was removed; the canonical entries with correct `scenario:` fields remain.
+**Problem:** The "I'm Confused" button previously called the AI API immediately and showed "Could not load explanation." on failure. This left students with nothing useful if the API was unavailable.
+
+**Fix:** 
+1. Extracted `CONCEPT_MAP`, `FORMULA_MAP`, and `APPROACH_MAP` to module-level constants (shared by `renderLearnCard` and `showHintAI`)
+2. `showHintAI()` now immediately shows a local "Concept Guide" panel with concept name, key formulas, step-by-step approach, and key hint — no API required
+3. `getExplanationInline()` then runs in the background and adds AI content below if successful; silently removes the loading div if the API fails
+4. Matches the original spec: "Trigger the AI call, or use local content as fallback"
 
 ---
 
@@ -54,11 +60,18 @@ All critical features are present and functional. JS syntax is valid. Questions 
 
 ## Issues Found
 
-No blocking issues. One structural note:
+None. The app is deploy-ready.
 
-- **Script tag count:** `grep -c "<script>"` returns 2 (not 1) because line 5000 contains a `<script>` literal inside a JavaScript string used to build the popup notes window. This is intentional; there is still exactly one actual `<script>` block (lines 3035–6930) plus two CDN `<script src>` tags for jQuery and MathQuill. Not a bug.
+## Feature Completeness vs. Original Task Spec
 
-## Recommendations
-
-- The app is deploy-ready. No further action required for this cycle.
-- If the duplicate question issue recurs, consider adding a guard in a future session to check for duplicate `question:` / `scenario:` text before committing additions to the QUESTIONS array.
+| Feature | Status |
+|---------|--------|
+| Light mode by default + dark mode toggle | ✅ Complete |
+| Multi-week selection (array of weeks → startQuiz) | ✅ Complete |
+| Comprehensive notes W2–W10 | ✅ Complete |
+| Improved formula sheet (tabbed, use-when, legends) | ✅ Complete |
+| Multi-step math working area (MathQuill + steps + final answer) | ✅ Complete |
+| Learn Mode (pre-question concept card) | ✅ Complete |
+| 3-level hint system (Hint 1 → Hint 2 → I'm Confused) | ✅ Complete |
+| "I'm Confused" shows local content immediately | ✅ Fixed today |
+| Practice exam Q1–Q12 in QUESTIONS array | ✅ Complete (166 total Qs) |
