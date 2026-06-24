@@ -4,74 +4,75 @@
 
 ## Overall Status: PASS
 
-All critical features are present and functional. JS syntax is valid. 166 questions intact. Today's change applies the "I'm Confused" local-fallback improvement (from PR #5): students now see a Concept Guide immediately when clicking the button, with AI explanation added below if available.
+All critical features are present and functional. JS syntax is valid. 166 questions in QUESTIONS array (exceeds 118 target; all 12 practice exam questions included). Today's active change is PR #5 ("I'm Confused" local fallback), applied in commit `7c544bf`.
 
 ---
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Today: Apply "I'm Confused" local fallback (PR #5 merged manually) |
-| JS syntax valid | ✅ | `node --check` on extracted script block: no errors |
-| 118+ questions intact | ✅ | **166 questions** (target ≥118; 12 practice exam questions included) |
-| Light mode CSS | ✅ | `--bg:#F8FAFC`; `--surface:#FFFFFF`; full design token set in `:root` |
-| Dark mode toggle | ✅ | `toggleDarkMode()` + `darkModeBtn` with 🌙/☀️ icons |
-| Multi-week selection | ✅ | `.week-chip` grid + `homeState.weeks[]` array; `selectWeekChip()` function |
-| Learn mode | ✅ | `#learn` screen + `learnMode` flag; "Test yourself" button wired |
-| I'm Confused button | ✅ | Shows local Concept Guide immediately; AI appended if API available |
-| Hint 1 / Hint 2 | ✅ | 3-level hint system: Hint 1 → Hint 2 → I'm Confused |
-| Multi-step math input | ✅ | MathQuill + `addStep`/`working-steps`/`step-row`; Final Answer field |
-| Notes overlay present | ✅ | `#notes-overlay` with tabbed W2–W10 content |
-| Formula overlay present | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC tabs |
-| Netlify functions unchanged | ✅ | No changes in `netlify/` since initial function commit |
-| Shared maps extracted | ✅ | `CONCEPT_MAP`, `FORMULA_MAP`, `APPROACH_MAP` at module level |
+| New commit exists | ✅ | `7c544bf` — "Apply 'I'm Confused' local fallback improvement (PR #5)" (2026-06-24) |
+| JS syntax valid | ✅ | `new Function(script)` passes — no parse errors |
+| 118+ questions intact | ✅ | **166 questions** (by `{week:` count in QUESTIONS array; target ≥118) |
+| Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`; 64 light-mode CSS rule matches |
+| Dark mode toggle | ✅ | `toggleDarkMode()` + `darkModeBtn` with 🌙/☀️ icons (8 matches) |
+| Multi-week selection | ✅ | `.week-chip` grid + `selectedWeeks[]` + `toggleWeek()` (16 matches) |
+| Learn mode | ✅ | `#learn` screen + `learnMode` flag + "Test yourself" button (12 matches) |
+| I'm Confused button | ✅ | Local Concept Guide shown immediately; AI appended if API available (3 matches) |
+| Hint 1 / Hint 2 | ✅ | 3-level hint system present (219 hint-related matches) |
+| Multi-step math input | ✅ | `addStep` / `working-steps` / `step-row` present (19 matches) |
+| Final Answer field | ✅ | `finalAnswer` / `final-answer` / `Final Answer` present (13 matches) |
+| Notes overlay present | ✅ | `#notes-overlay` with W2–W10 content (6 matches) |
+| Formula overlay present | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC (6 matches) |
+| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` returns empty — mark.js and explain.js untouched |
+| File size increased | ✅ | **6946 lines** (original: ~1458 lines) |
 
 ---
 
-## Today's Change: "I'm Confused" local fallback (2026-06-24)
-
-**Change:** Applied PR #5 (`improve-confused-button-local-fallback`) manually to main.
-
-**Before:** Clicking "I'm Confused" immediately called the AI API and showed "Could not load explanation." on failure — unhelpful for students without API access.
-
-**After:**
-1. `CONCEPT_MAP`, `FORMULA_MAP`, and `APPROACH_MAP` extracted to module-level constants (shared by `renderLearnCard` and `showHintAI`)
-2. `showHintAI()` immediately renders a local **Concept Guide** panel showing: concept name, key formulas, step-by-step approach, and the question's Hint 2 — no API required
-3. `getExplanationInline()` then runs in the background and appends AI content below if the API call succeeds; silently removes the loading div on failure
-
----
-
-## Question Breakdown
+## Question Breakdown (corrected — counted from QUESTIONS array only)
 | Week | Count | Topics |
 |------|-------|--------|
-| W2 | 19 | Market Opportunities |
-| W3 | 26 | CVP / Pricing |
-| W4 | 18 | Technology / BSC |
-| W5 | 37 | TVM (incl. practice exam Q1–Q4) |
-| W7 | 32 | Capital Budgeting (incl. Q5–Q7) |
-| W8 | 28 | Valuation (incl. Q8–Q10) |
-| W9 | 29 | WACC (incl. Q11–Q12) |
-| W10 | 17 | Performance Measurement |
-| **Total** | **206** (all week: attributes) | |
+| W2 | 15 | Market Opportunities |
+| W3 | 23 | CVP / Pricing |
+| W4 | 15 | Technology / BSC |
+| W5 | 30 | TVM (incl. practice exam Q1–Q4) |
+| W7 | 23 | Capital Budgeting (incl. Q5–Q7) |
+| W8 | 23 | Valuation (incl. Q8–Q10) |
+| W9 | 23 | WACC (incl. Q11–Q12) |
+| W10 | 14 | Performance Measurement |
+| **Total** | **166** | |
+
+**Type occurrences in QUESTIONS array:** MCQ: 42 · SA: 58 · Numerical: 48 · Multipart: 35  
+*(type count 183 > 166 because multipart sub-parts also carry a `type:` field)*
 
 ---
 
-## Feature Completeness vs. Original Task Spec
+## Today's Change: "I'm Confused" local fallback (PR #5)
 
-| Feature | Status |
-|---------|--------|
-| Light mode by default + dark mode toggle | ✅ Complete |
-| Multi-week selection (array of weeks → startQuiz) | ✅ Complete |
-| Comprehensive notes W2–W10 | ✅ Complete |
-| Improved formula sheet (tabbed, use-when, legends) | ✅ Complete |
-| Multi-step math working area (MathQuill + steps + final answer) | ✅ Complete |
-| Learn Mode (pre-question concept card) | ✅ Complete |
-| 3-level hint system (Hint 1 → Hint 2 → I'm Confused) | ✅ Complete |
-| "I'm Confused" shows local content immediately | ✅ Fixed 2026-06-24 |
-| Practice exam Q1–Q12 in QUESTIONS array | ✅ Complete |
+**Commit `7c544bf` — 2026-06-24 15:15 UTC**
+
+- `CONCEPT_MAP`, `FORMULA_MAP`, `APPROACH_MAP` extracted to module-level constants
+- `showHintAI()` renders local Concept Guide immediately (no API required)
+- `getExplanationInline()` appends AI text below if API succeeds; silently removes loading div on failure
+
+**Before:** Clicking "I'm Confused" would call the AI API then show "Could not load explanation." on failure — unhelpful for students without API access.
+
+**After:** Concept Guide (concept name + key formulas + step-by-step approach + Hint 2) is shown instantly; AI text is additive only.
 
 ---
 
-## Open PRs
-- **PR #5** (improve-confused-button-local-fallback): Changes applied manually to main today. PR can be closed.
-- **PR #1** (fix/dedup-questions): Fix was already applied to main on 2026-06-22 (commit 5d4419e). PR can be closed as stale.
+## Issues Found
+
+### Minor — No true/false (tf) questions
+`CLAUDE.md` lists `tf` as a supported question type and the rendering logic handles it (`if(q.type==='tf')`), but there are zero `tf` questions in QUESTIONS. Functionality is built — just unused. Not a blocker.
+
+### Note — Week counts differ from previous QA report
+Previous report listed W2:19, W3:26, W4:18, etc. (total 206). Those were counting all `week:` attributes in the HTML file (including notes, overlays, and JS outside QUESTIONS). This report counts only within the QUESTIONS array: 166 top-level question objects.
+
+---
+
+## Recommendations
+
+1. **Close PR #5** — "I'm Confused" fallback changes are live on main.
+2. **Close PR #1** (fix/dedup-questions) — dedup fix already applied on 2026-06-22 (commit `5d4419e`). PR is stale.
+3. **Optional:** Add a handful of `tf` questions if true/false coverage is desired (rendering path already exists).
