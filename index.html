@@ -4521,140 +4521,7 @@ const QUESTIONS=[
   hint:'Think about THREE types of failure from financial-only measurement: timing (lagging nature), incentive effects (short-termism), and what financial measures structurally cannot capture (relationships, brand, innovation).',
   hint2:'1) Lagging → need leading non-financial indicators. 2) Short-termism → need to measure future capability investments (training, R&D). 3) Can\'t capture brand/customer assets → need NPS, retention, market share. The BSC addresses all three.'},
 
-// ── PRACTICE EXAM QUESTIONS (from university-provided practice screenshots) ──
 
-// WEEK 5 — Q1: APR / EAR / FV (multipart)
-{week:5,type:'multipart',
-  scenario:'A bank account offers a 16.0% APR with monthly compounding.',
-  parts:[
-    {label:'a',question:'What is the per period interest rate? (Round to two decimal places, % per month)',keywords:['1.33','1.33%','16/12'],modelAnswer:'Periodic rate = APR ÷ m = 16% ÷ 12 = 1.33% per month'},
-    {label:'b',question:'How much would a $700 investment be worth after 1 year? (Round to the nearest cent)',keywords:['820.59','820.6','$820'],modelAnswer:'FV = $700 × (1 + 0.16/12)^12 = $700 × (1.013333)^12 = $700 × 1.17227 = $820.59'}
-  ],
-  hint:'Periodic rate = APR ÷ number of compounding periods per year. For FV, use FV = PV × (1 + r)^n where r is the periodic rate and n is total periods.',
-  hint2:'Monthly rate = 16% ÷ 12 = 1.3333%. For FV: n = 12 months, r = 1.3333% per month. FV = 700 × (1.013333)^12.',
-  formulas:['Periodic rate = APR ÷ m','FV = PV × (1 + r)^n','EAR = (1 + APR/m)^m − 1']},
-
-// WEEK 5 — Q2: Solving for interest rate (numerical)
-{week:5,type:'numerical',
-  question:'A saving account of $14,000 will be worth $30,000 in 10 years. What is the per year interest rate of a saving account? (Give answer correct to 2 decimal places, %)',
-  keywords:['7.92','7.92%','7.918'],
-  modelAnswer:'r = (FV/PV)^(1/n) − 1 = (30,000/14,000)^(1/10) − 1 = (2.14286)^(0.1) − 1 = 1.07918 − 1 = 7.92% per year',
-  hint:'Rearrange the lump sum FV formula to solve for r: r = (FV/PV)^(1/n) − 1.',
-  hint2:'FV/PV = 30,000/14,000 = 2.14286. Raise to the power of 1/10 (i.e. 0.1) then subtract 1.',
-  formulas:['r = (FV/PV)^(1/n) − 1','FV = PV × (1 + r)^n']},
-
-// WEEK 5 — Q3: Deferred perpetuity (numerical)
-{week:5,type:'numerical',
-  question:'A perpetuity makes its first annual payment of $128 in 22 years. What is its present value at an annual discount rate of 5.0%?',
-  keywords:['919','919.07','$919','2560'],
-  modelAnswer:'Step 1: PV of perpetuity at year 21 (one period before first payment) = C/r = $128 / 0.05 = $2,560\nStep 2: Discount back 21 years to today: PV = $2,560 / (1.05)^21 = $2,560 / 2.7856 = $919.07',
-  hint:'A perpetuity\'s PV formula gives the value one period BEFORE the first payment. Since the first payment is in year 22, the perpetuity formula gives the value at year 21, which you then discount back to today.',
-  hint2:'PV at year 21 = C ÷ r = $128 ÷ 0.05 = $2,560. Then PV today = $2,560 ÷ (1.05)^21.',
-  formulas:['PV(perpetuity) = C ÷ r','PV = FV ÷ (1 + r)^n']},
-
-// WEEK 5 — Q4: Mortgage / annuity payment (numerical)
-{week:5,type:'numerical',
-  question:'You are thinking of purchasing a house. The house costs $300,000. You have $40,000 in cash for a down payment. The bank is offering a 25-year mortgage requiring annual payments at an interest rate of 4.0% per year. What will your annual payment be if you sign up for this mortgage? (Round to the nearest dollar)',
-  keywords:['16642','$16,642','16,642'],
-  modelAnswer:'Loan = $300,000 − $40,000 = $260,000\nRearrange PV annuity formula: C = PV × r / [1 − (1+r)^−n]\nC = $260,000 × 0.04 / [1 − (1.04)^−25]\n(1.04)^25 = 2.6658, so (1.04)^−25 = 0.3751\nC = $10,400 / [1 − 0.3751] = $10,400 / 0.6249 = $16,642 per year',
-  hint:'First find the loan amount (house price minus down payment). Then rearrange the PV annuity formula to solve for the payment C.',
-  hint2:'Loan = $260,000. C = PV × r ÷ [1 − (1+r)^−n] = 260,000 × 0.04 ÷ [1 − (1.04)^−25].',
-  formulas:['PV(annuity) = C × [1 − (1+r)^−n] ÷ r','C = PV × r ÷ [1 − (1+r)^−n]']},
-
-// WEEK 7 — Q5: NPV with declining growing perpetuity (multipart)
-{week:7,type:'multipart',
-  scenario:'The Sydney franchisee of McDonald\'s Fast Food restaurants is replacing kitchen appliances across all locations. Upfront investment: $234,828 in year 0. No positive cash flows in year 1. Starting year 2: operating cash flow increase of $51,000 per restaurant, declining by 5.5% each subsequent year forever. Cost of capital: 9.5%.',
-  parts:[
-    {label:'a',question:'What is the NPV of the upgrade per location? (Round to the nearest dollar)',keywords:['75674','$75,674','75,674','310502','310,502'],modelAnswer:'This is a growing perpetuity (g = −5.5%) starting at year 2.\nPV at year 1 = C/(r−g) = $51,000/(0.095−(−0.055)) = $51,000/0.15 = $340,000\nPV at year 0 = $340,000/1.095 = $310,502\nNPV = −$234,828 + $310,502 = $75,674'},
-    {label:'b',question:'The IRR of the project must be less than 9.5%. True or False?',keywords:['false','FALSE','greater than','IRR greater'],modelAnswer:'FALSE — since NPV > 0 at a 9.5% discount rate, the IRR must be GREATER than 9.5%. A positive NPV means the project returns more than the required rate.'},
-    {label:'c',question:'What rate of decline would make this project exactly break even? (Round to 2 decimal places; enter a negative growth rate with a minus)',keywords:['-10.34','−10.34','-10.34%','−10.34%'],modelAnswer:'Set NPV = 0: $234,828 = $51,000 / ((0.095 − g) × 1.095)\n(0.095 − g) = $51,000 / ($234,828 × 1.095) = $51,000 / $257,137 = 0.19836\ng = 0.095 − 0.19836 = −0.10336 = −10.34%'}
-  ],
-  hint:'For a growing perpetuity starting at year 2: first find PV at year 1 using C/(r−g), then discount that back one year to get PV at year 0. NPV = −Investment + PV of cash flows.',
-  hint2:'g = −5.5% = −0.055. PV at Y1 = 51000/(0.095+0.055) = 51000/0.15. PV at Y0 = PV(Y1)/1.095. NPV = −234828 + PV(Y0).',
-  formulas:['PV(growing perpetuity) = C₁ ÷ (r − g)','NPV = −Investment + PV(future CFs)','PV = FV ÷ (1 + r)^n']},
-
-// WEEK 7 — Q6: EAA / Equivalent Annual Annuity (multipart)
-{week:7,type:'multipart',
-  scenario:'AT&T is choosing between two bus models (discount rate 10.0%, dollar amounts in thousands). Long Life model: Year 0 = −$208.7k; Years 1–7 = −$3.8k per year. Short Life model: Year 0 = −$100.8k; Years 1–4 = −$1.7k per year. The company plans to use one model indefinitely.',
-  parts:[
-    {label:'a',question:'What is the annual cost of the Long Life model as an equivalent annual annuity? What is the annual cost of the Short Life model as an equivalent annual annuity? (Round to nearest dollar)',keywords:['-46672','−46,672','−46672','-33498','−33,498','−33498','46672','33498'],modelAnswer:'NPV(Long Life) = −208.7 − 3.8 × [1−(1.10)^−7]/0.10 = −208.7 − 3.8 × 4.8684 = −208.7 − 18.50 = −$227.20k\nEAA(Long) = −227.20 × 0.10 / [1−(1.10)^−7] = −22.72 / 0.4868 = −$46,672\nNPV(Short Life) = −100.8 − 1.7 × [1−(1.10)^−4]/0.10 = −100.8 − 1.7 × 3.1699 = −100.8 − 5.39 = −$106.19k\nEAA(Short) = −106.19 × 0.10 / [1−(1.10)^−4] = −10.619 / 0.3170 = −$33,498'},
-    {label:'b',question:'Based on the costs, which bus model should AT&T choose?',options:['Short Life because its EAA of costs is smaller','Long Life because it lasts longer','Short Life because NPV of costs is smaller','Long Life because its EAA of costs is smaller'],answer:0,keywords:['short life','smaller EAA','33498','−33,498'],modelAnswer:'AT&T should choose Short Life because the equivalent annual annuity of its costs is smaller (−$33,498 vs −$46,672). EAA converts NPVs of different-length projects to an equivalent annual amount, enabling fair comparison.'}
-  ],
-  hint:'EAA converts a project\'s NPV to an equivalent annual payment, allowing fair comparison of projects with DIFFERENT lifespans. First compute NPV of costs for each, then divide by the annuity factor.',
-  hint2:'EAA = NPV × r ÷ [1 − (1+r)^−n]. Find NPV of each project first (all costs are negative), then compute EAA. Choose the option with the less-negative EAA.',
-  formulas:['NPV = CF₀ + Σ[CFₜ ÷ (1+r)^t]','EAA = NPV × r ÷ [1 − (1+r)^−n]','PV(annuity) = C × [1 − (1+r)^−n] ÷ r']},
-
-// WEEK 7 — Q7: NPV / IRR / PI / Payback — mutually exclusive projects (multipart)
-{week:7,type:'multipart',
-  scenario:'A firm considers two mutually exclusive projects. Payback period required: 2 years or less. Discount rate: 10.3%. PI = PV(future CFs) ÷ Cost.\n\nProject A: Y0=−$52, Y1=$24, Y2=$25, Y3=$68, Y4=$88\nProject B: Y0=−$50, Y1=$23, Y2=$32, Y3=$35, Y4=$38',
-  parts:[
-    {label:'a',question:'Payback period of Project A? Payback period of Project B? (Round to 2 decimal places)',keywords:['2.04','1.84','payback A','payback B'],modelAnswer:'Project A: After Y1: −52+24=−28; After Y2: −28+25=−3; Recovered in Y3: 2 + 3/68 = 2.04 years\nProject B: After Y1: −50+23=−27; After Y2: −27+32=+5; Recovered: 1 + 27/32 = 1.84 years'},
-    {label:'b',question:'Profitability index of Project A? Profitability index of Project B?',keywords:['2.93','1.98','PI A','PI B','152.44','98.90'],modelAnswer:'PV(A future CFs) = 24/1.103 + 25/1.2166 + 68/1.3419 + 88/1.4801 = 21.76+20.55+50.67+59.46 = $152.44\nPI(A) = 152.44/52 = 2.93\nPV(B future CFs) = 23/1.103 + 32/1.2166 + 35/1.3419 + 38/1.4801 = 20.85+26.30+26.08+25.67 = $98.90\nPI(B) = 98.90/50 = 1.98'},
-    {label:'c',question:'NPV of Project A? NPV of Project B?',keywords:['100.44','48.90','NPV A','NPV B'],modelAnswer:'NPV(A) = 152.44 − 52 = $100.44\nNPV(B) = 98.90 − 50 = $48.90'},
-    {label:'d',question:'IRR of Project A (%)? IRR of Project B (%)?',keywords:['57','47','IRR A','IRR B'],modelAnswer:'IRR requires trial-and-error or financial calculator. IRR(A) ≈ 57%, IRR(B) ≈ 47% (both well above 10.3%)'},
-    {label:'e',question:'According to the payback rule, which project should be chosen?',keywords:['B','Project B','1.84','payback B'],modelAnswer:'Choose Project B — payback period of 1.84 years, which is within the 2-year limit. Project A\'s payback of 2.04 years exceeds the limit.'},
-    {label:'f',question:'According to the profitability index, which project should be chosen?',keywords:['A','Project A','2.93','PI A'],modelAnswer:'Choose Project A — PI of 2.93 > PI(B) of 1.98. Higher PI means greater value per dollar invested.'},
-    {label:'g',question:'Which project would you recommend the firm choose, and why?',keywords:['Project A','NPV','100.44','maximise','value'],modelAnswer:'Recommend Project A — it has the higher NPV ($100.44 vs $48.90), which maximises firm value. For mutually exclusive projects, NPV is the correct decision rule as it directly measures value created for shareholders.'}
-  ],
-  hint:'Work through each decision rule systematically. For payback: track cumulative cash flows. For PI and NPV: discount each cash flow at 10.3%. For the final recommendation, NPV is the gold standard.',
-  hint2:'Discount factors at 10.3%: Y1=1/1.103, Y2=1/1.103², Y3=1/1.103³, Y4=1/1.103⁴. Payback A = 2 + (3/68) = 2.04 yrs. Payback B = 1 + (27/32) = 1.84 yrs.',
-  formulas:['NPV = Σ[CFₜ ÷ (1+r)^t] + CF₀','PI = PV(future CFs) ÷ |Initial Investment|','Payback = year before recovery + (remaining ÷ next year CF)']},
-
-// WEEK 8 — Q8: Bond pricing semi-annual (numerical)
-{week:8,type:'numerical',
-  question:'The yield to maturity of a $1,000 bond with a 7.2% coupon rate, semi-annual coupons, and two years to maturity is 8.2% APR, compounded semi-annually. What must its price be? (Round to the nearest cent)',
-  keywords:['981.90','$981.90','981.9'],
-  modelAnswer:'Semi-annual coupon = 7.2%/2 × $1,000 = $36\nSemi-annual YTM = 8.2%/2 = 4.1% = 0.041\nPeriods n = 2 × 2 = 4\nP = $36 × [1−(1.041)^−4]/0.041 + $1,000/(1.041)^4\n(1.041)^4 = 1.17478, so (1.041)^−4 = 0.85161\nP = $36 × [1−0.85161]/0.041 + $1,000 × 0.85161\nP = $36 × 3.6193 + $851.61\nP = $130.29 + $851.61 = $981.90\n\nSince YTM (8.2%) > coupon rate (7.2%) → discount bond → P < $1,000 ✓',
-  hint:'For semi-annual bonds: halve the coupon rate and YTM, double the periods. Bond price = PV of coupons (annuity) + PV of face value (lump sum).',
-  hint2:'Semi-annual coupon = 7.2%/2 × 1000 = $36. Semi-annual YTM = 8.2%/2 = 4.1%. n = 4 periods. P = 36×[1−(1.041)^−4]/0.041 + 1000/(1.041)^4.',
-  formulas:['P = C × [1−(1+r)^−n] ÷ r + F ÷ (1+r)^n','Semi-annual coupon = (coupon rate / 2) × Face Value','Semi-annual YTM = APR / 2, n = years × 2']},
-
-// WEEK 8 — Q9: Multi-stage dividend growth (multipart)
-{week:8,type:'multipart',
-  scenario:'Hush Puppies Ltd. earned $1.04 per share in year 0 and reinvested all of it. Growth opportunities: ROI = 38.0% next year. In year 1, management plans to payout 12.0% and invest the rest for more growth, projected at 23.0%. They will then raise the payout ratio to 51.0% and keep it there.',
-  parts:[
-    {label:'a',question:'What is the expected dividend per share for year 1? (Round to 4 decimal places)',keywords:['0.1722','$0.1722','0.172'],modelAnswer:'Year 0: EPS₀ = $1.04, retention = 100%, ROI = 38%\nEPS₁ = $1.04 × (1 + 1.00 × 0.38) = $1.04 × 1.38 = $1.4352\nD₁ = EPS₁ × payout₁ = $1.4352 × 0.12 = $0.1722'},
-    {label:'b',question:'What is the expected dividend per share for year 2? (Round to 4 decimal places)',keywords:['0.8801','$0.8801','0.880'],modelAnswer:'Year 1: retention = 88%, growth into Y2 = 0.88 × 0.23 = 0.2024\nEPS₂ = $1.4352 × (1 + 0.2024) = $1.4352 × 1.2024 = $1.7257\nD₂ = EPS₂ × payout₂ = $1.7257 × 0.51 = $0.8801'}
-  ],
-  hint:'EPS growth = EPS × (1 + retention ratio × ROI). Dividend = EPS × payout ratio. Work through each year sequentially.',
-  hint2:'Y0: EPS=1.04, retain 100%, ROI=38% → EPS₁=1.04×1.38. D₁=EPS₁×12%. Y1: retain 88%, ROI=23% → growth=0.88×0.23. EPS₂=EPS₁×(1+growth). D₂=EPS₂×51%.',
-  formulas:['EPS_t = EPS_{t-1} × (1 + retention × ROI)','D_t = EPS_t × payout ratio','g = retention ratio × ROI']},
-
-// WEEK 8 — Q10: Gordon Growth Model (numerical)
-{week:8,type:'numerical',
-  question:'A firm has just paid a dividend of $4.5. The long-term growth rate in earnings going forward will be 3.5% per annum. The firm\'s cost of equity capital is 11.1% per annum and there is no expected change in the dividend payout ratio. What price today would you estimate for the firm\'s shares? (Round to the nearest cent)',
-  keywords:['61.28','$61.28','61.3'],
-  modelAnswer:'D₀ = $4.5 (just paid), g = 3.5%, r = 11.1%\nD₁ = D₀ × (1+g) = $4.5 × 1.035 = $4.6575\nP₀ = D₁/(r−g) = $4.6575/(0.111−0.035) = $4.6575/0.076 = $61.28',
-  hint:'Gordon Growth Model: P₀ = D₁ ÷ (r − g). Since the dividend has JUST been paid, D₀ is given and you must grow it by one period to get D₁ = D₀ × (1+g).',
-  hint2:'D₁ = 4.5 × 1.035 = 4.6575. P₀ = 4.6575 ÷ (0.111 − 0.035) = 4.6575 ÷ 0.076.',
-  formulas:['P₀ = D₁ ÷ (r − g)','D₁ = D₀ × (1 + g)','r = D₁ ÷ P₀ + g']},
-
-// WEEK 9 — Q11: CAPM multi-company analysis (multipart)
-{week:9,type:'multipart',
-  scenario:'The risk-free rate is 4.30%. Company data:\nA (Round Corp): E[R]=7.50%, β=0.34\nB (Lemon LLC): E[R]=14.36%, β=?\nC (Beach Living Inc): E[R]=?, β=1.43\nD (Tasman Devils Corp): E[R]=7.88%, β=0.86\nE (Allied Metal Traders): E[R]=19.72%, β=1.46',
-  parts:[
-    {label:'a',question:'Round Corp is correctly priced. What does this tell you about the expected market return per year? (%)',keywords:['13.71','13.71%','13.7','9.412','MRP'],modelAnswer:'CAPM using Round Corp: 7.50% = 4.30% + 0.34 × (E[RM]−4.30%)\n3.20% = 0.34 × MRP → MRP = 9.412%\nE[RM] = 4.30% + 9.412% = 13.71%'},
-    {label:'b',question:'What beta for Lemon LLC would make investor expectations consistent with your findings in A)?',keywords:['1.069','1.07','beta Lemon'],modelAnswer:'14.36% = 4.30% + β × 9.412% → β = (14.36%−4.30%)/9.412% = 10.06/9.412 = 1.069'},
-    {label:'c',question:'Given the expected market return in A), what is the correct expected return for Beach Living Inc? (%)',keywords:['17.76','17.76%','17.8'],modelAnswer:'E[R] = 4.30% + 1.43 × 9.412% = 4.30% + 13.46% = 17.76%'},
-    {label:'d',question:'Given the expected market return in A), are shares of Tasman Devils Corp overvalued, undervalued, or fairly valued?',keywords:['overvalued','over-valued','over valued','12.39','price too high'],modelAnswer:'CAPM required: 4.30% + 0.86 × 9.412% = 4.30% + 8.09% = 12.39%\nActual: 7.88% < 12.39% required → stock is OVERVALUED (price too high, return too low to justify its risk)'},
-    {label:'e',question:'Assume the market risk premium remains the same. What risk-free rate would be needed for Allied Metal Traders to have correct return expectations? (%)',keywords:['5.98','5.98%','6.0'],modelAnswer:'19.72% = Rf + 1.46 × 9.412% → 19.72% = Rf + 13.74% → Rf = 19.72% − 13.74% = 5.98%'}
-  ],
-  hint:'Use CAPM: E[R] = Rf + β × (E[RM] − Rf). Market Risk Premium (MRP) = E[RM] − Rf. If a stock\'s actual return is BELOW CAPM required return → overvalued (price too high).',
-  hint2:'From Round Corp: MRP = (7.50%−4.30%)/0.34 = 9.412%. E[RM] = 4.30% + 9.412% = 13.71%. Use this MRP for all subsequent parts.',
-  formulas:['E[Ri] = Rf + βi × (E[RM] − Rf)','MRP = E[RM] − Rf','β = (E[Ri] − Rf) ÷ MRP']},
-
-// WEEK 9 — Q12: WACC with varying D/E ratios (multipart)
-{week:9,type:'multipart',
-  scenario:'The Sandwich With A Pretty Big Pickle On It Corporation has a cost of equity of 14.30% and a cost of debt of 6.20%. The corporate tax rate is 30.00%.\n\nAfter-tax cost of debt = 6.20% × (1−0.30) = 4.34%\nFor D/E ratio d: wD = d/(1+d), wE = 1/(1+d)',
-  parts:[
-    {label:'a',question:'Find the after-tax WACC if the firm\'s target debt-to-equity ratio is 0.25',keywords:['12.31','12.31%'],modelAnswer:'D/E=0.25: wD=0.25/1.25=0.20, wE=0.80\nWACC = 0.80×14.30% + 0.20×4.34% = 11.44% + 0.87% = 12.31%'},
-    {label:'b',question:'Find the after-tax WACC if the firm\'s target debt-to-equity ratio is 0.50',keywords:['10.99','10.99%','11%'],modelAnswer:'D/E=0.50: wD=0.333, wE=0.667\nWACC = 0.667×14.30% + 0.333×4.34% = 9.54% + 1.45% = 10.99%'},
-    {label:'c',question:'Find the after-tax WACC if the firm\'s target debt-to-equity ratio is 1.00',keywords:['9.32','9.32%'],modelAnswer:'D/E=1.00: wD=0.50, wE=0.50\nWACC = 0.50×14.30% + 0.50×4.34% = 7.15% + 2.17% = 9.32%'},
-    {label:'d',question:'Find the after-tax WACC if the firm\'s target debt-to-equity ratio is 1.50',keywords:['8.32','8.32%'],modelAnswer:'D/E=1.50: wD=0.60, wE=0.40\nWACC = 0.40×14.30% + 0.60×4.34% = 5.72% + 2.60% = 8.32%'}
-  ],
-  hint:'Convert D/E ratio to weights: wD = (D/E) ÷ (1 + D/E) and wE = 1 ÷ (1 + D/E). Apply the after-tax cost of debt = RD × (1 − TC). WACC = wE×RE + wD×RD×(1−TC).',
-  hint2:'After-tax RD = 6.20% × 0.70 = 4.34%. For D/E=0.25: wD=0.20, wE=0.80. For D/E=0.50: wD=0.333, wE=0.667. WACC falls as leverage increases (cheaper debt replaces expensive equity).',
-  formulas:['WACC = wE×RE + wD×RD×(1−TC)','wD = (D/E) ÷ (1 + D/E)','wE = 1 ÷ (1 + D/E)','After-tax RD = RD × (1 − TC)']},
 
 ];
 
@@ -4924,59 +4791,44 @@ function showLearn(week){
 
 
 
+const CONCEPT_MAP={
+  2:'Customer value, STP, Porter\'s Generic Strategies, Ansoff Matrix, Value Proposition Canvas',
+  3:'Contribution Margin, Break-Even Point, Multi-Product CVP, Margin of Safety',
+  4:'Balanced Scorecard, Four Perspectives, Leading vs Lagging Indicators, Strategy Map',
+  5:'Time Value of Money, FV/PV, APR/EAR, Annuities, Perpetuities',
+  7:'NPV, IRR, Profitability Index, EAA, Payback Period, Capital Budgeting',
+  8:'Bond Pricing, Gordon Growth Model, Dividend Discount Model, YTM',
+  9:'CAPM, Beta, Systematic Risk, WACC, Market Risk Premium',
+  10:'ROIC vs WACC, ESG, Corporate Governance, Integration of all topics'
+};
+
+const FORMULA_MAP={
+  3:'CM=SP−VC  |  BEP=FC÷CM  |  WACM=Σ(CMi×Mixi)  |  MOS=Actual−BEP',
+  5:'FV = PV×(1+r)^n  |  PV = FV÷(1+r)^n  |  EAR = (1+APR/m)^m−1  |  PV(annuity) = C×[1−(1+r)^−n]÷r  |  PV(perp) = C÷r  |  PV(grow perp) = C₁÷(r−g)',
+  7:'NPV = CF₀+Σ[CFₜ÷(1+r)^t]  |  IRR: set NPV=0  |  PI = NPV÷|Investment|  |  EAA = NPV×r÷[1−(1+r)^−n]',
+  8:'Bond: P₀=C×[1−(1+r)^−n]÷r+F÷(1+r)^n  |  P₀=D₁÷(r−g)  |  g=Retention×ROI  |  r=D₁÷P₀+g',
+  9:'E[Ri]=Rf+β×(E[RM]−Rf)  |  WACC=wE×RE+wD×RD×(1−TC)  |  wD=(D/E)÷(1+D/E)'
+};
+
+const APPROACH_MAP={
+  numerical:'1. Identify what is given and what you are solving for.\n2. Write the relevant formula.\n3. Substitute the values.\n4. Calculate step by step.\n5. State your final answer with units.',
+  mcq:'1. Read the question carefully.\n2. Eliminate obviously wrong options.\n3. Apply the relevant concept or formula.\n4. Check your reasoning before selecting.',
+  tf:'1. Re-read the statement slowly.\n2. Think of any exception that makes it false.\n3. Apply the relevant definition or rule.',
+  sa:'1. Identify the key concept being tested.\n2. Define any relevant terms.\n3. Apply the concept to the specific context.\n4. Keep your answer focused and concise.',
+  multipart:'1. Read the full scenario first.\n2. Answer each part independently.\n3. Use results from earlier parts where needed.\n4. Show all working for numerical parts.'
+};
+
 function renderLearnCard(q){
 
   const meta=WEEKS[q.week];
 
   const typeLabel={mcq:'Multiple Choice',tf:'True/False',sa:'Short Answer',numerical:'Calculation',multipart:'Multi-Part'}[q.type]||q.type.toUpperCase();
 
-  const conceptMap={
+  const conceptMap=CONCEPT_MAP;
 
-    2:'Customer value, STP, Porter\'s Generic Strategies, Ansoff Matrix, Value Proposition Canvas',
+  const formulaMap=FORMULA_MAP;
 
-    3:'Contribution Margin, Break-Even Point, Multi-Product CVP, Margin of Safety',
-
-    4:'Balanced Scorecard, Four Perspectives, Leading vs Lagging Indicators, Strategy Map',
-
-    5:'Time Value of Money, FV/PV, APR/EAR, Annuities, Perpetuities',
-
-    7:'NPV, IRR, Profitability Index, EAA, Payback Period, Capital Budgeting',
-
-    8:'Bond Pricing, Gordon Growth Model, Dividend Discount Model, YTM',
-
-    9:'CAPM, Beta, Systematic Risk, WACC, Market Risk Premium',
-
-    10:'ROIC vs WACC, ESG, Corporate Governance, Integration of all topics'
-
-  };
-
-  const formulaMap={
-
-    5:'FV = PV×(1+r)^n  |  PV = FV÷(1+r)^n  |  EAR = (1+APR/m)^m−1  |  PV(annuity) = C×[1−(1+r)^−n]÷r  |  PV(perp) = C÷r  |  PV(grow perp) = C₁÷(r−g)',
-
-    7:'NPV = CF₀+Σ[CFₜ÷(1+r)^t]  |  IRR: set NPV=0  |  PI = NPV÷|Investment|  |  EAA = NPV×r÷[1−(1+r)^−n]',
-
-    8:'Bond: P₀=C×[1−(1+r)^−n]÷r+F÷(1+r)^n  |  P₀=D₁÷(r−g)  |  g=Retention×ROI  |  r=D₁÷P₀+g',
-
-    9:'E[Ri]=Rf+β×(E[RM]−Rf)  |  WACC=wE×RE+wD×RD×(1−TC)  |  wD=(D/E)÷(1+D/E)',
-
-    3:'CM=SP−VC  |  BEP=FC÷CM  |  WACM=Σ(CMi×Mixi)  |  MOS=Actual−BEP'
-
-  };
-
-  const approachMap={
-
-    numerical:'1. Identify what is given and what you are solving for.\n2. Write the relevant formula.\n3. Substitute the values.\n4. Calculate step by step.\n5. State your final answer with units.',
-
-    mcq:'1. Read the question carefully.\n2. Eliminate obviously wrong options.\n3. Apply the relevant concept or formula.\n4. Check your reasoning before selecting.',
-
-    tf:'1. Re-read the statement slowly.\n2. Think of any exception that makes it false.\n3. Apply the relevant definition or rule.',
-
-    sa:'1. Identify the key concept being tested.\n2. Define any relevant terms.\n3. Apply the concept to the specific context.\n4. Keep your answer focused and concise.',
-
-    multipart:'1. Read the full scenario first.\n2. Answer each part independently.\n3. Use results from earlier parts where needed.\n4. Show all working for numerical parts.'
-
-  };
+  const approachMap=APPROACH_MAP;
 
   const hint=q.hint||'';
 
@@ -5074,7 +4926,7 @@ function applySettings(){
 
 function applyDarkMode(){
 
-  document.body.classList.toggle('dark',darkMode);
+  document.documentElement.classList.toggle('dark',darkMode);
 
   const btn=document.getElementById('darkModeBtn');
 
@@ -5266,7 +5118,7 @@ function renderQuestion(){
 
   if(q.type==='multipart'){
 
-    html+=`<div class="q-scenario">${q.scenario}</div>${renderMultipart(q)}`;
+    html+=`<div class="q-scenario">${q.scenario||q.question||''}</div>${renderMultipart(q)}`;
 
   } else {
 
@@ -5738,7 +5590,32 @@ function showHintAI(){
 
   if(!ha) return;
 
-  getExplanationInline(bAI,ha,q);
+  bAI.disabled=true;
+
+  bAI.textContent='😕 I\'m Confused ✓';
+
+  // Show local concept guide immediately — no API required
+  const meta=WEEKS[q.week];
+  const concept=CONCEPT_MAP[q.week]||`Week ${q.week} — ${meta?.label||''}`;
+  const formula=FORMULA_MAP[q.week]||'';
+  const approach=APPROACH_MAP[q.type]||APPROACH_MAP.sa;
+
+  let localHtml=`<div class="ai-head">📖 Concept Guide</div>`;
+  localHtml+=`<div class="ai-row"><span class="ai-tag">Concept</span><span>${concept}</span></div>`;
+  if(formula){
+    const fItems=formula.split('|').map(f=>`<code style="display:block;font-family:'Courier New',monospace;font-size:.79rem;background:rgba(255,255,255,.5);border-radius:4px;padding:2px 6px;margin:2px 0">${f.trim()}</code>`).join('');
+    localHtml+=`<div class="ai-row"><span class="ai-tag">Formulas</span><span>${fItems}</span></div>`;
+  }
+  localHtml+=`<div class="ai-row"><span class="ai-tag">Approach</span><span style="white-space:pre-line;font-size:.81rem">${approach}</span></div>`;
+  if(q.hint2){localHtml+=`<div class="ai-row"><span class="ai-tag">Key step</span><span style="color:var(--purple);font-size:.81rem">${q.hint2}</span></div>`;}
+
+  const localDiv=document.createElement('div');
+  localDiv.className='hint-box hai';
+  localDiv.innerHTML=localHtml;
+  ha.appendChild(localDiv);
+
+  // Then try AI for additional explanation (appended below local guide)
+  getExplanationInline(null,ha,q);
 
 }
 
@@ -5746,9 +5623,7 @@ function showHintAI(){
 
 async function getExplanationInline(btn,ha,q){
 
-  btn.disabled=true;
-
-  btn.textContent='Loading…';
+  if(btn){btn.disabled=true;btn.textContent='Loading…';}
 
   const loadDiv=document.createElement('div');
 
@@ -5788,11 +5663,11 @@ async function getExplanationInline(btn,ha,q){
 
   } catch(e){
 
-    loadDiv.innerHTML='🤖 Could not load explanation.';
+    loadDiv.remove();
 
   }
 
-  btn.textContent='😕 I\'m Confused ✓';
+  if(btn) btn.textContent='😕 I\'m Confused ✓';
 
 }
 
@@ -6056,7 +5931,7 @@ async function aiMarkMultipart(q,answers){
 
       method:'POST',headers:{'Content-Type':'application/json'},
 
-      body:JSON.stringify({questionType:'multipart',scenario:q.scenario,parts:q.parts.map((p,i)=>({label:p.label,question:p.question,answer:answers[i]?.answer||'',keywords:p.keywords||[],modelAnswer:p.modelAnswer||''}))})
+      body:JSON.stringify({questionType:'multipart',scenario:q.scenario||q.question||'',parts:q.parts.map((p,i)=>({label:p.label,question:p.question,answer:answers[i]?.answer||'',keywords:p.keywords||[],modelAnswer:p.modelAnswer||''}))})
 
     });
 
@@ -6249,7 +6124,7 @@ function showSummary(){
 
     const icon=r.skipped?'⏭':r.mark>=1?'✅':r.mark>0?'🔶':'❌';
 
-    const txt=q.type==='multipart'?q.scenario.substring(0,80)+'…':q.question.substring(0,80)+(q.question.length>80?'…':'');
+    const _sq=q.type==='multipart'?(q.scenario||q.question||''):(q.question||'');const txt=_sq.replace(/<[^>]*>/g,'').substring(0,80)+(_sq.length>80?'…':'');
 
     return `<div class="result-item ${cls}"><div class="result-icon">${icon}</div><div class="result-q">W${q.week} · ${txt}</div><div class="result-mark">${r.skipped?'skip':Math.round(r.mark*100)+'%'}</div></div>`;
 
@@ -6454,7 +6329,7 @@ function ctbRenderList(){
     byWeek[w].forEach(function(item){
       var q=item.q,idx=item.idx;
       var sel=ctbSelected.has(idx)?'selected':'';
-      var raw=(q.type==='multipart'?(q.scenario||''):(q.question||'')).replace(/<[^>]*>/g,'');
+      var raw=(q.type==='multipart'?(q.scenario||q.question||''):(q.question||'')).replace(/<[^>]*>/g,'');
       var trunc=raw.length>90?raw.slice(0,90)+'…':raw;
       var safe=trunc.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
       parts.push('<div class="ctb-q-item '+sel+'" onclick="ctbToggle('+idx+',this)"><div class="ctb-q-cb"></div><div class="ctb-q-body"><div class="ctb-q-badges"><span class="ctb-q-badge week">W'+q.week+'</span><span class="ctb-q-badge type">'+q.type+'</span></div><div class="ctb-q-text">'+safe+'</div></div></div>');
