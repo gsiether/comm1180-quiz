@@ -1,61 +1,69 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-06-28
+**Date:** 2026-06-29
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-No new code changes since the 2026-06-27 QA run. All features remain intact and functional. JS syntax valid, 166 questions present, all required features confirmed.
+All required features are present. The most recent commit added 12 practice exam questions from `practice-questions.md` as intended, bringing the total to 178 questions. The redesign was completed in earlier commits and remains intact. JS syntax is valid. Netlify functions are unchanged.
 
 ---
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Last code change: `cff18ce` — "QA report: automated code check (2026-06-27)". Redesign commit `e8bea9b` is in history. |
-| JS syntax valid | ✅ | `node --check` passes with exit 0 — no parse errors |
-| 118+ questions intact | ✅ | **166 questions** in QUESTIONS array (lines 3057–4526); target ≥118 |
-| Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`; Inter font; full design system present |
-| Dark mode toggle | ✅ | `toggleDarkMode()` + `darkModeBtn` with 🌙/☀️ icons; applies `.dark` to `<html>` |
-| Multi-week selection | ✅ | `homeState.weeks[]` + `selectWeekChip()` allow toggling multiple weeks; "All Weeks →" selects all |
-| Learn mode | ✅ | `#learn` screen present; 12 references in source |
-| I'm Confused button | ✅ | `😕 I'm Confused` button (line 5170) with local fallback maps + AI via `showHintAI()` |
-| Hint 1 / Hint 2 | ✅ | 3-level hint system: hint → hint2 → Ask AI; 223 hint-related matches |
+| New commit exists | ✅ | `df29682` — "Add 12 practice exam questions from practice-questions.md" (2026-06-29 15:09 UTC) |
+| JS syntax valid | ✅ | `node --check` exits 0; browser-only `localStorage` error is a runtime artefact, not a syntax error |
+| 118+ questions intact | ✅ | **178 questions** in QUESTIONS array (lines 3057–4713), up from 166 yesterday |
+| Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, Inter font; full design-system CSS variables present |
+| Dark mode toggle | ✅ | `toggleDarkMode()` + `#darkModeBtn` with 🌙/☀️; applies `.dark` class to `<html>` |
+| Multi-week selection | ✅ | `homeState.weeks[]` + `selectWeekChip()` allow toggling individual weeks; "All Weeks" chip selects all |
+| Learn mode | ✅ | `learnMode` / `#learn` screen present; 11 references in source |
+| I'm Confused button | ✅ | `😕 I'm Confused` button (line 5357) with local fallback maps + AI via `showHintAI()` |
+| Hint 1 / Hint 2 | ✅ | 3-level hint system (hint → hint2 → Ask AI); 231 hint-related matches |
 | Multi-step math input | ✅ | `addStep` / `working-steps` / `step-row` present (23 matches) |
 | Final Answer field | ✅ | `finalAnswer` found 13× in source |
-| Notes overlay present | ✅ | `notes-overlay` present; popup opens via `w.document.write()` |
-| Formula overlay present | ✅ | `formula-overlay` present with CVP/TVM/NPV/Valuation/WACC sections |
-| Netlify functions unchanged | ✅ | Both `mark.js` (136 lines) and `explain.js` (79 lines) use `claude-haiku-4-5-20251001`; no changes since creation |
-| File size increased | ✅ | **6946 lines** (original: ~1458 lines; 372% increase) |
-| HTML structure valid | ✅ | One inline `<script>` block (3035–6938) + 2 external scripts (jQuery, MathQuill); proper `<!DOCTYPE html>` and `</html>` |
+| Notes overlay present | ✅ | `notes-overlay` + `notesOverlay` found; week tabs W2–W10 populated |
+| Formula overlay present | ✅ | `formula-overlay` + `formulaOverlay` found; CVP/TVM/NPV/Valuation/WACC sections |
+| Netlify functions unchanged | ✅ | 0 lines of diff on `netlify/functions/`; `mark.js` and `explain.js` untouched |
+| File size increased | ✅ | **7,133 lines** (original: ~1,458 lines; 389% increase) |
+| HTML structure valid | ✅ | `<!DOCTYPE html>` head, one inline `<script>` block, closes with `</html>` |
 
 ---
 
-## Question Type Breakdown (main QUESTIONS array)
+## Question Type Breakdown (main QUESTIONS array, lines 3057–4713)
 | Type | Count |
 |------|-------|
 | `mcq` | 42 |
-| `numerical` | 64 |
+| `multipart` | 42 |
+| `numerical` | 53 |
 | `sa` | 58 |
-| `multipart` | 59 |
 | `tf` | 0 |
-| **Total** | **166** |
+| **Top-level entries** | **178** |
 
-Note: Additional fixed practice exam arrays exist (lines 6455–6900) for mock exam mode, separate from the main QUESTIONS array.
+*Note: `type:` matches within the array exceed 178 because some multipart sub-parts also carry internal `type` references — the top-level entry count (178) is definitive.*
+
+---
+
+## New Questions Added Today (commit `df29682`, +187 lines)
+All 12 practice exam questions from `practice-questions.md` confirmed present:
+- **Week 5 (TVM):** APR/EAR/FV multipart, solve for r, deferred perpetuity, mortgage payment
+- **Week 7 (Capital Budgeting):** NPV declining perpetuity (McDonald's), EAA (AT&T bus models), NPV/IRR/PI/Payback 7-part multipart
+- **Week 8 (Valuation):** Bond pricing semi-annual, multi-stage dividend growth (Hush Puppies), Gordon Growth Model
+- **Week 9 (WACC):** CAPM multi-company 5-part, WACC with varying D/E ratios
 
 ---
 
 ## Issues Found
 
-### Minor — No true/false (tf) questions
-`CLAUDE.md` lists `tf` as a supported question type and the rendering logic handles it, but zero `tf` questions exist in QUESTIONS. Not a blocker — functionality is built, just unused.
+### Minor — No true/false (`tf`) questions
+`CLAUDE.md` lists `tf` as a supported question type and rendering logic handles it, but zero `tf` questions exist in QUESTIONS. Not a blocker.
 
-### Note — `grep -c "week:[0-9]"` overstates count
-Raw grep returns 206, but this includes `week:` attributes in notes HTML, overlays, and metadata objects outside the QUESTIONS array. Accurate count (from QUESTIONS array only, via bracket-matched parse) is **166**.
+### Minor — Commit message summary omits Week 9
+The commit message subject lists W5/W7/W8 but the body confirms W9 is included. Week 9 CAPM and WACC questions are confirmed present in the file on inspection.
 
 ---
 
 ## Recommendations
-
-1. **No action required** — app is in stable, passing state. All required features from the CLAUDE.md spec are present.
-2. **Optional:** Add a handful of `tf` (true/false) questions if that question type coverage is desired. Rendering path already exists.
-3. **Exam date reminder:** Exam is Tuesday 5 May 2026, 1:45pm–4pm. App covers all Section A (W3/W5/W7/W8/W9) and Section B (W2/W4/W10) topics.
+- No blocking issues. The app is ready for Netlify deployment of these new questions.
+- Consider adding true/false questions for Weeks 3–5 if exam preparation scope requires them.
+- Monitor Netlify deploy for this commit to confirm the 12 new questions render correctly in production.
