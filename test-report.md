@@ -1,69 +1,75 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-06-29
+**Date:** 2026-06-30
 **Tested by:** Automated QA Agent
 
-## Overall Status: PASS
+## Overall Status: PASS (1 bug found and fixed)
 
-All required features are present. The most recent commit added 12 practice exam questions from `practice-questions.md` as intended, bringing the total to 178 questions. The redesign was completed in earlier commits and remains intact. JS syntax is valid. Netlify functions are unchanged.
+All 7 requested features (light/dark mode, multi-week selection, comprehensive notes,
+improved formula sheet, multi-step math working area, Learn Mode + 3-tier hints, and
+the 12 practice exam questions) were already implemented in prior sessions. This run
+independently re-verified the implementation rather than re-doing it, and found a real
+regression that previous "PASS" QA reports had missed.
+
+---
+
+## Bug found: duplicate practice exam questions
+
+The 12 practice-exam questions (from `practice-questions.md`) existed **twice** inside
+the `QUESTIONS` array:
+- First copy: added by commit `693ec73` under `// WEEK 5/7/8/9 — Practice Exam Questions` comments (full-text version with placeholder blanks, labels `A`/`B`/...).
+- Second copy: added later by commit `df29682` under `// ── PRACTICE EXAM QUESTIONS (from practice-questions.md) ──` (shorter wording, labels `a`/`b`/...).
+
+A prior commit (`5d4419e "Remove duplicate practice exam questions"`) had already tried
+to fix an earlier instance of this problem, but `df29682` reintroduced it the next day.
+Daily QA reports since then checked "are the 12 questions present" but never checked
+"are they present more than once," so the regression went undetected for several days.
+
+**Impact:** any quiz pulling from Weeks 5/7/8/9 had a chance of serving the same
+question content twice in one session (worded slightly differently each time),
+wasting study time and skewing week-level question counts.
+
+**Fix:** removed the second (later, redundant) copy — 189 lines, the entire
+`// ── PRACTICE EXAM QUESTIONS (from practice-questions.md) ──` block — keeping the
+original fuller-text version. Verified zero duplicate question/scenario text remains
+across the array by comparing first-100-char keys of every entry.
 
 ---
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `df29682` — "Add 12 practice exam questions from practice-questions.md" (2026-06-29 15:09 UTC) |
-| JS syntax valid | ✅ | `node --check` exits 0; browser-only `localStorage` error is a runtime artefact, not a syntax error |
-| 118+ questions intact | ✅ | **178 questions** in QUESTIONS array (lines 3057–4713), up from 166 yesterday |
-| Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, Inter font; full design-system CSS variables present |
-| Dark mode toggle | ✅ | `toggleDarkMode()` + `#darkModeBtn` with 🌙/☀️; applies `.dark` class to `<html>` |
-| Multi-week selection | ✅ | `homeState.weeks[]` + `selectWeekChip()` allow toggling individual weeks; "All Weeks" chip selects all |
-| Learn mode | ✅ | `learnMode` / `#learn` screen present; 11 references in source |
-| I'm Confused button | ✅ | `😕 I'm Confused` button (line 5357) with local fallback maps + AI via `showHintAI()` |
-| Hint 1 / Hint 2 | ✅ | 3-level hint system (hint → hint2 → Ask AI); 231 hint-related matches |
-| Multi-step math input | ✅ | `addStep` / `working-steps` / `step-row` present (23 matches) |
-| Final Answer field | ✅ | `finalAnswer` found 13× in source |
-| Notes overlay present | ✅ | `notes-overlay` + `notesOverlay` found; week tabs W2–W10 populated |
-| Formula overlay present | ✅ | `formula-overlay` + `formulaOverlay` found; CVP/TVM/NPV/Valuation/WACC sections |
-| Netlify functions unchanged | ✅ | 0 lines of diff on `netlify/functions/`; `mark.js` and `explain.js` untouched |
-| File size increased | ✅ | **7,133 lines** (original: ~1,458 lines; 389% increase) |
-| HTML structure valid | ✅ | `<!DOCTYPE html>` head, one inline `<script>` block, closes with `</html>` |
+| JS syntax valid | ✅ | `node --check` exits 0 on extracted `<script>` block |
+| No duplicate questions | ✅ (was ❌) | 0 duplicate pairs after fix (was 4 pairs / 5 entries) |
+| Question count | ✅ | 166 unique top-level questions (178 before dedup) |
+| Light mode CSS | ✅ | `--blue:#4F46E5` indigo accent, white/off-white surfaces, Inter font |
+| Dark mode toggle | ✅ | `toggleDarkMode()` + `#darkModeBtn`, persists via `localStorage` |
+| Multi-week selection | ✅ | `homeState.weeks[]`, `startQuiz(homeState.weeks)` accepts an array |
+| Learn mode | ✅ | `#learn` screen, `learnMode`, populated from question hint/explanation fields |
+| 3-tier hint system | ✅ | Hint 1 → Hint 2 → "I'm Confused" (AI explain + local fallback) |
+| Multi-step math input | ✅ | `addStep` / `.working-steps` / `.step-row`, distinct "Final Answer" field |
+| Notes overlay | ✅ | Full W2–W10 tabs with overview/definitions/formulas/exam tips/approach steps |
+| Formula overlay | ✅ | Sectioned by week/topic, plain-English "use this when" notes |
+| Netlify functions unchanged | ✅ | 0 lines of diff on `netlify/functions/` |
 
 ---
 
-## Question Type Breakdown (main QUESTIONS array, lines 3057–4713)
-| Type | Count |
+## Question Type / Week Breakdown (post-fix, 166 total)
+| Week | Count |
 |------|-------|
-| `mcq` | 42 |
-| `multipart` | 42 |
-| `numerical` | 53 |
-| `sa` | 58 |
-| `tf` | 0 |
-| **Top-level entries** | **178** |
-
-*Note: `type:` matches within the array exceed 178 because some multipart sub-parts also carry internal `type` references — the top-level entry count (178) is definitive.*
-
----
-
-## New Questions Added Today (commit `df29682`, +187 lines)
-All 12 practice exam questions from `practice-questions.md` confirmed present:
-- **Week 5 (TVM):** APR/EAR/FV multipart, solve for r, deferred perpetuity, mortgage payment
-- **Week 7 (Capital Budgeting):** NPV declining perpetuity (McDonald's), EAA (AT&T bus models), NPV/IRR/PI/Payback 7-part multipart
-- **Week 8 (Valuation):** Bond pricing semi-annual, multi-stage dividend growth (Hush Puppies), Gordon Growth Model
-- **Week 9 (WACC):** CAPM multi-company 5-part, WACC with varying D/E ratios
+| 2 | 15 |
+| 3 | 23 |
+| 4 | 15 |
+| 5 | 30 |
+| 7 | 23 |
+| 8 | 23 |
+| 9 | 23 |
+| 10 | 14 |
 
 ---
 
-## Issues Found
+## Other observation (not a code bug, flagged for the user)
 
-### Minor — No true/false (`tf`) questions
-`CLAUDE.md` lists `tf` as a supported question type and rendering logic handles it, but zero `tf` questions exist in QUESTIONS. Not a blocker.
-
-### Minor — Commit message summary omits Week 9
-The commit message subject lists W5/W7/W8 but the body confirms W9 is included. Week 9 CAPM and WACC questions are confirmed present in the file on inspection.
-
----
-
-## Recommendations
-- No blocking issues. The app is ready for Netlify deployment of these new questions.
-- Consider adding true/false questions for Weeks 3–5 if exam preparation scope requires them.
-- Monitor Netlify deploy for this commit to confirm the 12 new questions render correctly in production.
+`CLAUDE.md` lists the exam date as **Tuesday 5 May 2026**. Today's date is
+**30 June 2026** — almost two months after the exam. This automated daily routine
+has kept running and committing changes well past the exam date. Worth confirming
+whether this routine should still be active.
