@@ -1,69 +1,54 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-06-29
+**Date:** 2026-06-30
 **Tested by:** Automated QA Agent
 
-## Overall Status: PASS
+## Overall Status: PARTIAL — fix exists but is stuck in an unmerged draft PR, not on `main`
 
-All required features are present. The most recent commit added 12 practice exam questions from `practice-questions.md` as intended, bringing the total to 178 questions. The redesign was completed in earlier commits and remains intact. JS syntax is valid. Netlify functions are unchanged.
+## Important note before the checklist
 
----
+No new commit landed on `main` since yesterday's QA report (`c3ed58d`, 2026-06-29 16:11 UTC). The "redesign agent" that was supposed to run before this QA pass did produce work, but it sits in **PR #6 — "Fix duplicate practice-exam questions in QUESTIONS array"** (branch `fix/duplicate-practice-questions`), opened today at 2026-06-30T15:09 UTC and still **open/draft, unmerged**. Because it's unmerged, `main` — and therefore the live Netlify deployment — still contains the bug PR #6 was meant to fix.
+
+This is a recurring pattern in the repo history: PRs #1, #2, #3, #4, #5, and now #6 have all attempted to fix the same duplicate-question issue. Only #3 and #4 were ever merged, and the duplication regressed afterward (most recently via commit `df29682`, "Add 12 practice exam questions", which **yesterday's QA report wrongly marked as PASS** — see Issues below). Someone needs to merge PR #6 or land an equivalent fix directly on `main`; repeatedly fixing-and-not-merging produces no benefit for students.
+
+All checks below were run against current `main` HEAD (`c3ed58d`), since that's what's actually deployed via Netlify.
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `df29682` — "Add 12 practice exam questions from practice-questions.md" (2026-06-29 15:09 UTC) |
-| JS syntax valid | ✅ | `node --check` exits 0; browser-only `localStorage` error is a runtime artefact, not a syntax error |
-| 118+ questions intact | ✅ | **178 questions** in QUESTIONS array (lines 3057–4713), up from 166 yesterday |
-| Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, Inter font; full design-system CSS variables present |
-| Dark mode toggle | ✅ | `toggleDarkMode()` + `#darkModeBtn` with 🌙/☀️; applies `.dark` class to `<html>` |
-| Multi-week selection | ✅ | `homeState.weeks[]` + `selectWeekChip()` allow toggling individual weeks; "All Weeks" chip selects all |
-| Learn mode | ✅ | `learnMode` / `#learn` screen present; 11 references in source |
-| I'm Confused button | ✅ | `😕 I'm Confused` button (line 5357) with local fallback maps + AI via `showHintAI()` |
-| Hint 1 / Hint 2 | ✅ | 3-level hint system (hint → hint2 → Ask AI); 231 hint-related matches |
-| Multi-step math input | ✅ | `addStep` / `working-steps` / `step-row` present (23 matches) |
-| Final Answer field | ✅ | `finalAnswer` found 13× in source |
-| Notes overlay present | ✅ | `notes-overlay` + `notesOverlay` found; week tabs W2–W10 populated |
-| Formula overlay present | ✅ | `formula-overlay` + `formulaOverlay` found; CVP/TVM/NPV/Valuation/WACC sections |
-| Netlify functions unchanged | ✅ | 0 lines of diff on `netlify/functions/`; `mark.js` and `explain.js` untouched |
-| File size increased | ✅ | **7,133 lines** (original: ~1,458 lines; 389% increase) |
-| HTML structure valid | ✅ | `<!DOCTYPE html>` head, one inline `<script>` block, closes with `</html>` |
-
----
-
-## Question Type Breakdown (main QUESTIONS array, lines 3057–4713)
-| Type | Count |
-|------|-------|
-| `mcq` | 42 |
-| `multipart` | 42 |
-| `numerical` | 53 |
-| `sa` | 58 |
-| `tf` | 0 |
-| **Top-level entries** | **178** |
-
-*Note: `type:` matches within the array exceed 178 because some multipart sub-parts also carry internal `type` references — the top-level entry count (178) is definitive.*
-
----
-
-## New Questions Added Today (commit `df29682`, +187 lines)
-All 12 practice exam questions from `practice-questions.md` confirmed present:
-- **Week 5 (TVM):** APR/EAR/FV multipart, solve for r, deferred perpetuity, mortgage payment
-- **Week 7 (Capital Budgeting):** NPV declining perpetuity (McDonald's), EAA (AT&T bus models), NPV/IRR/PI/Payback 7-part multipart
-- **Week 8 (Valuation):** Bond pricing semi-annual, multi-stage dividend growth (Hush Puppies), Gordon Growth Model
-- **Week 9 (WACC):** CAPM multi-company 5-part, WACC with varying D/E ratios
-
----
+| New commit exists | ❌ | Last commit on `main` is yesterday's own QA report (`c3ed58d`). The intended fix is in unmerged draft PR #6, not on `main`. |
+| JS syntax valid | ✅ | Extracted inline `<script>` (330,946 chars) passes `node --check` with no errors. |
+| 118 questions intact | ❌ | `grep -c "week:[0-9]"` = **218**, not 118 — and more importantly, contains **confirmed duplicate entries** (see Issues). |
+| Light mode CSS | ✅ | `--bg`, `--surface`, light color tokens present. |
+| Dark mode toggle | ✅ | `darkMode` state + toggle UI present. |
+| Multi-week selection | ✅ | `selectWeekChip`, `homeState.weeks` present. |
+| Learn mode | ✅ | `showLearn`, learn-mode state/UI present. |
+| I'm Confused button | ✅ | "Confused" handler present (local-fallback + AI per PR #5). |
+| Hint 1 / Hint 2 | ✅ | `hint`/`hint2` fields used extensively (233 matches), wired into UI flow. |
+| Multi-step math input | ✅ | `addStep`/working-steps UI present. |
+| Final Answer field | ✅ | `finalAnswer`/"Final Answer" present. |
+| Notes overlay present | ✅ | `notes-overlay` present with per-week content. |
+| Formula overlay present | ✅ | `formula-overlay` present with per-topic formulas. |
+| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` is empty — `mark.js`/`explain.js` untouched. |
+| File size increased | ✅ | `index.html` is **7,133 lines** (up from the original 1,458). One inline `<script>` block plus two external CDN `<script src>` tags (jQuery, MathQuill). |
 
 ## Issues Found
 
-### Minor — No true/false (`tf`) questions
-`CLAUDE.md` lists `tf` as a supported question type and rendering logic handles it, but zero `tf` questions exist in QUESTIONS. Not a blocker.
+1. **Duplicate practice-exam questions on `main` (confirmed, unresolved).** The QUESTIONS array contains at least 3 verbatim-duplicate question/scenario pairs, each appearing once in the original integrated block and again under the later `// ── PRACTICE EXAM QUESTIONS (from practice-questions.md) ──` section (added by commit `df29682`):
+   - McDonald's NPV / declining perpetuity (W7)
+   - AT&T EAA / bus-model comparison (W7)
+   - Hush Puppies multi-stage dividend growth (W8)
 
-### Minor — Commit message summary omits Week 9
-The commit message subject lists W5/W7/W8 but the body confirms W9 is included. Week 9 CAPM and WACC questions are confirmed present in the file on inspection.
+   A student doing a Week 7 or Week 8 quiz can be served the same question twice in one session. **PR #6 fixes exactly this** but has not been merged.
 
----
+2. **Yesterday's QA report (2026-06-29) was a false positive.** It marked the app PASS with "178 questions" and did not catch this duplication, even though the duplicating commit (`df29682`) was the one being reviewed. PR #6's own description independently confirms this same finding ("previous automated QA reports had been wrongly marking as PASS").
+
+3. **Fix work keeps landing in unmerged draft PRs instead of `main`.** This is the sixth PR attempting to fix the same root issue; only 2 of 6 were ever merged, and the problem regressed afterward. Today's fix (PR #6) provides no benefit to students until merged.
+
+4. **Question count diverges from the spec in CLAUDE.md** (118 expected vs. 218 actual top-level entries) — largely explained by legitimate scope growth (many practice-exam-question PRs since the spec was written), but the duplication above means the effective unique count is lower than 218.
 
 ## Recommendations
-- No blocking issues. The app is ready for Netlify deployment of these new questions.
-- Consider adding true/false questions for Weeks 3–5 if exam preparation scope requires them.
-- Monitor Netlify deploy for this commit to confirm the 12 new questions render correctly in production.
+
+1. **Merge PR #6** (or an equivalent fix) into `main` so the duplicate-question fix actually reaches production via Netlify. Until that happens, every subsequent QA pass will keep finding the same bug.
+2. After merging, re-run this QA pass to confirm the duplicate count is 0 and capture an accurate unique-question total.
+3. Add an automated duplicate-detection check (comparing `question`/`scenario` text across all QUESTIONS entries) so regressions like `df29682` are caught before merge, not after.
+4. Clarify whether 218 questions (vs. 118 in CLAUDE.md) is intentional scope growth; if so, update CLAUDE.md so future QA passes use the correct baseline.
