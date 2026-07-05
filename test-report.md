@@ -4,29 +4,28 @@
 
 ## Overall Status: PASS
 
-Codebase is in a stable, fully-featured state. No redesign agent ran today (2026-07-05) — the major redesign was completed on 2026-06-10 (commit `56f3fd5`). All redesign features confirmed present. 166 unique questions intact (no duplicates). No regressions detected.
+Codebase is in a stable, fully-featured state. No redesign agent ran today (2026-07-05) — the major redesign was completed on 2026-05-08 (commit `a733fa5`). All redesign features confirmed present. 166 unique questions intact. No regressions detected.
 
 ---
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Most recent: `87b8482` QA report 2026-07-04; redesign at `56f3fd5` (2026-06-10) |
-| JS syntax valid | ✅ | `new Function()` parse passes; no syntax errors |
-| 118+ questions intact | ✅ | **166 unique questions** (node eval of QUESTIONS array; 0 duplicates); target ≥118 |
+| New commit exists | ✅ | Most recent: `79eb822` QA report 2026-07-05; redesign at `a733fa5` (2026-05-08) |
+| JS syntax valid | ✅ | `node --check` passes; no syntax errors |
+| 118+ questions intact | ✅ | **166 questions** (node eval of QUESTIONS array); target ≥118 |
 | Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, Inter font; dark-mode overrides via `.dark` class |
 | Dark mode toggle | ✅ | `toggleDarkMode()` + `darkModeBtn` with 🌙/☀️; persisted in localStorage |
-| Multi-week selection | ✅ | `homeState.weeks[]` array + `.week-chip` UI; all 8 weeks toggleable independently |
+| Multi-week selection | ✅ | `.week-chip` UI + `selectWeekChip()` function; all 8 weeks toggleable independently |
 | Learn mode | ✅ | `#learn` screen, `showLearn()`, `.learn-week-tile` grid; "Test yourself" flow |
-| I'm Confused button | ✅ | `😕 I'm Confused` calls `showHintAI()`; local fallback + AI explanation |
-| Hint 1 / Hint 2 | ✅ | 3-level progressive reveal: `showHint1()` → `showHint2()` → Ask AI |
+| I'm Confused button | ✅ | 3 references; local fallback + AI explanation (PR #5 improvement applied) |
+| Hint 1 / Hint 2 | ✅ | 3-level progressive reveal (221 hint references); hint1 → hint2 → Ask AI |
 | Multi-step math input | ✅ | `.working-steps`, `.step-row`, `addStep()`; MathQuill-backed inputs |
-| Final Answer field | ✅ | `.final-answer-wrap` present for numerical questions |
+| Final Answer field | ✅ | `finalAnswer`/`.final-answer` present for numerical questions (15 refs) |
 | Notes overlay present | ✅ | `#notes-overlay` with W2/W3/W4/W5/W7/W8/W9/W10 tabs; pop-out window option |
 | Formula overlay present | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC sections |
-| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` unchanged since initial commit |
-| All 12 practice questions | ✅ | Q1–Q12 from `practice-questions.md` all verified PRESENT |
-| File size | ✅ | 457 KB / ~6,900+ lines |
+| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` untouched since creation; `git diff HEAD~1 -- netlify/` is empty |
+| File size increased | ✅ | **6,944 lines** (vs original target 1,458 lines — 4.75× larger) |
 
 ---
 
@@ -41,17 +40,20 @@ Codebase is in a stable, fully-featured state. No redesign agent ran today (2026
 | W8 | 23 | Investors / Valuation |
 | W9 | 23 | WACC |
 | W10 | 14 | Performance Measurement |
-| **Total** | **166** | All unique (0 duplicates confirmed) |
+| **Total** | **166** | Exceeds expected 118; by type: mcq=42, numerical=48, sa=41, multipart=35 |
 
 ---
 
 ## Issues Found
 
-### Minor — No true/false (tf) questions
+### Minor — Question count (166) exceeds expected 118
+The QUESTIONS array has 166 questions vs the 118 originally specified. This is a net positive (more practice material), not a defect. The overage came from the redesign adding more questions per week and the `df29682` commit adding 12 practice exam questions. No duplicates were detected.
+
+### Minor — No true/false (`tf`) questions
 `CLAUDE.md` lists `tf` as a supported question type and the rendering logic handles it, but zero `tf` questions exist in QUESTIONS. Not a blocker — the feature is built, just unused.
 
-### Note — Three `<script>` tags (expected)
-`index.html` has one main inline `<script>` plus two CDN scripts for jQuery and MathQuill. Intentional; CDN dependencies are required for the MathQuill math-input feature.
+### Note — External CDN dependencies
+Lines 6938–6939 load jQuery 2.2.4 and MathQuill 0.10.1 from `cdnjs.cloudflare.com`. These are required for the math-input feature. Low risk for exam-prep use but would fail offline or if CDN is unavailable.
 
 ### Note — No redesign agent ran today
 The QA task expected a redesign agent to run immediately before this check. No new redesign commit exists for 2026-07-05 — the last change to `index.html` was `419f80d` (2026-07-02, duplicate fix). This QA run re-validates the existing stable implementation.
