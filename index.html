@@ -4521,6 +4521,141 @@ const QUESTIONS=[
   hint:'Think about THREE types of failure from financial-only measurement: timing (lagging nature), incentive effects (short-termism), and what financial measures structurally cannot capture (relationships, brand, innovation).',
   hint2:'1) Lagging → need leading non-financial indicators. 2) Short-termism → need to measure future capability investments (training, R&D). 3) Can\'t capture brand/customer assets → need NPS, retention, market share. The BSC addresses all three.'},
 
+// ── PRACTICE EXAM QUESTIONS (University-provided) ──
+
+// WEEK 5 — Q1: APR/EAR/FV (multipart)
+{week:5,type:'multipart',
+  scenario:'A bank account offers a 16.0% APR with monthly compounding.',
+  parts:[
+    {label:'a',question:'What is the per period interest rate? (Round to two decimal places, % per month)',keywords:['1.33%','1.33','16/12','APR','12'],modelAnswer:'Periodic rate = APR / m = 16% / 12 = 1.33% per month'},
+    {label:'b',question:'How much would a $700 investment be worth after 1 year? (Round to the nearest cent)',keywords:['820.59','$820.59','1.17227','1.013333'],modelAnswer:'FV = $700 × (1 + 0.16/12)^12 = $700 × (1.013333)^12 = $700 × 1.17227 = $820.59'}
+  ],
+  hint:'Part (a): divide APR by number of periods per year. Part (b): FV = PV × (1 + periodic rate)^total periods.',
+  hint2:'Periodic rate = 16% / 12 = 1.3333% per month. FV = $700 × (1.013333)^12 = $700 × 1.17227 = $820.59.',
+  formulas:['Periodic rate = APR ÷ m','FV = PV × (1 + r)ⁿ','EAR = (1 + APR/m)^m − 1']},
+
+// WEEK 5 — Q2: Solving for interest rate (numerical)
+{week:5,type:'numerical',
+  question:'A saving account of $14,000 will be worth $30,000 in 10 years. What is the per year interest rate of the saving account? (Give answer correct to 2 decimal places, %)',
+  keywords:['7.92%','7.92','2.14286','0.1','1.07918'],
+  modelAnswer:'r = (FV/PV)^(1/n) − 1\nr = (30,000/14,000)^(1/10) − 1\nr = (2.14286)^(0.1) − 1\nr = 1.07918 − 1\nr = 7.92% per year',
+  hint:'Use the lump-sum FV formula rearranged: r = (FV/PV)^(1/n) − 1.',
+  hint2:'r = (30,000 / 14,000)^(1/10) − 1 = (2.14286)^0.1 − 1 = 1.07918 − 1 = 0.0792 = 7.92%.',
+  formulas:['r = (FV/PV)^(1/n) − 1','FV = PV × (1+r)^n']},
+
+// WEEK 5 — Q3: Deferred perpetuity (numerical)
+{week:5,type:'numerical',
+  question:'A perpetuity makes its first annual payment of $128 in 22 years. What is its present value today at an annual discount rate of 5.0%? (Round to the nearest cent.)',
+  keywords:['919.07','$919.07','2560','2,560','2.7856','21'],
+  modelAnswer:'Step 1: PV of perpetuity at year 21 (one period before first payment at year 22) = C / r = $128 / 0.05 = $2,560\nStep 2: Discount back 21 years to today: PV = $2,560 / (1.05)^21 = $2,560 / 2.7856 = $919.07',
+  hint:'For a deferred perpetuity, first find the PV one period before the first payment, then discount back to today.',
+  hint2:'First payment is at year 22, so PV is priced at year 21: PV₂₁ = $128/0.05 = $2,560. Then PV₀ = $2,560/(1.05)^21 = $919.07.',
+  formulas:['PV(perpetuity) = C ÷ r','PV = FV ÷ (1+r)ⁿ']},
+
+// WEEK 5 — Q4: Mortgage/annuity payment (numerical)
+{week:5,type:'numerical',
+  question:'You are thinking of purchasing a house. The house costs $300,000. You have $40,000 in cash for a down payment. The bank is offering a 25-year mortgage requiring annual payments at an interest rate of 4.0% per year. What will your annual payment be if you sign up for this mortgage? (Round to the nearest dollar.)',
+  keywords:['16642','$16,642','16,642','260000','0.6249','2.6658'],
+  modelAnswer:'Loan = $300,000 − $40,000 = $260,000\nRearrange PV annuity formula: C = PV × r / [1 − (1+r)^−n]\nC = $260,000 × 0.04 / [1 − (1.04)^−25]\n(1.04)^25 = 2.6658, so (1.04)^−25 = 0.3751\nC = $10,400 / [1 − 0.3751] = $10,400 / 0.6249 = $16,642 per year',
+  hint:'Subtract the down payment from the house price to get the loan amount. Then rearrange the PV annuity formula to solve for the payment C.',
+  hint2:'Loan = $260,000. C = PV × r / [1 − (1+r)^−n] = $260,000 × 0.04 / [1 − (1.04)^−25] = $10,400 / 0.6249 = $16,642.',
+  formulas:['C = PV × r ÷ [1 − (1+r)⁻ⁿ]','PV annuity = C × [1−(1+r)⁻ⁿ] ÷ r']},
+
+// WEEK 7 — Q5: NPV with declining growing perpetuity (multipart)
+{week:7,type:'multipart',
+  scenario:'The Sydney franchisee of McDonald\'s Fast Food restaurants is replacing kitchen appliances across all locations due to too many complaints about soggy burger patties. This requires an upfront investment of $234,828 in year 0. There will be no positive cash flows in year 1. But starting in year 2, there will be an increase in operating cash flow of $51,000 per restaurant, which then gradually declines by 5.5% each subsequent year forever. Cost of capital is 9.5%.',
+  parts:[
+    {label:'a',question:'What is the NPV of the upgrade per location? (Round to the nearest dollar.)',keywords:['75674','$75,674','75,674','310502','310,502','340000','340,000'],modelAnswer:'This is a growing perpetuity (g = −5.5% = −0.055) starting at year 2.\nPV at year 1 = C₁/(r−g) = $51,000/(0.095−(−0.055)) = $51,000/0.15 = $340,000\nPV at year 0 = $340,000/1.095 = $310,502\nNPV = −$234,828 + $310,502 = $75,674'},
+    {label:'b',type:'sa',question:'Since NPV > 0 at 9.5%, the IRR of the project must be less than 9.5%. True or False? Explain.',keywords:['FALSE','false','greater','IRR','NPV','above','exceeds','9.5'],modelAnswer:'FALSE — since NPV > 0 at a 9.5% discount rate, the IRR must be GREATER than 9.5%. The IRR is the discount rate at which NPV = 0. A positive NPV at 9.5% means the actual return exceeds 9.5%.'},
+    {label:'c',question:'Keep the cost of capital at 9.5%. What rate of decline would make this project exactly break even? (Round to 2 decimal places; enter a negative growth rate with a minus sign.)',keywords:['−10.34%','-10.34%','−10.34','-10.34','0.19836','257137'],modelAnswer:'Set NPV = 0:\n$234,828 = $51,000 / ((0.095 − g) × 1.095)\n(0.095 − g) = $51,000 / ($234,828 × 1.095) = $51,000 / $257,137 = 0.19836\ng = 0.095 − 0.19836 = −0.10336 = −10.34%'}
+  ],
+  hint:'Part (a): growing perpetuity with g = −5.5%. First payment is at year 2, so price the perpetuity at year 1, then discount to year 0. Part (b): positive NPV means IRR exceeds the discount rate. Part (c): set NPV = 0 and solve for g.',
+  hint2:'PV(perp at yr1) = $51,000/(0.095+0.055) = $340,000. PV₀ = $340,000/1.095 = $310,502. NPV = $75,674. For (c): solve 0.095−g = $51,000/($234,828×1.095) → g = −10.34%.',
+  formulas:['PV(growing perp) = C₁ ÷ (r − g)','NPV = CF₀ + PV(future CFs)','Set NPV=0 to find breakeven g']},
+
+// WEEK 7 — Q6: EAA / Equivalent Annual Annuity (multipart)
+{week:7,type:'multipart',
+  scenario:'AT&T is choosing between two bus models. Discount rate is 10.0%. (Dollar amounts in thousands.)\nLong Life model: Year 0: −$208.7k; Years 1–7: −$3.8k per year\nShort Life model: Year 0: −$100.8k; Years 1–4: −$1.7k per year\nThe company plans to continue with one of the two models for the foreseeable future.',
+  parts:[
+    {label:'a',question:'What is the annual cost of the Long Life model as an equivalent annual annuity? What is the annual cost of the Short Life model as an equivalent annual annuity? (Round each to nearest dollar.)',keywords:['46672','$46,672','46,672','33498','$33,498','33,498','227200','106190','4.8684','3.1699'],modelAnswer:'NPV(Long Life) = −208.7 − 3.8 × [1−(1.10)^−7]/0.10 = −208.7 − 3.8 × 4.8684 = −208.7 − 18.50 = −$227.20k\nEAA(Long) = −227.20 × 0.10 / [1−(1.10)^−7] = −22.72 / 0.4868 = −$46,672/yr\n\nNPV(Short Life) = −100.8 − 1.7 × [1−(1.10)^−4]/0.10 = −100.8 − 1.7 × 3.1699 = −100.8 − 5.39 = −$106.19k\nEAA(Short) = −106.19 × 0.10 / [1−(1.10)^−4] = −10.619 / 0.3170 = −$33,498/yr'},
+    {label:'b',type:'sa',question:'Based on the costs, which bus model should AT&T choose? (Choose: Short Life because its EAA of costs is smaller; Long Life because it lasts longer; Short Life because NPV of costs is smaller; Long Life because its EAA of costs is smaller.)',keywords:['Short Life','EAA','33498','33,498','smaller'],modelAnswer:'AT&T should choose the Short Life model because its equivalent annual annuity of costs is smaller (−$33,498 vs −$46,672). The EAA accounts for the different project lives, making it a valid like-for-like comparison.'}
+  ],
+  hint:'EAA = NPV × r / [1−(1+r)^−n]. Because the two models have different lives (7 vs 4 years), compare using EAA — not raw NPV. Choose the model with the LESS negative EAA of costs.',
+  hint2:'NPV(Long) = −$227.20k → EAA = −$46,672. NPV(Short) = −$106.19k → EAA = −$33,498. Short Life has lower annual cost, so AT&T should choose Short Life.',
+  formulas:['EAA = NPV × r ÷ [1−(1+r)⁻ⁿ]','NPV(cost) = −Initial − Annual Cost × Annuity Factor']},
+
+// WEEK 7 — Q7: NPV/IRR/PI/Payback — mutually exclusive (multipart)
+{week:7,type:'multipart',
+  scenario:'A firm considers the following 2 mutually exclusive projects (cash flows in $) and wants a payback period of 2 years or less. Discount rate = 10.3%. Note: PI = PV(future Cash Flows) / Cost.\n\nYear 0: A = −52, B = −50\nYear 1: A = 24, B = 23\nYear 2: A = 25, B = 32\nYear 3: A = 68, B = 35\nYear 4: A = 88, B = 38',
+  parts:[
+    {label:'a',question:'Payback period of Project A? Payback period of Project B? (Round to 2 decimal places.)',keywords:['2.04','1.84','Project A','Project B'],modelAnswer:'Project A: After Y1: −52+24=−28; After Y2: −28+25=−3; Need 3/68 of year 3 → Payback = 2 + 3/68 = 2.04 years\nProject B: After Y1: −50+23=−27; After Y2: −27+32=+5; Need 27/32 of year 2 → Payback = 1 + 27/32 = 1.84 years'},
+    {label:'b',question:'Profitability index of Project A? Profitability index of Project B? (Round to 2 decimal places.)',keywords:['2.93','1.98','PI','152.44','98.90'],modelAnswer:'Discount factors at 10.3%: Y1=1/1.103, Y2=1/1.2166, Y3=1/1.3419, Y4=1/1.4801\nPV(A) = 24/1.103 + 25/1.2166 + 68/1.3419 + 88/1.4801 = 21.76+20.55+50.67+59.46 = $152.44\nPI(A) = 152.44/52 = 2.93\nPV(B) = 23/1.103 + 32/1.2166 + 35/1.3419 + 38/1.4801 = 20.85+26.30+26.08+25.67 = $98.90\nPI(B) = 98.90/50 = 1.98'},
+    {label:'c',question:'NPV of Project A? NPV of Project B?',keywords:['100.44','48.90','$100.44','$48.90'],modelAnswer:'NPV(A) = $152.44 − $52 = $100.44\nNPV(B) = $98.90 − $50 = $48.90'},
+    {label:'d',question:'IRR of Project A (approximately)? IRR of Project B (approximately)?',keywords:['57%','47%','57','47','IRR'],modelAnswer:'IRR(A) ≈ 57%; IRR(B) ≈ 47%. Both are well above the 10.3% hurdle rate. IRR requires a financial calculator or trial-and-error.'},
+    {label:'e',type:'sa',question:'According to the payback rule, which project should be chosen?',keywords:['Project B','1.84','2 year','payback','exceeds'],modelAnswer:'Project B — its payback period of 1.84 years is within the 2-year limit. Project A\'s payback (2.04 years) exceeds the 2-year cutoff.'},
+    {label:'f',type:'sa',question:'According to the profitability index, which project should be chosen?',keywords:['Project A','2.93','PI','profitability'],modelAnswer:'Project A — it has the higher profitability index (2.93 vs 1.98).'},
+    {label:'g',type:'sa',question:'Which project would you recommend the firm actually choose? Explain.',keywords:['Project A','NPV','100.44','value','maximise'],modelAnswer:'Recommend Project A — it has the higher NPV ($100.44 vs $48.90), which maximises firm value. NPV is the preferred criterion for mutually exclusive projects because it measures the absolute dollar value created. The payback rule should be ignored here as it fails to account for cash flows beyond the cutoff and ignores the time value of money.'}
+  ],
+  hint:'Payback: accumulate cash flows until you recover the initial investment. NPV: discount each CF and sum. PI = PV(future CFs)/Cost. For mutually exclusive projects, NPV is the correct decision rule.',
+  hint2:'A payback: 2+3/68=2.04yr. B payback: 1+27/32=1.84yr. PI(A)=152.44/52=2.93. PI(B)=98.90/50=1.98. NPV(A)=$100.44 > NPV(B)=$48.90 → choose A on NPV.',
+  formulas:['PI = PV(future CFs) ÷ |Initial Investment|','NPV = Σ[CFₜ÷(1+r)^t] + CF₀','Payback: cumulate CFs until investment recovered']},
+
+// WEEK 8 — Q8: Bond pricing semi-annual (numerical)
+{week:8,type:'numerical',
+  question:'The yield to maturity of a $1,000 bond with a 7.2% coupon rate, semi-annual coupons, and two years to maturity is 8.2% APR, compounded semi-annually. What must its price be? (Round to the nearest cent.)',
+  keywords:['981.90','$981.90','981.9','36','4.1%','0.041','3.6193','851.61'],
+  modelAnswer:'Semi-annual coupon = 7.2%/2 × $1,000 = $36\nSemi-annual YTM = 8.2%/2 = 4.1% = 0.041\nPeriods n = 2 × 2 = 4\nP = $36 × [1−(1.041)^−4]/0.041 + $1,000/(1.041)^4\n(1.041)^4 = 1.17478, so (1.041)^−4 = 0.85161\nP = $36 × [1−0.85161]/0.041 + $1,000 × 0.85161\nP = $36 × 3.6193 + $851.61\nP = $130.29 + $851.61 = $981.90\n\nSince YTM (8.2%) > coupon rate (7.2%) → discount bond → P < $1,000 ✓',
+  hint:'For semi-annual bonds: halve both the coupon rate and YTM, and double the number of years for the number of periods. Then apply the standard bond pricing formula.',
+  hint2:'Semi-annual coupon = $36. Semi-annual rate = 4.1%. Periods = 4. P = $36 × 3.6193 + $1,000 × 0.85161 = $981.90. Since YTM > coupon → price below par.',
+  formulas:['P = C × [1−(1+r)⁻ⁿ] ÷ r + FV ÷ (1+r)ⁿ','Semi-annual C = (Coupon Rate/2) × Face','Semi-annual r = APR/2, n = years × 2']},
+
+// WEEK 8 — Q9: Multi-stage dividend growth (multipart)
+{week:8,type:'multipart',
+  scenario:'Hush Puppies Ltd. is growing fast. The company earned $1.04 per share in year 0 and reinvested all of it to fund growth opportunities that promise to return 38.0% next year. In a year, management plans to pay out 12.0% and invest the rest for more growth, projected to be 23.0%. They will then raise the payout ratio to 51.0% and keep it there.',
+  parts:[
+    {label:'a',question:'What is the expected dividend per share for year 1? (Round to 4 decimal places.)',keywords:['0.1722','$0.1722','1.4352','0.12'],modelAnswer:'Year 0: EPS₀ = $1.04, retention = 100%, ROI on reinvestment = 38%\nEPS₁ = $1.04 × (1 + 1.00 × 0.38) = $1.04 × 1.38 = $1.4352\nD₁ = EPS₁ × payout₁ = $1.4352 × 0.12 = $0.1722'},
+    {label:'b',question:'What is the expected dividend per share for year 2? (Round to 4 decimal places.)',keywords:['0.8801','$0.8801','1.7257','0.51','0.2024'],modelAnswer:'Year 1: retention = 88%, growth rate into Y2 = 0.88 × 0.23 = 0.2024\nEPS₂ = $1.4352 × (1 + 0.2024) = $1.4352 × 1.2024 = $1.7257\nD₂ = EPS₂ × payout₂ = $1.7257 × 0.51 = $0.8801'}
+  ],
+  hint:'Growth = Retention Ratio × ROI. EPS_next = EPS_current × (1 + growth). Dividend = EPS × Payout Ratio.',
+  hint2:'EPS₁ = $1.04 × (1 + 1.00 × 0.38) = $1.4352; D₁ = $1.4352 × 0.12 = $0.1722. For Y2: retention = 88%, g = 0.88 × 0.23 = 20.24%; EPS₂ = $1.4352 × 1.2024 = $1.7257; D₂ = $1.7257 × 0.51 = $0.8801.',
+  formulas:['g = Retention Ratio × ROI','EPS_next = EPS × (1 + g)','D = EPS × Payout Ratio']},
+
+// WEEK 8 — Q10: Gordon Growth Model (numerical)
+{week:8,type:'numerical',
+  question:'A firm has just paid a dividend of $4.50. The long-term growth rate in earnings going forward will be 3.5% per annum. The firm\'s cost of equity capital is 11.1% per annum and there is no expected change in the dividend payout ratio. What price today would you estimate for the firm\'s shares? (Round to the nearest cent.)',
+  keywords:['61.28','$61.28','4.6575','0.076','0.111','0.035'],
+  modelAnswer:'D₀ = $4.50 (just paid), g = 3.5%, r = 11.1%\nD₁ = D₀ × (1+g) = $4.50 × 1.035 = $4.6575\nP₀ = D₁/(r−g) = $4.6575/(0.111−0.035) = $4.6575/0.076 = $61.28',
+  hint:'Gordon Growth Model: P₀ = D₁/(r−g). Since the dividend was JUST paid (D₀), you must grow it by one period: D₁ = D₀ × (1+g).',
+  hint2:'D₁ = $4.50 × 1.035 = $4.6575. P₀ = $4.6575 / (0.111 − 0.035) = $4.6575 / 0.076 = $61.28.',
+  formulas:['P₀ = D₁ ÷ (r − g)','D₁ = D₀ × (1 + g)','g = Retention Ratio × ROI']},
+
+// WEEK 9 — Q11: CAPM multi-company analysis (multipart)
+{week:9,type:'multipart',
+  scenario:'The risk-free rate is currently 4.30%. You have the following information:\nA: Round Corp — Expected Return 7.50%, Beta 0.34\nB: Lemon LLC — Expected Return 14.36%, Beta unknown\nC: Beach Living Inc — Expected Return unknown, Beta 1.43\nD: Tasman Devils Corp — Expected Return 7.88%, Beta 0.86\nE: Allied Metal Traders — Expected Return 19.72%, Beta 1.46',
+  parts:[
+    {label:'a',question:'You know Round Corp is correctly priced. What does this tell you about the market return investors expect per year? (%)',keywords:['13.71%','13.71','9.412%','9.412','9.41','MRP'],modelAnswer:'CAPM using Round Corp: 7.50% = 4.30% + 0.34 × (E[RM]−4.30%)\n3.20% = 0.34 × MRP → MRP = 9.412%\nE[RM] = 4.30% + 9.412% = 13.71%'},
+    {label:'b',question:'What beta for Lemon LLC would make investor expectations consistent with your findings in (a)?',keywords:['1.069','1.07','10.06','9.412'],modelAnswer:'14.36% = 4.30% + β × 9.412%\n10.06% = β × 9.412%\nβ = 10.06/9.412 = 1.069'},
+    {label:'c',question:'Given the expected market return in (a), what is the correct expected return for Beach Living Inc? (%)',keywords:['17.76%','17.76','13.46','1.43','9.412'],modelAnswer:'E[R] = 4.30% + 1.43 × 9.412% = 4.30% + 13.46% = 17.76%'},
+    {label:'d',type:'sa',question:'Given the expected market return in (a), are shares of Tasman Devils Corp overvalued, undervalued, or fairly valued? Explain.',keywords:['overvalued','12.39%','12.39','7.88','below','CAPM'],modelAnswer:'CAPM required: 4.30% + 0.86 × 9.412% = 4.30% + 8.09% = 12.39%\nActual expected return: 7.88% < 12.39% required\nThe actual return is BELOW what is required for the risk level → Tasman Devils Corp is OVERVALUED (price is too high, so the return is too low).'},
+    {label:'e',question:'Assume the market risk premium remains the same. What risk-free rate would be needed for Allied Metal Traders to have correct return expectations? (%)',keywords:['5.98%','5.98','13.74','19.72','1.46'],modelAnswer:'19.72% = Rf + 1.46 × 9.412%\n19.72% = Rf + 13.74%\nRf = 19.72% − 13.74% = 5.98%'}
+  ],
+  hint:'CAPM: E[R] = Rf + β × MRP. Part (a): solve for MRP using Round Corp. Then apply to all other parts using MRP = 9.412%.',
+  hint2:'MRP = (7.50%−4.30%)/0.34 = 9.412%. E[RM] = 13.71%. For overvaluation: actual return < CAPM required → overvalued. For (e): rearrange CAPM to solve for Rf.',
+  formulas:['E[Rᵢ] = Rf + βᵢ × MRP','MRP = E[RM] − Rf','Overvalued: Actual return < Required → price too high']},
+
+// WEEK 9 — Q12: WACC with varying D/E ratios (multipart)
+{week:9,type:'multipart',
+  scenario:'The Sandwich With A Pretty Big Pickle On It Corporation has a cost of equity of 14.30% and a cost of debt of 6.20%. The corporate tax rate is 30.00%. Find the after-tax WACC if the firm\'s target debt-to-equity ratio is:',
+  parts:[
+    {label:'a',question:'D/E ratio = 0.25',keywords:['12.31%','12.31','0.20','0.80','4.34'],modelAnswer:'After-tax cost of debt = 6.20% × (1−0.30) = 4.34%\nD/E=0.25: wD = 0.25/(1+0.25) = 0.20, wE = 1/(1+0.25) = 0.80\nWACC = 0.80×14.30% + 0.20×4.34% = 11.44% + 0.87% = 12.31%'},
+    {label:'b',question:'D/E ratio = 0.50',keywords:['10.99%','10.99','0.333','0.667'],modelAnswer:'D/E=0.50: wD = 0.50/1.50 = 0.333, wE = 1/1.50 = 0.667\nWACC = 0.667×14.30% + 0.333×4.34% = 9.54% + 1.45% = 10.99%'},
+    {label:'c',question:'D/E ratio = 1.00',keywords:['9.32%','9.32','0.50','0.50'],modelAnswer:'D/E=1.00: wD = 1/(1+1) = 0.50, wE = 0.50\nWACC = 0.50×14.30% + 0.50×4.34% = 7.15% + 2.17% = 9.32%'},
+    {label:'d',question:'D/E ratio = 1.50',keywords:['8.32%','8.32','0.60','0.40'],modelAnswer:'D/E=1.50: wD = 1.50/(1+1.50) = 0.60, wE = 0.40\nWACC = 0.40×14.30% + 0.60×4.34% = 5.72% + 2.60% = 8.32%'}
+  ],
+  hint:'Convert D/E ratio to weights: wD = (D/E) / (1 + D/E), wE = 1 / (1 + D/E). After-tax cost of debt = RD × (1 − TC). WACC = wE×RE + wD×RD×(1−TC).',
+  hint2:'After-tax RD = 6.20% × 0.70 = 4.34%. For each D/E: wD = D/E÷(1+D/E), wE = 1÷(1+D/E). Notice WACC falls as leverage increases (because cheap after-tax debt replaces expensive equity).',
+  formulas:['wD = (D/E) ÷ (1 + D/E)','wE = 1 ÷ (1 + D/E)','WACC = wE×RE + wD×RD×(1−TC)','After-tax RD = RD × (1 − TC)']},
+
 ];
 
 
