@@ -4,32 +4,32 @@
 
 ## Overall Status: PASS
 
-All required features confirmed present. JS syntax clean. 166 top-level questions in QUESTIONS array (exceeds 118 + 12 target). Keyword bug in W7 Alpha/Beta NPV question fixed (was `13,294`, now corrected to `15,479`/`15,480`).
+All required features confirmed present. JS syntax clean. 166 top-level questions in QUESTIONS array (well above the 118 + 12 target). Most recent non-QA commit: `a1307d5` — Fix W7 NPV keyword bug (2026-07-08). Redesign was completed at `56f3fd5` and subsequent commits.
 
 ---
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Last non-QA commit: `419f80d` "Fix duplicate practice-exam questions" (2026-07-02); redesign at `56f3fd5` (2026-06-10) |
-| JS syntax valid | ✅ | `node --check` on extracted script — no structural errors (false-positive on `<\/script>` in string literals) |
-| 118+ questions intact | ✅ | **166 top-level questions** (bracket-balanced parse); W2=15, W3=23, W4=15, W5=30, W7=23, W8=23, W9=23, W10=14 |
+| New commit exists | ✅ | `a1307d5` "Fix W7 NPV keyword bug" (2026-07-08); redesign at `56f3fd5` |
+| JS syntax valid | ✅ | `node -e new Function(script)` — no errors; `<\/script>` in string is a false positive |
+| ≥118 questions intact | ✅ | **166 top-level questions** (lines 3057–4524); W2=15, W3=23, W4=15, W5=30, W7=23, W8=23, W9=23, W10=14 |
 | Light mode CSS | ✅ | `:root` has `--bg:#F8FAFC`, `--surface:#FFFFFF`, `--text:#0F172A`; Inter font via Google Fonts |
 | Dark mode toggle | ✅ | `darkModeBtn` (🌙/☀️) calls `toggleDarkMode()`; applies `.dark` on `<html>`; persisted in localStorage |
-| Multi-week selection | ✅ | `.week-chip` grid UI; `selectWeekChip()` toggles `homeState.weeks[]` array |
-| Learn mode | ✅ | `#learn` screen (line 1007); `showLearn()` function; "Test yourself" button → quiz flow |
+| Multi-week selection | ✅ | `.week-chip` grid + `selectWeekChip()` toggles `homeState.weeks[]`; supports multi-select and "All" toggle |
+| Learn mode | ✅ | `#learn` screen; `quizState.learnMode`; "📚 Learn Mode" tab; "Test yourself" button |
 | I'm Confused button | ✅ | `😕 I'm Confused` calls `showHintAI()` → `/explain` Netlify function + local fallback |
-| Hint 1 / Hint 2 | ✅ | `hintBtn1`/`hintBtn2` sequential reveal; 3-level progressive: hint→hint2→AI |
-| Multi-step math input | ✅ | `.working-steps`, `.step-row`, `addStep()`, `+ Add Step` button; MathQuill-backed |
-| Final Answer field | ✅ | `.final-answer-wrap` + `Final Answer` label; used in numerical/multipart questions |
-| Notes overlay present | ✅ | `#notes-overlay`; W2–W10 tab content with pop-out window option |
-| Formula overlay present | ✅ | `#formula-overlay`; tabs: W3 CVP / W5 TVM / W7 NPV / W8 Valuation / W9 WACC |
-| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` unchanged since initial build commit `c44f0ba` |
-| File size | ✅ | **6,944 lines** vs original 1,458 — 4.75× growth |
+| Hint 1 / Hint 2 | ✅ | `hintBtn1`/`hintBtn2` with sequential reveal; `showHint1()`→`showHint2()`→AI 3-level flow |
+| Multi-step math input | ✅ | `.working-steps`, `.step-row`, `addStep()`, `addStepAfter()`, `+ Add Step` button; MathQuill-backed |
+| Final Answer field | ✅ | `.final-answer-wrap` + `.final-answer-label` + `.final-answer-input`; present in numerical/multipart |
+| Notes overlay present | ✅ | `#notes-overlay` at line 1153; W2–W10 tabs; pop-out window option |
+| Formula overlay present | ✅ | `#formula-overlay` at line 2445; tabs: W3 CVP / W5 TVM / W7 NPV / W8 Valuation / W9 WACC |
+| Netlify functions unchanged | ✅ | `mark.js` (136 lines) and `explain.js` (79 lines) intact; model `claude-haiku-4-5-20251001` confirmed |
+| File size increased | ✅ | **6,944 lines** vs original 1,458 lines — 4.75× growth |
 
 ---
 
-## Question Bank Breakdown (bracket-balanced parse)
+## Question Bank Breakdown
 | Week | Count | Topic |
 |------|-------|-------|
 | W2 | 15 | Market Opportunities |
@@ -40,32 +40,27 @@ All required features confirmed present. JS syntax clean. 166 top-level question
 | W8 | 23 | Investors / Valuation |
 | W9 | 23 | WACC |
 | W10 | 14 | Performance Measurement |
-| **Total** | **166** | Top-level question objects; sub-questions within multipart not separately counted |
+| **Total** | **166** | Top-level question objects |
 
-**Question types (within QUESTIONS array only):**
-MCQ=25, SA=31, Numerical=20, Multipart=12 (at top level); sub-questions within multipart add ~59 further type references visible in global grep.
+**Question types (within QUESTIONS array, lines 3057–4524):**
+`mcq`:42, `numerical`:48, `sa`:58, `multipart`:35, `tf`:0
+(Type count exceeds 166 because multipart sub-parts each carry a `type:` property.)
 
 ---
 
 ## Issues Found
 
-### Fixed — W7 Alpha/Beta NPV keyword error
-The Week 7 multipart "Project Alpha / Project Beta" question had incorrect keywords for Beta's NPV: `['Beta','13,294','13294']`. The correct answer is $15,479/$15,480 (based on discounting $10k, $20k, $30k, $40k at 10%). Fixed to `['Beta','15,479','15479','15480']`. Model answer also cleaned up (removed internal "Wait: / Re-checking" deliberation text).
-
-### Note — Shared question label (not a true duplicate)
-Two different multipart questions both have a part labelled "Calculate NPV for each project." — one for Solar-A/Solar-B, one for Project Alpha/Beta. These are not duplicates: they test the same skill (NPV calculation) in entirely different scenarios. No fix needed.
-
 ### Minor — No true/false (`tf`) questions
-Zero `tf` type questions in QUESTIONS array despite the type being supported by the rendering logic. Not a blocker.
+Zero `type:'tf'` entries in the QUESTIONS array despite `tf` being a supported render type. The original CLAUDE.md lists `tf` as one of the question types. Not a blocker for exam prep but reduces variety.
 
-### Minor — External CDN dependencies
-jQuery 2.2.4 and MathQuill 0.10.1 loaded from `cdnjs.cloudflare.com`. Math input breaks offline or if CDN is unavailable.
+### Note — `grep -c "week:[0-9]" index.html` returns 206, not 118
+The QA checklist expected 118, which was the pre-redesign baseline. The correct figure is 166 unique question objects. The raw file-wide grep inflates the count because `week:` also appears in `WEEKS{}`, `NOTES{}`, and `FORMULA_MAP{}` objects. No defect.
 
-### Note — Exam date has passed
-Primary exam was 5 May 2026. App has served its purpose. No action required.
+### Note — External CDN dependencies
+jQuery 2.2.4 and MathQuill 0.10.1 loaded from `cdnjs.cloudflare.com`. Math input breaks offline or if CDN is unavailable. Low risk for a supervised exam environment.
 
 ---
 
 ## Changes Made This Run
-- Fixed W7 Alpha/Beta NPV keywords (`13294` → `15480`) and cleaned up model answer
-- Updated this QA report
+- Refreshed QA report with findings from 2026-07-08 automated code check
+- No code changes required; all features verified present and intact
