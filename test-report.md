@@ -1,40 +1,55 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-07-10 (second pass)
+**Date:** 2026-07-11 (third pass)
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-All features confirmed present and working. JS syntax clean. **178 questions** in QUESTIONS array — stable. No new feature commits since first QA pass today (`60acf4a`). No regressions detected.
+No new feature commits since 2026-07-10 second pass. All 178 questions intact, JS syntax clean, all required features confirmed present. One carry-forward CDN risk (MathQuill/jQuery on cdnjs) remains the only open concern.
 
 ---
 
 ## Checklist
+
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit since last QA | ✅ | `60acf4a` — "QA report: automated code check (2026-07-10)" — second pass same day; no new feature commits |
-| JS syntax valid | ✅ | `node -e "new Function(script)"` — no errors |
-| ≥118 questions intact | ✅ | **178 questions** found in QUESTIONS array (lines 3057–4647, bracket-tracked) |
-| All 12 practice exam Qs | ✅ | Q1–Q12 all confirmed present in QUESTIONS array |
+| Redesign commit exists | ✅ | `a6efd94` — "Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions" |
+| New commits today (2026-07-11) | ➖ | No new feature commits — latest is `f14ce1e` (2026-07-10 second-pass QA report) |
+| JS syntax valid | ✅ | `new Function(script)` — no errors |
+| ≥118 questions intact | ✅ | **178 questions** in QUESTIONS array (lines 3057–4643) |
+| All 12 practice exam Qs | ✅ | Q1–Q12 all confirmed (see detail below) |
 | Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, Inter font, target design system in place |
-| Dark mode toggle | ✅ | `darkMode`, `toggleDark` present (8 matches) |
-| Multi-week selection | ✅ | `selectWeekChip`, `homeState.weeks`, `.week-chip.active` present (15 matches) |
-| Learn mode | ✅ | `learnMode`, `#learn`, `Learn Mode` present (12 matches) |
-| I'm Confused button | ✅ | `confused`, `Confused` present (3 matches) |
-| Hint 1 / Hint 2 | ✅ | `hint1`, `hint2`, `showHint`, `btn-hint` present (234 matches) |
-| Multi-step math input | ✅ | `addStep`, `working-steps`, `step-row` present (23 matches) |
-| Final Answer field | ✅ | `finalAnswer`, `Final Answer`, `final-answer` present (13 matches) |
-| Notes overlay present | ✅ | `notes-overlay`, `notesOverlay` present (6 matches) |
-| Formula overlay present | ✅ | `formula-overlay`, `formulaOverlay` present (6 matches) |
-| Netlify functions unchanged | ✅ | `git diff HEAD -- netlify/` — 0 lines changed; mark.js 4,125 bytes, explain.js 4,472 bytes |
-| File size stable | ✅ | **7,063 lines** — identical to previous runs |
+| Dark mode toggle | ✅ | `.dark` CSS class (line 45), `toggleDarkMode()`, `darkModeBtn` in header |
+| Multi-week selection | ✅ | `selectWeekChip()`, `homeState.weeks`, `.week-chip.active` |
+| Learn mode | ✅ | `#learn` screen, 71 matches for `learn`/`learnMode` |
+| I'm Confused button | ✅ | `showHintAI()`, "😕 I'm Confused" button rendered in quiz |
+| Hint 1 / Hint 2 | ✅ | `hint1`, `hint2`, `showHint`, `btn-hint` — 231 matches |
+| Multi-step math input | ✅ | `addStep`, `working-steps`, `step-row` — 19 matches |
+| Final Answer field | ✅ | `finalAnswer`, `Final Answer` — 13 matches |
+| Notes overlay present | ✅ | `#notes-overlay` at line 1153, tab bar with W2–W10 |
+| Formula overlay present | ✅ | `formula-overlay` present |
+| Netlify functions unchanged | ✅ | `mark.js` 4,125 bytes / 136 lines; `explain.js` 4,472 bytes / 79 lines — last touched May 2026, not by redesign |
+| File size increased | ✅ | **7,063 lines** (original ~1,458 lines) |
 
 ---
 
-## Question Bank
+## Question Bank Detail
 
-**178 total questions** in QUESTIONS array (bracket-tracked count).
+**178 total questions** across 8 weeks:
+
+| Week | Topic | Count |
+|------|-------|-------|
+| W2 | Market Opportunities | 15 |
+| W3 | CVP / Pricing | 23 |
+| W4 | Technology / BSC | 15 |
+| W5 | TVM | 34 |
+| W7 | Capital Budgeting | 26 |
+| W8 | Valuation / Investors | 26 |
+| W9 | WACC | 25 |
+| W10 | Performance Measurement | 14 |
+| **Total** | | **178** |
 
 ### Practice Exam Questions (12/12 confirmed)
+
 | # | Topic | Status |
 |---|-------|--------|
 | Q1 | APR/EAR/FV — bank account 16% APR | ✅ |
@@ -54,24 +69,30 @@ All features confirmed present and working. JS syntax clean. **178 questions** i
 
 ## Issues Found
 
-### Note — External CDN dependencies (carry-forward from 2026-07-09)
-jQuery 2.2.4 and MathQuill 0.10.1 loaded from `cdnjs.cloudflare.com` for the multi-step math input feature. Math input UI will degrade if CDN is unreachable — relevant for in-person exam with restricted networks.
+### 1. External CDN Dependencies (carry-forward from 2026-07-08)
 
-**Recommendation:** Consider bundling MathQuill locally or adding a graceful fallback to plain `<textarea>` if MathQuill fails to load.
+Four external CDN resources are loaded at runtime:
+- **Google Fonts** (`fonts.googleapis.com`) — Inter font family
+- **MathQuill CSS** (`cdnjs.cloudflare.com`) — math input styling
+- **jQuery 2.2.4** (`cdnjs.cloudflare.com`) — MathQuill dependency
+- **MathQuill JS 0.10.1** (`cdnjs.cloudflare.com`) — multi-step math input
 
-### Note — No true/false (`tf`) questions (carry-forward)
-Zero `type:'tf'` entries. Supported by the renderer but unused. Not a blocker.
+**Risk:** If the UNSW exam network blocks external CDNs, the multi-step math input UI will degrade silently. The app may fall back to plain inputs but this is unverified.
+
+**Recommendation:** Bundle MathQuill and jQuery as local static assets. Add graceful fallback (plain `<textarea>`) if MathQuill fails to initialise.
+
+### 2. No `type:'tf'` Questions (observation, carry-forward)
+
+Zero questions with `type:'tf'` in the QUESTIONS array. The original CLAUDE.md listed `tf` as a supported type. Not a blocker — the exam does not require true/false questions — but flags a divergence from the documented question-type spec.
+
+### 3. Popup Notes Window Uses `document.write` (observation)
+
+Line 5102 uses `document.write()` to render the notes in a popup window. Some browsers restrict `document.write` in certain security contexts (e.g., when served over HTTPS with strict CSP). Not reproduced, but worth a manual smoke-test before the exam.
 
 ---
 
-## Status: No Changes Since Last Pass
+## Recommendations
 
-No new commits to `index.html` since the 2026-07-09 QA run (carried through two passes today). App is stable. No action required.
-
----
-
-## Recommendations (carry-forward)
-
-1. **Bundle MathQuill locally** or add CDN fallback — exam-room networks may block cdnjs.cloudflare.com.
-2. **Smoke-test popup notes window** (the `document.write` pattern on line 5102) — some browsers restrict `document.write` in certain security contexts.
-3. Confirm `ANTHROPIC_API_KEY` remains set in Netlify dashboard — required for AI marking and explanation features.
+1. **Bundle MathQuill/jQuery locally** — exam-room networks may block cdnjs.cloudflare.com; this would silently break multi-step math input.
+2. **Smoke-test the Notes popup** — open the Notes overlay, click "Open in Window", confirm it renders correctly in Chrome.
+3. **Verify `ANTHROPIC_API_KEY`** is set in the Netlify dashboard — required for AI marking ("I'm Confused" / explain) features.
