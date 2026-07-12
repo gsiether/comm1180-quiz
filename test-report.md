@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-07-12 (fourth pass)
+**Date:** 2026-07-12 (fifth pass)
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-No new commits since 2026-07-11 third pass. All 178 questions intact, JS syntax clean, all required features confirmed present. CDN dependency risk (MathQuill/jQuery on cdnjs) remains the only open concern — unresolved across all four passes. Note: Exam date (5 May 2026) has now passed; CDN risk is academic for exam use but remains a concern for ongoing study sessions.
+No new feature commits since 2026-07-11. All 178 questions intact, JS syntax clean, all required features confirmed present. Three carry-forward issues remain open (CDN dependencies, no `tf` questions, `document.write` popup). No regressions detected.
 
 ---
 
@@ -13,21 +13,21 @@ No new commits since 2026-07-11 third pass. All 178 questions intact, JS syntax 
 | Check | Result | Notes |
 |-------|--------|-------|
 | Redesign commit exists | ✅ | `a6efd94` — "Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions" |
-| New commits today (2026-07-12) | ➖ | No new feature commits — latest is `b839fbe` (2026-07-11 third-pass QA report) |
+| New feature commits today | ➖ | No new feature commits — latest feature commit remains `a6efd94` |
 | JS syntax valid | ✅ | `new Function(script)` — no errors |
 | ≥118 questions intact | ✅ | **178 questions** in QUESTIONS array (lines 3057–4643) |
 | All 12 practice exam Qs | ✅ | Q1–Q12 all confirmed (see detail below) |
 | Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, Inter font, target design system in place |
-| Dark mode toggle | ✅ | `.dark` CSS class (line 45), `toggleDarkMode()`, `darkModeBtn` in header |
-| Multi-week selection | ✅ | `selectWeekChip()`, `homeState.weeks`, `.week-chip.active` |
-| Learn mode | ✅ | `#learn` screen, 71 matches for `learn`/`learnMode` |
-| I'm Confused button | ✅ | `showHintAI()`, "😕 I'm Confused" button rendered in quiz |
+| Dark mode toggle | ✅ | `.dark` CSS class (line 45), `toggleDarkMode()`, `darkModeBtn` in header (🌙/☀️) |
+| Multi-week selection | ✅ | `selectWeekChip()`, `.week-chip.active`, `homeState.weeks` — chip grid at line 888 |
+| Learn mode | ✅ | `#learn` screen, `learnMode`, "Test yourself" button |
+| I'm Confused button | ✅ | `showHintAI()`, "😕 I'm Confused" renders in quiz screen |
 | Hint 1 / Hint 2 | ✅ | `hint1`, `hint2`, `showHint`, `btn-hint` — 231 matches |
-| Multi-step math input | ✅ | `addStep`, `working-steps`, `step-row` — 19 matches |
+| Multi-step math input | ✅ | `addStep`, `working-steps`, `step-row` — 19 matches; MathQuill integration |
 | Final Answer field | ✅ | `finalAnswer`, `Final Answer` — 13 matches |
-| Notes overlay present | ✅ | `#notes-overlay` at line 1153, tab bar with W2–W10 |
+| Notes overlay present | ✅ | `#notes-overlay` at line 1153, tab bar W2–W10 |
 | Formula overlay present | ✅ | `formula-overlay` present |
-| Netlify functions unchanged | ✅ | `mark.js` 4,125 bytes / 136 lines; `explain.js` 4,472 bytes / 79 lines — last touched May 2026, not by redesign |
+| Netlify functions unchanged | ✅ | `mark.js` 4,125 bytes; `explain.js` 4,472 bytes — unmodified |
 | File size increased | ✅ | **7,063 lines** (original ~1,458 lines) |
 
 ---
@@ -77,17 +77,17 @@ Four external CDN resources are loaded at runtime:
 - **jQuery 2.2.4** (`cdnjs.cloudflare.com`) — MathQuill dependency
 - **MathQuill JS 0.10.1** (`cdnjs.cloudflare.com`) — multi-step math input
 
-**Risk:** If the UNSW exam network blocks external CDNs, the multi-step math input UI will degrade silently. The app may fall back to plain inputs but this is unverified.
+**Risk:** If the exam or study network blocks external CDNs, the multi-step math input UI will degrade silently.
 
 **Recommendation:** Bundle MathQuill and jQuery as local static assets. Add graceful fallback (plain `<textarea>`) if MathQuill fails to initialise.
 
-### 2. No `type:'tf'` Questions (observation, carry-forward)
+### 2. No `type:'tf'` Questions (carry-forward)
 
-Zero questions with `type:'tf'` in the QUESTIONS array. The original CLAUDE.md listed `tf` as a supported type. Not a blocker — the exam does not require true/false questions — but flags a divergence from the documented question-type spec.
+Zero questions with `type:'tf'` in the QUESTIONS array. The original CLAUDE.md listed `tf` as a supported type. Not a blocker — the exam does not use true/false — but flags a divergence from the documented spec.
 
-### 3. Popup Notes Window Uses `document.write` (observation)
+### 3. Popup Notes Window Uses `document.write` (carry-forward)
 
-Line 5102 uses `document.write()` to render the notes in a popup window. Some browsers restrict `document.write` in certain security contexts (e.g., when served over HTTPS with strict CSP). Not reproduced, but worth a manual smoke-test before the exam.
+Line 5102 uses `document.write()` to render the notes popup window. Some browsers restrict `document.write` under strict CSP. Not reproduced in testing, but worth a manual smoke-test.
 
 ---
 
