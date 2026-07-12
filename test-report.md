@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-07-11 (third pass)
+**Date:** 2026-07-12 (fourth pass)
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-No new feature commits since 2026-07-10 second pass. All 178 questions intact, JS syntax clean, all required features confirmed present. One carry-forward CDN risk (MathQuill/jQuery on cdnjs) remains the only open concern.
+No new commits since 2026-07-11 third pass. All 178 questions intact, JS syntax clean, all required features confirmed present. CDN dependency risk (MathQuill/jQuery on cdnjs) remains the only open concern — unresolved across all four passes. Note: Exam date (5 May 2026) has now passed; CDN risk is academic for exam use but remains a concern for ongoing study sessions.
 
 ---
 
@@ -13,7 +13,7 @@ No new feature commits since 2026-07-10 second pass. All 178 questions intact, J
 | Check | Result | Notes |
 |-------|--------|-------|
 | Redesign commit exists | ✅ | `a6efd94` — "Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions" |
-| New commits today (2026-07-11) | ➖ | No new feature commits — latest is `f14ce1e` (2026-07-10 second-pass QA report) |
+| New commits today (2026-07-12) | ➖ | No new feature commits — latest is `b839fbe` (2026-07-11 third-pass QA report) |
 | JS syntax valid | ✅ | `new Function(script)` — no errors |
 | ≥118 questions intact | ✅ | **178 questions** in QUESTIONS array (lines 3057–4643) |
 | All 12 practice exam Qs | ✅ | Q1–Q12 all confirmed (see detail below) |
