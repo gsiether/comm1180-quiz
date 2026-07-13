@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-07-12 (fifth pass)
+**Date:** 2026-07-13 (sixth pass)
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-No new feature commits since 2026-07-11. All 178 questions intact, JS syntax clean, all required features confirmed present. Three carry-forward issues remain open (CDN dependencies, no `tf` questions, `document.write` popup). No regressions detected.
+No new feature commits since 2026-07-12 (fifth pass). All 178 questions intact, JS syntax clean, all required features confirmed present. Three carry-forward issues remain open (CDN dependencies, no `tf` questions, `document.write` popup). No regressions detected.
 
 ---
 
@@ -18,16 +18,16 @@ No new feature commits since 2026-07-11. All 178 questions intact, JS syntax cle
 | ≥118 questions intact | ✅ | **178 questions** in QUESTIONS array (lines 3057–4643) |
 | All 12 practice exam Qs | ✅ | Q1–Q12 all confirmed (see detail below) |
 | Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, Inter font, target design system in place |
-| Dark mode toggle | ✅ | `.dark` CSS class (line 45), `toggleDarkMode()`, `darkModeBtn` in header (🌙/☀️) |
-| Multi-week selection | ✅ | `selectWeekChip()`, `.week-chip.active`, `homeState.weeks` — chip grid at line 888 |
+| Dark mode toggle | ✅ | `.dark` CSS class, `toggleDarkMode()`, `darkModeBtn` in header (🌙/☀️) |
+| Multi-week selection | ✅ | `selectWeekChip()`, `.week-chip.active`, `homeState.weeks` — chip grid present |
 | Learn mode | ✅ | `#learn` screen, `learnMode`, "Test yourself" button |
 | I'm Confused button | ✅ | `showHintAI()`, "😕 I'm Confused" renders in quiz screen |
 | Hint 1 / Hint 2 | ✅ | `hint1`, `hint2`, `showHint`, `btn-hint` — 231 matches |
 | Multi-step math input | ✅ | `addStep`, `working-steps`, `step-row` — 19 matches; MathQuill integration |
 | Final Answer field | ✅ | `finalAnswer`, `Final Answer` — 13 matches |
-| Notes overlay present | ✅ | `#notes-overlay` at line 1153, tab bar W2–W10 |
+| Notes overlay present | ✅ | `#notes-overlay`, tab bar W2–W10 |
 | Formula overlay present | ✅ | `formula-overlay` present |
-| Netlify functions unchanged | ✅ | `mark.js` 4,125 bytes; `explain.js` 4,472 bytes — unmodified |
+| Netlify functions unchanged | ✅ | `mark.js` 4,125 bytes / 136 lines; `explain.js` 4,472 bytes / 79 lines — unmodified |
 | File size increased | ✅ | **7,063 lines** (original ~1,458 lines) |
 
 ---
