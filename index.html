@@ -4640,6 +4640,121 @@ const QUESTIONS=[
   hint:'For each D/E ratio: wD = (D/E)/(1+D/E), wE = 1/(1+D/E). After-tax cost of debt = Rd×(1−T). WACC = wE×RE + wD×RD×(1−T).',
   hint2:'After-tax cost of debt = 6.20%×0.70 = 4.34%. For D/E=0.25: wD=0.20, wE=0.80. WACC = 0.80×14.30 + 0.20×4.34 = 12.31%. Higher D/E → lower WACC (tax shield).'},
 
+// ── TRUE / FALSE — Week 3 (CVP) ──
+
+{week:3,type:'tf',
+  question:'At the break-even point, a firm\'s total revenue exactly equals its total variable costs.',
+  answer:false,
+  explanation:'FALSE. At the break-even point, total revenue equals total costs — that is, fixed costs PLUS variable costs. Revenue only covers variable costs when profit is negative (below BEP). BEP is where Profit = 0, meaning Revenue = Fixed + Variable Costs.',
+  hint:'Think about what "break-even" literally means — which costs must revenue cover at BEP?',
+  hint2:'BEP = where Total Revenue = Total Costs (FC + VC), not just VC. If revenue only covered VC, fixed costs would still be unrecovered.'},
+
+{week:3,type:'tf',
+  question:'If a firm\'s contribution margin ratio is 0.40, its variable cost ratio must be 0.60.',
+  answer:true,
+  explanation:'TRUE. CM Ratio + VC Ratio = 1 always, because each dollar of revenue is split between variable costs and contribution margin. If CM Ratio = 0.40, then VC Ratio = 1 − 0.40 = 0.60.',
+  hint:'CM Ratio and VC Ratio must always add up to 1 — they represent complementary portions of every dollar of revenue.',
+  hint2:'CM Ratio = CM per unit ÷ SP; VC Ratio = VC per unit ÷ SP. Since CM + VC = SP, their ratios must sum to 1.'},
+
+{week:3,type:'tf',
+  question:'An increase in fixed costs will increase the break-even point in units, all else equal.',
+  answer:true,
+  explanation:'TRUE. BEP (units) = Fixed Costs ÷ CM per unit. If fixed costs rise and CM per unit is unchanged, the firm must sell more units to cover the higher fixed costs, so BEP increases.',
+  hint:'Write out the BEP formula and ask: if the numerator increases and the denominator stays the same, what happens?',
+  hint2:'BEP = FC ÷ CM per unit. Higher FC → higher numerator → higher BEP. The firm needs more units to recover the higher fixed costs.'},
+
+// ── TRUE / FALSE — Week 5 (TVM) ──
+
+{week:5,type:'tf',
+  question:'The present value of a future cash flow increases as the discount rate increases.',
+  answer:false,
+  explanation:'FALSE. PV = FV ÷ (1+r)^n. As the discount rate r increases, the denominator becomes larger, so PV decreases. A higher discount rate means you discount more heavily, reducing the present value.',
+  hint:'PV = FV ÷ (1+r)^n. Think about what happens to the denominator when r increases.',
+  hint2:'Larger denominator → smaller result. Higher r → heavier discounting → lower PV. They move in opposite directions.'},
+
+{week:5,type:'tf',
+  question:'An annuity due is worth more than an ordinary annuity with the same payment amount, number of periods, and discount rate.',
+  answer:true,
+  explanation:'TRUE. An annuity due makes payments at the start of each period (beginning-of-period), while an ordinary annuity pays at the end. Each payment in an annuity due arrives one period earlier, so its PV is higher. PV(annuity due) = PV(ordinary annuity) × (1+r).',
+  hint:'The only difference is timing — annuity due pays at the start of each period, ordinary pays at the end. Which is worth more in PV terms?',
+  hint2:'Earlier payments are worth more in PV terms (less discounting). PV(annuity due) = PV(ordinary) × (1+r), which is always greater than PV(ordinary) when r > 0.'},
+
+{week:5,type:'tf',
+  question:'The Effective Annual Rate (EAR) is always greater than or equal to the Annual Percentage Rate (APR) for the same nominal rate.',
+  answer:true,
+  explanation:'TRUE. EAR = (1 + APR/m)^m − 1. Due to compounding within the year, EAR ≥ APR, with equality only when m = 1 (annual compounding). More frequent compounding (m > 1) produces a higher EAR than APR.',
+  hint:'EAR accounts for intra-year compounding; APR does not. Which is larger when there is compounding within the year?',
+  hint2:'EAR = (1+APR/m)^m − 1 ≥ APR. The inequality is strict when m > 1 (e.g. monthly compounding gives EAR > APR). They\'re equal only when m=1.'},
+
+// ── TRUE / FALSE — Week 7 (Capital Budgeting) ──
+
+{week:7,type:'tf',
+  question:'A project with a positive NPV will always have an Internal Rate of Return (IRR) greater than the cost of capital.',
+  answer:true,
+  explanation:'TRUE. NPV is positive when the discount rate is below the IRR (by definition of IRR as the rate where NPV = 0). If NPV > 0 at the cost of capital, the cost of capital must be less than the IRR. Therefore IRR > cost of capital.',
+  hint:'NPV > 0 means the project earns more than the discount rate used. How does that relate to IRR?',
+  hint2:'IRR is the rate where NPV = 0. If NPV > 0 at your cost of capital, it means cost of capital < IRR (you\'re to the left of the IRR on the NPV curve).'},
+
+{week:7,type:'tf',
+  question:'The payback period method accounts for the time value of money.',
+  answer:false,
+  explanation:'FALSE. The standard payback period simply adds up undiscounted cash flows to find when cumulative CFs recover the initial investment. It ignores the time value of money. Only the discounted payback period accounts for TVM by discounting each cash flow before accumulating.',
+  hint:'Does the payback rule involve any discounting or interest rate? Think about how it\'s calculated.',
+  hint2:'Payback = time until cumulative CFs = initial investment. No discounting is applied. It treats a dollar received in Year 1 the same as a dollar in Year 3, ignoring TVM.'},
+
+{week:7,type:'tf',
+  question:'For mutually exclusive projects of similar scale, the project with the highest IRR should always be chosen.',
+  answer:false,
+  explanation:'FALSE. For mutually exclusive projects, NPV is the correct decision rule, not IRR. IRR can give misleading rankings when projects differ in scale, have non-conventional cash flows, or when the reinvestment rate assumption (at IRR) is unrealistic. The project with the highest NPV maximises firm value.',
+  hint:'IRR has a known flaw for mutually exclusive projects. What does the course say about which rule should be primary?',
+  hint2:'NPV > IRR for mutually exclusive decisions. IRR fails because it assumes reinvestment at the IRR rate (often unrealistic) and ignores scale. Choose highest NPV to maximise firm value.'},
+
+// ── TRUE / FALSE — Week 8 (Valuation) ──
+
+{week:8,type:'tf',
+  question:'When a bond\'s yield to maturity exceeds its coupon rate, the bond trades at a premium to its face value.',
+  answer:false,
+  explanation:'FALSE. When YTM > coupon rate, the bond trades at a DISCOUNT (price < face value). Investors require a higher return than the coupon provides, so the price falls below face value to compensate. Premium bonds (price > face value) occur when YTM < coupon rate.',
+  hint:'Think about what "premium" and "discount" mean for bond prices. Which direction does each occur?',
+  hint2:'YTM > coupon rate → discount bond (P < face). YTM < coupon rate → premium bond (P > face). YTM = coupon rate → par (P = face).'},
+
+{week:8,type:'tf',
+  question:'According to the Gordon Growth Model, a stock\'s price is undefined (infinite or impossible to calculate) when the required return equals the dividend growth rate.',
+  answer:true,
+  explanation:'TRUE. Gordon Growth Model: P₀ = D₁ ÷ (r − g). If r = g, the denominator equals zero, making the price undefined (division by zero). The model requires r > g to produce a finite, meaningful stock price.',
+  hint:'Look at the denominator of the Gordon Growth Model formula. What happens when r and g are equal?',
+  hint2:'P₀ = D₁ ÷ (r−g). If r = g, denominator = 0 → undefined price. The model assumes r > g for a valid answer.'},
+
+{week:8,type:'tf',
+  question:'As a bond approaches its maturity date, its price will converge toward the face (par) value regardless of whether it started at a premium or discount.',
+  answer:true,
+  explanation:'TRUE. This is the "pull to par" effect. A discount bond\'s price gradually rises toward face value as maturity approaches; a premium bond\'s price gradually falls toward face value. At maturity, the issuer repays exactly the face value, so price must equal face value at t = n.',
+  hint:'At the moment of maturity, what does a bond pay out? Work backwards from that.',
+  hint2:'"Pull to par" — both premium and discount bonds converge to face value at maturity. Discount bonds rise; premium bonds fall. At t=n, price = face value always.'},
+
+// ── TRUE / FALSE — Week 9 (Risk & WACC) ──
+
+{week:9,type:'tf',
+  question:'Unsystematic (firm-specific) risk can be eliminated by holding a well-diversified portfolio.',
+  answer:true,
+  explanation:'TRUE. Unsystematic risk is firm-specific (e.g. management failures, product recalls, lawsuits). When many assets are held, their firm-specific shocks tend to cancel out, reducing total portfolio risk. Only systematic risk (market-wide) cannot be diversified away because it affects all assets simultaneously.',
+  hint:'Think about what "diversification" achieves. Which type of risk can it reduce, and which type remains?',
+  hint2:'Firm-specific shocks are uncorrelated across firms — diversification averages them out. Systematic risk (economic cycles, interest rates) affects all firms simultaneously, so it cannot be diversified away.'},
+
+{week:9,type:'tf',
+  question:'According to CAPM, a stock with a beta of zero should earn exactly the risk-free rate of return.',
+  answer:true,
+  explanation:'TRUE. CAPM: E[Ri] = Rf + βi × (E[RM] − Rf). When β = 0, the risk premium term equals zero, so E[Ri] = Rf. A zero-beta asset has no sensitivity to market movements, so investors require no extra compensation beyond the risk-free rate.',
+  hint:'Substitute β = 0 into the CAPM formula and simplify.',
+  hint2:'E[R] = Rf + 0 × MRP = Rf. With zero market risk, there\'s no reason to earn more than the risk-free rate.'},
+
+{week:9,type:'tf',
+  question:'Book value weights should be used instead of market value weights when calculating a firm\'s WACC.',
+  answer:false,
+  explanation:'FALSE. Market value weights should be used in WACC calculations, not book values. Book values are historical (from when debt/equity was originally issued) and don\'t reflect the current cost of raising new capital. Market values reflect what investors currently require, which is the relevant cost for new investments.',
+  hint:'WACC represents the current cost of capital. Should you use historical or current values?',
+  hint2:'Market value weights reflect the current cost of each capital component. Book values are stale historical figures. WACC must use market values to give the correct hurdle rate for new investments.'},
+
 ];
 
 
