@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-07-14 (seventh pass)
+**Date:** 2026-07-14 (eighth pass)
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-New commit `f583fcc` — added 15 True/False questions (W3/W5/W7/W8/W9), resolving the "no TF questions" carry-forward issue. Question bank now has **193 questions**. JS syntax clean, all required features confirmed present. Two carry-forward issues remain open (CDN dependencies, `document.write` popup).
+No changes to source code since seventh pass. The question bank remains at **193 questions**, JS syntax is clean, and all required features are confirmed present. Two carry-forward issues remain open (CDN dependencies, `document.write` popup) — neither is blocking exam use.
 
 ---
 
