@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-07-14 (eighth pass)
+**Date:** 2026-07-15 (ninth pass)
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-No changes to source code since seventh pass. The question bank remains at **193 questions**, JS syntax is clean, and all required features are confirmed present. Two carry-forward issues remain open (CDN dependencies, `document.write` popup) — neither is blocking exam use.
+Today's maintenance commit (`6211a5e`) removed 12 duplicate practice exam questions from the QUESTIONS array (193 → 181). All 12 practice exam questions remain present via the first (better-integrated) set. JS syntax is clean, all required features are confirmed present. Two carry-forward issues remain open (CDN dependencies, `document.write` popup) — neither is blocking exam use.
 
 ---
 
@@ -13,14 +13,14 @@ No changes to source code since seventh pass. The question bank remains at **193
 | Check | Result | Notes |
 |-------|--------|-------|
 | Redesign commit exists | ✅ | `a6efd94` — "Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions" |
-| New feature commits today | ✅ | `f583fcc` — "Add 15 True/False questions to fix carry-forward gap (W3/W5/W7/W8/W9)" |
-| JS syntax valid | ✅ | `new Function(script)` — no errors |
-| ≥118 questions intact | ✅ | **193 questions** in QUESTIONS array (lines 3057–4758) |
-| All 12 practice exam Qs | ✅ | Q1–Q12 all confirmed |
-| TF questions present | ✅ | **15 TF questions** added — 3 per week (W3, W5, W7, W8, W9) |
+| New commit today | ✅ | `6211a5e` — "Fix duplicate practice exam questions in QUESTIONS array" |
+| JS syntax valid | ✅ | `node --check` — no errors |
+| ≥118 questions intact | ✅ | **181 questions** in QUESTIONS array (down from 193, 12 duplicates removed) |
+| All 12 practice exam Qs | ✅ | Q1–Q12 all confirmed present in first (canonical) set |
+| TF questions present | ✅ | **15 TF questions** — 3 per week (W3, W5, W7, W8, W9) |
 | Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, Inter font, target design system in place |
 | Dark mode toggle | ✅ | `.dark` CSS class, `toggleDarkMode()`, `darkModeBtn` in header (🌙/☀️) |
-| Multi-week selection | ✅ | `selectWeekChip()`, `.week-chip.active`, `homeState.weeks` — chip grid present |
+| Multi-week selection | ✅ | `.week-chip.active`, `selectWeekChip()`, chip grid at `#weekChips` |
 | Learn mode | ✅ | `#learn` screen, `learnMode`, "Test yourself" button |
 | I'm Confused button | ✅ | `showHintAI()`, "😕 I'm Confused" renders in quiz screen |
 | Hint 1 / Hint 2 | ✅ | `showHint1`, `showHint2`, `btn-hint` — present |
@@ -29,25 +29,25 @@ No changes to source code since seventh pass. The question bank remains at **193
 | Notes overlay present | ✅ | `#notes-overlay`, tab bar W2–W10 |
 | Formula overlay present | ✅ | `formula-overlay` present |
 | Netlify functions unchanged | ✅ | `mark.js` and `explain.js` unmodified |
-| File size | ✅ | **7,178 lines** |
+| File size | ✅ | **7,059 lines** (original was 1,458 lines) |
 
 ---
 
 ## Question Bank Detail
 
-**193 total questions** across 8 weeks:
+**181 total questions** across 8 weeks:
 
-| Week | Topic | Count | Types |
-|------|-------|-------|-------|
-| W2 | Market Opportunities | 15 | sa, multipart |
-| W3 | CVP / Pricing | 26 | mcq, numerical, multipart, **tf×3** |
-| W4 | Technology / BSC | 15 | sa, multipart |
-| W5 | TVM | 37 | mcq, numerical, multipart, **tf×3** |
-| W7 | Capital Budgeting | 29 | mcq, numerical, multipart, **tf×3** |
-| W8 | Valuation / Investors | 29 | mcq, numerical, multipart, **tf×3** |
-| W9 | WACC | 28 | mcq, numerical, multipart, **tf×3** |
-| W10 | Performance Measurement | 14 | sa |
-| **Total** | | **193** | |
+| Week | Topic | Count | Change vs. prev run | Types |
+|------|-------|-------|---------------------|-------|
+| W2 | Market Opportunities | 15 | — | sa, multipart |
+| W3 | CVP / Pricing | 26 | — | mcq, numerical, multipart, tf×3 |
+| W4 | Technology / BSC | 15 | — | sa, multipart |
+| W5 | TVM | 33 | −4 (duplicates removed) | mcq, numerical, multipart, tf×3 |
+| W7 | Capital Budgeting | 26 | −3 (duplicates removed) | mcq, numerical, multipart, tf×3 |
+| W8 | Valuation / Investors | 26 | −3 (duplicates removed) | mcq, numerical, multipart, tf×3 |
+| W9 | WACC | 26 | −2 (duplicates removed) | mcq, numerical, multipart, tf×3 |
+| W10 | Performance Measurement | 14 | — | sa |
+| **Total** | | **181** | **−12** | |
 
 ### Practice Exam Questions (12/12 confirmed)
 
@@ -66,7 +66,7 @@ No changes to source code since seventh pass. The question bank remains at **193
 | Q11 | CAPM multi-company (Round Corp, Lemon LLC, etc.) | ✅ |
 | Q12 | WACC varying D/E ratios — Sandwich Corp | ✅ |
 
-### New True/False Questions (15 added this run)
+### True/False Questions (15, stable)
 
 | Week | Statement | Answer |
 |------|-----------|--------|
@@ -82,7 +82,7 @@ No changes to source code since seventh pass. The question bank remains at **193
 | W8 | YTM > coupon rate → bond trades at premium | FALSE |
 | W8 | GGM undefined when r = g | TRUE |
 | W8 | All bonds converge to face value at maturity | TRUE |
-| W9 | Unsystematic risk diversifiable | TRUE |
+| W9 | Unsystematic risk is diversifiable | TRUE |
 | W9 | Beta = 0 → earns risk-free rate (CAPM) | TRUE |
 | W9 | Book value weights preferred in WACC | FALSE |
 
@@ -108,9 +108,9 @@ Four external CDN resources are loaded at runtime:
 
 ---
 
-## ✅ Resolved This Run
+## Resolved Since Last Pass
 
-- **No `type:'tf'` questions** — fixed by adding 15 TF questions (3 per financial week: W3, W5, W7, W8, W9). The TF rendering code (`renderTF()`, `.tf-options`, `.tf-option`) was already present; questions were the missing piece.
+- **Duplicate practice exam questions** — the 12 practice exam questions (Q1–Q12) were present twice in the QUESTIONS array. `6211a5e` removed the second (duplicate) block. All 12 remain in the canonical first set.
 
 ---
 
