@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-07-16 (tenth pass)
+**Date:** 2026-07-17 (eleventh pass)
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-No new code commits since yesterday's ninth-pass report. All previously confirmed features remain intact. The two carry-forward issues (CDN dependencies, `document.write` popup) are unchanged. App is stable and ready for exam use.
+No new code commits since yesterday's tenth-pass report. All previously confirmed features remain intact. The two carry-forward issues (CDN dependencies, `document.write` popup) are unchanged. App is stable and ready for exam use.
 
 ---
 
@@ -35,7 +35,7 @@ No new code commits since yesterday's ninth-pass report. All previously confirme
 
 ## Question Bank Detail
 
-**181 total questions** across 8 weeks (stable since 2026-07-15):
+**181 total questions** across 8 weeks (stable since 2026-07-15; re-confirmed 2026-07-17):
 
 | Week | Topic | Count | Types |
 |------|-------|-------|-------|
