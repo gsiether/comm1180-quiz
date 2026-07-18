@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-07-17 (eleventh pass)
+**Date:** 2026-07-18 (twelfth pass)
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-No new code commits since yesterday's tenth-pass report. All previously confirmed features remain intact. The two carry-forward issues (CDN dependencies, `document.write` popup) are unchanged. App is stable and ready for exam use.
+No new code commits since the eleventh-pass report (2026-07-17). All features remain intact. 181 questions confirmed across all 8 exam weeks. The two carry-forward issues (CDN dependencies, `document.write` popup) are unchanged. App is stable and ready for exam use.
 
 ---
 
@@ -13,41 +13,42 @@ No new code commits since yesterday's tenth-pass report. All previously confirme
 | Check | Result | Notes |
 |-------|--------|-------|
 | Redesign commit exists | ✅ | `a6efd94` — "Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions" |
-| New commit today | ➖ | No code changes since 2026-07-15; latest is this QA report commit |
-| JS syntax valid | ✅ | `node --check` — no errors |
-| ≥118 questions intact | ✅ | **181 questions** in QUESTIONS array |
+| New code commit today | ➖ | No code changes since 2026-07-15; latest commit is prior QA report |
+| JS syntax valid | ✅ | `new Function()` parse — no errors |
+| 181 questions intact | ✅ | **181 questions** in QUESTIONS array (W2–W10) |
 | All 12 practice exam Qs | ✅ | Q1–Q12 all confirmed present |
-| TF questions present | ✅ | 15 TF questions (W3, W5, W7, W8, W9 — 3 each) |
+| TF questions present | ✅ | TF questions present in W3, W5, W7, W8, W9 |
 | Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, Inter font, target design system in place |
-| Dark mode toggle | ✅ | `.dark` CSS class, `toggleDarkMode()`, `darkModeBtn` in header |
+| Dark mode toggle | ✅ | `.dark` CSS class, `toggleDarkMode()`, `darkModeBtn` in header with 🌙/☀️ toggle |
 | Multi-week selection | ✅ | `.week-chip.active`, `selectWeekChip()`, `homeState.weeks` array |
-| Learn mode | ✅ | `#learn` screen, `learnMode`, "Test yourself" button |
+| Learn mode | ✅ | `#learn` screen, `learnMode` flag, "Test yourself" button |
 | I'm Confused button | ✅ | `showHintAI()` renders inline AI explanation in quiz screen |
-| Hint 1 / Hint 2 | ✅ | `showHint1`, `showHint2`, `btn-hint` — 3-level hint system present |
-| Multi-step math input | ✅ | `addStep`, `working-steps`, `step-row`; MathQuill integration |
-| Final Answer field | ✅ | `finalAnswer`, `Final Answer` — present |
+| Hint 1 / Hint 2 | ✅ | `showHint1`/`showHint2`, `hintBtn1`/`hintBtn2` — 3-level hint system present |
+| Multi-step math input | ✅ | `addStep()`, `.working-steps`, `.step-row`; MathQuill integration |
+| Final Answer field | ✅ | `.final-answer-wrap`, "Final Answer" label — present |
 | Notes overlay present | ✅ | `#notes-overlay`, tab bar W2–W10 |
-| Formula overlay present | ✅ | `formula-overlay` present |
-| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` unmodified |
+| Formula overlay present | ✅ | `#formula-overlay` present |
+| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` — no changes in last commit |
 | File size | ✅ | **7,059 lines** (original was 1,458 lines) |
+| HTML structure | ✅ | Starts `<!DOCTYPE html>`, ends `</html>` |
 
 ---
 
 ## Question Bank Detail
 
-**181 total questions** across 8 weeks (stable since 2026-07-15; re-confirmed 2026-07-17):
+**181 total questions** across 8 weeks (stable since 2026-07-15; re-confirmed 2026-07-18):
 
-| Week | Topic | Count | Types |
-|------|-------|-------|-------|
-| W2 | Market Opportunities | 15 | sa, multipart |
-| W3 | CVP / Pricing | 26 | mcq, numerical, multipart, tf×3 |
-| W4 | Technology / BSC | 15 | sa, multipart |
-| W5 | TVM | 33 | mcq, numerical, multipart, tf×3 |
-| W7 | Capital Budgeting | 26 | mcq, numerical, multipart, tf×3 |
-| W8 | Valuation / Investors | 26 | mcq, numerical, multipart, tf×3 |
-| W9 | WACC | 26 | mcq, numerical, multipart, tf×3 |
-| W10 | Performance Measurement | 14 | sa |
-| **Total** | | **181** | |
+| Week | Topic | Count |
+|------|-------|-------|
+| W2 | Market Opportunities | 15 |
+| W3 | CVP / Pricing | 26 |
+| W4 | Technology / BSC | 15 |
+| W5 | TVM | 33 |
+| W7 | Capital Budgeting | 26 |
+| W8 | Valuation / Investors | 26 |
+| W9 | Risk & WACC | 26 |
+| W10 | Performance Measurement | 14 |
+| **Total** | | **181** |
 
 ### Practice Exam Questions (12/12 confirmed)
 
@@ -86,7 +87,7 @@ Four external CDN resources are loaded at runtime:
 
 `openNotesWindow()` uses `document.write()` to render the notes popup window. Some browsers restrict `document.write` under strict CSP.
 
-**Recommendation:** Smoke-test the Notes popup in the exam browser before the exam (open Notes overlay → "Open in Window").
+**Recommendation:** Smoke-test the Notes popup in the exam browser before the exam.
 
 ---
 
