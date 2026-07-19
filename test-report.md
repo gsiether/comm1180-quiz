@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-07-18 (twelfth pass)
+**Date:** 2026-07-19 (thirteenth pass)
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-No new code commits since the eleventh-pass report (2026-07-17). All features remain intact. 181 questions confirmed across all 8 exam weeks. The two carry-forward issues (CDN dependencies, `document.write` popup) are unchanged. App is stable and ready for exam use.
+Fixed the `document.write` issue in `openNotesWindow()` — now uses Blob URL approach, eliminating the CSP-restricted API. One carry-forward issue remains (external CDN dependencies). App is stable and ready for exam use.
 
 ---
 
@@ -13,7 +13,7 @@ No new code commits since the eleventh-pass report (2026-07-17). All features re
 | Check | Result | Notes |
 |-------|--------|-------|
 | Redesign commit exists | ✅ | `a6efd94` — "Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions" |
-| New code commit today | ➖ | No code changes since 2026-07-15; latest commit is prior QA report |
+| New commit today | ✅ | Fix: replaced `document.write` in `openNotesWindow()` with Blob URL |
 | JS syntax valid | ✅ | `new Function()` parse — no errors |
 | 181 questions intact | ✅ | **181 questions** in QUESTIONS array (W2–W10) |
 | All 12 practice exam Qs | ✅ | Q1–Q12 all confirmed present |
@@ -28,15 +28,16 @@ No new code commits since the eleventh-pass report (2026-07-17). All features re
 | Final Answer field | ✅ | `.final-answer-wrap`, "Final Answer" label — present |
 | Notes overlay present | ✅ | `#notes-overlay`, tab bar W2–W10 |
 | Formula overlay present | ✅ | `#formula-overlay` present |
-| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` — no changes in last commit |
-| File size | ✅ | **7,059 lines** (original was 1,458 lines) |
+| Notes popup (document.write) | ✅ **FIXED** | `openNotesWindow()` now uses `Blob URL` — no `document.write` |
+| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` — unmodified |
+| File size | ✅ | ~7,059 lines (original was 1,458 lines) |
 | HTML structure | ✅ | Starts `<!DOCTYPE html>`, ends `</html>` |
 
 ---
 
 ## Question Bank Detail
 
-**181 total questions** across 8 weeks (stable since 2026-07-15; re-confirmed 2026-07-18):
+**181 total questions** across 8 weeks (stable since 2026-07-15; re-confirmed 2026-07-19):
 
 | Week | Topic | Count |
 |------|-------|-------|
@@ -83,16 +84,13 @@ Four external CDN resources are loaded at runtime:
 
 **Recommendation:** Bundle MathQuill and jQuery as local static assets before exam day. Add graceful fallback (plain `<textarea>`) if MathQuill fails to initialise.
 
-### 2. Popup Notes Window Uses `document.write` (carry-forward — open since 2026-07-08)
+### 2. ~~Popup Notes Window Uses `document.write`~~ — RESOLVED 2026-07-19
 
-`openNotesWindow()` uses `document.write()` to render the notes popup window. Some browsers restrict `document.write` under strict CSP.
-
-**Recommendation:** Smoke-test the Notes popup in the exam browser before the exam.
+`openNotesWindow()` now uses the Blob URL approach (`new Blob([html], {type:'text/html'})` + `URL.createObjectURL()`), avoiding any `document.write` call. The Blob URL is revoked after 30 seconds to prevent memory leaks.
 
 ---
 
 ## Recommendations
 
-1. **Bundle MathQuill/jQuery locally** — exam-room networks may block cdnjs.cloudflare.com; this would silently break multi-step math input. Do this before the exam (Tuesday 5 May 2026).
-2. **Smoke-test the Notes popup** — open the Notes overlay, click "Open in Window", confirm it renders correctly in Chrome.
-3. **Verify `ANTHROPIC_API_KEY`** is set in the Netlify dashboard — required for AI marking ("I'm Confused" / explain) features.
+1. **Bundle MathQuill/jQuery locally** — exam-room networks may block cdnjs.cloudflare.com; this would silently break multi-step math input. Do this before the exam.
+2. **Verify `ANTHROPIC_API_KEY`** is set in the Netlify dashboard — required for AI marking ("I'm Confused" / explain) features.

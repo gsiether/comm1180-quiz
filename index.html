@@ -5092,11 +5092,13 @@ function openNotesWindow(){
     tabBarHtml+='<button class="tab'+(btn.classList.contains('active')?' active':'')+'" data-target="'+target+'">'+btn.textContent+'</button>';
   });
   tabBarHtml+='</div>';
-  var w=window.open('','_blank','width=800,height=920,resizable=yes,scrollbars=yes');
-  if(!w){alert('Allow pop-ups for this site to open notes in a new window.');return;}
   var script='document.querySelectorAll(".tab-bar .tab").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll(".tab-bar .tab").forEach(function(x){x.classList.remove("active");});b.classList.add("active");document.querySelectorAll(".tab-content").forEach(function(x){x.classList.remove("active");});var el=document.getElementById(b.getAttribute("data-target"));if(el)el.classList.add("active");});});';
-  w.document.write('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>COMM1180 Notes</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>'+css+'body{font-family:"Inter",system-ui,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:0;overflow-x:hidden;}.notes-win-head{background:var(--surface);border-bottom:1px solid var(--border);padding:11px 18px;font-size:.9rem;font-weight:700;color:var(--text);position:sticky;top:0;z-index:50;box-shadow:var(--shadow-sm);}.tab-bar{position:sticky;top:44px;z-index:49;background:var(--surface);border-bottom:1px solid var(--border);}.notes-win-body{padding:18px;max-width:720px;margin:0 auto;}</style></head><body><div class="notes-win-head">📋 COMM1180 &middot; Quick Notes</div>'+tabBarHtml+'<div class="notes-win-body">'+notesBody+'</div><script>'+script+'<\/script></body></html>');
-  w.document.close();
+  var html='<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>COMM1180 Notes</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>'+css+'body{font-family:"Inter",system-ui,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:0;overflow-x:hidden;}.notes-win-head{background:var(--surface);border-bottom:1px solid var(--border);padding:11px 18px;font-size:.9rem;font-weight:700;color:var(--text);position:sticky;top:0;z-index:50;box-shadow:var(--shadow-sm);}.tab-bar{position:sticky;top:44px;z-index:49;background:var(--surface);border-bottom:1px solid var(--border);}.notes-win-body{padding:18px;max-width:720px;margin:0 auto;}</style></head><body><div class="notes-win-head">📋 COMM1180 &middot; Quick Notes</div>'+tabBarHtml+'<div class="notes-win-body">'+notesBody+'</div><script>'+script+'<\/script></body></html>';
+  var blob=new Blob([html],{type:'text/html'});
+  var blobUrl=URL.createObjectURL(blob);
+  var w=window.open(blobUrl,'_blank','width=800,height=920,resizable=yes,scrollbars=yes');
+  if(!w){URL.revokeObjectURL(blobUrl);alert('Allow pop-ups for this site to open notes in a new window.');return;}
+  setTimeout(function(){URL.revokeObjectURL(blobUrl);},30000);
 }
 
 document.querySelectorAll('.overlay').forEach(o=>{
