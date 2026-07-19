@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-07-19 (thirteenth pass)
+**Date:** 2026-07-19 (fourteenth pass)
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-Fixed the `document.write` issue in `openNotesWindow()` — now uses Blob URL approach, eliminating the CSP-restricted API. One carry-forward issue remains (external CDN dependencies). App is stable and ready for exam use.
+All critical checks pass. The Blob URL fix committed earlier today resolved the last actionable issue (`document.write` in `openNotesWindow()`). One carry-forward issue remains (external CDN dependencies — no change since prior report).
 
 ---
 
@@ -13,7 +13,7 @@ Fixed the `document.write` issue in `openNotesWindow()` — now uses Blob URL ap
 | Check | Result | Notes |
 |-------|--------|-------|
 | Redesign commit exists | ✅ | `a6efd94` — "Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions" |
-| New commit today | ✅ | Fix: replaced `document.write` in `openNotesWindow()` with Blob URL |
+| New commit today | ✅ | `1718498` — Fix: replaced `document.write` in `openNotesWindow()` with Blob URL |
 | JS syntax valid | ✅ | `new Function()` parse — no errors |
 | 181 questions intact | ✅ | **181 questions** in QUESTIONS array (W2–W10) |
 | All 12 practice exam Qs | ✅ | Q1–Q12 all confirmed present |
@@ -29,15 +29,15 @@ Fixed the `document.write` issue in `openNotesWindow()` — now uses Blob URL ap
 | Notes overlay present | ✅ | `#notes-overlay`, tab bar W2–W10 |
 | Formula overlay present | ✅ | `#formula-overlay` present |
 | Notes popup (document.write) | ✅ **FIXED** | `openNotesWindow()` now uses `Blob URL` — no `document.write` |
-| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` — unmodified |
-| File size | ✅ | ~7,059 lines (original was 1,458 lines) |
+| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` — added in initial commit, never modified |
+| File size | ✅ | 7,061 lines (original was 1,458 lines) |
 | HTML structure | ✅ | Starts `<!DOCTYPE html>`, ends `</html>` |
 
 ---
 
 ## Question Bank Detail
 
-**181 total questions** across 8 weeks (stable since 2026-07-15; re-confirmed 2026-07-19):
+**181 total questions** across 8 weeks (stable since 2026-07-15):
 
 | Week | Topic | Count |
 |------|-------|-------|
