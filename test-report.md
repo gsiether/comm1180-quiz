@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-07-19 (fourteenth pass)
+**Date:** 2026-07-20 (fifteenth pass)
 **Tested by:** Automated QA Agent
 
 ## Overall Status: PASS
 
-All critical checks pass. The Blob URL fix committed earlier today resolved the last actionable issue (`document.write` in `openNotesWindow()`). One carry-forward issue remains (external CDN dependencies — no change since prior report).
+No new commits since the 2026-07-19 session (which resolved `document.write` via Blob URL). App is stable. One carry-forward issue remains: external CDN dependencies that could break on exam-room networks.
 
 ---
 
@@ -13,14 +13,15 @@ All critical checks pass. The Blob URL fix committed earlier today resolved the 
 | Check | Result | Notes |
 |-------|--------|-------|
 | Redesign commit exists | ✅ | `a6efd94` — "Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions" |
-| New commit today | ✅ | `1718498` — Fix: replaced `document.write` in `openNotesWindow()` with Blob URL |
+| Most recent commit | ✅ | `1718498` (2026-07-19) — Fix: Blob URL replacing `document.write` in `openNotesWindow()` |
+| New commits today | ℹ️ | None — app unchanged since 2026-07-19; stable |
 | JS syntax valid | ✅ | `new Function()` parse — no errors |
-| 181 questions intact | ✅ | **181 questions** in QUESTIONS array (W2–W10) |
-| All 12 practice exam Qs | ✅ | Q1–Q12 all confirmed present |
+| 181 questions intact | ✅ | **181 questions** in QUESTIONS array (W2–W10; exceeds 118 original target) |
+| All 12 practice exam Qs | ✅ | Q1–Q12 all confirmed present (stable since 2026-07-15) |
 | TF questions present | ✅ | TF questions present in W3, W5, W7, W8, W9 |
 | Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, Inter font, target design system in place |
 | Dark mode toggle | ✅ | `.dark` CSS class, `toggleDarkMode()`, `darkModeBtn` in header with 🌙/☀️ toggle |
-| Multi-week selection | ✅ | `.week-chip.active`, `selectWeekChip()`, `homeState.weeks` array |
+| Multi-week selection | ✅ | `.week-chip.active`, `selectWeekChip()`, `selectedWeeks` array |
 | Learn mode | ✅ | `#learn` screen, `learnMode` flag, "Test yourself" button |
 | I'm Confused button | ✅ | `showHintAI()` renders inline AI explanation in quiz screen |
 | Hint 1 / Hint 2 | ✅ | `showHint1`/`showHint2`, `hintBtn1`/`hintBtn2` — 3-level hint system present |
@@ -28,8 +29,8 @@ All critical checks pass. The Blob URL fix committed earlier today resolved the 
 | Final Answer field | ✅ | `.final-answer-wrap`, "Final Answer" label — present |
 | Notes overlay present | ✅ | `#notes-overlay`, tab bar W2–W10 |
 | Formula overlay present | ✅ | `#formula-overlay` present |
-| Notes popup (document.write) | ✅ **FIXED** | `openNotesWindow()` now uses `Blob URL` — no `document.write` |
-| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` — added in initial commit, never modified |
+| Notes popup (document.write) | ✅ FIXED | `openNotesWindow()` uses Blob URL — no `document.write` (fixed 2026-07-19) |
+| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` — empty; `mark.js` and `explain.js` never modified |
 | File size | ✅ | 7,061 lines (original was 1,458 lines) |
 | HTML structure | ✅ | Starts `<!DOCTYPE html>`, ends `</html>` |
 
