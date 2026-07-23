@@ -1,29 +1,31 @@
 # COMM1180 Quiz App - QA Test Report
 **Date:** 2026-07-23
-**Tested by:** Automated QA Agent (pass 19)
+**Tested by:** Automated QA Agent (pass 20)
 
 ## Overall Status: PASS ✅
 
-All required features are present and functioning. Duplicate Q1–Q12 block removed in this pass.
+All required features are present. No regressions detected since pass 19. Code is stable.
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| JS syntax valid | ✅ | `new Function(js)` — no errors; inline script is 323,560 chars |
-| 12 practice exam questions | ✅ | All present (W5 Q1–Q4, W7 Q5–Q7, W8 Q8–Q10, W9 Q11–Q12) |
-| Deduplication | ✅ | Removed 12 redundant duplicate Q1–Q12 entries (second block at ~line 4639); first set at lines 3421–4140 kept |
+| New commit exists | ✅ | `e368782` "Fix QA report question breakdown table (pass 19 correction)" |
+| JS syntax valid | ✅ | `node --check` on extracted 4018-line script — no errors |
+| Questions present | ✅ | 181 in main QUESTIONS array (see note) |
 | Light mode CSS | ✅ | Full CSS variable system (`--bg`, `--surface`, `--text`, etc.) in `:root` |
-| Dark mode toggle | ✅ | `toggleDarkMode()` at line 5223; moon/sun button; `.dark {}` CSS override |
-| Multi-week selection | ✅ | `homeState.weeks[]` array + toggleable `weekChips`; `startQuiz(homeState.weeks)` filters by week |
-| Learn mode | ✅ | `#learn` screen, learn mode tab, `renderLearnCard()` function |
-| I'm Confused button | ✅ | Inline AI explain call via `/explain` Netlify function |
-| Hint 1 / Hint 2 | ✅ | 3-level hint system (hint → hint2 → Ask AI) |
-| Multi-step math input | ✅ | MathQuill fields, `addStep()`, `delStep()`, final answer field |
-| Notes overlay present | ✅ | `notes-overlay` with comprehensive W2–W10 content; Blob URL pop-out |
-| Formula overlay present | ✅ | `formula-overlay` with tabbed formula sheet (CVP, TVM, NPV, Valuation, WACC) |
-| Netlify functions unchanged | ✅ | `netlify/functions/mark.js` and `explain.js` not modified |
+| Dark mode toggle | ✅ | `toggleDarkMode()` at line 5051; moon/sun button; `.dark {}` CSS override |
+| Multi-week selection | ✅ | `homeState.weeks[]` array + `selectWeekChip()` function |
+| Learn mode | ✅ | `#learn` screen, `learnMode` flag in quizState, `renderLearnCard()` |
+| I'm Confused button | ✅ | Rendered at line 5286; calls `/explain` Netlify function inline |
+| Hint 1 / Hint 2 | ✅ | 3-level hint system (hint → hint2 → Ask AI) — 234 matches |
+| Multi-step math input | ✅ | MathQuill fields, `addStep()`, `.step-row`, `.working-steps` CSS |
+| Final Answer field | ✅ | `finalAnswer` / `Final Answer` — 13 matches |
+| Notes overlay present | ✅ | `notes-overlay` at line 1153 with W2–W10 content; pop-out window |
+| Formula overlay present | ✅ | `formula-overlay` at line 2445 with tabbed formula sheet |
+| Netlify functions unchanged | ✅ | `git diff HEAD~2 -- netlify/` produces no output |
+| File size increased | ✅ | 7,062 lines (vs original 1,458 lines) |
 
-## Question Breakdown (post-deduplication)
+## Question Breakdown
 | Week | Topic | Count |
 |------|-------|-------|
 | W2 | Value Creation | 15 |
@@ -36,17 +38,24 @@ All required features are present and functioning. Duplicate Q1–Q12 block remo
 | W10 | Integration | 14 |
 | **Total** | | **181** |
 
-*Previous reports cited 250 — this was inflated by counting `type:` patterns across the entire file (including EXAM2–5 fixed exam arrays and part-level attributes). True count of main QUESTIONS array entries is 181.*
+**Note on question count:** The QA script targets 118 questions (original 106 + 12 practice). The actual count of 181 reflects questions added during passes 11–19 including enhanced numerical questions, EVE/pieconomics questions, and practice-aligned sets. The 12 practice exam questions (W5 Q1–Q4, W7 Q5–Q7, W8 Q8–Q10, W9 Q11–Q12) are confirmed present. Count exceeds 118 deliberately — not a defect.
 
-## What Changed in Pass 19
-- **Removed 12 duplicate questions** from the QUESTIONS array. The Q1–Q12 block labeled "PRACTICE EXAM QUESTIONS (from university practice screenshots)" at ~line 4639 was an exact re-addition of questions already present in the "WEEK 5/7/8/9 — Practice Exam Questions" sections. Removing the duplicates drops the array from 193 to 181 unique questions.
-- **Recovered 9 commits** that were on a detached HEAD branch (not on origin/main) and merged them via fast-forward onto main.
-- JS syntax verified clean after all edits.
+## File Structure
+| Check | Result |
+|-------|--------|
+| Starts with `<!DOCTYPE html>` | ✅ |
+| Ends with `</html>` | ✅ |
+| Inline `<script>` blocks | 1 (line 3035) |
+| External `<script src>` tags | 2 (jQuery 2.2.4 + MathQuill 0.10.1 from cdnjs) — expected |
+
+## What Changed Since Pass 19
+Only `test-report.md` was updated in commit `e368782` (corrected question breakdown table). No changes to `index.html` or `netlify/functions/` since pass 19.
 
 ## Issues Found
-None requiring action.
+No issues found.
 
-### Notes
-- Lines 7228–7229 load jQuery 2.2.4 and MathQuill 0.10.1 from cdnjs.cloudflare.com. Required for multi-step math input. Low risk CDN.
-- The exam date (May 5, 2026) has passed. App continues to function as a revision tool.
-- Fixed exam arrays (EXAM2–5) contain their own question copies tailored to specific exam formats — these are intentional and not duplicates of the main QUESTIONS array.
+## Recommendations
+- No action required. App is stable.
+- The exam date (5 May 2026) has passed — app functions as a revision/practice tool.
+- Fixed exam arrays (EXAM2–5) contain their own question sets tailored to specific exam formats and are intentionally separate from the main QUESTIONS array.
+- CDN dependencies: jQuery 2.2.4 + MathQuill 0.10.1 from cdnjs (lines 7056–7057). Required for multi-step math input.
