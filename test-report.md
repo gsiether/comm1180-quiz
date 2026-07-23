@@ -29,11 +29,11 @@ All required features are present and functioning. Duplicate Q1–Q12 block remo
 | W2 | Value Creation | 15 |
 | W3 | CVP Analysis | 26 |
 | W4 | Balanced Scorecard | 15 |
-| W5 | Time Value of Money | 37 |
-| W7 | Capital Budgeting | 29 |
-| W8 | Valuation | 29 |
-| W9 | Risk & WACC | 28 |
-| W10 | Integration | 2 |
+| W5 | Time Value of Money | 33 |
+| W7 | Capital Budgeting | 26 |
+| W8 | Valuation | 26 |
+| W9 | Risk & WACC | 26 |
+| W10 | Integration | 14 |
 | **Total** | | **181** |
 
 *Previous reports cited 250 — this was inflated by counting `type:` patterns across the entire file (including EXAM2–5 fixed exam arrays and part-level attributes). True count of main QUESTIONS array entries is 181.*
