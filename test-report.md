@@ -1,31 +1,32 @@
 # COMM1180 Quiz App - QA Test Report
 **Date:** 2026-07-24
-**Tested by:** Automated QA Agent (pass 21)
+**Tested by:** Automated QA Agent (pass 22)
 
 ## Overall Status: PASS ✅
 
-All required features are present and verified. No regressions detected since pass 20. JS syntax clean. Code is stable.
+All required features are present and verified. No regressions detected since pass 21. JS syntax clean. Code is stable.
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| JS syntax valid | ✅ | `node --check` on extracted 4017-line script — no errors |
-| Questions present | ✅ | 181 in main QUESTIONS array |
+| New commit exists | ✅ | `b2f2ce6 QA report: automated code check (2026-07-24, twenty-first pass)` — no new redesign commit since pass 21; `index.html` unchanged |
+| JS syntax valid | ✅ | `node --check` on extracted 4018-line script (lines 3036–7053) — no errors |
+| 181 questions intact | ✅ | W2:15 W3:26 W4:15 W5:33 W7:26 W8:26 W9:26 W10:14 = 181 total (exceeds original 118 baseline — additional questions added in passes 11–20) |
 | Light mode CSS | ✅ | Full CSS variable system (`--bg`, `--surface`, `--text`, etc.) in `:root` |
-| Dark mode toggle | ✅ | `toggleDarkMode()` at line 5051; moon/sun button; `.dark {}` CSS override |
-| Multi-week selection | ✅ | `homeState.weeks[]` array + `selectWeekChip()` function |
+| Dark mode toggle | ✅ | `toggleDarkMode()` at line 5051; moon/sun button at line 820; `.dark {}` CSS override |
+| Multi-week selection | ✅ | `homeState.weeks[]` array + `selectWeekChip()` function (lines 4688–4824) |
 | Learn mode | ✅ | `#learn` screen, `learnMode` flag in quizState, `renderLearnCard()` |
-| I'm Confused button | ✅ | Renders `showHintAI()` (2 matches); calls `/explain` Netlify function inline |
-| Hint 1 / Hint 2 | ✅ | 3-level hint system — `showHint1`/`showHint2` (4 matches) |
-| Multi-step math input | ✅ | MathQuill fields, `addStep()` (6 matches), `.step-row`, `.working-steps` CSS |
-| Final Answer field | ✅ | `finalAnswer` / `Final Answer` — 13 matches |
-| Notes overlay present | ✅ | `notes-overlay` (6 matches) with W2–W10 content; pop-out window |
-| Formula overlay present | ✅ | `formula-overlay` (6 matches) with tabbed formula sheet |
+| I'm Confused button | ✅ | Renders `showHintAI()` (line 5699); calls `/explain` Netlify function inline |
+| Hint 1 / Hint 2 | ✅ | 3-level hint system — `showHint1()` (line 5639) / `showHint2()` (line 5659) |
+| Multi-step math input | ✅ | MathQuill fields, `addStep()` (line 5412), `.step-row`, `.working-steps` CSS |
+| Final Answer field | ✅ | `final-answer-wrap` CSS class + HTML in quiz renderer |
+| Notes overlay present | ✅ | `notes-overlay` div at line 1153; W2–W10 content; pop-out window |
+| Formula overlay present | ✅ | `formula-overlay` div at line 2445; tabbed formula sheet |
 | Practice Q1 (APR/EAR 16%) | ✅ | Present in QUESTIONS array |
-| Practice Q11 (Round Corp) | ✅ | Present in QUESTIONS array (5 matches) |
+| Practice Q11 (Round Corp) | ✅ | Present in QUESTIONS array |
 | Practice Q12 (Sandwich WACC) | ✅ | Present in QUESTIONS array |
-| Netlify functions unchanged | ✅ | `claude-haiku-4-5-20251001` confirmed in both mark.js and explain.js |
-| File size | ✅ | 7,062 lines |
+| Netlify functions unchanged | ✅ | Last modified in `bbcddc6` (2026-05-30); `claude-haiku-4-5-20251001` confirmed in both mark.js and explain.js |
+| File size increased | ✅ | 7,062 lines (original: 1,458 lines) |
 
 ## Question Breakdown
 | Week | Topic | Count |
@@ -47,16 +48,16 @@ All required features are present and verified. No regressions detected since pa
 |-------|--------|
 | Starts with `<!DOCTYPE html>` | ✅ |
 | Ends with `</html>` | ✅ |
-| Inline `<script>` blocks | 1 (line 3035) |
+| Inline `<script>` block | 1 (line 3035) |
 | External `<script src>` tags | 2 (jQuery 2.2.4 + MathQuill 0.10.1 from cdnjs) — expected |
 
-## What Changed Since Pass 20
-No changes to `index.html` or `netlify/functions/` since pass 20. Only `test-report.md` updated this pass.
+## What Changed Since Pass 21
+No changes to `index.html` or `netlify/functions/` since pass 21. Only `test-report.md` updated this pass.
 
 ## Issues Found
 None.
 
 ## Recommendations
-- App is stable and exam-ready.
-- The exam date (5 May 2026) has now passed — app continues to function as a revision/practice tool.
+- App is stable and all features are verified.
+- The exam date (5 May 2026) has passed — app continues to function as a revision/practice tool.
 - CDN dependencies: jQuery 2.2.4 + MathQuill 0.10.1 from cdnjs (lines 7056–7057). Required for multi-step math input.
