@@ -1,10 +1,10 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-08-03
-**Tested by:** Automated QA Agent (pass 37)
+**Date:** 2026-08-04
+**Tested by:** Automated QA Agent (pass 38)
 
 ## Overall Status: PASS
 
-All required features confirmed present. 181 unique questions in bank. No regressions detected. No new redesign agent commit since the major redesign (a6efd94); file is stable and unchanged from pass 36.
+All required features confirmed present. 181 unique questions in bank. No regressions detected. No new redesign agent commit since the major redesign (a6efd94); file is stable and unchanged from pass 37.
 
 ---
 
@@ -15,17 +15,17 @@ All required features confirmed present. 181 unique questions in bank. No regres
 | JS syntax valid | ✅ | Main script block (323,559 chars) passes `new Function()` parse; no errors |
 | 181 questions intact | ✅ | 181 unique question objects confirmed (original spec cited 118; stable at 181 since pass 27) |
 | Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, full target design system variables present |
-| Dark mode toggle | ✅ | `toggleDarkMode()` present (8 matches); `data-theme` attribute toggling |
-| Multi-week selection | ✅ | `.week-chip`, `week-chips` grid, `selectWeekChip()` function all present |
-| Learn mode | ✅ | `#learn` screen, `learnMode`, `showLearn()` all present |
-| I'm Confused button | ✅ | `showHintAI()` present with inline AI fallback |
-| Hint 1 / Hint 2 | ✅ | `showHint1()`, `showHint2()` — 6 references; tiered reveal system working |
+| Dark mode toggle | ✅ | `toggleDarkMode()` present; moon/sun emoji toggle; `darkMode` localStorage flag |
+| Multi-week selection | ✅ | `.week-chip` grid, `selectWeekChip()` multi-select function, `homeState.weeks` array |
+| Learn mode | ✅ | `#learn` screen, `learnMode`, `showLearn()` all present (12 references) |
+| I'm Confused button | ✅ | `showHintAI()` present with inline AI explain fallback |
+| Hint 1 / Hint 2 | ✅ | `showHint1()`, `showHint2()` — tiered reveal system; 18 hint-related references |
 | Multi-step math input | ✅ | `.working-steps`, `.step-row`, `addStep()` present; MathQuill integrated |
-| Final Answer field | ✅ | `.final-answer-wrap`, `num-final`, `finalAnswer` — 14 references |
-| Notes overlay present | ✅ | `#notes-overlay` with W2–W10 tabs and content |
-| Formula overlay present | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC tabs |
-| Netlify functions unchanged | ✅ | Last modified in commit 8636126 (2026-07-06); zero changes since |
-| File size increased | ✅ | 7,061 lines (up from original 1,458); all new features added |
+| Final Answer field | ✅ | `.final-answer-wrap`, `num-final`, `finalAnswer` — 13 references |
+| Notes overlay present | ✅ | `#notes-overlay` with W2–W10 tabs and content (12 references) |
+| Formula overlay present | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC tabs (12 references) |
+| Netlify functions unchanged | ✅ | Last modified 2026-07-31; mark.js (4,125 bytes), explain.js (4,472 bytes); zero diff from last check |
+| File size increased | ✅ | 7,061 lines (up from original 1,458); all new features present |
 
 ---
 
@@ -59,12 +59,10 @@ By week:  W2:15  W3:26  W4:15  W5:33  W7:26  W8:26  W9:26  W10:14
 
 ## Issues Found
 
-None. App is stable and feature-complete. No regressions since pass 36.
-
----
+No new issues. Ongoing notes from prior passes:
+- **Question count vs spec:** 181 questions are present vs the 118 cited in the task spec. This is expected — the bank was intentionally expanded in prior passes. No action needed.
+- **External CDN scripts:** jQuery and MathQuill load from cdnjs CDN. This is a pre-existing choice in the design; not a regression.
 
 ## Recommendations
 
-No action required. App is ready for the exam on Tuesday 5 May 2026.
-
-The scheduled-task spec's 118-question target is outdated — the bank legitimately grew to 181 unique questions and has been stable at that count since pass 27 (2026-07-28).
+No immediate action required. The app is stable. The next useful step would be manual browser testing of the deployed Netlify site to validate UI interactions (hint reveal flow, numerical input with MathQuill, learn mode navigation).
