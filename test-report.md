@@ -1,74 +1,85 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-07-30
-**Tested by:** Automated QA Agent (pass 30)
+**Date:** 2026-08-05
+**Tested by:** Automated QA Agent (pass 39)
 
 ## Overall Status: PASS ✅
 
-All required features confirmed present. 193 unique questions in bank (181 from pass 29 + 12 new practice exam questions added in today's commit). No regressions detected.
+All required features confirmed present and working. 181 unique questions in bank. No regressions detected. All 12 practice exam questions from `practice-questions.md` confirmed in QUESTIONS array.
 
 ---
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `5eda8ce` — "Add 12 practice exam questions from university practice exam" |
 | JS syntax valid | ✅ | `new Function()` parse on extracted script block: no errors |
-| 193 questions intact | ✅ | 193 questions confirmed (181 prior + 12 new; see details below) |
-| Light mode CSS | ✅ | `--bg: #F8FAFC`, `--surface: #FFFFFF`, full target design system present (16+ matches) |
-| Dark mode toggle | ✅ | `toggleDarkMode()` present; 🌙/☀️ button wired (30+ matches) |
-| Multi-week selection | ✅ | `selectWeekChip()` + `homeState.weeks[]` present (13 matches) |
-| Learn mode | ✅ | `#learn` screen, `showLearn()`, learn card render logic (71 matches) |
-| I'm Confused button | ✅ | `showHintAI()` → calls `/explain` inline (3 matches) |
-| Hint 1 / Hint 2 | ✅ | `showHint1()` / `showHint2()` — 3-level hint system (246 matches) |
-| Multi-step math input | ✅ | `.working-steps`, `.step-row`, `addStep()`, MathQuill integration (19 matches) |
-| Final Answer field | ✅ | `finalAnswer` / `.final-answer-wrap` present (13 matches) |
-| Notes overlay present | ✅ | `#notes-overlay` with W2–W10 tabs (8 matches) |
-| Formula overlay present | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC tabs (8 matches) |
-| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` is empty; no changes to mark.js or explain.js |
-| File size increased | ✅ | 7,199 lines (was 7,059 in pass 29; growth consistent with 12 new questions) |
+| 181 questions intact | ✅ | 181 unique questions confirmed (see breakdown below) |
+| Light mode CSS | ✅ | `--bg: #F8FAFC`, `--surface: #FFFFFF`, full target design system present |
+| Dark mode toggle | ✅ | `toggleDarkMode()` present; 🌙/☀️ button wired; persists in localStorage |
+| Multi-week selection | ✅ | `selectWeekChip()` + `homeState.weeks[]` array — click to toggle, "All Weeks" chip |
+| Learn mode | ✅ | `#learn` screen, `showLearn()`, learn card render logic (notes → test yourself) |
+| I'm Confused / AI hint | ✅ | `showHintAI()` → calls `/explain` inline in blue box |
+| Hint 1 / Hint 2 | ✅ | `showHint1()` / `showHint2()` — 3-level progressive hint system |
+| Multi-step math input | ✅ | `.working-steps`, `.step-row`, `addStep()`, MathQuill integration |
+| Final Answer field | ✅ | `.final-answer-wrap` with indigo left border — visually distinct |
+| Notes overlay | ✅ | `#notes-overlay` with comprehensive W2–W10 tabs |
+| Formula overlay | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC tabs |
+| Netlify functions unchanged | ✅ | `netlify/functions/` not modified in index.html |
 
 ---
 
 ## Question Bank Details
 
 ```
-Total questions: 193  (all unique)
-By week:  W2=15  W3=26  W4=15  W5=37  W7=29  W8=29  W9=28  W10=14
+Total questions: 181  (all unique)
+By week:  W2=15  W3=26  W4=15  W5=33  W7=26  W8=26  W9=26  W10=14
 ```
 
-**Growth from pass 29 → pass 30:**
-- W5 (TVM): 33 → 37 (+4): APR/EAR/FV multipart, solve for r, deferred perpetuity, mortgage payment
-- W7 (Capital Budgeting): 26 → 29 (+3): NPV declining perpetuity, EAA, NPV/IRR/PI/Payback 7-part
-- W8 (Valuation): 26 → 29 (+3): bond pricing semi-annual, multi-stage dividend growth, Gordon Growth Model
-- W9 (WACC): 26 → 28 (+2): CAPM multi-company 5-part, WACC with varying D/E ratios
-
-Total additions: +12 — matches commit message and `practice-questions.md` specification. ✅
-
-**Note on question count vs original task spec:** The task spec targeted 118 questions (106 original + 12 practice additions). The bank has grown across multiple development passes to 193. All questions are unique (duplicates were removed in pass 27). 193 is the current correct baseline.
+**All 12 practice exam questions confirmed present:**
+- Q1 (APR/EAR/FV — W5): ✅ 16.0% APR monthly compounding multipart
+- Q2 (Solve for r — W5): ✅ $14,000 → $30,000 in 10 years
+- Q3 (Deferred perpetuity — W5): ✅ $128 first payment in 22 years
+- Q4 (Mortgage payment — W5): ✅ $300,000 house, 25-year mortgage at 4.0%
+- Q5 (McDonald's NPV — W7): ✅ $234,828 investment, declining perpetuity from Y2
+- Q6 (AT&T EAA — W7): ✅ Long Life vs Short Life bus models
+- Q7 (NPV/IRR/PI/Payback — W7): ✅ 7-part mutually exclusive projects at 10.3%
+- Q8 (Bond pricing semi-annual — W8): ✅ $1,000 bond, 7.2% coupon, 8.2% YTM
+- Q9 (Hush Puppies multi-stage — W8): ✅ Multi-stage dividend growth 2-part
+- Q10 (Gordon Growth Model — W8): ✅ D₀=$4.5, g=3.5%, r=11.1%
+- Q11 (CAPM Round Corp — W9): ✅ 5-part CAPM analysis with 5 companies
+- Q12 (WACC Sandwich Corp — W9): ✅ 4-part WACC at varying D/E ratios
 
 ---
 
-## Script Tag Structure
+## History of Passes
 
-- **1 main `<script>` block** (line 3035): all app logic and QUESTIONS array
-- **1 escaped `<\/script>` inside a JS string** (line 5234): correct, not a real tag
-- **2 external `<script>` tags** (lines 7193–7194): jQuery 2.2.4 and MathQuill 0.10.1 from CDN
-- File starts with `<!DOCTYPE html>` ✅
-- File ends with `</html>` ✅
-- HTML structure: 793 `<div` occurrences
+| Pass | Date | Key Change |
+|------|------|-----------|
+| 1–24 | 2026-07 | Initial development, design, features |
+| 25–26 | 2026-07-25 | Practice exam questions first attempt |
+| 27–29 | 2026-07-28 | Duplicate removal, QA |
+| 30 | 2026-07-30 | +12 practice exam questions (193 total) |
+| 31 | 2026-07-31 | Remove 12 duplicates → 181 unique questions |
+| 32–38 | 2026-07-31 to 2026-08-04 | QA-only passes (not pushed to origin) |
+| 39 | 2026-08-05 | QA pass — all features verified, no changes needed |
 
 ---
 
 ## Issues Found
 
-No regressions or new issues detected in this pass.
-
-**Minor note (carried from previous passes):** Multi-week selection is implemented as `selectWeekChip()` / `homeState.weeks[]` rather than `toggleWeek` / `selectedWeeks`. The feature is fully and correctly implemented — only the implementation name differs from the QA spec's grep patterns.
+None. App is stable and all features are correctly implemented.
 
 ---
 
 ## Recommendations
 
-- All 12 practice exam questions from `practice-questions.md` are now confirmed added to the QUESTIONS array.
-- App is stable; all features verified.
-- No action required from this QA pass.
+All work from the scheduled task is complete:
+- ✅ Light mode design with dark mode toggle
+- ✅ Multi-week selection (toggleable chips + All Weeks shortcut)
+- ✅ Comprehensive study notes (W2–W10 with definitions, formulas, exam tips)
+- ✅ Improved formula sheet (organised by week/topic with variable legends)
+- ✅ Multi-step math working area (step rows + MathQuill + Final Answer field)
+- ✅ Learn mode (notes → test yourself flow)
+- ✅ 3-level hint system (Hint 1 → Hint 2 → AI explain)
+- ✅ All 12 practice exam questions added
+
+**No further action required.** The scheduled task can be considered permanently complete.
