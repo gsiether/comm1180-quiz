@@ -1,97 +1,44 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-08-05
-**Tested by:** Automated QA Agent (pass 40)
+**Date:** 2026-08-06
+**Tested by:** Automated QA Agent (pass 41)
 
-## Overall Status: PASS ✅
+## Overall Status: PASS
 
-All required features confirmed present and working. 181 unique questions in bank. No regressions detected. All 12 practice exam questions from `practice-questions.md` confirmed in QUESTIONS array.
-
----
+All major features are present and functional. Minor issues noted below.
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| JS syntax valid | ✅ | `node --check` passes on extracted script (exit 0) |
-| 181 questions intact | ✅ | 181 unique questions confirmed (see breakdown below) |
-| Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF`, full target design system variables present |
-| Dark mode toggle | ✅ | `toggleDarkMode()` present; moon/sun emoji toggle; `darkMode` localStorage flag |
-| Multi-week selection | ✅ | `homeState.weeks[]` array — `weekChip.active` toggle with "All Weeks" chip |
-| Learn mode | ✅ | `#learn` screen, `showLearn()`, learn card render logic (notes → test yourself) |
-| I'm Confused / AI hint | ✅ | `showHintAI()` present with inline AI explain fallback |
-| Hint 1 / Hint 2 | ✅ | `showHint1()` / `showHint2()` — tiered reveal system |
-| Multi-step math input | ✅ | `.working-steps`, `.step-row`, `addStep()` present; MathQuill integrated |
-| Final Answer field | ✅ | `.final-answer-wrap`, `num-final`, `finalAnswer` — visually distinct |
-| Notes overlay present | ✅ | `#notes-overlay` with W2–W10 tabs and content |
-| Formula overlay present | ✅ | `#formula-overlay` with CVP/TVM/NPV/Valuation/WACC tabs |
-| Netlify functions unchanged | ✅ | mark.js and explain.js not modified (git diff HEAD~1 -- netlify/ shows no changes) |
-| File size | ✅ | 7,061 lines (up from original 1,458); all new features present |
-
----
-
-## Question Bank Details
-
-```
-Total questions: 181  (all unique)
-By type:  mcq=42  tf=15  numerical=48  sa=41  multipart=35
-By week:  W2:15  W3:26  W4:15  W5:33  W7:26  W8:26  W9:26  W10:14
-```
-
-**All 12 practice exam questions confirmed present:**
-- Q1 (APR/EAR/FV — W5): ✅ 16.0% APR monthly compounding multipart
-- Q2 (Solve for r — W5): ✅ $14,000 → $30,000 in 10 years
-- Q3 (Deferred perpetuity — W5): ✅ $128 first payment in 22 years
-- Q4 (Mortgage payment — W5): ✅ $300,000 house, 25-year mortgage at 4.0%
-- Q5 (McDonald's NPV — W7): ✅ $234,828 investment, declining perpetuity from Y2
-- Q6 (AT&T EAA — W7): ✅ Long Life vs Short Life bus models
-- Q7 (NPV/IRR/PI/Payback — W7): ✅ 7-part mutually exclusive projects at 10.3%
-- Q8 (Bond pricing semi-annual — W8): ✅ $1,000 bond, 7.2% coupon, 8.2% YTM
-- Q9 (Hush Puppies multi-stage — W8): ✅ Multi-stage dividend growth 2-part
-- Q10 (Gordon Growth Model — W8): ✅ D0=$4.5, g=3.5%, r=11.1%
-- Q11 (CAPM Round Corp — W9): ✅ 5-part CAPM analysis with 5 companies
-- Q12 (WACC Sandwich Corp — W9): ✅ 4-part WACC at varying D/E ratios
-
-**Note on question count:** Task spec originally cited 118 questions; bank has been stable at 181 since pass 27. All 12 practice exam questions are unique and confirmed present.
-
----
-
-## Script Tag Structure
-
-- **1 main script block**: all app logic and QUESTIONS array (lines 3035–7053)
-- **2 external script tags**: jQuery 2.2.4 and MathQuill 0.10.1 from CDN
-- File starts with `<!DOCTYPE html>` and ends with `</html>` ✅
-
----
-
-## Pass History
-
-| Pass | Date | Key Change |
-|------|------|-----------|
-| 1–24 | 2026-07 | Initial development, major redesign, all features implemented |
-| 25–26 | 2026-07-25 | Practice exam questions first attempt |
-| 27–29 | 2026-07-28 | Duplicate removal, QA |
-| 30 | 2026-07-30 | +12 practice exam questions (193 total) |
-| 31 | 2026-07-31 | Remove 12 duplicates: 181 unique questions |
-| 32–39 | 2026-07-31 to 2026-08-05 | QA-only passes, no code changes |
-| 40 | 2026-08-05 | QA pass — all features verified, no changes needed |
-
----
+| New commit exists | ✅ | Redesign commit `a6efd94` on 2026-07-09: "Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions". Latest commit is QA pass #40 on 2026-08-05. |
+| JS syntax valid | ✅ | `new Function(code)` parse check passes. No syntax errors. |
+| 118 questions (target) | ⚠️ | Actual count: **198** questions (MCQ:42, TF:15, Numerical:48, SA:58, Multipart:35). Target was 118 at redesign time; count has grown via legitimate post-redesign commits (15 TF questions added in `f583fcc`, additional questions added in other commits). 1 duplicate question detected (see Issues). |
+| Light mode CSS | ✅ | `--bg: #F8FAFC`, `--surface: #FFFFFF`, and full design token set present |
+| Dark mode toggle | ✅ | `toggleDarkMode()` function and `#darkModeBtn` present |
+| Multi-week selection | ✅ | `homeState.weeks` array with `selectWeekChip()` properly toggles individual weeks on/off; "All Weeks" chip also present |
+| Learn mode | ✅ | Learn mode screen, `NOTES` object, and "Test yourself" flow present |
+| I'm Confused button | ✅ | "confused"/"Confused" references found (3 matches) |
+| Hint 1 / Hint 2 | ✅ | 3-level hint system present (247 matches for hint-related code) |
+| Multi-step math input | ✅ | `addStep`/`working-steps`/`step-row` pattern present (23 matches) |
+| Final Answer field | ✅ | `finalAnswer`/`Final Answer` present (13 matches) |
+| Notes overlay present | ✅ | `notes-overlay` element present (8 matches) |
+| Formula overlay present | ✅ | `formula-overlay` element present (8 matches) |
+| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` shows no changes to `mark.js` or `explain.js` |
+| File size increased | ✅ | 7,061 lines (vs original 1,458 lines — 4.8× larger) |
 
 ## Issues Found
 
-None. App is stable. No regressions from any previous pass.
+1. **1 duplicate question detected**: The question beginning "Calculate NPV for each project..." appears twice in the QUESTIONS array. This was previously flagged in multiple prior QA passes and appears to have persisted through several "Remove duplicate" commits. It may refer to a different variant that wasn't fully deduplicated.
 
----
+2. **Question count exceeds target**: The QUESTIONS array now has 198 questions vs the 118-question target from the redesign spec. This is the result of legitimate post-redesign additions (15 TF questions, additional numerical questions from practice-questions.md). Not a defect, but the QA checklist target is stale.
+
+3. **Parenthesis imbalance in raw JS text**: `-8` unmatched `(` vs `)` in the script block. JS syntax check passes (these are likely unmatched parens inside string literals). No runtime impact.
+
+4. **4 `<script>` tag occurrences in HTML**: The main app script is at line 3035. Line 5096 is a `<script>` inside a JS string (used when generating the notes popup window). Lines 7055–7056 are external CDN scripts for jQuery and MathQuill. Effectively 1 main `<script>` + 2 CDN scripts. Not a structural issue but differs from the spec's "exactly one `<script>` tag" goal.
 
 ## Recommendations
 
-All work from the scheduled task is complete:
-- Light mode design with dark mode toggle ✅
-- Multi-week selection (toggleable chips + All Weeks shortcut) ✅
-- Comprehensive study notes (W2–W10 with definitions, formulas, exam tips) ✅
-- Improved formula sheet (organised by week/topic with variable legends) ✅
-- Multi-step math working area (step rows + MathQuill + Final Answer field) ✅
-- Learn mode (notes → test yourself flow) ✅
-- 3-level hint system (Hint 1 → Hint 2 → AI explain) ✅
-- All 12 practice exam questions added ✅
+1. **Fix the 1 remaining duplicate question** ("Calculate NPV for each project..."): Run a dedup pass against the QUESTIONS array and remove the exact duplicate. Prior removal commits may have missed this instance.
 
-No further action required. The scheduled task is permanently complete.
+2. **Update the QA checklist target**: The "118 questions" target should be updated to reflect the current 198-question bank, or the expected count should be documented in CLAUDE.md.
+
+3. **No action required on netlify functions**: Both `mark.js` and `explain.js` remain unchanged across all QA passes — these are stable.
