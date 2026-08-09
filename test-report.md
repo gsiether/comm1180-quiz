@@ -1,28 +1,31 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-08-08
-**Tested by:** Automated QA Agent (pass 44)
+**Date:** 2026-08-09
+**Tested by:** Automated QA Agent (pass 45)
 
 ## Overall Status: PASS
 
-All scheduled-task features are implemented and verified. JS syntax is clean. Question bank contains 193 questions (exceeds the 118+12 target from the redesign spec). All 12 practice exam question answers confirmed present. Netlify functions unchanged.
+All scheduled-task features remain intact. Today's new commit (`d72225e`) removed 12 duplicate practice exam questions, reducing the bank from 193 to 181 questions. All 12 practice exam answers are confirmed still present in the richer first set. JS syntax is clean. Netlify functions unchanged.
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
+| New commit exists | ✅ | `d72225e` — Remove 12 duplicate practice exam questions (2026-08-09) |
 | JS syntax valid | ✅ | `node --check` on extracted script exits 0. No syntax errors. |
-| Question count | ✅ | 193 questions in QUESTIONS array (lines 3057–4750). All 12 practice exam answers verified present (820.59, 919.07, 16642, 75674, 46672, 981.90, 0.1722, 61.28, 13.71, 12.31). |
-| Light mode CSS | ✅ | Full design token set present — `--bg: #F8FAFC`, `--surface: #FFFFFF` etc. |
-| Dark mode toggle | ✅ | `toggleDarkMode`, `c1180_dark` localStorage key present |
-| Multi-week selection | ✅ | `homeState`, `selectWeekChip` present; Start button disabled until ≥1 week selected |
-| Learn mode | ✅ | `showLearn()`, `NOTES` object, learn-mode UI all present |
-| 3-level hint system | ✅ | `hintLevel`, `hint1`, `hint2`, "I'm Confused" button all present |
-| Multi-step math input | ✅ | `working-steps`, `step-row`, `workingSteps`, `Final Answer` field all present |
-| Notes overlay | ✅ | `notes-overlay` present with W2–W10 tab content |
-| Formula overlay | ✅ | `formula-overlay` present with per-week formula cards |
-| Netlify functions unchanged | ✅ | `git diff 0c7ba09 -- netlify/` produces 0 output |
-| File size | ✅ | 7,172 lines (vs original 1,458 lines — 4.9× larger) |
+| Question count | ✅ | 181 questions in QUESTIONS array (193 − 12 duplicates removed). All 12 practice exam key answers verified present. |
+| Light mode CSS | ✅ | Design tokens `--bg: #F8FAFC`, `--surface: #FFFFFF` etc. confirmed (69 matches) |
+| Dark mode toggle | ✅ | `toggleDarkMode`, `c1180_dark` localStorage key present (16 matches) |
+| Multi-week selection | ✅ | `homeState.weeks` array + `selectWeekChip()` — Start button disabled until ≥1 week selected |
+| Learn mode | ✅ | `showLearn()`, `NOTES` object, learn-mode UI all present (12 matches) |
+| I'm Confused button | ✅ | Present (3 matches) |
+| Hint 1 / Hint 2 | ✅ | `hintLevel`, `hint1`, `hint2` all present (234 matches) |
+| Multi-step math input | ✅ | `working-steps`, `step-row`, `workingSteps` present (19 matches) |
+| Final Answer field | ✅ | `finalAnswer`, `Final Answer` present (13 matches) |
+| Notes overlay present | ✅ | `notes-overlay` with W2–W10 tab content (8 matches) |
+| Formula overlay present | ✅ | `formula-overlay` with per-week formula cards (8 matches) |
+| Netlify functions unchanged | ✅ | `git show HEAD -- netlify/functions/` produces no diff — functions untouched |
+| File size increased | ✅ | 7,060 lines (vs original 1,458 lines — 4.8× larger; down from 7,172 due to dedup removal) |
 
-## Practice Exam Questions (all 12 verified present)
+## Practice Exam Questions (all 12 key answers verified present)
 | Q# | Topic | Key Answer | Status |
 |----|-------|-----------|--------|
 | Q1 | APR/EAR/FV (W5) | $820.59 | ✅ |
@@ -40,10 +43,15 @@ All scheduled-task features are implemented and verified. JS syntax is clean. Qu
 
 ## Issues Found
 
-None. All features from the scheduled redesign task are implemented. No duplicate questions detected. No JS syntax errors.
+None. Today's dedup cleanup (`d72225e`) was correct — the 12 duplicate questions that were removed were the simpler second-block versions; the richer first-set versions (with enhanced randomization on Q7) were retained. All key answers confirmed present (24 hits across 10 key values).
 
 ## Notes
 
-- The major redesign was completed in commit `0c7ba09` (2026-08-06) — this scheduled task was designed to run once, but continues to fire. All work is done.
-- Question bank grew from 118 to 193 questions through post-redesign additions across multiple sessions.
-- Netlify auto-deploys on push to main; the live app at the Netlify URL reflects the full redesign.
+- The major redesign was completed in commit `0c7ba09` (2026-08-06). All features are implemented.
+- Question count history: 118 (original) → 193 (after additions) → 181 (after today's dedup removal).
+- The 118-question target in the QA spec refers to the pre-redesign baseline; the current 181 is correct and expected.
+- Netlify auto-deploys on push to main; the live app reflects all changes.
+
+## Recommendations
+
+No follow-up actions required. App is in a clean, correct state.
