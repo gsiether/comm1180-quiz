@@ -1,12 +1,13 @@
 # COMM1180 Quiz App - QA Test Report
 **Date:** 2026-08-11
-**Tested by:** Automated QA Agent (pass 47)
+**Tested by:** Automated QA Agent (pass 48)
 
 ## Overall Status: PASS
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
+| New commit exists | ✅ | Latest: `89b5d23` QA report pass 47 (2026-08-11); redesign at `0c7ba09` |
 | JS syntax valid | ✅ | `new Function()` parse check passed with no errors |
 | Questions array present | ✅ | QUESTIONS array closes correctly; 181 entries total |
 | 181 questions stable | ✅ | Stable count post-deduplication (d72225e removed 12 duplicates); all 12 practice exam Qs present |
@@ -33,9 +34,9 @@
 | Practice Q10: Gordon Growth | ✅ | W8 numerical: D₀=$4.5, g=3.5%, r=11.1% |
 | Practice Q11: CAPM 5-part | ✅ | W9 multipart: Round Corp table, 5 CAPM sub-questions |
 | Practice Q12: WACC D/E ratios | ✅ | W9 multipart: Sandwich With A Pretty Big Pickle, 4 D/E ratios |
-| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` unmodified (last modified 2026-08-08) |
+| Netlify functions unchanged | ✅ | `mark.js` and `explain.js` unmodified (git diff HEAD~1 -- netlify/ empty) |
 | HTML structure valid | ✅ | Starts `<!DOCTYPE html>`, ends `</html>` |
-| File size | ✅ | 7061 lines |
+| File size | ✅ | 7060 lines (vs original 1458) |
 
 ## Question Count Breakdown (QUESTIONS array)
 | Week | Count |
@@ -50,9 +51,11 @@
 | Week 10 | 14 |
 | **Total** | **181** |
 
+Note: 181 questions (not 118) — the redesign agent added additional questions beyond the 12 practice exam questions originally specified. Count has been stable since `d72225e` (deduplication commit).
+
 ## Issues Found
-None. All 20 feature checks pass. App is fully functional.
+None. All feature checks pass. App is fully functional.
 
 ## Recommendations
-- All required features are implemented and stable: light mode, dark mode toggle, multi-week selection, learn mode, 3-level hints, multi-step math working area, comprehensive notes, improved formula sheet, and all 12 practice exam questions.
-- Netlify auto-deploys on push to `main`; confirm `ANTHROPIC_API_KEY` is set in Netlify dashboard.
+- All required features are implemented and stable: light mode, dark mode toggle, multi-week selection, learn mode, 3-level hints, multi-step math working area, comprehensive notes, formula sheet, and all 12 practice exam questions.
+- Netlify auto-deploys on push to `main`; confirm `ANTHROPIC_API_KEY` is set in Netlify dashboard environment variables.
