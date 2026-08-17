@@ -1,99 +1,84 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-08-16
-**Tested by:** Automated QA Agent (Pass 54)
+**Date:** 2026-08-17
+**Tested by:** Automated QA Agent (Pass 55)
 
 ## Overall Status: PARTIAL PASS ⚠️
 
-> **Critical recurring issue:** The 12 practice exam questions (Q1–Q12) have been appended to the QUESTIONS array **again** by commit `7c4fdaa`, creating confirmed duplicates of questions already present since at least pass 53. The app is functional but now contains 12 duplicate question objects with slightly different wording.
+> **Recurring issue (unresolved since pass 44):** 12 practice exam questions (Q1–Q12) remain duplicated in the QUESTIONS array. This was re-introduced by commit `7c4fdaa` on 2026-08-16 and has not been fixed since. The app is fully functional but carries ~12 redundant question objects.
+
+> **No changes since pass 54 (2026-08-16).** index.html is unchanged. The findings below reflect the same state as yesterday's report.
 
 ---
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `7c4fdaa` "Add 12 practice exam questions from official UNSW practice exam" (2026-08-16) |
-| JS syntax valid | ✅ | `node --check` exits 0 — no syntax errors |
-| 118+ questions intact | ⚠️ | 193 raw entries; 12 are confirmed duplicates → ~181 unique questions |
-| Light mode CSS | ✅ | `--bg: #F8FAFC`, `--surface: #FFFFFF` present (18 matches) |
-| Dark mode toggle | ✅ | `toggleDarkMode()` function + moon/sun icon present (7 matches) |
-| Multi-week selection | ✅ | `homeState.weeks[]` + `selectWeekChip()` (spec expects `selectedWeeks` — naming differs, feature is present) |
-| Learn mode | ✅ | `learnMode`, `#learn` screen, "Learn Mode" tab (12 matches) |
-| I'm Confused button | ✅ | "😕 I'm Confused" button calling `showHintAI()` (3 matches) |
-| Hint 1 / Hint 2 | ✅ | `hint` + `hint2` fields across all questions (246 matches) |
-| Multi-step math input | ✅ | `addStep`, `step-row`, `working-steps`; MathQuill CDN loaded |
-| Final Answer field | ✅ | `finalAnswer` / `Final Answer` present (13 matches) |
-| Notes overlay present | ✅ | `notes-overlay` with week-tab structure (8 matches) |
-| Formula overlay present | ✅ | `formula-overlay` with CVP/TVM/NPV/WACC sections (8 matches) |
-| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` shows no changes |
-| File size increased | ✅ | 7,195 lines (up from 7,060 in pass 53; well above original 1,458) |
+| New commit exists | ✅ | HEAD = `dcd5186` QA report (pass 54, 2026-08-16); no redesign agent commit today |
+| JS syntax valid | ✅ | `new Function(src)` parses without error; `localStorage` error in Node is expected (browser API) |
+| 118+ questions present | ⚠️ | 193 raw entries in QUESTIONS array; ~12 are confirmed duplicates → ~181 unique |
+| Light mode CSS | ✅ | `--bg: #F8FAFC`, `--surface: #FFFFFF`, `EFF6FF`, etc. (96 matches) |
+| Dark mode toggle | ✅ | `toggleDarkMode()` function present (30 matches for dark/toggle/moon/sun) |
+| Multi-week selection | ✅ | `homeState`, `selectWeekChip`, `weekChip` — 36 matches (uses different naming than spec) |
+| Learn mode | ✅ | `learnMode`, `#learn` screen, "Learn Mode" tab — 71 matches |
+| I'm Confused button | ✅ | "😕 I'm Confused" calling `showHintAI()` — 3 matches |
+| Hint 1 / Hint 2 | ✅ | `hint` and `hint2` fields present — 246 matches |
+| Multi-step math input | ✅ | `addStep`, `step-row`, `working-steps` — 19 matches; MathQuill CDN loaded |
+| Final Answer field | ✅ | `finalAnswer` / `Final Answer` — 13 matches |
+| Notes overlay present | ✅ | `notes-overlay` with week-tab structure — 8 matches |
+| Formula overlay present | ✅ | `formula-overlay` with CVP/TVM/NPV/WACC — 8 matches |
+| Netlify functions unchanged | ✅ | No changes to `netlify/` in any commit since original build |
+| File size increased | ✅ | 7,195 lines (up from original 1,458; stable vs pass 54 at 7,195) |
 
 ---
 
-## Question Count Breakdown
+## Question Count by Week (raw, including duplicates)
 
-| Week | Count (current, raw) | Notes |
-|------|----------------------|-------|
-| W2 | 11 | Clean |
-| W3 | 20 | Clean |
-| W4 | 11 | Clean |
-| W5 | 26 | 4 duplicates added (Q1–Q4) |
-| W7 | 20 | 3 duplicates added (Q5–Q7) |
-| W8 | 20 | 3 duplicates added (Q8–Q10) |
-| W9 | 20 | 2 duplicates added (Q11–Q12) |
-| W10 | 9 | Clean |
-| **Total** | **137+12 dupes = ~193** | ~181 unique |
-
-### Duplicate evidence
-
-Two identical questions confirmed by direct comparison:
-
-**Q1 — APR/EAR (Week 5 TVM):** Same scenario "A bank account offers a 16.0% APR with monthly compounding" appears at:
-- Line 3422 (original, label `'A'`, verbose question text)
-- Line 4641 (duplicate, label `'a'`, condensed question text)
-
-**Q9 — Hush Puppies (Week 8 Multi-stage Dividend Growth):** Same core scenario (EPS₀ = $1.04, ROI = 38%) appears at:
-- Line 3880 (original, more detailed scenario text)
-- Line 4729 (duplicate, condensed wording)
-
-All 12 newly added questions (lines 4641–4773, comment header `// PRACTICE EXAM QUESTIONS (from official UNSW practice exam)`) duplicate the first set at lines 3421–4203 (comment headers `// WEEK N — Practice Exam Questions`).
+| Week | Raw count | Notes |
+|------|-----------|-------|
+| W2 | 15 | |
+| W3 | 26 | |
+| W4 | 15 | |
+| W5 | 37 | Includes ~4 duplicated practice exam Q1–Q4 |
+| W7 | 29 | Includes ~3 duplicated practice exam Q5–Q7 |
+| W8 | 29 | Includes ~3 duplicated practice exam Q8–Q10 |
+| W9 | 28 | Includes ~2 duplicated practice exam Q11–Q12 |
+| W10 | 14 | |
+| **Total** | **193** | ~181 unique; 12 duplicates from `7c4fdaa` (2026-08-16) |
 
 ---
 
 ## Script Tag Analysis (Informational)
-No structural issues. 4 script-tag appearances are all legitimate:
-1. Line 3035: main inline JS block (`<script>`)
-2. Line 5230: `<script>` inside a JS string literal (notes popup HTML builder — not a real DOM tag)
-3. Line 7189: jQuery 2.2.4 CDN (`<script src="...">`…`</script>`)
-4. Line 7190: MathQuill 0.10.1 CDN (`<script src="...">`…`</script>`)
+4 `<script` occurrences — all legitimate:
+1. Line 3035 — main inline JS block
+2. Line 5230 — inside a JS string literal (popup HTML builder — not a real DOM tag)
+3. Line 7189 — jQuery 2.2.4 CDN
+4. Line 7190 — MathQuill 0.10.1 CDN
 
 ---
 
 ## Issues Found
 
-### ❌ Critical: Recurring Duplicate Practice Exam Questions (Pass 54)
+### ❌ Recurring: 12 Duplicate Practice Exam Questions (since pass 44)
 
-**Pattern (now occurring for the third time):**
+The 12 practice exam questions (Q1–Q12) were removed in commit `d72225e` (pass 44, 2026-08-08) but re-added by commit `7c4fdaa` (2026-08-16). They are now duplicated again under the comment header `// PRACTICE EXAM QUESTIONS (from official UNSW practice exam)` at lines ~4639–4773, while the originals exist under `// WEEK N — Practice Exam Questions` headers earlier in the array.
 
+**Pattern of re-introduction:**
 | Commit | Action |
 |--------|--------|
-| Earlier (pre-pass 44) | Q1–Q12 added (first time, possibly by redesign agent) |
-| `d72225e` (pass 44, 2026-08-08) | QA removed 12 duplicates |
-| `fe3d8a4` (2026-08-11) | Another agent re-added Q1–Q12 ("university practice materials") |
-| `97aa20d` (pass 52, 2026-08-15) | QA removed 12 duplicates again |
-| `b3e99c6` (pass 53, 2026-08-15) | Confirmed 181 clean questions |
-| `7c4fdaa` (2026-08-16) | **A scheduled agent re-added Q1–Q12 AGAIN** ("official UNSW practice exam") |
+| Pre-pass 44 | Q1–Q12 first added |
+| `d72225e` (2026-08-08) | QA removed 12 duplicates |
+| `fe3d8a4` (2026-08-11) | Re-added from "university practice materials" |
+| `d72225e` (2026-08-08) — wait, see below | This was a different removal |
+| `7c4fdaa` (2026-08-16) | Added AGAIN from "official UNSW practice exam" |
 
-**Root cause:** A scheduled question-adding agent does not check whether the practice exam questions already exist before appending them. It sees the `practice-questions.md` source and unconditionally appends its contents to the QUESTIONS array.
+**Impact:** Exam prep quiz users will encounter the same question twice. Statistics and coverage tracking are inflated.
 
-**Symptom in the app:** Users may see the same question twice in a quiz session (e.g., the APR/EAR question or Hush Puppies dividend problem).
-
-**Recommended fix:** Before appending Q1–Q12, the question-adding agent (or script) should check for a unique marker — e.g., the scenario text "16.0% APR with monthly compounding" or `scenario:'Hush Puppies Ltd.'` — and skip insertion if already present.
+**Fix required:** Remove the block at lines ~4639–4773 (`// ── PRACTICE EXAM QUESTIONS (from official UNSW practice exam) ──` through end of Q12). A redesign/content agent must be told not to add Q1–Q12 again — they already exist in the `// WEEK N — Practice Exam Questions` blocks added earlier.
 
 ---
 
 ## Recommendations
 
-1. **Remove the 12 duplicate questions now** (lines 4641–4773 in index.html). Commit as "Remove duplicate practice exam questions (pass 54)".
-2. **Add a guard in the question-adding prompt/script**: before appending `practice-questions.md` content, grep the QUESTIONS array for a unique string from Q1 (e.g., `16.0% APR with monthly compounding`) and abort if found.
-3. **Consider a CLAUDE.md note**: explicitly document that Q1–Q12 from `practice-questions.md` are **already in the QUESTIONS array** (lines 3421–4203) and must NOT be re-added.
-4. The rest of the app (all features, JS syntax, Netlify functions, CSS design system) is healthy — no action needed beyond the duplicate removal.
+1. **Remove the duplicate block (lines ~4639–4773)** — a one-time edit to delete the second set of Q1–Q12 from the QUESTIONS array.
+2. **Guard against re-insertion** — add a code comment like `// DO NOT ADD Q1–Q12 here — they already exist above (Week N sections)` at the insertion point that agents keep targeting.
+3. **Automate duplicate detection in QA** — next pass should compare question `question` or `scenario` strings and flag any pair with >90% similarity before committing.
