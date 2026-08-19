@@ -1,6 +1,6 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-08-18
-**Tested by:** Automated QA Agent (pass 56)
+**Date:** 2026-08-19
+**Tested by:** Automated QA Agent (pass 57)
 
 ## Overall Status: PASS
 
@@ -8,21 +8,22 @@
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `02b5eb5` "Fix: remove 12 duplicate practice exam questions from QUESTIONS array" (2026-08-17) |
-| JS syntax valid | ✅ | `node --check` on extracted script block — no errors |
-| 118+ questions intact | ✅ | 181 top-level questions in QUESTIONS array (mcq:42, tf:15, numerical:48, sa:58, multipart:35+sub-parts) — well above baseline |
+| New commit exists | ✅ | `5553c92` "QA report: automated code check (pass 56, 2026-08-18)" — no `index.html` changes since `02b5eb5` |
+| JS syntax structure | ✅ | QUESTIONS array bounds verified (lines 3057–4645); no stray syntax detected |
+| 118+ questions intact | ✅ | 181 top-level questions in QUESTIONS array (mcq:42, tf:15, numerical:48, sa:41 direct + sub-parts, multipart:35) |
 | Light mode CSS | ✅ | Full design-token system present (`--bg: #F8FAFC`, `--surface: #FFFFFF`, etc.) |
-| Dark mode toggle | ✅ | `toggleDarkMode()` function, `darkModeBtn` (🌙/☀️), `classList.toggle('dark')` |
-| Multi-week selection | ✅ | `homeState.weeks[]` array + `selectWeekChip()` function — full toggle/all-chip logic present |
-| Learn mode | ✅ | `learnMode`, `#learn` screen, "Learn Mode" tab — 71 matches |
-| I'm Confused button | ✅ | "I'm Confused" button calling AI explain endpoint — 3 matches |
-| Hint 1 / Hint 2 | ✅ | 3-level hint system fully implemented — 234 matches |
-| Multi-step math input | ✅ | `addStep`, `step-row`, `working-steps` present — 19 matches |
-| Final Answer field | ✅ | `finalAnswer` / `Final Answer` present — 13 matches |
-| Notes overlay present | ✅ | `notes-overlay` with week tabs — 8 matches |
-| Formula overlay present | ✅ | `formula-overlay` with CVP/TVM/NPV/WACC sections — 8 matches |
-| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` produced no output; last netlify touch was commit `aece6bd` (2026-07-17) |
-| File size increased | ✅ | 7066 lines (vs 1458 original — 4.8× larger) |
+| Dark mode toggle | ✅ | `toggleDarkMode()` function, `darkModeBtn` (🌙/☀️), `.dark` class toggle present |
+| Multi-week selection | ✅ | `homeState.weeks[]` array + `selectWeekChip()` — toggle/all-chip logic confirmed |
+| Learn mode | ✅ | `learnMode` (9 occurrences), `#learn` screen, "Learn Mode" tab |
+| I'm Confused button | ✅ | "I'm Confused" button present — calls `showHintAI()` / AI explain endpoint |
+| Hint 1 / Hint 2 | ✅ | `showHint1`, `showHint2`, `showHintAI` — 3-level hint system (503 hint occurrences) |
+| Multi-step math input | ✅ | `addStep` (6 occurrences), `step-row`, `working-steps` CSS present |
+| Final Answer field | ✅ | `final-answer-wrap` class + `final-answer-input` present |
+| Notes overlay present | ✅ | `notes-overlay` (6 occurrences) with W2–W10 week tabs |
+| Formula overlay present | ✅ | `formula-overlay` (6 occurrences) with CVP/TVM/NPV/Valuation/WACC sections |
+| Practice exam Q1–Q12 | ✅ | APR/EAR, McDonald's NPV, AT&T EAA, Hush Puppies DDM, CAPM multi-company, WACC D/E — all found in QUESTIONS array |
+| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` produced no output; last netlify touch was `aece6bd` (2026-07-17) |
+| File size stable | ✅ | 7066 lines — unchanged from pass 56 |
 
 ## Question Count Detail
 
@@ -31,19 +32,26 @@
 | mcq | 42 |
 | tf | 15 |
 | numerical | 48 |
-| sa | 58 |
-| multipart | 35 (plus sub-parts counted separately) |
-| **Total (top-level)** | **181** |
+| sa | 41 (direct) + 17 (sub-parts in multipart) = 58 total |
+| multipart | 35 |
+| **Total top-level** | **181** |
 
-QUESTIONS array spans lines 3057–4645. The most recent commit removed 12 duplicated practice exam questions that had been double-inserted.
+QUESTIONS array confirmed at lines 3057–4645. No duplicates detected (fixed in commit `02b5eb5`).
+
+## Practice Exam Questions Verified
+
+All 12 practice exam questions confirmed present:
+- **W5**: Q1 APR/EAR/FV (multipart), Q2 solve for r (numerical), Q3 deferred perpetuity (numerical), Q4 mortgage payment (numerical)
+- **W7**: Q5 McDonald's NPV declining perpetuity (multipart), Q6 AT&T EAA bus models (multipart), Q7 NPV/IRR/PI/Payback 7-part (multipart)
+- **W8**: Q8 bond pricing semi-annual (numerical), Q9 Hush Puppies multi-stage DDM (multipart), Q10 Gordon Growth Model (numerical)
+- **W9**: Q11 CAPM multi-company 5-part (multipart), Q12 WACC with varying D/E ratios (multipart)
 
 ## Issues Found
 
-No blocking issues. Minor notes only:
+No blocking issues.
 
-1. **Question count**: 181 entries, above the 118 original baseline. This is correct — the bank grew through successive passes. The latest commit resolved a duplication issue.
-2. **`selectedWeeks` pattern**: QA spec searched for that exact name, but implementation correctly uses `homeState.weeks` — same feature, different variable name.
-3. **Multiple `<script>` occurrences**: 2 occurrences in the raw file, but the second is inside a JS string literal (a popup window template), not an actual HTML element. Structurally sound.
+1. **Question count note**: 181 top-level entries (vs 118 original baseline). Count is correct and stable — the bank grew through successive passes.
+2. **`sa` count variation**: Python regex counting `week:\d+,type:'sa'` yields 41 direct; including multipart sub-parts yields ~58 total. Both are consistent with prior reports.
 
 ## Recommendations
 
