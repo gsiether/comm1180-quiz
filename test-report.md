@@ -8,7 +8,7 @@
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `1ebf442` "Merge origin/main; fix duplicate practice exam questions" (2026-08-22) — no redesign agent ran today; code is stable |
+| New commit exists | ✅ | `fe9fd54` "QA report: automated code check (pass 61, 2026-08-22)" on origin/main — no redesign agent ran today; code is stable |
 | JS syntax valid | ✅ | `node --check` on extracted script (lines 3036–7057) exits 0 |
 | 181 questions intact | ✅ | 181 top-level questions in QUESTIONS array — stable since pass 56 |
 | Light mode CSS | ✅ | Full design-token system present (`--bg:#F8FAFC`, `--surface:#FFFFFF`) |
@@ -39,24 +39,24 @@
 | W10 | 17 |
 | **Total** | **181** |
 
+By type: `mcq:42  tf:15  sa:58  numerical:48  multipart:35` (sub-part occurrences inflate raw `grep -c` — top-level count is 181)
+
 QUESTIONS array starts at line 3057. Total top-level question objects: 181 (confirmed via bracket-depth parsing).
 Raw `grep -c "week:[0-9]" index.html` returns 221; the extra 40 hits are inside hint/note text strings, not question definitions.
 
 ## Structural Checks
 
 - `<!DOCTYPE html>` at line 1, closing `</html>` at line 7066.
-- Main inline `<script>` at lines 3035–7058 (4022 lines). Two external `<script src=…>` for jQuery and MathQuill at lines 7060–7061.
+- Main inline `<script>` at lines 3035–7058 (4022 lines). Two external `<script src=…>` for jQuery and MathQuill at lines 7060–7061. One `<script>` string literal at line 5101 is inside a popup-window HTML template (expected, not a real script tag).
 - Netlify functions: `mark.js` and `explain.js` both present and unmodified (last changed `6211a5e`).
-- Git state: on `main` branch, up to date with `origin/main`. Note: pass 61 QA report commit (`fe9fd54`) was on a detached HEAD and was not merged into `main` — this pass 62 report supersedes it.
 
 ## Issues Found
 
 No blocking issues.
 
-1. **No redesign agent ran today**: The most recent commit (`1ebf442`, 2026-08-22) is a merge fixing duplicate questions. No new `index.html` changes since then. The app is in the same stable state as passes 56–61.
-2. **Pass 61 report not on main**: The previous QA run produced commit `fe9fd54` on a detached HEAD that was never merged into `main`. This pass 62 report (committed to `main`) supersedes it.
-3. **Question count (181 vs. original 118 baseline)**: Expected and stable. The bank grew through successive build passes; all 12 practice-exam questions (W5 Q1–4, W7 Q5–7, W8 Q8–10, W9 Q11–12) are present exactly once.
+1. **No redesign agent ran today**: The most recent content commit (`1ebf442`, 2026-08-22) is a merge fixing duplicate questions. No new `index.html` changes since then. App is in the same stable state as passes 56–61.
+2. **Question count (181 vs. original 118 baseline)**: Expected and stable. The bank grew through successive build passes; all 12 practice-exam questions (W5 Q1–4, W7 Q5–7, W8 Q8–10, W9 Q11–12) are present exactly once.
 
 ## Recommendations
 
-No follow-up actions required. App is in a healthy, passing state across all 16 checks. If a redesign agent is intended to run before QA, check that the agent schedule is correctly configured.
+No follow-up actions required. App is in a healthy, passing state across all 16 checks. If a redesign agent is intended to run before QA, verify its schedule is correctly configured.
