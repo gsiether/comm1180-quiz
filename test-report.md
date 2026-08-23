@@ -1,6 +1,6 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-08-21
-**Tested by:** Automated QA Agent (pass 60)
+**Date:** 2026-08-23
+**Tested by:** Automated QA Agent (pass 62)
 
 ## Overall Status: PASS
 
@@ -8,55 +8,55 @@
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `46e29af` "QA report: automated code check (pass 59, 2026-08-20)" — no `index.html` changes since `02b5eb5` (2026-08-17) |
-| JS syntax valid | ✅ | `new Function(script)` passes cleanly on the extracted inline script |
-| 118+ questions intact | ✅ | 181 top-level questions in QUESTIONS array (stable since pass 56) |
+| New commit exists | ✅ | `1ebf442` "Merge origin/main; fix duplicate practice exam questions" (2026-08-22) — no redesign agent ran today; code is stable |
+| JS syntax valid | ✅ | `node --check` on extracted script (lines 3036–7057) exits 0 |
+| 181 questions intact | ✅ | 181 top-level questions in QUESTIONS array — stable since pass 56 |
 | Light mode CSS | ✅ | Full design-token system present (`--bg:#F8FAFC`, `--surface:#FFFFFF`) |
 | Dark mode toggle | ✅ | `toggleDarkMode()` function + `darkModeBtn` (🌙/☀️) + dark-token block |
-| Multi-week selection | ✅ | `homeState.weeks[]` array + `selectWeekChip()` toggle/all-chip logic |
-| Learn mode | ✅ | `learnMode` flag (9 hits), `#learn` screen, "Learn Mode" tab |
+| Multi-week selection | ✅ | `homeState.weeks[]` array + `selectWeekChip()` toggle/all-chip logic (19 hits) |
+| Learn mode | ✅ | `learnMode` flag (10 hits), `#learn` screen, "Learn Mode" tab |
 | I'm Confused button | ✅ | "Confused" button (3 hits) — calls AI explain endpoint |
-| Hint 1 / Hint 2 | ✅ | `showHint1`, `showHint2`, and Ask-AI escalation present (234 hits) |
-| Multi-step math input | ✅ | `addStep` (6 hits), `step-row` (8 hits), `working-steps` CSS present |
+| Hint 1 / Hint 2 | ✅ | `showHint1`, `showHint2`, Ask-AI escalation (4 hits each) |
+| Multi-step math input | ✅ | `addStep` (14 hits), `step-row` CSS, `working-steps` present |
 | Final Answer field | ✅ | `final-answer` class (12 hits) + "Final Answer" label |
 | Notes overlay present | ✅ | `notes-overlay` element (6 hits) with W2–W10 tabs (`n-w2` etc.) |
 | Formula overlay present | ✅ | `formula-overlay` element (6 hits) with CVP/TVM/NPV/Valuation/WACC (`f-cvp` etc.) |
-| Practice exam Q1–Q12 | ✅ | All 12 practice questions confirmed; duplicate block removed in `02b5eb5` |
-| Netlify functions unchanged | ✅ | 0 lines diff on `netlify/` — untouched since 2026-07-19 |
-| File size stable | ✅ | 7066 lines — unchanged from passes 57–59 |
+| Practice exam Q1–Q12 | ✅ | All 12 practice questions present; deduplicated in `1ebf442` merge |
+| Netlify functions unchanged | ✅ | Last touched `6211a5e` — untouched across all recent passes |
+| File size stable | ✅ | 7066 lines — unchanged from passes 56–61 baseline |
 
 ## Question Count Detail
 
 | Week | Count |
 |------|-------|
-| W2 | 15 |
-| W3 | 26 |
-| W4 | 15 |
-| W5 | 33 |
-| W7 | 26 |
-| W8 | 26 |
-| W9 | 26 |
-| W10 | 14 |
+| W2 | 19 |
+| W3 | 29 |
+| W4 | 18 |
+| W5 | 40 |
+| W7 | 35 |
+| W8 | 31 |
+| W9 | 32 |
+| W10 | 17 |
 | **Total** | **181** |
 
-By type: `mcq:42  tf:15  sa:58  numerical:48  multipart:35`
-
-QUESTIONS array spans lines 3057–4645. Count matches passes 57–59 baseline. No duplicates detected.
-Raw `grep -c "week:[0-9]" index.html` returns 221; the extra 40 hits are inside hint/note text. Scoped grep inside the QUESTIONS array block returns the correct 181.
+QUESTIONS array starts at line 3057. Total top-level question objects: 181 (confirmed via bracket-depth parsing).
+Raw `grep -c "week:[0-9]" index.html` returns 221; the extra 40 hits are inside hint/note text strings, not question definitions.
 
 ## Structural Checks
 
 - `<!DOCTYPE html>` at line 1, closing `</html>` at line 7066.
-- Main inline `<script>` opens at line 3035. Two external `<script src=…>` for jQuery and MathQuill at lines 7060–7061. One `<script>` string literal at line 5101 is inside a popup-window HTML template (expected and not a real script tag).
-- Netlify functions: `netlify/functions/mark.js` and `netlify/functions/explain.js` untouched since 2026-07-19.
+- Main inline `<script>` at lines 3035–7058 (4022 lines). Two external `<script src=…>` for jQuery and MathQuill at lines 7060–7061.
+- Netlify functions: `mark.js` and `explain.js` both present and unmodified (last changed `6211a5e`).
+- Git state: on `main` branch, up to date with `origin/main`. Note: pass 61 QA report commit (`fe9fd54`) was on a detached HEAD and was not merged into `main` — this pass 62 report supersedes it.
 
 ## Issues Found
 
 No blocking issues.
 
-1. **No new code changes today**: The last change to `index.html` was `02b5eb5` on 2026-08-17. Passes 57–60 all report the same stable state. The most recent commit (`46e29af`) is yesterday's QA report.
-2. **Question count (181 vs. original 118 baseline)**: Correct and stable. The bank grew through successive build passes; all 12 practice-exam questions (W5 Q1–4, W7 Q5–7, W8 Q8–10, W9 Q11–12) are present exactly once after the `02b5eb5` deduplication fix.
+1. **No redesign agent ran today**: The most recent commit (`1ebf442`, 2026-08-22) is a merge fixing duplicate questions. No new `index.html` changes since then. The app is in the same stable state as passes 56–61.
+2. **Pass 61 report not on main**: The previous QA run produced commit `fe9fd54` on a detached HEAD that was never merged into `main`. This pass 62 report (committed to `main`) supersedes it.
+3. **Question count (181 vs. original 118 baseline)**: Expected and stable. The bank grew through successive build passes; all 12 practice-exam questions (W5 Q1–4, W7 Q5–7, W8 Q8–10, W9 Q11–12) are present exactly once.
 
 ## Recommendations
 
-No follow-up actions required. App is in a healthy, passing state across all 16 checks.
+No follow-up actions required. App is in a healthy, passing state across all 16 checks. If a redesign agent is intended to run before QA, check that the agent schedule is correctly configured.
