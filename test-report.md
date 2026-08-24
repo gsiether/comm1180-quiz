@@ -1,6 +1,6 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-08-23
-**Tested by:** Automated QA Agent (pass 62)
+**Date:** 2026-08-24
+**Tested by:** Automated QA Agent (pass 64)
 
 ## Overall Status: PASS
 
@@ -8,27 +8,26 @@
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `fe9fd54` "QA report: automated code check (pass 61, 2026-08-22)" on origin/main — no redesign agent ran today; code is stable |
-| JS syntax valid | ✅ | `node --check` on extracted script (lines 3036–7057) exits 0 |
-| 181 questions intact | ✅ | 181 top-level questions in QUESTIONS array — stable since pass 56 |
-| Light mode CSS | ✅ | Full design-token system present (`--bg:#F8FAFC`, `--surface:#FFFFFF`) |
-| Dark mode toggle | ✅ | `toggleDarkMode()` function + `darkModeBtn` (🌙/☀️) + dark-token block |
-| Multi-week selection | ✅ | `homeState.weeks[]` array + `selectWeekChip()` toggle/all-chip logic (19 hits) |
-| Learn mode | ✅ | `learnMode` flag (10 hits), `#learn` screen, "Learn Mode" tab |
-| I'm Confused button | ✅ | "Confused" button (3 hits) — calls AI explain endpoint |
-| Hint 1 / Hint 2 | ✅ | `showHint1`, `showHint2`, Ask-AI escalation (4 hits each) |
-| Multi-step math input | ✅ | `addStep` (14 hits), `step-row` CSS, `working-steps` present |
-| Final Answer field | ✅ | `final-answer` class (12 hits) + "Final Answer" label |
-| Notes overlay present | ✅ | `notes-overlay` element (6 hits) with W2–W10 tabs (`n-w2` etc.) |
-| Formula overlay present | ✅ | `formula-overlay` element (6 hits) with CVP/TVM/NPV/Valuation/WACC (`f-cvp` etc.) |
-| Practice exam Q1–Q12 | ✅ | All 12 practice questions present; deduplicated in `1ebf442` merge |
-| Netlify functions unchanged | ✅ | Last touched `6211a5e` — untouched across all recent passes |
-| File size stable | ✅ | 7066 lines — unchanged from passes 56–61 baseline |
+| New commit exists | ✅ | Most recent content commit `1ebf442` (2026-08-22) "Merge origin/main; fix duplicate practice exam questions". Pass 63 was an empty commit (no file changes). |
+| JS syntax valid | ✅ | `new Function(js)` on extracted script (323,871 chars) exits without error |
+| 181 questions intact | ✅ | 181 top-level `{week:N,` objects in QUESTIONS array — stable since pass 56 |
+| Light mode CSS | ✅ | Design-token system present (`--bg:#F8FAFC`, `--surface:#FFFFFF`, 7 hits) |
+| Dark mode toggle | ✅ | `toggleDarkMode()`, `darkModeBtn`, 🌙/☀️ icons (8 hits) |
+| Multi-week selection | ✅ | `selectedWeeks` / `weekChip` logic present (2+ hits) |
+| Learn mode | ✅ | `learnMode` flag, `#learn` screen, "Learn Mode" tab (12 hits) |
+| I'm Confused button | ✅ | "Confused" / confused trigger present (3 hits) |
+| Hint 1 / Hint 2 | ✅ | `hint1`, `hint2`, "Hint 1", "Hint 2" extensively present (234 hits) |
+| Multi-step math input | ✅ | `addStep`, `step-row`, `working-steps` present (23 hits) |
+| Final Answer field | ✅ | `finalAnswer`, `final-answer`, "Final Answer" present (13 hits) |
+| Notes overlay present | ✅ | `notes-overlay` element + `n-w2` tabs (8 hits) |
+| Formula overlay present | ✅ | `formula-overlay` element + `f-cvp` etc. (8 hits) |
+| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` returns empty — both `mark.js` and `explain.js` intact |
+| File size increased | ✅ | 7,066 lines (vs original 1,458 baseline — 4.8× larger with all added features) |
 
 ## Question Count Detail
 
-| Week | Count |
-|------|-------|
+| Week | Count (approx) |
+|------|----------------|
 | W2 | 19 |
 | W3 | 29 |
 | W4 | 18 |
@@ -39,24 +38,23 @@
 | W10 | 17 |
 | **Total** | **181** |
 
-By type: `mcq:42  tf:15  sa:58  numerical:48  multipart:35` (sub-part occurrences inflate raw `grep -c` — top-level count is 181)
-
-QUESTIONS array starts at line 3057. Total top-level question objects: 181 (confirmed via bracket-depth parsing).
-Raw `grep -c "week:[0-9]" index.html` returns 221; the extra 40 hits are inside hint/note text strings, not question definitions.
+Raw `grep -c "week:[0-9]" index.html` = 221 (inflated by hits inside hint/note strings).  
+Bracket-depth parse (node) = **181 top-level question objects** — confirmed stable since pass 56.  
+Raw type grep counts (includes sub-part hits): mcq:42, tf:15, numerical:64, sa:58, multipart:59.  
+All 12 practice-exam questions (W5 Q1–4, W7 Q5–7, W8 Q8–10, W9 Q11–12) confirmed present and deduplicated.
 
 ## Structural Checks
 
-- `<!DOCTYPE html>` at line 1, closing `</html>` at line 7066.
-- Main inline `<script>` at lines 3035–7058 (4022 lines). Two external `<script src=…>` for jQuery and MathQuill at lines 7060–7061. One `<script>` string literal at line 5101 is inside a popup-window HTML template (expected, not a real script tag).
-- Netlify functions: `mark.js` and `explain.js` both present and unmodified (last changed `6211a5e`).
+- `<!DOCTYPE html>` on line 1, closing `</html>` on line 7066.
+- Main inline `<script>` block + 2 external `<script src=…>` tags for jQuery/MathQuill. One `<script>` string literal exists inside an HTML template (popup window HTML) — expected, not a real script tag.
+- Netlify functions: `netlify/functions/mark.js` and `netlify/functions/explain.js` present and unmodified.
 
 ## Issues Found
 
-No blocking issues.
-
-1. **No redesign agent ran today**: The most recent content commit (`1ebf442`, 2026-08-22) is a merge fixing duplicate questions. No new `index.html` changes since then. App is in the same stable state as passes 56–61.
-2. **Question count (181 vs. original 118 baseline)**: Expected and stable. The bank grew through successive build passes; all 12 practice-exam questions (W5 Q1–4, W7 Q5–7, W8 Q8–10, W9 Q11–12) are present exactly once.
+1. **Pass 63 (earlier today) was an empty commit** — the QA agent fired, logged "pass 63", but committed with no file changes. The `test-report.md` on disk still showed pass 62 content. This pass (64) corrects that.
+2. **No redesign agent has run since 2026-08-22** — the app is stable; all features and questions are in place.
 
 ## Recommendations
 
-No follow-up actions required. App is in a healthy, passing state across all 16 checks. If a redesign agent is intended to run before QA, verify its schedule is correctly configured.
+- No action required on the codebase — all features verified, JS clean, questions intact.
+- The empty-commit issue in pass 63 is self-corrected here; no data was lost.
