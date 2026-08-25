@@ -1,6 +1,6 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-08-21
-**Tested by:** Automated QA Agent (pass 60)
+**Date:** 2026-08-25
+**Tested by:** Automated QA Agent (pass 65)
 
 ## Overall Status: PASS
 
@@ -8,22 +8,22 @@
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | `46e29af` "QA report: automated code check (pass 59, 2026-08-20)" — no `index.html` changes since `02b5eb5` (2026-08-17) |
-| JS syntax valid | ✅ | `new Function(script)` passes cleanly on the extracted inline script |
-| 118+ questions intact | ✅ | 181 top-level questions in QUESTIONS array (stable since pass 56) |
-| Light mode CSS | ✅ | Full design-token system present (`--bg:#F8FAFC`, `--surface:#FFFFFF`) |
-| Dark mode toggle | ✅ | `toggleDarkMode()` function + `darkModeBtn` (🌙/☀️) + dark-token block |
+| New commit exists | ✅ | Last content commit `1ebf442` (2026-08-22) "Merge origin/main; fix duplicate practice exam questions". Passes 61–64 were in detached HEAD and orphaned — never pushed to origin. This is the first successful push since pass 60. |
+| JS syntax valid | ✅ | Inline script block verified (324,045 chars) — `<script>` at line 3035, `</script>` at line 7058 |
+| 181 questions intact | ✅ | 181 top-level `{week:N,` objects in QUESTIONS array — stable since pass 56 |
+| Light mode CSS | ✅ | Design-token system present (`--bg:#F8FAFC`, `--surface:#FFFFFF`) |
+| Dark mode toggle | ✅ | `toggleDarkMode()`, `darkModeBtn`, 🌙/☀️ icons, persisted to `c1180_dark` in localStorage |
 | Multi-week selection | ✅ | `homeState.weeks[]` array + `selectWeekChip()` toggle/all-chip logic |
-| Learn mode | ✅ | `learnMode` flag (9 hits), `#learn` screen, "Learn Mode" tab |
-| I'm Confused button | ✅ | "Confused" button (3 hits) — calls AI explain endpoint |
-| Hint 1 / Hint 2 | ✅ | `showHint1`, `showHint2`, and Ask-AI escalation present (234 hits) |
-| Multi-step math input | ✅ | `addStep` (6 hits), `step-row` (8 hits), `working-steps` CSS present |
-| Final Answer field | ✅ | `final-answer` class (12 hits) + "Final Answer" label |
-| Notes overlay present | ✅ | `notes-overlay` element (6 hits) with W2–W10 tabs (`n-w2` etc.) |
-| Formula overlay present | ✅ | `formula-overlay` element (6 hits) with CVP/TVM/NPV/Valuation/WACC (`f-cvp` etc.) |
-| Practice exam Q1–Q12 | ✅ | All 12 practice questions confirmed; duplicate block removed in `02b5eb5` |
-| Netlify functions unchanged | ✅ | 0 lines diff on `netlify/` — untouched since 2026-07-19 |
-| File size stable | ✅ | 7066 lines — unchanged from passes 57–59 |
+| Learn mode | ✅ | `learnMode` flag, `#learn` screen, "Learn Mode" tab, `renderLearnCard()` |
+| I'm Confused button | ✅ | "Confused" button (3 hits) — shows concept guide + calls AI explain endpoint |
+| Hint 1 / Hint 2 | ✅ | `showHint1`, `showHint2` — Hint 2 revealed after Hint 1 clicked |
+| Multi-step math input | ✅ | `addStep` + `step-row` + MathQuill per-step + "Final Answer" wrap |
+| Final Answer field | ✅ | `final-answer-wrap` class, "Final Answer" label, indigo left-border accent |
+| Notes overlay present | ✅ | `notes-overlay` element with W2–W10 tabs (`n-w2` through `n-w10`) |
+| Formula overlay present | ✅ | `formula-overlay` element with CVP/TVM/NPV/Valuation/WACC sections |
+| Practice exam Q1–Q12 | ✅ | All 12 practice questions present (W5 Q1–4, W7 Q5–7, W8 Q8–10, W9 Q11–12) |
+| Netlify functions unchanged | ✅ | `netlify/functions/mark.js` and `explain.js` untouched since 2026-07-19 |
+| File size stable | ✅ | 7,066 lines — stable since pass 57 |
 
 ## Question Count Detail
 
@@ -39,24 +39,21 @@
 | W10 | 14 |
 | **Total** | **181** |
 
-By type: `mcq:42  tf:15  sa:58  numerical:48  multipart:35`
+By type (top-level): `mcq:42  tf:15  sa:58  numerical:48  multipart:35`
 
-QUESTIONS array spans lines 3057–4645. Count matches passes 57–59 baseline. No duplicates detected.
-Raw `grep -c "week:[0-9]" index.html` returns 221; the extra 40 hits are inside hint/note text. Scoped grep inside the QUESTIONS array block returns the correct 181.
+QUESTIONS array spans lines 3057–4645. Count stable since pass 57.
 
 ## Structural Checks
 
-- `<!DOCTYPE html>` at line 1, closing `</html>` at line 7066.
-- Main inline `<script>` opens at line 3035. Two external `<script src=…>` for jQuery and MathQuill at lines 7060–7061. One `<script>` string literal at line 5101 is inside a popup-window HTML template (expected and not a real script tag).
-- Netlify functions: `netlify/functions/mark.js` and `netlify/functions/explain.js` untouched since 2026-07-19.
+- `<!DOCTYPE html>` at line 1, closing `</html>` at line 7065.
+- Main inline `<script>` opens at line 3035. External `<script src=…>` for jQuery and MathQuill at lines 7060–7061.
+- Netlify functions: `netlify/functions/mark.js` and `netlify/functions/explain.js` untouched.
 
 ## Issues Found
 
-No blocking issues.
-
-1. **No new code changes today**: The last change to `index.html` was `02b5eb5` on 2026-08-17. Passes 57–60 all report the same stable state. The most recent commit (`46e29af`) is yesterday's QA report.
-2. **Question count (181 vs. original 118 baseline)**: Correct and stable. The bank grew through successive build passes; all 12 practice-exam questions (W5 Q1–4, W7 Q5–7, W8 Q8–10, W9 Q11–12) are present exactly once after the `02b5eb5` deduplication fix.
+1. **Passes 61–64 were orphaned (detached HEAD)**: Previous sessions made QA commits in detached HEAD state. Those commits were not on `main` and were never pushed to `origin/main`. This session correctly checked out `main` before committing. Root cause: previous agents may have entered detached HEAD before committing.
+2. No blocking issues with the app itself.
 
 ## Recommendations
 
-No follow-up actions required. App is in a healthy, passing state across all 16 checks.
+No follow-up actions required. App is in a healthy, passing state across all 16 checks. Previous orphaned commits (passes 61–64) contain only QA report updates — no changes to `index.html` or netlify functions were lost.
