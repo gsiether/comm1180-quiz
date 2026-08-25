@@ -8,8 +8,8 @@
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Last content commit `1ebf442` (2026-08-22) "Merge origin/main; fix duplicate practice exam questions". Passes 61–64 were in detached HEAD and orphaned — never pushed to origin. This is the first successful push since pass 60. |
-| JS syntax valid | ✅ | Inline script block verified (324,045 chars) — `<script>` at line 3035, `</script>` at line 7058 |
+| New commit exists | ✅ | Last content commit `1ebf442` (2026-08-22) "Merge origin/main; fix duplicate practice exam questions". Remote had passes 61–64 that were ahead of local clone. |
+| JS syntax valid | ✅ | Inline script block verified (324,045 chars) — `<script>` at line 3035 |
 | 181 questions intact | ✅ | 181 top-level `{week:N,` objects in QUESTIONS array — stable since pass 56 |
 | Light mode CSS | ✅ | Design-token system present (`--bg:#F8FAFC`, `--surface:#FFFFFF`) |
 | Dark mode toggle | ✅ | `toggleDarkMode()`, `darkModeBtn`, 🌙/☀️ icons, persisted to `c1180_dark` in localStorage |
@@ -51,9 +51,11 @@ QUESTIONS array spans lines 3057–4645. Count stable since pass 57.
 
 ## Issues Found
 
-1. **Passes 61–64 were orphaned (detached HEAD)**: Previous sessions made QA commits in detached HEAD state. Those commits were not on `main` and were never pushed to `origin/main`. This session correctly checked out `main` before committing. Root cause: previous agents may have entered detached HEAD before committing.
-2. No blocking issues with the app itself.
+No blocking issues with the app.
+
+1. **Remote had passes 61–64 already pushed**: This session's local clone was behind `origin/main` by 4 commits (passes 61–64 were already on remote, not orphaned as previously thought). Resolved via merge.
+2. **No new code changes since pass 60**: All features stable and verified across passes 60–65.
 
 ## Recommendations
 
-No follow-up actions required. App is in a healthy, passing state across all 16 checks. Previous orphaned commits (passes 61–64) contain only QA report updates — no changes to `index.html` or netlify functions were lost.
+No follow-up actions required. App is in a healthy, passing state across all 16 checks.
