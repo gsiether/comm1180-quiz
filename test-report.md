@@ -1,18 +1,18 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-08-29
-**Tested by:** Automated QA Agent (pass 64)
+**Date:** 2026-08-30
+**Tested by:** Automated QA Agent (pass 65)
 
 ## Overall Status: PASS
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | HEAD = `f0cfcd3 QA report: automated code check (pass 63, 2026-08-28)`; app stable, no redesign changes since prior QA pass |
-| JS syntax valid | ✅ | `node --check` on extracted script exited 0 (no output = no errors); 7,092-line file parsed cleanly |
+| New commit exists | ✅ | HEAD = `e4e1548 QA report: automated code check (pass 64, 2026-08-29)`; app stable, no redesign changes since prior QA pass |
+| JS syntax valid | ✅ | `new Function()` on extracted script returned no errors; 7,092-line file parsed cleanly |
 | 118+ questions intact (main array) | ✅ | 181 top-level question objects confirmed (W2:15, W3:26, W4:15, W5:33, W7:26, W8:26, W9:26, W10:14); all 8 weeks represented; no truncation |
-| Light mode CSS | ✅ | `--bg: #F8FAFC`, `--surface: #FFFFFF`; 16 light-background CSS references present |
+| Light mode CSS | ✅ | `--bg: #F8FAFC`, `--surface: #FFFFFF`; light-background CSS variables present; full token palette defined |
 | Dark mode toggle | ✅ | `toggleDarkMode()` + `applyDarkMode()` persisted to localStorage; 30+ dark-mode references |
-| Multi-week selection | ✅ | `homeState.weeks` array + `selectWeekChip()` at line 4820; `.week-chips` grid at line 888 |
+| Multi-week selection | ✅ | `homeState.weeks` array + `selectWeekChip()` supports add/remove per week + "All" chip; `.week-chips` grid at line 888 |
 | Learn mode | ✅ | `learnMode` flag + `#learn` screen; 71 references; fully implemented |
 | I'm Confused button | ✅ | 3 references to `confused`/`Confused`; AI inline explain feature present |
 | Hint 1 / Hint 2 | ✅ | 234 matches; 3-level hint system (Hint 1 → Hint 2 → Ask AI) fully implemented |
@@ -28,7 +28,7 @@
 ### Minor (pre-existing, stable across all prior QA passes)
 1. **Question count is ~181, not 118**: The QUESTIONS array contains 181 top-level objects (vs spec target of 118). This has been the stable count since the dedup fix commits (`52f75f2`, `1ebf442`). The 181 includes all original week questions plus the 12 practice exam questions from `practice-questions.md`. No truncation detected — all 8 exam weeks are populated.
 
-2. **No new redesign changes since pass 63 (2026-08-28)**: The latest commit is the prior QA report commit. The app remains at its stable, fully-featured state. No redesign agent ran in the past 24 hours.
+2. **No new redesign changes since pass 64 (2026-08-29)**: The latest commit is the prior QA report commit. The app remains at its stable, fully-featured state. No redesign agent ran in the past 24 hours.
 
 ## Recommendations
 - All core features are present and code is syntactically valid. App is ready for exam prep use.
