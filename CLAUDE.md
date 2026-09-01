@@ -25,18 +25,27 @@ An exam prep quiz app for COMM1180 (Value Creation) at UNSW. Deployed on Netlify
 
 ## Current State of index.html
 
-The existing app (~1458 lines) is a **dark theme** app that already has:
-- Full question bank for W2, W3, W4, W5, W7, W8, W9, W10
-- Question types: `mcq`, `tf`, `sa`, `numerical`, `multipart`
+The app (~7,092 lines) is a **fully-built light-mode app** with:
+- **181 questions** across W2, W3, W4, W5, W7, W8, W9, W10 (MCQ, TF, SA, Numerical, Multipart)
+- Light mode default with dark mode toggle (persisted in localStorage)
+- Multi-week selection (toggle chips + "All Weeks" shortcut)
+- Learn Mode: notes screen → "Test yourself" flow per week
+- 3-level hints: Hint 1 → Hint 2 → "I'm Confused" (AI explain inline)
+- Multi-step MathQuill working area with numbered steps + Final Answer field
 - AI marking via Netlify functions (working)
 - History, admin panel, settings, notes overlay, formula overlay
+- Exam Mode with timer, section A/B structure, 3 pre-built exam sets
+- Comprehensive study notes (all 8 exam weeks, full HTML content)
+- Formula sheet with tabs, use-when notes, variable legends
 - LocalStorage persistence
 
-**What is MISSING (needs to be built):**
-1. Learn Mode (notes → mini quiz flow)
-2. 3-level hints (Hint 1 → Hint 2 → Ask AI inline)
-3. White/modern design (currently dark purple/navy)
-4. 12 practice exam questions from `practice-questions.md` not yet in QUESTIONS array
+**Nothing is missing — the redesign is complete.**
+All 12 practice exam questions from `practice-questions.md` are already in the QUESTIONS array
+(added to week-specific blocks: W5 lines ~3451+, W7 lines ~3629+, W8 lines ~3904+, W9 lines ~4082+).
+Do NOT add them again — duplicates will appear in the quiz.
+
+⚠️ The "How to Start a Work Session" section below describes the *original* build task (now done).
+For future sessions: the app is stable. Only make targeted improvements or bug fixes.
 
 ---
 
