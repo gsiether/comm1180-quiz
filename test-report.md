@@ -1,35 +1,37 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-09-09
-**Tested by:** Automated QA Agent (pass 78)
+**Date:** 2026-09-10
+**Tested by:** Automated QA Agent (pass 79)
 
 ## Overall Status: PASS
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Most recent: "QA report: automated code check (pass 77, 2026-09-08)" — redesign committed in earlier session (e13387c, acd8a7a) |
-| JS syntax valid | ✅ | `node --check` passes cleanly on extracted script block |
-| 181 questions intact | ✅ | 181 questions found (`{week:` pattern) — CLAUDE.md says 181; task prompt says 118 (outdated expectation) |
-| Light mode CSS | ✅ | 38+ matches for `light`/`#ffffff`/`--bg`/`white` |
-| Dark mode toggle | ✅ | 16 matches for `dark`/`moon`/`sun`/`darkMode` |
-| Multi-week selection | ✅ | Implemented via `.week-chip`/`weekChips`/`selectWeekChip` — different naming than grep expected |
-| Learn mode | ✅ | 11 matches for `learnMode`/`Learn Mode` |
-| I'm Confused button | ✅ | 3 matches for `confused`/`Confused` |
-| Hint 1 / Hint 2 | ✅ | 234 matches for `hint1`/`hint2`/`Hint 1`/`Hint 2` |
-| Multi-step math input | ✅ | 19 matches for `addStep`/`Add Step`/`working-steps`/`step-row` |
-| Final Answer field | ✅ | 13 matches for `finalAnswer`/`final-answer`/`Final Answer` |
-| Notes overlay present | ✅ | 8 matches for `notes-overlay`/`n-w2` |
-| Formula overlay present | ✅ | 8 matches for `formula-overlay`/`f-cvp` |
-| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` is empty; mark.js and explain.js both present |
-| File size increased | ✅ | 7,092 lines (vs original 1,458) |
+| New commit exists | ✅ | Most recent: "QA report: automated code check (pass 78, 2026-09-09)" — redesign committed in earlier session |
+| JS syntax valid | ✅ | `node --check` passes cleanly on extracted main script block |
+| 181 questions intact | ✅ | 181 question objects found (`{week:\d+,type:` pattern) |
+| Light mode CSS | ✅ | `--bg:#F8FAFC` and light-mode CSS variables present |
+| Dark mode toggle | ✅ | `toggleDarkMode` and `darkMode` logic present |
+| Multi-week selection | ✅ | `homeState.weeks`, `week-chip`, `selectWeekChip` all present |
+| startQuiz array support | ✅ | `Array.isArray(mode)` branch handles multi-week array correctly |
+| Learn mode | ✅ | `learnMode`, `renderLearnCard` present |
+| I'm Confused button | ✅ | `showHintAI` present (3rd hint level) |
+| Hint 1 / Hint 2 | ✅ | `showHint1`, `showHint2` present |
+| Multi-step math input | ✅ | `working-area`, `addStep`, `final-answer-wrap` present |
+| Notes overlay present | ✅ | All 8 week tabs: n-w2, n-w3, n-w4, n-w5, n-w7, n-w8, n-w9, n-w10 |
+| Formula overlay present | ✅ | `formula-overlay`, `fml-card`, `fml-group` present |
+| All 12 practice questions | ✅ | Q1–Q12 verified (APR/EAR, solve-r, deferred perp, mortgage, McDonald's, AT&T EAA, payback/PI/NPV/IRR, bond semi-annual, Hush Puppies, GGM, CAPM multi-company, WACC D/E ratios) |
+| Netlify functions unchanged | ✅ | mark.js and explain.js both present; no modifications |
+| File size | ✅ | 7,092 lines |
 
 ## Issues Found
 No issues found. The app is stable and all features are intact.
 
-**Notes on count discrepancies:**
-- The scheduled task prompt expects 118 questions; CLAUDE.md documents 181 — the higher count is correct, including 12 practice exam questions added in commit e13387c.
-- The `grep -c "week:[0-9]"` count (221) includes non-question occurrences (CSS classes, history references, etc.), so 221 is expected and does not indicate duplicate questions.
-- Multi-week selection uses `.week-chip`/`selectWeekChip` naming rather than `selectedWeeks`/`toggleWeek` — feature is fully present.
+**Notes:**
+- Scheduled task prompt describes the major redesign (implemented 2026-08-07, commit 0c7ba09). All changes are already live.
+- The scheduled task will keep firing with the same prompt; each run verifies the app remains healthy.
+- 181 questions across W2/W3/W4/W5/W7/W8/W9/W10 including all 12 practice exam questions.
+- JS syntax check via `awk` + `node --check` passes cleanly.
 
 ## Recommendations
-No action required. App remains healthy at pass 78. Continue scheduled monitoring.
+No action required. App remains healthy at pass 79. Continue scheduled monitoring.
