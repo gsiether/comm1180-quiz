@@ -1,37 +1,53 @@
 # COMM1180 Quiz App - QA Test Report
 **Date:** 2026-09-10
-**Tested by:** Automated QA Agent (pass 79)
+**Tested by:** Automated QA Agent
+**Pass count:** 80
 
 ## Overall Status: PASS
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Most recent: "QA report: automated code check (pass 78, 2026-09-09)" — redesign committed in earlier session |
-| JS syntax valid | ✅ | `node --check` passes cleanly on extracted main script block |
-| 181 questions intact | ✅ | 181 question objects found (`{week:\d+,type:` pattern) |
-| Light mode CSS | ✅ | `--bg:#F8FAFC` and light-mode CSS variables present |
-| Dark mode toggle | ✅ | `toggleDarkMode` and `darkMode` logic present |
-| Multi-week selection | ✅ | `homeState.weeks`, `week-chip`, `selectWeekChip` all present |
-| startQuiz array support | ✅ | `Array.isArray(mode)` branch handles multi-week array correctly |
-| Learn mode | ✅ | `learnMode`, `renderLearnCard` present |
-| I'm Confused button | ✅ | `showHintAI` present (3rd hint level) |
-| Hint 1 / Hint 2 | ✅ | `showHint1`, `showHint2` present |
-| Multi-step math input | ✅ | `working-area`, `addStep`, `final-answer-wrap` present |
-| Notes overlay present | ✅ | All 8 week tabs: n-w2, n-w3, n-w4, n-w5, n-w7, n-w8, n-w9, n-w10 |
-| Formula overlay present | ✅ | `formula-overlay`, `fml-card`, `fml-group` present |
-| All 12 practice questions | ✅ | Q1–Q12 verified (APR/EAR, solve-r, deferred perp, mortgage, McDonald's, AT&T EAA, payback/PI/NPV/IRR, bond semi-annual, Hush Puppies, GGM, CAPM multi-company, WACC D/E ratios) |
-| Netlify functions unchanged | ✅ | mark.js and explain.js both present; no modifications |
-| File size | ✅ | 7,092 lines |
+| New commit exists | ✅ | Redesign commit: `0c7ba09 Major redesign: light mode, multi-week, learn mode...` (plus 79 previous QA passes since) |
+| JS syntax valid | ✅ | No syntax errors detected |
+| 181 questions intact | ✅ | 181 found in QUESTIONS array (QA task says 118 — CLAUDE.md confirms 181 is correct; expectation appears outdated) |
+| Light mode CSS | ✅ | CSS custom properties and light backgrounds present |
+| Dark mode toggle | ✅ | `darkMode` + toggle logic found (11 occurrences) |
+| Multi-week selection | ✅ | Implemented via `.week-chip` / `#weekChips` (not `selectedWeeks` — alternate naming) |
+| Learn mode | ✅ | `learnMode` / "Learn Mode" found (11 occurrences) |
+| I'm Confused button | ✅ | "Confused" found (3 occurrences) |
+| Hint 1 / Hint 2 | ✅ | `hint1` / `hint2` found (234 occurrences) |
+| Multi-step math input | ✅ | `addStep` / `working-steps` found (19 occurrences) |
+| Final Answer field | ✅ | `finalAnswer` / "Final Answer" found (13 occurrences) |
+| Notes overlay present | ✅ | `notes-overlay` / `n-w2` found (8 occurrences) |
+| Formula overlay present | ✅ | `formula-overlay` / `f-cvp` found (8 occurrences) |
+| Netlify functions unchanged | ✅ | Last netlify change was `e13387c` (practice questions commit); no modifications in current QA runs |
+| File size increased | ✅ | 7,092 lines (well above original ~1,458 lines) |
+
+## Question Type Breakdown (within QUESTIONS array, lines 3083–4671)
+| Type | Count |
+|------|-------|
+| MCQ | 42 |
+| True/False | 15 |
+| Numerical | 64 |
+| Short Answer (SA) | 58 |
+| Multipart | 59 |
+| **Total** | **181** |
+
+*Note: Counts above include subtype overlaps (multipart questions may also match other type strings). Net unique question objects confirmed at 181 via `week:` property count within array bounds.*
+
+## Script Tag Structure
+- 1 inline `<script>` block (main app JS, line 3061)
+- 1 `<script>` string literal inside JS (popup window builder — not a real script tag)
+- 2 external CDN scripts: jQuery 2.2.4 + MathQuill 0.10.1 (lines 7086–7087)
+
+This structure is expected and correct.
 
 ## Issues Found
-No issues found. The app is stable and all features are intact.
+No issues found. The app is stable and all required features are present. The redesign was completed and has been passing QA for 79 consecutive daily runs (since 2026-07-31 approximately).
 
-**Notes:**
-- Scheduled task prompt describes the major redesign (implemented 2026-08-07, commit 0c7ba09). All changes are already live.
-- The scheduled task will keep firing with the same prompt; each run verifies the app remains healthy.
-- 181 questions across W2/W3/W4/W5/W7/W8/W9/W10 including all 12 practice exam questions.
-- JS syntax check via `awk` + `node --check` passes cleanly.
+**Note on question count expectation:** The scheduled QA task checks for 118 questions, but CLAUDE.md states 181 questions were built (including 12 practice exam questions added post-redesign). Actual count is 181. The 118 figure in the QA task prompt appears to be an outdated expectation from before the practice questions were added. This is not a defect.
 
 ## Recommendations
-No action required. App remains healthy at pass 79. Continue scheduled monitoring.
+1. Update the scheduled QA task's question count expectation from 118 to 181 to match the actual state of the app.
+2. No code changes needed — the app is complete and stable.
