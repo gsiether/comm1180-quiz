@@ -1,6 +1,6 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-09-13
-**Tested by:** Automated QA Agent (pass 84)
+**Date:** 2026-09-14
+**Tested by:** Automated QA Agent (pass 85)
 
 ## Overall Status: PASS
 
@@ -8,7 +8,7 @@
 | Check | Result | Notes |
 |-------|--------|-------|
 | Redesign commit exists | ✅ | `0c7ba09` — "Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions" |
-| No new commit since last QA | ✅ | Last commit: `ade3bc5` QA pass 82 (2026-09-12) — app stable |
+| No new commit since last QA | ✅ | Last commit: `c21ecec` QA pass 84 (2026-09-13) — app stable |
 | JS syntax valid | ✅ | `new Function()` parse passed with no errors |
 | 181 questions intact | ✅ | 181 question objects confirmed (task expected 118; CLAUDE.md documents 181 after practice Qs added) |
 | Light mode CSS | ✅ | 64 occurrences of `--bg`, `--surface`, `#ffffff`, etc. |
@@ -42,7 +42,7 @@ Note: The task prompt expected 118 questions. CLAUDE.md documents 181 questions 
 3 actual `<script>` tags: 1 main app script (line 3061) + 2 CDN external scripts (jQuery 2.2.4 and MathQuill 0.10.1 at lines 7086–7087). A 4th apparent match at line 5127 is a `<\/script>` string literal inside JS (not an HTML tag). The external scripts are required for MathQuill input and are expected.
 
 ## Issues Found
-No issues found. All required features are present and intact. The app has maintained a clean PASS for 84 consecutive automated QA checks.
+No issues found. All required features are present and intact. The app has maintained a clean PASS for 85 consecutive automated QA checks.
 
 ## Recommendations
 - App is stable. No action required.
