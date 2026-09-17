@@ -1,14 +1,14 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-09-16
+**Date:** 2026-09-17
 **Tested by:** Automated QA Agent
-**Run:** Pass 88
+**Run:** Pass 89
 
 ## Overall Status: PASS
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Latest: "QA report: automated code check (pass 87, 2026-09-16)" — redesign commit is `0c7ba09` ("Major redesign: light mode, multi-week, learn mode…"), app has been stable for 87 QA passes |
+| New commit exists | ✅ | Latest: "QA report: automated code check (pass 88, 2026-09-16)" — redesign commit is `0c7ba09` ("Major redesign: light mode, multi-week, learn mode…"), app has been stable for 89 QA passes |
 | JS syntax valid | ✅ | `node -e new Function(...)` on extracted script block — no errors |
 | 181 questions intact | ✅ | 181 `{week:` objects in QUESTIONS array (CLAUDE.md spec: 181 questions across W2–W10) |
 | Light mode CSS | ✅ | Uses `--blue:#4F46E5` (indigo), white/off-white backgrounds, light mode default |
@@ -61,7 +61,9 @@ No issues found. The app is in good health. JS syntax is valid, all requested fe
 
 **Scheduled task assessment:** All 7 features requested by the scheduled task were implemented in the original redesign commit (`0c7ba09`). Re-implementing them would create duplicates. CLAUDE.md confirms: "Nothing is missing — the redesign is complete." No action on index.html required.
 
+**Note:** The COMM1180 exam date was Tuesday 5 May 2026 (now past). This scheduled task may be a candidate for removal or repurposing.
+
 ## Recommendations
 - App is stable. No action required.
-- 88 consecutive QA passes with no regressions detected.
-- Exam was **Tuesday 5 May 2026** — confirm Netlify deploy is live and accessible.
+- 89 consecutive QA passes with no regressions detected.
+- **Exam has passed** (was Tuesday 5 May 2026). Consider removing or repurposing the scheduled task.
