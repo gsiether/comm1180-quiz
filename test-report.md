@@ -1,7 +1,7 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-09-19
+**Date:** 2026-09-20
 **Tested by:** Automated QA Agent
-**Run:** Pass 92
+**Run:** Pass 93
 
 ## Overall Status: PASS
 
@@ -9,8 +9,8 @@
 | Check | Result | Notes |
 |-------|--------|-------|
 | Redesign commit exists | ✅ | `0c7ba09` — "Major redesign: light mode, multi-week, learn mode, improved notes/formulas/math input + practice exam questions" |
-| No new commit since last QA | ✅ | Last commit: `3aea800` QA pass 91 (2026-09-18) — app stable |
-| JS syntax valid | ✅ | `node --check` on extracted script returns exit 0, no errors (script: 323,849 chars) |
+| No new commit since last QA | ✅ | Last commit: `d6bb9aa` QA pass 92 (2026-09-19) — app stable |
+| JS syntax valid | ✅ | `node --check` on extracted script returns exit 0, no errors (script: 328,274 chars / 4,022 lines) |
 | 181 questions intact | ✅ | 181 question objects confirmed (task expected 118; CLAUDE.md documents 181 after practice Qs added) |
 | Light mode CSS | ✅ | Indigo design system, white/off-white backgrounds, light mode default |
 | Dark mode toggle | ✅ | `toggleDarkMode()` function + `.dark` class on body; 🌙/☀️ button in header |
@@ -42,8 +42,8 @@ Note: The task prompt expected 118 questions. CLAUDE.md documents 181 questions 
 3 actual `<script>` tags: 1 main app script (line 3061) + 2 CDN external scripts (jQuery 2.2.4 and MathQuill 0.10.1 at lines 7086–7087). A 4th apparent match at line 5127 is a `<\/script>` string literal inside JS (not an HTML tag). The external scripts are required for MathQuill input and are expected.
 
 ## Issues Found
-No issues found. All required features are present and intact. The app has maintained a clean PASS for 92 consecutive automated QA checks.
+No issues found. All required features are present and intact. The app has maintained a clean PASS for 93 consecutive automated QA checks.
 
 ## Recommendations
 - App is stable. No action required.
-- Exam date was 2026-05-05 (now past). Consider archiving or decommissioning the scheduled QA task.
+- Exam date was 2026-05-05 (now ~4.5 months past). Consider archiving or decommissioning the scheduled QA task.
