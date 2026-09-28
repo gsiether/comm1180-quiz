@@ -1,7 +1,7 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-09-27
+**Date:** 2026-09-28
 **Tested by:** Automated QA Agent
-**Run:** Pass 101
+**Run:** Pass 102
 
 ## Overall Status: PASS
 
@@ -12,9 +12,9 @@
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists (non-initial) | ✅ | Most recent: `c84fc18` — QA pass 100, 2026-09-26 |
-| JS syntax valid | ✅ | `node --check` passes with no errors |
-| 181 questions intact | ✅ | 181 `{week:\d,` objects in QUESTIONS array (task brief said 118 — see note) |
+| New commit exists (non-initial) | ✅ | Most recent: `1ff15ff` — QA pass 101, 2026-09-27 |
+| JS syntax valid | ✅ | `new Function(js)` passes with no errors |
+| 181 questions intact | ✅ | 181 `{week:\d` objects in main script (task brief said 118 — see note) |
 | MCQ questions | ✅ | 42 |
 | TF questions | ✅ | 15 |
 | Numerical questions | ✅ | 64 |
