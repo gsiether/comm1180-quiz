@@ -1,56 +1,56 @@
 # COMM1180 Quiz App - QA Test Report
 **Date:** 2026-10-08
-**Tested by:** Automated QA Agent (pass 113)
+**Tested by:** Automated QA Agent (pass 114)
 
 ## Overall Status: PASS
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Latest: `85f13ee` — "QA report: automated code check (pass 112, 2026-10-07)" |
-| JS syntax valid | ✅ | Key functions verified present — HTML file validated structurally |
-| 181 questions intact | ✅ | 181 confirmed (CLAUDE.md target; top-level QUESTIONS array lines 3083–4671) |
-| Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF` present in :root CSS variables |
-| Dark mode toggle | ✅ | `toggleDarkMode()` function present, dark mode btn in header |
-| Multi-week selection | ✅ | `selectWeekChip()` + `homeState.weeks` array toggle confirmed |
-| Learn mode | ✅ | `learnMode` flag + `showLearn()` function confirmed |
-| I'm Confused button | ✅ | `Confused` text found in quiz actions |
-| Hint 1 / Hint 2 | ✅ | `hint` and `hint2` fields throughout QUESTIONS array |
-| Multi-step math input | ✅ | `addStep` / `.working-steps` CSS + JS confirmed |
-| Final Answer field | ✅ | `.final-answer-wrap` + `.final-answer-input` CSS + HTML rendering confirmed |
-| Notes overlay present | ✅ | `notes-overlay` in HTML + JS confirmed |
-| Formula overlay present | ✅ | `formula-overlay` in HTML + JS confirmed |
-| Netlify functions unchanged | ✅ | `git diff origin/main -- netlify/` returned 0 lines |
-| File size stable | ✅ | 7,092 lines (unchanged since 2026-08-27) |
-| Git state healthy | ✅ | Back on main branch; 2 stranded QA commits (pass 111, 112) recovered + pushed |
+| New commit exists | ✅ | Latest: `346deaf` — "QA report: automated code check (pass 113, 2026-10-08)" |
+| JS syntax valid | ✅ | `node --check` on extracted script block exited 0 — no syntax errors |
+| 181 questions intact | ✅ | 181 top-level `{week:` objects confirmed in QUESTIONS array (lines 3083–4671) |
+| Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF` present in `:root` CSS variables |
+| Dark mode toggle | ✅ | `toggleDarkMode()` present; dark mode btn confirmed in header |
+| Multi-week selection | ✅ | `.week-chip` / `weekChips` grid + toggle logic confirmed |
+| Learn mode | ✅ | `#learn` screen + `learnMode` flag + `showLearn()` function present |
+| I'm Confused button | ✅ | "Confused" text found 3× in quiz actions HTML |
+| Hint 1 / Hint 2 | ✅ | `hint` and `hint2` fields throughout QUESTIONS array (234 matches) |
+| Multi-step math input | ✅ | `addStep` / `.working-steps` CSS + JS confirmed (23 matches) |
+| Final Answer field | ✅ | `.final-answer-wrap` + `.final-answer-input` confirmed (13 matches) |
+| Notes overlay present | ✅ | `notes-overlay` in HTML + JS confirmed (6 matches) |
+| Formula overlay present | ✅ | `formula-overlay` in HTML + JS confirmed (6 matches) |
+| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` returned 0 lines |
+| File size stable | ✅ | 7,092 lines (stable since 2026-08-27); exactly 1 `<script>` tag |
 
 ## Question Breakdown
 | Type | Count |
 |------|-------|
 | MCQ (`type:'mcq'`) | 42 |
 | True/False (`type:'tf'`) | 15 |
-| Numerical (`type:'numerical'`) | 48 |
+| Numerical (`type:'numerical'`) | 64 |
 | Short Answer (`type:'sa'`) | 58 |
-| Multipart (`type:'multipart'`) | 35 |
-| **Total** | **181** (note: type counts include parts within multipart objects — top-level count is 181) |
+| Multipart (`type:'multipart'`) | 59 |
+| **Top-level total** | **181** |
+
+Note: grep counts for `type:'numerical'` (64) and `type:'multipart'` (59) include sub-parts inside multipart question objects. Top-level object count via awk = 181, matching CLAUDE.md target.
 
 ## Git Status
 | Item | Status |
 |------|--------|
 | Branch | main |
-| Ahead of origin/main | 2 commits (pass 111, 112 — recovered from detached HEAD) |
+| Ahead of origin/main | 0 commits (up to date) |
 | Uncommitted changes | None |
 | Netlify functions diff | 0 lines |
 
 ## Notes
-- **Scheduled "Major Redesign" task is stale**: This task's stored prompt describes the original build (completed ~2026-08-27). All 7 features it requests are already fully implemented. Re-running the redesign would risk duplicating practice exam questions and breaking a stable app. The task should be deleted or updated.
-- Previous sessions ran in detached HEAD mode (passes 111 and 112). These commits were recovered by fast-forwarding main to the detached HEAD and will be pushed this session.
-- `index.html` last modified: 2026-08-27. App has been stable for 42+ days with no new redesign commits needed.
-- All 181 questions confirmed present including the 12 practice exam questions from `practice-questions.md` (W5, W7, W8, W9).
+- App is stable and has been unchanged since 2026-08-27. All 181 questions present including 12 practice exam questions (W5, W7, W8, W9).
+- **No redesign agent ran** — the scheduled redesign task describes already-completed work. This is expected and not an issue.
+- JS syntax check passes cleanly. Single `<script>` block (lines 3061–7084).
 
 ## Issues Found
-- **Git detached HEAD**: Two QA commits (pass 111, 112) were stranded in detached HEAD. Fixed by fast-forwarding main branch and pushing. ✅ Resolved this session.
+No issues found. All checks pass.
 
 ## Recommendations
-1. **Delete or update the "COMM1180 Quiz App - Major Redesign" scheduled task** — it describes completed work and will keep firing unnecessarily.
+1. **Delete or update the "COMM1180 Quiz App - Major Redesign" scheduled task** — it describes work already completed and will keep firing unnecessarily.
 2. App is stable. No code changes required.
