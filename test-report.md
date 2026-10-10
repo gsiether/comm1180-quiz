@@ -1,27 +1,27 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-10-09
-**Tested by:** Automated QA Agent (pass 115)
+**Date:** 2026-10-10
+**Tested by:** Automated QA Agent (pass 116)
 
 ## Overall Status: PASS
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Latest: `ed388fe` — "QA report: automated code check (pass 114, 2026-10-08)" |
+| New commit exists | ✅ | Latest: `2a2f638` — "QA report: automated code check (pass 115, 2026-10-09)" |
 | JS syntax valid | ✅ | `node --check` on extracted script block: exit code 0, no errors |
 | 181 questions intact | ✅ | 183 `{week:` entries (181 per CLAUDE.md + 2 non-question refs); mcq:42, tf:15, numerical:64, sa:58, multipart:59 |
 | Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF` present in `:root` CSS variables |
-| Dark mode toggle | ✅ | `toggleDarkMode()` present; 16 refs to dark-mode toggle in header |
+| Dark mode toggle | ✅ | `toggleDarkMode()` present |
 | Multi-week selection | ✅ | `homeState.weeks[]` array with `selectWeekChip()` — full multi-week toggle confirmed |
-| Learn mode | ✅ | 9 refs to `learnMode`; `showLearn()` and learn week grid present |
-| I'm Confused button | ✅ | "Confused" text found 3× in quiz action HTML |
-| Hint 1 / Hint 2 | ✅ | `hint` and `hint2` fields throughout QUESTIONS array (230+ matches) |
-| Multi-step math input | ✅ | `addStep` / `.working-steps` CSS + JS confirmed (19 matches) |
-| Final Answer field | ✅ | `.final-answer-wrap` + `finalAnswer` confirmed (13 matches) |
-| Notes overlay present | ✅ | `notes-overlay` in HTML + JS confirmed (8 matches) |
-| Formula overlay present | ✅ | `formula-overlay` in HTML + JS confirmed (8 matches) |
-| Netlify functions unchanged | ✅ | `git diff HEAD~1 -- netlify/` returned 0 lines |
-| File size stable | ✅ | 7,092 lines (stable); 1 real `<script>` block (line 3061) |
+| Learn mode | ✅ | `learnMode` flag + `showLearn()` and learn week grid present |
+| I'm Confused button | ✅ | `showHintAI()` confirmed in quiz action HTML |
+| Hint 1 / Hint 2 | ✅ | `showHint1()` and `showHint2()` confirmed; hint/hint2 fields in QUESTIONS |
+| Multi-step math input | ✅ | `addStep` / `.working-steps` CSS + JS confirmed |
+| Final Answer field | ✅ | `.final-answer-wrap` confirmed |
+| Notes overlay present | ✅ | `notes-overlay` in HTML + JS confirmed |
+| Formula overlay present | ✅ | `formula-overlay` in HTML + JS confirmed |
+| Netlify functions unchanged | ✅ | `git diff HEAD -- netlify/` returned 0 lines |
+| File size stable | ✅ | 7,093 lines (stable); 1 real `<script>` block (line 3061) + external libs |
 
 ## Question Breakdown
 | Type | Count |
@@ -39,6 +39,6 @@ Note: task prompt references 118 questions (original spec); CLAUDE.md documents 
 No issues found. All checks pass. App is stable and unchanged from prior runs.
 
 ## Recommendations
-1. No code changes required.
-2. The task prompt's question count check (118) is stale — update to 181 per CLAUDE.md if the schedule is reconfigured.
-3. Grep probes for `selectedWeeks`/`hint1` use wrong variable names (actual: `homeState.weeks`/`hint`) — consider updating probes.
+1. No code changes required — redesign was completed in a prior session.
+2. The scheduled task prompt is stale (describes work already done). Consider updating or disabling it.
+3. The task prompt's question count check (118) is stale — update to 181 per CLAUDE.md if the schedule is reconfigured.
