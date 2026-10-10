@@ -1,13 +1,13 @@
 # COMM1180 Quiz App - QA Test Report
 **Date:** 2026-10-10
-**Tested by:** Automated QA Agent (pass 116)
+**Tested by:** Automated QA Agent (pass 117)
 
 ## Overall Status: PASS
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Latest: `2a2f638` — "QA report: automated code check (pass 115, 2026-10-09)" |
+| New commit exists | ✅ | Latest: `95d4a17` — "QA report: automated code check (pass 116, 2026-10-10)" |
 | JS syntax valid | ✅ | `node --check` on extracted script block: exit code 0, no errors |
 | 181 questions intact | ✅ | 183 `{week:` entries (181 per CLAUDE.md + 2 non-question refs); mcq:42, tf:15, numerical:64, sa:58, multipart:59 |
 | Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF` present in `:root` CSS variables |
@@ -34,6 +34,9 @@
 | **Top-level `{week:` entries** | **183** |
 
 Note: task prompt references 118 questions (original spec); CLAUDE.md documents 181 (after practice exam additions). The 183 count includes ~2 non-question `{week:` references. All types confirmed present.
+
+## Recovery Note
+Passes 111–116 were committed to a detached HEAD and were not on `main`. This run fast-forwarded `main` to include all prior QA commits before adding pass 117.
 
 ## Issues Found
 No issues found. All checks pass. App is stable and unchanged from prior runs.
