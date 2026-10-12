@@ -1,47 +1,42 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-10-11
-**Tested by:** Automated QA Agent (pass 119)
+**Date:** 2026-10-12
+**Tested by:** Automated QA Agent (pass 120)
 
 ## Overall Status: PASS
+
+> Note: The QA task script expects 118 questions, but CLAUDE.md documents 181 questions (the 12 practice exam questions from practice-questions.md were already integrated). The actual count of ~181 (`{week:` pattern count = 183, with ~2 non-question occurrences) matches CLAUDE.md and is marked ✅.
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Latest: `4ea1783` — "QA report: automated code check (pass 117, 2026-10-10)" |
-| JS syntax valid | ✅ | `node --check` on extracted script block: exit code 0, no errors |
-| 181 questions intact | ✅ | 183 `{week:` entries (181 per CLAUDE.md + 2 non-question refs); mcq:42, tf:15, numerical:64, sa:58, multipart:59 |
-| Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF` present in `:root` CSS variables |
-| Dark mode toggle | ✅ | `toggleDarkMode()` present |
-| Multi-week selection | ✅ | `homeState.weeks[]` array with `selectWeekChip()` — full multi-week toggle confirmed |
-| Learn mode | ✅ | `learnMode` flag + `showLearn()` and learn week grid present |
-| I'm Confused button | ✅ | `showHintAI()` confirmed in quiz action HTML |
-| Hint 1 / Hint 2 | ✅ | `showHint1()` and `showHint2()` confirmed; hint/hint2 fields in QUESTIONS |
-| Multi-step math input | ✅ | `addStep` / `.working-steps` CSS + JS confirmed |
-| Final Answer field | ✅ | `.final-answer-wrap` confirmed |
-| Notes overlay present | ✅ | `notes-overlay` in HTML + JS confirmed |
-| Formula overlay present | ✅ | `formula-overlay` in HTML + JS confirmed |
-| Netlify functions unchanged | ✅ | `git diff HEAD -- netlify/` returned 0 lines |
-| File size stable | ✅ | 7,093 lines (stable); 1 real `<script>` block (line 3061) + external libs |
-
-## Question Breakdown
-| Type | Count |
-|------|-------|
-| MCQ (`type:'mcq'`) | 42 |
-| True/False (`type:'tf'`) | 15 |
-| Numerical (`type:'numerical'`) | 64 |
-| Short Answer (`type:'sa'`) | 58 |
-| Multipart (`type:'multipart'`) | 59 |
-| **Top-level `{week:` entries** | **183** |
-
-Note: task prompt references 118 questions (original spec); CLAUDE.md documents 181 (after practice exam additions). The 183 count includes ~2 non-question `{week:` references. All types confirmed present.
-
-## Recovery Note
-Passes 111–116 were committed to a detached HEAD and were not on `main`. This run fast-forwarded `main` to include all prior QA commits before adding pass 117.
+| Recent commit exists | ✅ | `fb3aa54` — QA report pass 119 (2026-10-11) |
+| JS syntax valid | ✅ | No errors detected via `new Function()` parse |
+| Questions intact (~181) | ✅ | 183 `{week:` hits; ~181 question objects (matches CLAUDE.md) |
+| MCQ questions | ✅ | 42 MCQ |
+| TF questions | ✅ | 15 TF |
+| Numerical questions | ✅ | 64 numerical |
+| SA questions | ✅ | 58 SA |
+| Multipart questions | ✅ | 59 multipart |
+| Light mode CSS | ✅ | 78 matches (`#fff`, `#f8`, `light`, etc.) |
+| Dark mode toggle | ✅ | 30 matches (`dark`, `moon`, `toggle`) |
+| Multi-week selection | ✅ | `.week-chip`, `selectWeekChip()` function present |
+| Learn mode | ✅ | 11 matches (`learnMode`, `Learn Mode`) |
+| I'm Confused button | ✅ | 3 matches (`confused`, `Confused`) |
+| Hint 1 / Hint 2 | ✅ | 234 matches |
+| Multi-step math input | ✅ | 19 matches (`addStep`, `working-steps`, `step-row`) |
+| Final Answer field | ✅ | 13 matches (`finalAnswer`, `Final Answer`) |
+| Notes overlay present | ✅ | 8 matches (`notes-overlay`, `n-w2`) |
+| Formula overlay present | ✅ | 8 matches (`formula-overlay`, `f-cvp`) |
+| Netlify functions unchanged | ✅ | 0 lines diff vs previous commit |
+| File size increased | ✅ | 7,092 lines (vs 1,458 original baseline) |
+| HTML structure valid | ✅ | Starts `<!DOCTYPE html>`, ends `</html>` |
+| Script tag count | ✅ | 1 main inline `<script>` at line 3061; external MathQuill/jQuery srcs at 7086–7087 |
 
 ## Issues Found
-No issues found. All checks pass. App is stable and unchanged from prior runs.
+No blocking issues. One informational note:
+
+- **Question count target in QA task is outdated**: The task prompt expects 118 questions, but CLAUDE.md documents 181 questions (all 12 practice exam questions from `practice-questions.md` were already integrated). The actual count of ~181 questions is correct per the project spec.
 
 ## Recommendations
-1. No code changes required — redesign was completed in a prior session.
-2. The scheduled task prompt is stale (describes work already done). Consider updating or disabling it.
-3. The task prompt's question count check (118) is stale — update to 181 per CLAUDE.md if the schedule is reconfigured.
+- Update the QA task's expected question count from 118 → 181 to avoid confusion in future runs.
+- App is stable and all features verified present. No further action required.
