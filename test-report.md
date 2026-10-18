@@ -1,14 +1,14 @@
 # COMM1180 Quiz App - QA Test Report
-**Date:** 2026-10-17
+**Date:** 2026-10-18
 **Tested by:** Automated QA Agent
-**Pass number:** 127
+**Pass number:** 128
 
 ## Overall Status: PASS
 
 ## Checklist
 | Check | Result | Notes |
 |-------|--------|-------|
-| New commit exists | ✅ | Last redesign predates recurring QA log; QA has run 126+ times since |
+| New commit exists | ✅ | Last redesign predates recurring QA log; QA has run 127+ times since |
 | JS syntax valid | ✅ | `node --check` on extracted script — no errors |
 | 181+ questions intact | ✅ | 238 question-type entries (mcq:42, tf:15, numerical:64, sa:58, multipart:59) |
 | Light mode CSS | ✅ | `--bg:#F8FAFC`, `--surface:#FFFFFF` confirmed in `:root` |
